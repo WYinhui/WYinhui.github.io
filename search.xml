@@ -27,6 +27,8 @@
 </li>
 </ul>
 <hr>
+<span id="more"></span>
+
 <h2 id="重载"><a href="#重载" class="headerlink" title="重载 "></a><a href="#context.1">重载</a><a name="section.1"> </a></h2><p>形式：</p>
 <p><strong>[返回值] operator[运算符] (参数…) { … }；</strong></p>
 <p>例：重载类运算</p>
@@ -277,6 +279,8 @@
 <li><a href="#section.8">贪心</a><a name="context.8"> </a></li>
 </ul>
 <hr>
+<span id="more"></span>
+
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串 "></a><a href="#context.1">字符串</a><a name="section.1"> </a></h2><h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法 "></a><a href="#context.2">KMP算法</a><a name="section.2"> </a></h3><p>用于字符串匹配。给你两个字符串，寻找其中一个字符串是否包含另一个字符串，如果包含，返回包含的起始位置。</p>
 <p><strong>求前缀表</strong></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 求前缀表（最长公共子串） */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">getNext</span> <span class="params">(<span class="type">int</span>* next, <span class="type">const</span> string&amp; s)</span></span>&#123;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt; s.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; s[i] != s[j]) &#123;</span><br><span class="line">            j = next[j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(s[i] == s[j]) &#123;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        next[i] = j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
