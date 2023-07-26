@@ -63,7 +63,7 @@
      
     <div class="article-meta">
       <a href="/2023/07/26/C++/" class="article-date">
-  <time datetime="2023-07-26T03:15:08.500Z" itemprop="datePublished">2023-07-26</time>
+  <time datetime="2023-07-26T03:19:22.333Z" itemprop="datePublished">2023-07-26</time>
 </a>   
 <div class="word_count">
     <span class="post-time">
@@ -129,7 +129,7 @@
 </li>
 </ol>
 <p><strong>容器之间的实现关系以及分类：</strong></p>
-<p><img src="D:\blog\source_posts\C++.assets\image-20230615150413812.png" alt="image-20230615150413812"></p>
+<p><img src="/.%5CC++.assets%5Cimage-20230615150413812.png" alt="image-20230615150413812"></p>
 <p><strong>STL六⼤组件的交互关系：</strong></p>
 <ol>
 <li>容器通过空间配置器取得数据存储空间  </li>
@@ -177,7 +177,7 @@
 <p>deque 是⼀个<strong>双端开口</strong>的连续线性空间，其内部为分段连续的空间组成，随时可以增加⼀段新的空间并链接</p>
 <p><strong>注意：</strong></p>
 <p>由于deque的迭代器⽐vector要复杂，这影响了各个运算层面，所以除⾮必要尽量使⽤ vector；<br>为了提⾼效率，在对deque进⾏排序操作的时候，我们可以先把 deque 复制到 vector 中再进⾏排序最后在复制回 deque</p>
-<p><img src="D:\blog\source_posts\C++.assets\image-20230615153051799.png" alt="image-20230615153051799"></p>
+<p><img src="/.%5CC++.assets%5Cimage-20230615153051799.png" alt="image-20230615153051799"></p>
 <p>deque采⽤⼀块map作为主控，其中的每个元素都是指针，指向另⼀⽚连续线性空间，称之为 缓存区，这个区才是⽤来储存数据的</p>
 <h2 id="stack-queue"><a href="#stack-queue" class="headerlink" title="stack &#x2F; queue"></a>stack &#x2F; queue</h2><p>概述：栈与队列被称之为 deque 的配接器，其底层是以 deque 为底部架构。通过 deque 执⾏具体操作</p>
 <h2 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h2><pre><code>     优先队列是一种容器适配器，采用了堆这样的数据结构，保证了第一个元素总是整个优先队列中最大的(或最小的)元素。  优先队列默认使用vector作为底层存储数据的容器，在vector上使用了堆算法将vector中的元素构造成堆的结构，所以其实我们就可以把它当作堆，凡是需要用堆的位置，都可以考虑优先队列。
@@ -302,7 +302,7 @@
 </tbody></table>
 <p><strong>lambda最大的⼀个优势是在使⽤STL中的算法(algorithms)库</strong></p>
 <p>如数组排序：</p>
-<p><img src="D:\blog\source_posts\C++.assets\image-20230616102708669.png" alt="image-20230616102708669"></p>
+<p><img src="/.%5CC++.assets%5Cimage-20230616102708669.png" alt="image-20230616102708669"></p>
 <p>set&lt;&gt;</p>
 <p>deque</p>
 <p>vector&lt;&gt;</p>
