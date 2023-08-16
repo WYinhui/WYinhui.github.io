@@ -156,7 +156,7 @@
 <h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出 "></a><a href="#context.2">输入输出</a><a name="section.2"> </a></h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line">cout &lt;&lt; ++i &lt;&lt; i++ &lt;&lt; i &lt;&lt; i++ &lt;&lt; ++i &lt;&lt; endl;</span><br><span class="line"><span class="comment">///&lt; 输出为 &amp;5 3 &amp;5 2 &amp;5</span></span><br></pre></td></tr></table></figure>
 
 <p>cout输出控制台过程如下</p>
-<p><img src="https://img-blog.csdnimg.cn/c3b860c89ec5480c94adc55a74024f98.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308161641648.png" alt="img"></p>
 <p>从 <code>endl</code> 开始，从右向左依次入栈，最后依次弹出</p>
 <h3 id="getline"><a href="#getline" class="headerlink" title="getline "></a><a href="#context.3">getline</a><a name="section.3"> </a></h3><p>默认遇换行符或 <code>EOF</code> 结束，也可自定义结束符</p>
 <p>上限字符数为 <code>1024</code></p>
@@ -247,7 +247,7 @@
 </tr>
 <tr>
 <td>.none()</td>
-<td>是否不存在值为1的二进制位<br>或者说是否全部位为0</td>
+<td>是否不存在值为1的二进制位<br/>或者说是否全部位为0</td>
 </tr>
 <tr>
 <td>.size()</td>
@@ -259,7 +259,7 @@
 </tr>
 <tr>
 <td>.test(pos)</td>
-<td>测试pos处的二进制位是否为1<br>与0做或运算</td>
+<td>测试pos处的二进制位是否为1<br/>与0做或运算</td>
 </tr>
 <tr>
 <td>.set()</td>
@@ -267,7 +267,7 @@
 </tr>
 <tr>
 <td>.set(pos)</td>
-<td>pos位处的二进制位置1<br>与1做或运算</td>
+<td>pos位处的二进制位置1<br/>与1做或运算</td>
 </tr>
 <tr>
 <td>.reset()</td>
@@ -275,7 +275,7 @@
 </tr>
 <tr>
 <td>.reset(pos)</td>
-<td>pos位处的二进制位置0<br>与0做或运算</td>
+<td>pos位处的二进制位置0<br/>与0做或运算</td>
 </tr>
 <tr>
 <td>.flip()</td>
@@ -295,11 +295,11 @@
 </tr>
 <tr>
 <td>~bs</td>
-<td>按位取反<br>效果等效为bs.flip()</td>
+<td>按位取反<br/>效果等效为bs.flip()</td>
 </tr>
 <tr>
 <td>os &lt;&lt; b</td>
-<td>将二进制位输出到os流<br>小值在右，大值在左</td>
+<td>将二进制位输出到os流<br/>小值在右，大值在左</td>
 </tr>
 </tbody></table>
 <h2 id="STL"><a href="#STL" class="headerlink" title="STL "></a><a href="#context.14">STL</a><a name="section.14"> </a></h2><p>STL提供了六⼤组件，彼此之间可以组合套⽤，这六⼤组件分别是：</p>
@@ -328,7 +328,7 @@
 </li>
 </ol>
 <p><strong>容器之间的实现关系以及分类：</strong></p>
-<p><img src="/.io//image-20230615150413812-1692155829457.png" alt="image-20230615150413812"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308161642801.png" alt="image-20230615150413812-1692155829457"></p>
 <p><strong>STL六⼤组件的交互关系：</strong></p>
 <ol>
 <li>容器通过空间配置器取得数据存储空间  </li>
@@ -389,7 +389,7 @@
 <p>deque 是⼀个<strong>双端开口</strong>的连续线性空间，其内部为分段连续的空间组成，随时可以增加⼀段新的空间并链接</p>
 <p><strong>注意：</strong></p>
 <p>由于deque的迭代器⽐vector要复杂，这影响了各个运算层面，所以除⾮必要尽量使⽤ vector；<br>为了提⾼效率，在对deque进⾏排序操作的时候，我们可以先把 deque 复制到 vector 中再进⾏排序最后在复制回 deque</p>
-<p><img src="/.io//image-20230615153051799-1692155829457.png" alt="image-20230615153051799"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308161643278.png" alt="image-20230615153051799-1692155829457"></p>
 <p>deque采⽤⼀块map作为主控，其中的每个元素都是指针，指向另⼀⽚连续线性空间，称之为 缓存区，这个区才是⽤来储存数据的</p>
 <h2 id="stack-queue"><a href="#stack-queue" class="headerlink" title="stack &#x2F; queue "></a><a href="#context.21">stack &#x2F; queue</a><a name="section.21"> </a></h2><p>概述：栈与队列被称之为 deque 的配接器，其底层是以 deque 为底部架构。通过 deque 执⾏具体操作</p>
 <h2 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue "></a><a href="#context.22">priority_queue</a><a name="section.22"> </a></h2><pre><code>     优先队列是一种容器适配器，采用了堆这样的数据结构，保证了第一个元素总是整个优先队列中最大的(或最小的)元素。  优先队列默认使用vector作为底层存储数据的容器，在vector上使用了堆算法将vector中的元素构造成堆的结构，所以其实我们就可以把它当作堆，凡是需要用堆的位置，都可以考虑优先队列。
@@ -439,13 +439,13 @@
 </thead>
 <tbody><tr>
 <td>优点</td>
-<td>有序性，这是map结构最⼤的优点，<br>其元素的有序性在很多应⽤中都会简化很多的操作<br>map的查找、删除、增加等⼀系列操作时间复杂度稳定，都为 O(logn)</td>
+<td>有序性，这是map结构最⼤的优点，<br />其元素的有序性在很多应⽤中都会简化很多的操作<br />map的查找、删除、增加等⼀系列操作时间复杂度稳定，都为 O(logn)</td>
 <td>查找、删除、添加的速度快，时间复杂度为常数级O(1）</td>
 </tr>
 <tr>
 <td>缺点</td>
 <td>查找、删除、增加等操作平均时间复杂度较慢，与 n 相关</td>
-<td>因为unordered_map内部基于哈希表，<br>以（key,value）对的形式存储，因此空间占⽤率⾼<br>unordered_map的查找、删除、添加的时间复杂度不稳定<br>平均为O(1)，取决于哈希函数，极端情况下可能为O(n)</td>
+<td>因为unordered_map内部基于哈希表，<br />以（key,value）对的形式存储，因此空间占⽤率⾼<br />unordered_map的查找、删除、添加的时间复杂度不稳定<br />平均为O(1)，取决于哈希函数，极端情况下可能为O(n)</td>
 </tr>
 </tbody></table>
 <p><strong>问题：</strong></p>
@@ -523,7 +523,7 @@
 </tbody></table>
 <p><strong>lambda最大的⼀个优势是在使⽤STL中的算法(algorithms)库</strong></p>
 <p>如数组排序：</p>
-<p><img src="/.io//image-20230616102708669-1692155829457.png" alt="image-20230616102708669"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308161644180.png" alt="image-20230616102708669-1692155829457"></p>
 <p>set&lt;&gt;</p>
 <p>deque</p>
 <p>vector&lt;&gt;</p>

@@ -526,22 +526,22 @@
 <h3 id="free-malloc"><a href="#free-malloc" class="headerlink" title="free&#x2F;malloc "></a><a href="#context.4">free&#x2F;malloc</a><a name="section.4"> </a></h3><p>malloc 返回给用户态的内存起始地址比进程的堆空间起始地址多了 16 字节</p>
 <p>这个多出来的 16 字节就是保存了该内存块的描述信息，比如有该内存块的大小</p>
 <p>这样当执行 free() 函数时，free 会对传入进来的内存地址向左偏移 16 字节，然后从这个 16 字节的分析出当前的内存块的大小，自然就知道要释放多大的内存了</p>
-<h3 id="float-double"><a href="#float-double" class="headerlink" title="float&#x2F;double "></a><a href="#context.5">float&#x2F;double</a><a name="section.5"> </a></h3><p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float.png" alt="img"></p>
+<h3 id="float-double"><a href="#float-double" class="headerlink" title="float&#x2F;double "></a><a href="#context.5">float&#x2F;double</a><a name="section.5"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/float.png" alt="img"></p>
 <ul>
 <li><em>符号位</em>：表示数字是正数还是负数，为 0 表示正数，为 1 表示负数；</li>
 <li><em>指数位</em>：指定了小数点在数据中的位置，指数可以是负数，也可以是正数，<strong>指数位的长度越长则数值的表达范围就越大</strong>；</li>
 <li><em>尾数位</em>：小数点右侧的数字，也就是小数部分，比如二进制 1.0011 x 2^(-2)，尾数部分就是 0011，而且<strong>尾数的长度决定了这个数的精度</strong>，因此如果要表示精度更高的小数，则就要提高尾数位的长度；</li>
 </ul>
 <p>例：</p>
-<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E5%AD%98%E5%82%A8.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308161639261.png" alt="img"></p>
 <p><strong>把小数点，移动到第一个有效数字后面</strong>，即将 1010.101 右移 <code>3</code> 位成 <code>1.010101</code>，右移 3 位就代表 +3，左移 3 位就是 -3。</p>
 <p><strong>float 中的「指数位」就跟这里移动的位数有关系，把移动的位数再加上「偏移量」，float 的话偏移量是 127，相加后就是指数位的值了</strong>，即指数位这 8 位存的是 <code>10000010</code>（十进制 130），因此你可以认为「指数位」相当于指明了小数点在数据中的位置。</p>
 <p><code>1.010101</code> 这个数的<strong>小数点右侧的数字就是 float 里的「尾数位」</strong>，由于尾数位是 23 位，则后面要补充 0，所以最终尾数位存储的数字是 <code>01010100000000000000000</code>。</p>
 <p>这是因为 IEEE 标准规定，二进制浮点数的小数点左侧只能有 1 位，并且还只能是 1，<strong>既然这一位永远都是 1，那就可以不用存起来了</strong>。</p>
 <p>于是就让 23 位尾数只存储小数部分，然后在计算时会<strong>自动把这个 1 加上，这样就可以节约 1 位的空间，尾数就能多存一位小数，相应的精度就更高了一点</strong>。</p>
 <p>那么，对于我们在从 float 的二进制浮点数转换成十进制时，要考虑到这个隐含的 1，转换公式如下：</p>
-<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E5%85%AC%E5%BC%8F.png" alt="img"></p>
-<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BE%8B%E5%AD%90.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308161640274.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308161640766.png" alt="img"></p>
 <p><strong>TIPS:</strong></p>
 <blockquote>
 <p><strong>为什么负数要用补码表示？</strong></p>
@@ -657,15 +657,6 @@
 
    
   <nav class="article-nav">
-    
-      <a href="/2023/08/16/demo/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            (no title)
-          
-        </div>
-      </a>
     
     
       <a href="/2023/07/27/DS/" class="article-nav-link">
