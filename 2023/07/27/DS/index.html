@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>DS |  breeze</title>
+      <title>数据结构 |  breeze</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  DS
+  数据结构
 </h1>
  
 
@@ -158,7 +158,7 @@
 
 
 
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类 "></a><a href="#context.6">分类</a><a name="section.6"> </a></h3><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230719102948357.png" alt="image-20230719102948357"></p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类 "></a><a href="#context.6">分类</a><a name="section.6"> </a></h3><p><img src="/.io//image-20230719102948357.png" alt="image-20230719102948357"></p>
 <p>C++标准库是有多个版本的，要知道我们使用的STL是哪个版本，才能知道对应的栈和队列的实现原理。</p>
 <p>那么来介绍一下，三个最为普遍的STL版本：</p>
 <ol>
@@ -186,7 +186,7 @@
 <h2 id="二叉搜索树（BST）"><a href="#二叉搜索树（BST）" class="headerlink" title="二叉搜索树（BST） "></a><a href="#context.7">二叉搜索树（BST）</a><a name="section.7"> </a></h2><p>也称<strong>二叉查找树 BST（Binary Search Tree）</strong></p>
 <p>二叉搜索树的<strong>重要特质</strong>为，<strong>在二叉树的基础上增加了左子树的所有值应都小于根节点的值，右子树的所有值应都大于根节点的值</strong>。</p>
 <p>乍看二叉搜索树的访问效率很高，最大的遍历次数为树的高度，最小的遍历次数为1。但实际存在某种特殊情况，比如根节点只有一个右孩子，然后剩下的全部元素为一条直线向下排列在左子树，造成分部不均匀，查找和插入效率几乎等同于线性结构。如下图：</p>
-<p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230717160027885.png" alt="image-20230717160027885"></p>
+<p><img src="/.io//image-20230717160027885.png" alt="image-20230717160027885"></p>
 <p>力扣参考题目：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/">96. 不同的二叉搜索树</a>、<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/validate-binary-search-tree/">98. 验证二叉搜索树</a></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 不同的二叉搜索树</span></span><br><span class="line"><span class="comment">给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？返回满足题意的二叉搜索树的种数。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numTrees</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">g</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        g[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        g[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= i; ++j) &#123;</span><br><span class="line">                g[i] += g[j - <span class="number">1</span>] * g[i - j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> g[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 验证二叉搜索树</span></span><br><span class="line"><span class="comment">给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">Recur</span><span class="params">(TreeNode *tree, <span class="type">long</span> min, <span class="type">long</span> max)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">bool</span> ret;</span><br><span class="line">        <span class="keyword">if</span> (!tree)</span><br><span class="line">            ret = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (tree-&gt;val &lt;= min || tree-&gt;val &gt;= max)</span><br><span class="line">            ret = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ret = <span class="built_in">Recur</span>(tree-&gt;left, min, tree-&gt;val) &amp;&amp; <span class="built_in">Recur</span>(tree-&gt;right, tree-&gt;val, max);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Recur</span>(root, LONG_MIN, LONG_MAX);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -207,18 +207,18 @@
 <p><strong>平衡因子（BF -  Balance Factor） &#x3D; 左子树的深度 - 右子树的深度</strong></p>
 <h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景 "></a><a href="#context.10">使用场景</a><a name="section.10"> </a></h3><p>由于AVL树必须保证左右子树平衡，Max(最大树高-最小树高) &lt;&#x3D; 1，所以在插入的时候很容易出现不平衡的情况，一旦这样，就需要进行旋转以求达到平衡。</p>
 <p>正是由于这种严格的平衡条件，导致AVL需要花大量时间在调整上，故AVL树一般使用场景在于<strong>查询场景</strong>， 而不是增加删除频繁的场景。</p>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入 "></a><a href="#context.11">插入</a><a name="section.11"> </a></h3><h4 id="1-左左型右旋"><a href="#1-左左型右旋" class="headerlink" title="1.左左型右旋 "></a><a href="#context.12">1.左左型右旋</a><a name="section.12"> </a></h4><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718152017647.png" alt="image-20230718152017647"></p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入 "></a><a href="#context.11">插入</a><a name="section.11"> </a></h3><h4 id="1-左左型右旋"><a href="#1-左左型右旋" class="headerlink" title="1.左左型右旋 "></a><a href="#context.12">1.左左型右旋</a><a name="section.12"> </a></h4><p><img src="/.io//image-20230718152017647.png" alt="image-20230718152017647"></p>
 <p>在结点T的 <strong>左结点（L）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左左型</strong> ，我们应该进行右旋转。</p>
-<h4 id="2-左右型的左右旋"><a href="#2-左右型的左右旋" class="headerlink" title="2.左右型的左右旋 "></a><a href="#context.13">2.左右型的左右旋</a><a name="section.13"> </a></h4><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718152120654.png" alt="image-20230718152120654"></p>
+<h4 id="2-左右型的左右旋"><a href="#2-左右型的左右旋" class="headerlink" title="2.左右型的左右旋 "></a><a href="#context.13">2.左右型的左右旋</a><a name="section.13"> </a></h4><p><img src="/.io//image-20230718152120654.png" alt="image-20230718152120654"></p>
 <p>在结点T的 <strong>左结点（L）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左右型</strong> ，我们应该进行左右旋。</p>
 <p><strong>步骤如下：</strong></p>
-<p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718154009644.png" alt="image-20230718154009644"></p>
-<h4 id="3-右右型左旋"><a href="#3-右右型左旋" class="headerlink" title="3.右右型左旋 "></a><a href="#context.14">3.右右型左旋</a><a name="section.14"> </a></h4><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718154115097.png" alt="image-20230718154115097"></p>
+<p><img src="/.io//image-20230718154009644.png" alt="image-20230718154009644"></p>
+<h4 id="3-右右型左旋"><a href="#3-右右型左旋" class="headerlink" title="3.右右型左旋 "></a><a href="#context.14">3.右右型左旋</a><a name="section.14"> </a></h4><p><img src="/.io//image-20230718154115097.png" alt="image-20230718154115097"></p>
 <p>在结点T的 <strong>右结点（R）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右右型</strong> ，我们应该进行左旋转。</p>
-<h4 id="4-右左型右左旋"><a href="#4-右左型右左旋" class="headerlink" title="4.右左型右左旋 "></a><a href="#context.15">4.右左型右左旋</a><a name="section.15"> </a></h4><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718154205028.png" alt="image-20230718154205028"></p>
+<h4 id="4-右左型右左旋"><a href="#4-右左型右左旋" class="headerlink" title="4.右左型右左旋 "></a><a href="#context.15">4.右左型右左旋</a><a name="section.15"> </a></h4><p><img src="/.io//image-20230718154205028.png" alt="image-20230718154205028"></p>
 <p>在结点T的 <strong>右结点（R）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右左型</strong> ，我们应该进行右左旋。</p>
 <p><strong>步骤如下：</strong></p>
-<p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718154226276.png" alt="image-20230718154226276"></p>
+<p><img src="/.io//image-20230718154226276.png" alt="image-20230718154226276"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结 "></a><a href="#context.16">总结</a><a name="section.16"> </a></h3><table>
 <thead>
 <tr>
