@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>C |  breeze</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-C"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  C
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/07/27/C/" class="article-date">
+  <time datetime="2023-07-26T16:00:00.000Z" itemprop="datePublished">2023-07-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%98%9F%E6%B5%B7/">星海</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">15 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#section.1">快速判断是否是字母</a><a name="context.1"> </a></li>
+<li><a href="#section.2">快速判断两字符是否相同且为字母</a><a name="context.2"> </a></li>
+<li><a href="#section.3">C 关键字</a><a name="context.3"> </a><ul>
+<li><a href="#section.4">free&#x2F;malloc</a><a name="context.4"> </a></li>
+<li><a href="#section.5">float&#x2F;double</a><a name="context.5"> </a></li>
+<li><a href="#section.6">union&#x2F;volatile</a><a name="context.6"> </a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<span id="more"></span>
+
+<p><strong>c语言宏 <code>__stdcall</code>, <code>__cdecl</code></strong></p>
+<p>​		调用函数时，计算机常用栈来存放函数执行需要的参数，由于栈的空间大小是有限的，在windows下，栈是向低地址扩展的数据结构，是一块连续的内存区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，如果申请的空间超过栈的剩余空间时，将提示overflow。</p>
+<p>​		在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的！</p>
+<p>​		VC中默认调用是 <code>__cdecl</code> 方式，Windows API 使用 <code>__stdcall</code> 调用方式，在 DLL 导出函数中，为了跟 Windows API 保持一致，建议使用 <code>__stdcall</code> 方式。</p>
+<p>C&#x2F;C++ 函数调用约定，主要是对以下两个方面进行了约定：</p>
+<ol>
+<li>当参数个数多于一个时，按照什么顺序把参数压入堆栈。—-调用函数时，参数的入栈顺序。</li>
+<li>函数调用后，由谁来把堆栈恢复原状。—-调用结束后，由谁（调用者还是被调用者）负责将参数出栈。</li>
+</ol>
+<p>在高级语言中，就是通过函数的调用方式来说明这两个问题的。常见的调用方式有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C 语言:   __cdecl、__stdcall、__fastcall、naked、__pascal。</span><br><span class="line">C++ 语言: __cdecl、__stdcall、__fastcall、naked、__pascal、__thiscall，比 C 语言多出一种 __thiscall 调用方式。</span><br></pre></td></tr></table></figure>
+
+
+
+<ol>
+<li><p>stdcall<br><code>__stdcall</code> 是 StandardCall 的缩写，是C++的标准调用方式。stdcall 调用方式又被称为 Pascal 调用方式。在Microsoft C++系列的C&#x2F;C++编译器中，使用 PASCAL 宏，WINAPI 宏和 CALLBACK 宏来指定函数的调用方式为 stdcall。<br>其声明语法为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int _stdcall function(int a, int b);</span><br></pre></td></tr></table></figure>
+
+<p>stdcall的调用方式意味着：</p>
+<p>（1）参数从右向左依次压入堆栈.<br>（2）由被调用函数自己来恢复堆栈，称为自动清栈。<br>（3）函数名自动加前导下划线，后面紧跟着一个@，其后紧跟着参数的大小。</p>
+</li>
+<li><p>cdecl</p>
+<p><code>__cdecl</code> 是C Declaration的缩写（declaration，声明），cdecl调用方式又称为C调用方式，是C语言缺省的调用方式。<br>其声明语法为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int function(int a, int b);        // 不加修饰符就是C调用方式</span><br><span class="line">int _cdecl function(int a, int b); // 明确指定用C调用方式</span><br></pre></td></tr></table></figure>
+
+<p>cdecl的调用方式意味着：</p>
+<p>（1）参数从右向左依次压入堆栈.<br>（2）由调用者恢复堆栈，称为手动清栈。<br>（3）函数名自动加前导下划线。</p>
+<p>由于是由调用者来恢复堆栈，因此C调用方式允许函数的参数个数是不固定的，这是C语言的一大特色。比如 <code>printf</code></p>
+</li>
+</ol>
+<h2 id="快速判断是否是字母"><a href="#快速判断是否是字母" class="headerlink" title="快速判断是否是字母 "></a><a href="#context.1">快速判断是否是字母</a><a name="section.1"> </a></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 包括大小写字母</span><br><span class="line">(uchar)((ch | <span class="number">0x20</span>) - <span class="string">&#x27;a&#x27;</span>) &lt; <span class="number">26</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="快速判断两字符是否相同且为字母"><a href="#快速判断两字符是否相同且为字母" class="headerlink" title="快速判断两字符是否相同且为字母 "></a><a href="#context.2">快速判断两字符是否相同且为字母</a><a name="section.2"> </a></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((ch = ch1 ^ ch2) == <span class="number">0</span>) || (ch == <span class="number">0x20</span>) &amp;&amp; ((<span class="type">unsigned</span>)(ch1 | <span class="number">0x20</span>) - <span class="string">&#x27;a&#x27;</span>) &lt; <span class="number">26</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>bit -&gt; Byte -&gt; kb	1Byte &#x3D; 8bit</p>
+<p>bit比特位	byte字节	且内存中一个空间占一个字节&#x3D;8位</p>
+<p><strong>负数在内存中存储的是补码，求原码-1然后除符号位其余取反</strong></p>
+<p><strong>且任何数字在内存中都是以补码存储的，正数原反补都一样</strong></p>
+<h2 id="C-关键字"><a href="#C-关键字" class="headerlink" title="C 关键字 "></a><a href="#context.3">C 关键字</a><a name="section.3"> </a></h2><table>
+<thead>
+<tr>
+<th><strong>auto</strong></th>
+<th><strong>break</strong></th>
+<th><strong>case</strong></th>
+<th><strong>char</strong></th>
+<th><strong>const</strong></th>
+<th><strong>continue</strong></th>
+<th><strong>default</strong></th>
+<th><strong>do</strong></th>
+<th><strong>double</strong></th>
+<th><strong>else</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>enum</strong></td>
+<td><strong>extern</strong></td>
+<td><strong>float</strong></td>
+<td><strong>for</strong></td>
+<td><strong>goto</strong></td>
+<td><strong>if</strong></td>
+<td><strong>int</strong></td>
+<td><strong>long</strong></td>
+<td><strong>register</strong></td>
+<td><strong>return</strong></td>
+</tr>
+<tr>
+<td><strong>short</strong></td>
+<td><strong>signed</strong></td>
+<td><strong>sizeof</strong></td>
+<td><strong>static</strong></td>
+<td><strong>struct</strong></td>
+<td><strong>switch</strong></td>
+<td><strong>typedef</strong></td>
+<td><strong>union</strong></td>
+<td><strong>unsigned</strong></td>
+<td><strong>void</strong></td>
+</tr>
+<tr>
+<td><strong>volatile</strong></td>
+<td><strong>while</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>typedef</strong> unsigned int uint		把unsigned int重定义为unit</p>
+<p><strong>void</strong>							声明函数无返回值或无参数</p>
+<p><strong>auto</strong>							在局部中自动销毁原变量值</p>
+<p><strong>static</strong> 						静态局部变量，不会销毁，保存赋值</p>
+<p><strong>const</strong> <strong>x</strong>						定义常量x，不可改变</p>
+<p><strong>extern</strong>						声明外部-变量&#x2F;函数</p>
+<p><strong>#define</strong> a 100					定义常量和宏，可以是三目运算符</p>
+<table>
+<thead>
+<tr>
+<th>Char</th>
+<th>Short</th>
+<th>Int</th>
+<th>long</th>
+<th>long long</th>
+<th>folat</th>
+<th>double</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串</td>
+<td>短整型</td>
+<td>整型</td>
+<td>长整型</td>
+<td>超长整型</td>
+<td>浮点型</td>
+<td>双精度浮点型</td>
+</tr>
+<tr>
+<td>1字节</td>
+<td>2字节&#x2F;16位</td>
+<td>4字节&#x2F;32位</td>
+<td>4字节</td>
+<td></td>
+<td>4&#x2F;8字节</td>
+<td>64位保留后6位</td>
+</tr>
+</tbody></table>
+<p>a&lt;&lt;2			a左移2位</p>
+<table>
+<thead>
+<tr>
+<th>&amp;</th>
+<th>|</th>
+<th>^</th>
+<th>!</th>
+<th>~</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按位与</td>
+<td>按位或</td>
+<td>异或</td>
+<td>非</td>
+<td>按位取反</td>
+</tr>
+<tr>
+<td>a&amp;&amp;b（逻辑与）</td>
+<td>||</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>a, b均为真返回真</td>
+<td>逻辑或,有一个返回真</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>%c			打印一个字符串格式的数据</p>
+<p>%s			打印字符串</p>
+<p>%d			整型十进制数据</p>
+<p>%u			无符号的十进制整数</p>
+<p>%f			浮点型</p>
+<p>%g			浮点，不显示无意义的0</p>
+<p>%lf			双精度浮点型</p>
+<p>%p			指针，以地址的形式打印</p>
+<p>%x			打印十六进制</p>
+<p>%o			输出八进制数</p>
+<p>%%			‘%’</p>
+<p>float</p>
+<p>(-1)^s * M * 2^E		s&#x3D;0&#x2F;1	E&#x3D;n(8位,得加127)		M&#x3D;1.?? (23位1.省略)	</p>
+<p>​					S	E(8&#x2F;11bit)	M(23&#x2F;52bit)</p>
+<p>double				同上，E(加减1023)</p>
+<p>整型转换(小转整int)</p>
+<p>算数转换(小转大)</p>
+<p>​	long double</p>
+<p>double</p>
+<p>​	float</p>
+<p>​	unsigned long int</p>
+<p>​	long int</p>
+<p>​	unsigned int</p>
+<p>​	int</p>
+<p>&gt;&gt;			右移（除2），补符号位			左移补0,其他同</p>
+<p>exp ? a : b	exp为真则返回a，否则返回b</p>
+<p>do{循环语句}</p>
+<p>while(判断);</p>
+<p>b &#x3D; a++		后置++表示先把a给b，a自己在++</p>
+<p>​			前置相反</p>
+<p><strong>函数</strong><strong>:</strong></p>
+<p>​	声明放到.h中，int Add(int x, int y);	定义放到.c中</p>
+<p>​	.h中 à		#ifndef <strong>ADD_H</strong>		&#x2F;&#x2F;if not def 判断是否引用过ADD_H</p>
+<p>​				#define <strong>ADD_H</strong>		&#x2F;&#x2F;未引用为真，则往下运行</p>
+<p>​				&#x2F;&#x2F;函数声明</p>
+<p>​				int Add(int x, int y);</p>
+<p>#endif					&#x2F;&#x2F;到endif结束</p>
+<p>scanf(“%d”, &amp;n)		获得输入给n</p>
+<p>printf(“%d”, n)			打印n</p>
+<p>sizeof(char)			看char的长度，单位：byte字节</p>
+<p>​					sizeof(数组名) &#x2F; &amp;数组名à表整个数组，其余均表地址</p>
+<p>qsort()</p>
+<p>strcat(1,2)			把字符串2加到1后面</p>
+<p>assert(?)				<strong>断言</strong>，如果?为假则报错，否则继续运行</p>
+<p>strcmp(1,2)			逐个比较字符串大小(ASCII)，1&gt;2返回正数，1&#x3D;2返回0，同</p>
+<p>strncmp()				同上，比较前n位</p>
+<p>strtok(arr,p)			arr,p为指针，在arr中按p切割</p>
+<p>定义常量</p>
+<p>const int n &#x3D; 4			定义常变量，不能改变</p>
+<p>#define n 10			define定义的标识符常量</p>
+<p>enum n				枚举常量</p>
+<p>{a, b, c}			abc分别对应012</p>
+<p>转义符：</p>
+<p>\0		在字符串里表到这结束</p>
+<p>​	\ddd		ddd表示1-3个八进制的数字，如：\130 表X</p>
+<p>​	\xdd		dd表2个十六进制数字，\x30 表0</p>
+<table>
+<thead>
+<tr>
+<th>C</th>
+<th></th>
+<th></th>
+<th></th>
+<th>Python</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>输入</td>
+<td>scanf(“%d”, &amp;a)</td>
+<td></td>
+<td></td>
+<td>输入</td>
+<td>input()</td>
+<td></td>
+</tr>
+<tr>
+<td>getchar()</td>
+<td>获得输入</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>数组数组名为地址</td>
+<td>char arr[] &#x3D; {‘x1’, ‘’…, 0}</td>
+<td>0必加</td>
+<td></td>
+<td>列表</td>
+<td>[]</td>
+<td></td>
+</tr>
+<tr>
+<td>char arr[ ][n]</td>
+<td>列不可省略</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>字符串长度</td>
+<td>strlen()</td>
+<td></td>
+<td></td>
+<td>字符串长度</td>
+<td>len(x)</td>
+<td></td>
+</tr>
+<tr>
+<td>if ()</td>
+<td></td>
+<td></td>
+<td></td>
+<td>if …:</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>需要定义变量</td>
+<td></td>
+<td></td>
+<td></td>
+<td>不需要定义变量</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>函数</td>
+<td>int Function(x ,y) {}</td>
+<td></td>
+<td></td>
+<td></td>
+<td>def function: {}</td>
+<td></td>
+</tr>
+<tr>
+<td>结构体</td>
+<td>struct Name{}</td>
+<td></td>
+<td></td>
+<td>类</td>
+<td>Class</td>
+<td></td>
+</tr>
+<tr>
+<td>字符串</td>
+<td>不能直接给变量得用数组</td>
+<td>strcpy()</td>
+<td></td>
+<td>字符串</td>
+<td>能直接给变量</td>
+<td></td>
+</tr>
+<tr>
+<td>转换类型</td>
+<td>(int)3.14</td>
+<td>3.14-&gt;3</td>
+<td></td>
+<td>转换类型</td>
+<td>int(3.14)</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>switch(x)</p>
+<p>{</p>
+<p>​	case 1: …; break;			加break表执行完退出switch，</p>
+<p>​	case 2: …;					无break表执行完后继续往下执行</p>
+<p>​	case n: …;</p>
+<p>​	default: …; break;			表默认情况执行default的语句</p>
+<p>}</p>
+<p><strong>指针</strong>		</p>
+<p>数组默认传的是指针，如int arr[]; Function(arr)ßarr为指针，是arr[0]的地址</p>
+<p>&amp;a&#x3D;0		取a的地址</p>
+<p>int* b &#x3D; &amp;a	b为<strong>指针</strong>变量，存a的地址**,** 32位平台是4个字节，64位平台是8个字节</p>
+<p>int<em>*c&#x3D;&amp;*b	int**表c指向int</em></p>
+<p>*b &#x3D; 20		*为<strong>解引用操作符</strong>，把20存放进b的地址中</p>
+<p>arr				首元素地址</p>
+<p>&amp;arr[0]			首元素的地址</p>
+<p>&amp;arr				数组的地址</p>
+<p>int (*p)[10]&#x3D;&amp;a	数组指针			à去掉名字就是类型</p>
+<p>int (*p)(int int)&#x3D;Add	函数指针</p>
+<p><strong>结构体</strong></p>
+<p>(typedef)struct Book		&#x2F;&#x2F;加typedef则下面a为类型，如a s,定义了s结构体</p>
+<p>{</p>
+<p>​	char name[20];</p>
+<p>​	short price;</p>
+<p>}à(a)s1,s2;		&#x2F;&#x2F;s1,s2为同Book的全局变量(python的class)</p>
+<p>struct Book n1 &#x3D; {“xxx”, 55};</p>
+<p>struct Book* pc &#x3D; &amp;n1			&#x2F;&#x2F;定义指针为pc，存结构体n1</p>
+<p>printf(“%s”, pc-&gt;name)			&#x2F;&#x2F;打印name，-&gt;表指向，即取该地址的name</p>
+<p>srtcpy(n1.name, “new”)			&#x2F;&#x2F;想改name用字符串拷贝，把new给name</p>
+<p><strong>结构体内存对齐</strong></p>
+<p>​		对齐到本身对齐数整数倍的地址处（参考上一个）</p>
+<p>总大小为最大对齐数的整数倍</p>
+<p>（嵌套结构体，按最大的字节算）</p>
+<p># 数组随下表增长，地址从低到高变化</p>
+<p># 栈区地址从高到低存</p>
+<p>栈区à		局部变量</p>
+<p>​			函数的形式参数</p>
+<p>​			函数调用也开辟空间</p>
+<p>堆区à		动态内存分配</p>
+<p>​			Malloc&#x2F;free</p>
+<p>​			Realloc</p>
+<p>​			calloc</p>
+<p>静态区à		全局变量</p>
+<p>​			静态变量	static</p>
+<p><strong>枚举</strong></p>
+<p><strong>enum Color</strong></p>
+<p><strong>{</strong></p>
+<p>​	<strong>RED,</strong>		&#x2F;&#x2F;序号为0，也可以赋值</p>
+<p>​	<strong>…</strong></p>
+<p><strong>}</strong></p>
+<p><strong>数据内存存储模式（</strong>以字节为单位<strong>）</strong></p>
+<p>1.小端		数据低位存内存低位		内存地址：低à高（左低右高）</p>
+<p>2.大端		数据低位存内存高位		数据：高à低（左高右低）如二进制数</p>
+<p><em>*<em>划重点！！*<strong><strong>à</strong>	<strong>Keil，C51为大端</strong>		<strong>X86为小端</strong></strong>，很多</em>*</em><em>ARM,DSP也为小端，有些ARM可选</em>*</p>
+<p><strong>C语言</strong> à 编译    +    连接</p>
+<p>​	编译生成目标文件		目标文件经过链接器，链接库处理，生成可执行文件</p>
+<p>汇编 à 二进制</p>
+<p><strong>预处理符号</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__FILE__				返回文件名+路径</span><br><span class="line"></span><br><span class="line">__LINE__				返回所在行数</span><br><span class="line"></span><br><span class="line">__DATE__			返回当今日期</span><br><span class="line"></span><br><span class="line">__TIME__			返回当前时间</span><br></pre></td></tr></table></figure>
+
+<p><strong>文件处理</strong></p>
+<p>FILE* pf &#x3D; fopen(“log.txt”, “w”)			以只读打开&#x2F;创建文件</p>
+<p>fprintf(pf, “file:%s	line:%d	date:%s	time:%s	i&#x3D;%d\n”,</p>
+<p><strong>FILE</strong>, <strong>LINE</strong>, <strong>DATE</strong>, <strong>TIME</strong>, i)			以格式化写文件</p>
+<p>fclose(pf)				关闭文件</p>
+<p>pf &#x3D; NULL				指针清空</p>
+<p><strong>运算效率</strong></p>
+<p>移位 &gt; 赋值 &gt; 大小比较 &gt; 加法 &gt; 减法 &gt; 乘法 &gt; 取模 &gt; 除法</p>
+<p><strong>回调函数详述</strong></p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/w3cnote/c-callback-function.html">C 语言回调函数详解 | 菜鸟教程 (runoob.com)</a></p>
+<h3 id="free-malloc"><a href="#free-malloc" class="headerlink" title="free&#x2F;malloc "></a><a href="#context.4">free&#x2F;malloc</a><a name="section.4"> </a></h3><p>malloc 返回给用户态的内存起始地址比进程的堆空间起始地址多了 16 字节</p>
+<p>这个多出来的 16 字节就是保存了该内存块的描述信息，比如有该内存块的大小</p>
+<p>这样当执行 free() 函数时，free 会对传入进来的内存地址向左偏移 16 字节，然后从这个 16 字节的分析出当前的内存块的大小，自然就知道要释放多大的内存了</p>
+<h3 id="float-double"><a href="#float-double" class="headerlink" title="float&#x2F;double "></a><a href="#context.5">float&#x2F;double</a><a name="section.5"> </a></h3><p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float.png" alt="img"></p>
+<ul>
+<li><em>符号位</em>：表示数字是正数还是负数，为 0 表示正数，为 1 表示负数；</li>
+<li><em>指数位</em>：指定了小数点在数据中的位置，指数可以是负数，也可以是正数，<strong>指数位的长度越长则数值的表达范围就越大</strong>；</li>
+<li><em>尾数位</em>：小数点右侧的数字，也就是小数部分，比如二进制 1.0011 x 2^(-2)，尾数部分就是 0011，而且<strong>尾数的长度决定了这个数的精度</strong>，因此如果要表示精度更高的小数，则就要提高尾数位的长度；</li>
+</ul>
+<p>例：</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E5%AD%98%E5%82%A8.png" alt="img"></p>
+<p><strong>把小数点，移动到第一个有效数字后面</strong>，即将 1010.101 右移 <code>3</code> 位成 <code>1.010101</code>，右移 3 位就代表 +3，左移 3 位就是 -3。</p>
+<p><strong>float 中的「指数位」就跟这里移动的位数有关系，把移动的位数再加上「偏移量」，float 的话偏移量是 127，相加后就是指数位的值了</strong>，即指数位这 8 位存的是 <code>10000010</code>（十进制 130），因此你可以认为「指数位」相当于指明了小数点在数据中的位置。</p>
+<p><code>1.010101</code> 这个数的<strong>小数点右侧的数字就是 float 里的「尾数位」</strong>，由于尾数位是 23 位，则后面要补充 0，所以最终尾数位存储的数字是 <code>01010100000000000000000</code>。</p>
+<p>这是因为 IEEE 标准规定，二进制浮点数的小数点左侧只能有 1 位，并且还只能是 1，<strong>既然这一位永远都是 1，那就可以不用存起来了</strong>。</p>
+<p>于是就让 23 位尾数只存储小数部分，然后在计算时会<strong>自动把这个 1 加上，这样就可以节约 1 位的空间，尾数就能多存一位小数，相应的精度就更高了一点</strong>。</p>
+<p>那么，对于我们在从 float 的二进制浮点数转换成十进制时，要考虑到这个隐含的 1，转换公式如下：</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E5%85%AC%E5%BC%8F.png" alt="img"></p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BE%8B%E5%AD%90.png" alt="img"></p>
+<p><strong>TIPS:</strong></p>
+<blockquote>
+<p><strong>为什么负数要用补码表示？</strong></p>
+</blockquote>
+<p>负数之所以用补码的方式来表示，主要是为了统一和正数的加减法操作一样，毕竟数字的加减法是很常用的一个操作，就不要搞特殊化，尽量以统一的方式来运算。</p>
+<blockquote>
+<p><strong>十进制小数怎么转成二进制？</strong></p>
+</blockquote>
+<p>十进制整数转二进制使用的是「除 2 取余法」，十进制小数使用的是「乘 2 取整法」。</p>
+<blockquote>
+<p><strong>计算机是怎么存小数的？</strong></p>
+</blockquote>
+<p>计算机是以浮点数的形式存储小数的，大多数计算机都是 IEEE 754 标准定义的浮点数格式，包含三个部分：</p>
+<ul>
+<li>符号位：表示数字是正数还是负数，为 0 表示正数，为 1 表示负数；</li>
+<li>指数位：指定了小数点在数据中的位置，指数可以是负数，也可以是正数，指数位的长度越长则数值的表达范围就越大；</li>
+<li>尾数位：小数点右侧的数字，也就是小数部分，比如二进制 1.0011 x 2^(-2)，尾数部分就是 0011，而且尾数的长度决定了这个数的精度，因此如果要表示精度更高的小数，则就要提高尾数位的长度；</li>
+</ul>
+<p>用 32 位来表示的浮点数，则称为单精度浮点数，也就是我们编程语言中的 float 变量，而用 64 位来表示的浮点数，称为双精度浮点数，也就是 double 变量。</p>
+<blockquote>
+<p><strong>0.1 + 0.2 &#x3D;&#x3D; 0.3 吗？</strong></p>
+</blockquote>
+<p>不是的，0.1 和 0.2 这两个数字用二进制表达会是一个一直循环的二进制数，比如 0.1 的二进制表示为 0.0 0011 0011 0011… （0011 无限循环)，对于计算机而言，0.1 无法精确表达，这是浮点数计算造成精度损失的根源。</p>
+<p>因此，IEEE 754 标准定义的浮点数只能根据精度舍入，然后用「近似值」来表示该二进制，那么意味着计算机存放的小数可能不是一个真实值。</p>
+<p>0.1 + 0.2 并不等于完整的 0.3，这主要是因为这两个小数无法用「完整」的二进制来表示，只能根据精度舍入，所以计算机里只能采用近似数的方式来保存，那两个近似数相加，得到的必然也是一个近似数。</p>
+<h3 id="union-volatile"><a href="#union-volatile" class="headerlink" title="union&#x2F;volatile "></a><a href="#context.6">union&#x2F;volatile</a><a name="section.6"> </a></h3><p><strong>union</strong></p>
+<p>共用体的所有成员占用同一段内存，修改一个成员会影响其余所有成员。其占内存为最大成员</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">data</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">char</span> ch;</span><br><span class="line">    <span class="type">double</span> f;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">data</span> <span class="title">a</span>, <span class="title">b</span>, <span class="title">c</span>;</span></span><br><span class="line"><span class="comment">// sizeof(data) 为 sizeof(double) = 8</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>volatile</strong></p>
+<p>修饰异变的参数，每次都要去寄存器或内存重新读取</p>
+<p>只要变量可能被意外的修改，就需要把该变量声明为volatile。在实际应用中，只有三种类型数据可能被修改：</p>
+<ul>
+<li>外设寄存器地址映射</li>
+<li>在中断服务程序中修改全局变量</li>
+<li>在多线程、多任务应用中，全局变量被多个任务读写</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wyinhui.github.io/2023/07/27/C/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%98%9F%E6%B5%B7/" rel="tag">星海</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2023/08/16/demo/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            (no title)
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2023/07/27/DS/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">DS</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023
+        <i class="ri-heart-fill heart_icon"></i> WYh
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/favicon.ico" alt="breeze"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>

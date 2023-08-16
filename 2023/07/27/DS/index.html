@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>DS |  breeze</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-DS"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  DS
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/07/27/DS/" class="article-date">
+  <time datetime="2023-07-26T16:00:00.000Z" itemprop="datePublished">2023-07-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%98%9F%E6%B5%B7/">星海</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">10 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#section.2">二叉树</a><a name="context.2"> </a><ul>
+<li><a href="#section.3">遍历方式</a><a name="context.3"> </a><ul>
+<li><a href="#section.4">深度优先DFS（Depth First Search）</a><a name="context.4"> </a></li>
+<li><a href="#section.5">广度优先BFS（Breath First Search）</a><a name="context.5"> </a></li>
+</ul>
+</li>
+<li><a href="#section.6">分类</a><a name="context.6"> </a></li>
+</ul>
+</li>
+<li><a href="#section.7">二叉搜索树（BST）</a><a name="context.7"> </a></li>
+<li><a href="#section.8">AVL树（BBT）</a><a name="context.8"> </a><ul>
+<li><a href="#section.9">定义</a><a name="context.9"> </a></li>
+<li><a href="#section.10">使用场景</a><a name="context.10"> </a></li>
+<li><a href="#section.11">插入</a><a name="context.11"> </a><ul>
+<li><a href="#section.12">1.左左型右旋</a><a name="context.12"> </a></li>
+<li><a href="#section.13">2.左右型的左右旋</a><a name="context.13"> </a></li>
+<li><a href="#section.14">3.右右型左旋</a><a name="context.14"> </a></li>
+<li><a href="#section.15">4.右左型右左旋</a><a name="context.15"> </a></li>
+</ul>
+</li>
+<li><a href="#section.16">总结</a><a name="context.16"> </a></li>
+</ul>
+</li>
+<li><a href="#section.17">红黑树</a><a name="context.17"> </a><ul>
+<li><a href="#section.18">定义</a><a name="context.18"> </a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<span id="more"></span>
+
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树 "></a><a href="#context.2">二叉树</a><a name="section.2"> </a></h2><p>为<strong>有序树</strong>：</p>
+<p>如果结点的各子树从左到右是有次序的、不能颠倒，则为有序树，否则为无序树。对于有序树的孩子来说，最左边的孩子称为第一个孩子，最右边的孩子称为最后一个孩子。</p>
+<p>比如，如果树T1是一个有序树，则其根结点的第一个孩子为结点B，最后一个孩子为结点D</p>
+<h3 id="遍历方式"><a href="#遍历方式" class="headerlink" title="遍历方式 "></a><a href="#context.3">遍历方式</a><a name="section.3"> </a></h3><h4 id="深度优先DFS（Depth-First-Search）"><a href="#深度优先DFS（Depth-First-Search）" class="headerlink" title="深度优先DFS（Depth First Search） "></a><a href="#context.4">深度优先DFS（Depth First Search）</a><a name="section.4"> </a></h4><p>递归遍历 - 函数递归</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Tree</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Recur</span><span class="params">(Tree *tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (tree != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">///&lt; 中左右</span></span><br><span class="line">        cout &lt;&lt; tree-&gt;val &lt;&lt; endl;</span><br><span class="line">        <span class="built_in">Recur</span>(tree-&gt;left);</span><br><span class="line">        <span class="built_in">Recur</span>(tree-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFSTree</span><span class="params">(Tree *tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">Recur</span>(tree);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 统一遍历方法！！！ */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        stack&lt;TreeNode*&gt; st;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) st.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (!st.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            TreeNode* node = st.<span class="built_in">top</span>();</span><br><span class="line">            <span class="keyword">if</span> (node != <span class="literal">NULL</span>) &#123;</span><br><span class="line">                st.<span class="built_in">pop</span>(); <span class="comment">// 将该节点弹出，避免重复操作，下面再将右中左节点添加到栈中</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) st.<span class="built_in">push</span>(node-&gt;right);  <span class="comment">// 添加右节点（空节点不入栈）</span></span><br><span class="line"></span><br><span class="line">                st.<span class="built_in">push</span>(node);                          <span class="comment">// 添加中节点</span></span><br><span class="line">                st.<span class="built_in">push</span>(<span class="literal">NULL</span>); <span class="comment">// 中节点访问过，但是还没有处理，加入空节点做为标记。</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) st.<span class="built_in">push</span>(node-&gt;left);    <span class="comment">// 添加左节点（空节点不入栈）</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// 只有遇到空节点的时候，才将下一个节点放进结果集</span></span><br><span class="line">                st.<span class="built_in">pop</span>();           <span class="comment">// 将空节点弹出</span></span><br><span class="line">                node = st.<span class="built_in">top</span>();    <span class="comment">// 重新取出栈中元素</span></span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">                result.<span class="built_in">push_back</span>(node-&gt;val); <span class="comment">// 加入到结果集</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>迭代遍历 - stack + while</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        stack&lt;TreeNode*&gt; st;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> result;</span><br><span class="line">        st.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (!st.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            TreeNode* node = st.<span class="built_in">top</span>();                       <span class="comment">// 中</span></span><br><span class="line">            st.<span class="built_in">pop</span>();</span><br><span class="line">            result.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;right) st.<span class="built_in">push</span>(node-&gt;right);           <span class="comment">// 右（空节点不入栈）</span></span><br><span class="line">            <span class="keyword">if</span> (node-&gt;left) st.<span class="built_in">push</span>(node-&gt;left);             <span class="comment">// 左（空节点不入栈）</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="广度优先BFS（Breath-First-Search）"><a href="#广度优先BFS（Breath-First-Search）" class="headerlink" title="广度优先BFS（Breath First Search） "></a><a href="#context.5">广度优先BFS（Breath First Search）</a><a name="section.5"> </a></h4><p>层序遍历 - 队列</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 迭代法 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; que;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) que.<span class="built_in">push</span>(root);</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="keyword">while</span> (!que.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="type">int</span> size = que.<span class="built_in">size</span>();</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">            <span class="comment">// 这里一定要使用固定大小size，不要使用que.size()，因为que.size是不断变化的</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">                TreeNode* node = que.<span class="built_in">front</span>();</span><br><span class="line">                que.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) que.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) que.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            result.<span class="built_in">push_back</span>(vec);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 递归法 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">order</span><span class="params">(TreeNode* cur, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; result, <span class="type">int</span> depth)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (result.<span class="built_in">size</span>() == depth) result.<span class="built_in">push_back</span>(<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">        result[depth].<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line">        <span class="built_in">order</span>(cur-&gt;left, result, depth + <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">order</span>(cur-&gt;right, result, depth + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="type">int</span> depth = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">order</span>(root, result, depth);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类 "></a><a href="#context.6">分类</a><a name="section.6"> </a></h3><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230719102948357.png" alt="image-20230719102948357"></p>
+<p>C++标准库是有多个版本的，要知道我们使用的STL是哪个版本，才能知道对应的栈和队列的实现原理。</p>
+<p>那么来介绍一下，三个最为普遍的STL版本：</p>
+<ol>
+<li>HP STL 其他版本的C++ STL，一般是以HP STL为蓝本实现出来的，HP STL是C++ STL的第一个实现版本，而且开放源代码。</li>
+<li>P.J.Plauger STL 由P.J.Plauger参照HP STL实现出来的，被Visual C++编译器所采用，不是开源的。</li>
+<li>SGI STL 由Silicon Graphics Computer Systems公司参照HP STL实现，被Linux的C++编译器GCC所采用，SGI STL是开源软件，源码可读性甚高。</li>
+</ol>
+<p>栈提供push 和 pop 等等接口，所有元素必须符合先进后出规则，所以栈不提供走访功能，也不提供迭代器(iterator)。 不像是set 或者map 提供迭代器iterator来遍历所有元素。</p>
+<p><strong>栈是以底层容器完成其所有的工作，对外提供统一的接口，底层容器是可插拔的（也就是说我们可以控制使用哪种容器来实现栈的功能）。</strong></p>
+<p>所以STL中栈往往不被归类为容器，而被归类为container adapter（容器适配器）。</p>
+<p><strong>我们常用的SGI STL，如果没有指定底层实现的话，默认是以deque为缺省情况下栈的底层结构。</strong></p>
+<p>deque是一个双向队列，只要封住一段，只开通另一端就可以实现栈的逻辑了。</p>
+<p><strong>SGI STL中 队列底层实现缺省情况下一样使用deque实现的。</strong></p>
+<p>我们也可以指定vector为栈的底层实现，初始化语句如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="type">int</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt; &gt; third;  <span class="comment">// 使用vector为底层容器的栈</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>刚刚讲过栈的特性，对应的队列的情况是一样的。</p>
+<p>队列中先进先出的数据结构，同样不允许有遍历行为，不提供迭代器, <strong>SGI STL中队列一样是以deque为缺省情况下的底部结构。</strong></p>
+<p>也可以指定list 为起底层实现，初始化queue的语句如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">queue</span>&lt;<span class="type">int</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="type">int</span>&gt;&gt; third; <span class="comment">// 定义以list为底层容器的队列</span></span><br></pre></td></tr></table></figure>
+
+<p>所以STL 队列也不被归类为容器，而被归类为container adapter（ 容器适配器）。</p>
+<h2 id="二叉搜索树（BST）"><a href="#二叉搜索树（BST）" class="headerlink" title="二叉搜索树（BST） "></a><a href="#context.7">二叉搜索树（BST）</a><a name="section.7"> </a></h2><p>也称<strong>二叉查找树 BST（Binary Search Tree）</strong></p>
+<p>二叉搜索树的<strong>重要特质</strong>为，<strong>在二叉树的基础上增加了左子树的所有值应都小于根节点的值，右子树的所有值应都大于根节点的值</strong>。</p>
+<p>乍看二叉搜索树的访问效率很高，最大的遍历次数为树的高度，最小的遍历次数为1。但实际存在某种特殊情况，比如根节点只有一个右孩子，然后剩下的全部元素为一条直线向下排列在左子树，造成分部不均匀，查找和插入效率几乎等同于线性结构。如下图：</p>
+<p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230717160027885.png" alt="image-20230717160027885"></p>
+<p>力扣参考题目：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/unique-binary-search-trees/">96. 不同的二叉搜索树</a>、<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/validate-binary-search-tree/">98. 验证二叉搜索树</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 不同的二叉搜索树</span></span><br><span class="line"><span class="comment">给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？返回满足题意的二叉搜索树的种数。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numTrees</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">g</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        g[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        g[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= i; ++j) &#123;</span><br><span class="line">                g[i] += g[j - <span class="number">1</span>] * g[i - j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> g[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 验证二叉搜索树</span></span><br><span class="line"><span class="comment">给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">Recur</span><span class="params">(TreeNode *tree, <span class="type">long</span> min, <span class="type">long</span> max)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">bool</span> ret;</span><br><span class="line">        <span class="keyword">if</span> (!tree)</span><br><span class="line">            ret = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (tree-&gt;val &lt;= min || tree-&gt;val &gt;= max)</span><br><span class="line">            ret = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ret = <span class="built_in">Recur</span>(tree-&gt;left, min, tree-&gt;val) &amp;&amp; <span class="built_in">Recur</span>(tree-&gt;right, tree-&gt;val, max);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Recur</span>(root, LONG_MIN, LONG_MAX);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="AVL树（BBT）"><a href="#AVL树（BBT）" class="headerlink" title="AVL树（BBT） "></a><a href="#context.8">AVL树（BBT）</a><a name="section.8"> </a></h2><p><strong>平衡二叉树</strong>全称叫做 平衡二叉搜索（排序）树，简称 AVL树。英文：Balanced Binary Tree （BBT）</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义 "></a><a href="#context.9">定义</a><a name="section.9"> </a></h3><p>AVL树本质上是一颗二叉搜索树，但它又具有以下特点：</p>
+<ol>
+<li>它是一颗空树或它的左右两个子树的高度差的绝对值不超过 1</li>
+<li>左右两个子树也是一颗平衡二叉树</li>
+</ol>
+<p><strong>需满足以下特征：</strong></p>
+<ol>
+<li>对于任何一颗子树的root根结点而言，它的左子树任何节点的key一定比root小，而右子树任何节点的key 一定比root大；</li>
+<li>对于AVL树而言，其中任何子树仍然是AVL树；</li>
+<li>每个节点的左右子节点的高度之差的绝对值最多为1；</li>
+</ol>
+<p><strong>平衡因子（BF -  Balance Factor） &#x3D; 左子树的深度 - 右子树的深度</strong></p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景 "></a><a href="#context.10">使用场景</a><a name="section.10"> </a></h3><p>由于AVL树必须保证左右子树平衡，Max(最大树高-最小树高) &lt;&#x3D; 1，所以在插入的时候很容易出现不平衡的情况，一旦这样，就需要进行旋转以求达到平衡。</p>
+<p>正是由于这种严格的平衡条件，导致AVL需要花大量时间在调整上，故AVL树一般使用场景在于<strong>查询场景</strong>， 而不是增加删除频繁的场景。</p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入 "></a><a href="#context.11">插入</a><a name="section.11"> </a></h3><h4 id="1-左左型右旋"><a href="#1-左左型右旋" class="headerlink" title="1.左左型右旋 "></a><a href="#context.12">1.左左型右旋</a><a name="section.12"> </a></h4><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718152017647.png" alt="image-20230718152017647"></p>
+<p>在结点T的 <strong>左结点（L）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左左型</strong> ，我们应该进行右旋转。</p>
+<h4 id="2-左右型的左右旋"><a href="#2-左右型的左右旋" class="headerlink" title="2.左右型的左右旋 "></a><a href="#context.13">2.左右型的左右旋</a><a name="section.13"> </a></h4><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718152120654.png" alt="image-20230718152120654"></p>
+<p>在结点T的 <strong>左结点（L）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左右型</strong> ，我们应该进行左右旋。</p>
+<p><strong>步骤如下：</strong></p>
+<p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718154009644.png" alt="image-20230718154009644"></p>
+<h4 id="3-右右型左旋"><a href="#3-右右型左旋" class="headerlink" title="3.右右型左旋 "></a><a href="#context.14">3.右右型左旋</a><a name="section.14"> </a></h4><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718154115097.png" alt="image-20230718154115097"></p>
+<p>在结点T的 <strong>右结点（R）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右右型</strong> ，我们应该进行左旋转。</p>
+<h4 id="4-右左型右左旋"><a href="#4-右左型右左旋" class="headerlink" title="4.右左型右左旋 "></a><a href="#context.15">4.右左型右左旋</a><a name="section.15"> </a></h4><p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718154205028.png" alt="image-20230718154205028"></p>
+<p>在结点T的 <strong>右结点（R）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右左型</strong> ，我们应该进行右左旋。</p>
+<p><strong>步骤如下：</strong></p>
+<p><img src="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.assets/image-20230718154226276.png" alt="image-20230718154226276"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结 "></a><a href="#context.16">总结</a><a name="section.16"> </a></h3><table>
+<thead>
+<tr>
+<th>插入位置</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在结点T的左结点（L）的 <strong>左子树（L）</strong> 上做了插入元素</td>
+<td>左左型</td>
+<td>右旋</td>
+</tr>
+<tr>
+<td>在结点T的左结点（L）的 <strong>右子树（R）</strong> 上做了插入元素</td>
+<td>左右型</td>
+<td>左右旋</td>
+</tr>
+<tr>
+<td>在结点T的右结点（R）的 <strong>右子树（R）</strong> 上做了插入元素</td>
+<td>右右型</td>
+<td>左旋</td>
+</tr>
+<tr>
+<td>在结点T的右结点（R）的 <strong>左子树（L）</strong> 上做了插入元素</td>
+<td>右左型</td>
+<td>右左旋</td>
+</tr>
+</tbody></table>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树 "></a><a href="#context.17">红黑树</a><a name="section.17"> </a></h2><p>红黑树（RBT）继承了AVL可自平衡的优点，</p>
+<p>同时, 红黑树（RBT）在<strong>查询速率和平衡调整</strong>中寻找平衡，放宽了<strong>树的平衡条件</strong>，从而可以用于 <strong>增加删除频繁</strong>的场景。</p>
+<p>在实际应用中，红黑树的使用要多得多。</p>
+<p><strong>查找插入删除的时间复杂度为 O(logN)</strong></p>
+<h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义 "></a><a href="#context.18">定义</a><a name="section.18"> </a></h3><p><strong>需满足以下特征：</strong></p>
+<ol>
+<li>节点非黑即红</li>
+<li>根节点一定是黑色</li>
+<li>叶子节点（NIL）一定是黑色</li>
+<li>每个红色节点的两个子节点都为黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)</li>
+<li>从任一节点到其每个叶子的所有路径，都包含相同数目的黑色节点。</li>
+</ol>
+<p><strong>注：默认插入节点颜色为红色</strong></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wyinhui.github.io/2023/07/27/DS/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%98%9F%E6%B5%B7/" rel="tag">星海</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2023/07/27/C/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            C
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2023/07/26/C++/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">C++</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023
+        <i class="ri-heart-fill heart_icon"></i> WYh
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/favicon.ico" alt="breeze"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
