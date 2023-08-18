@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">3.8k</span>
+            <span class="post-count">3.1k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">14 分钟</span>
+            <span class="post-count">12 分钟</span>
         </span>
     </span>
 </div>
@@ -108,9 +108,9 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><span id="more"></span>
+  <span id="more"></span>
 
-<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
 <li><a href="#section.1">快速判断是否是字母</a><a name="context.1"> </a></li>
 <li><a href="#section.2">快速判断两字符是否相同且为字母</a><a name="context.2"> </a></li>
 <li><a href="#section.3">C 关键字</a><a name="context.3"> </a><ul>
@@ -121,36 +121,6 @@
 </li>
 </ul>
 <hr>
-<p><strong>c语言宏 <code>__stdcall</code>, <code>__cdecl</code></strong></p>
-<p>​		调用函数时，计算机常用栈来存放函数执行需要的参数，由于栈的空间大小是有限的，在windows下，栈是向低地址扩展的数据结构，是一块连续的内存区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，如果申请的空间超过栈的剩余空间时，将提示overflow。</p>
-<p>​		在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的！</p>
-<p>​		VC中默认调用是 <code>__cdecl</code> 方式，Windows API 使用 <code>__stdcall</code> 调用方式，在 DLL 导出函数中，为了跟 Windows API 保持一致，建议使用 <code>__stdcall</code> 方式。</p>
-<p>C&#x2F;C++ 函数调用约定，主要是对以下两个方面进行了约定：</p>
-<ol>
-<li>当参数个数多于一个时，按照什么顺序把参数压入堆栈。—-调用函数时，参数的入栈顺序。</li>
-<li>函数调用后，由谁来把堆栈恢复原状。—-调用结束后，由谁（调用者还是被调用者）负责将参数出栈。</li>
-</ol>
-<p>在高级语言中，就是通过函数的调用方式来说明这两个问题的。常见的调用方式有：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C 语言:   __cdecl、__stdcall、__fastcall、naked、__pascal。</span><br><span class="line">C++ 语言: __cdecl、__stdcall、__fastcall、naked、__pascal、__thiscall，比 C 语言多出一种 __thiscall 调用方式。</span><br></pre></td></tr></table></figure>
-
-
-
-<ol>
-<li><p>stdcall<br><code>__stdcall</code> 是 StandardCall 的缩写，是C++的标准调用方式。stdcall 调用方式又被称为 Pascal 调用方式。在Microsoft C++系列的C&#x2F;C++编译器中，使用 PASCAL 宏，WINAPI 宏和 CALLBACK 宏来指定函数的调用方式为 stdcall。<br>其声明语法为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int _stdcall function(int a, int b);</span><br></pre></td></tr></table></figure>
-
-<p>stdcall的调用方式意味着：</p>
-<p>（1）参数从右向左依次压入堆栈.<br>（2）由被调用函数自己来恢复堆栈，称为自动清栈。<br>（3）函数名自动加前导下划线，后面紧跟着一个@，其后紧跟着参数的大小。</p>
-</li>
-<li><p>cdecl</p>
-<p><code>__cdecl</code> 是C Declaration的缩写（declaration，声明），cdecl调用方式又称为C调用方式，是C语言缺省的调用方式。<br>其声明语法为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int function(int a, int b);        // 不加修饰符就是C调用方式</span><br><span class="line">int _cdecl function(int a, int b); // 明确指定用C调用方式</span><br></pre></td></tr></table></figure>
-
-<p>cdecl的调用方式意味着：</p>
-<p>（1）参数从右向左依次压入堆栈.<br>（2）由调用者恢复堆栈，称为手动清栈。<br>（3）函数名自动加前导下划线。</p>
-<p>由于是由调用者来恢复堆栈，因此C调用方式允许函数的参数个数是不固定的，这是C语言的一大特色。比如 <code>printf</code></p>
-</li>
-</ol>
 <h2 id="快速判断是否是字母"><a href="#快速判断是否是字母" class="headerlink" title="快速判断是否是字母 "></a><a href="#context.1">快速判断是否是字母</a><a name="section.1"> </a></h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 包括大小写字母</span><br><span class="line">(uchar)((ch | <span class="number">0x20</span>) - <span class="string">&#x27;a&#x27;</span>) &lt; <span class="number">26</span></span><br></pre></td></tr></table></figure>
 
 
