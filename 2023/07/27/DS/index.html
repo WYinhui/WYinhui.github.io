@@ -108,42 +108,42 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#section.2">二叉树</a><a name="context.2"> </a><ul>
-<li><a href="#section.3">遍历方式</a><a name="context.3"> </a><ul>
-<li><a href="#section.4">深度优先DFS（Depth First Search）</a><a name="context.4"> </a></li>
-<li><a href="#section.5">广度优先BFS（Breath First Search）</a><a name="context.5"> </a></li>
+  <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><span id="more"></span>
+
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#section.1">二叉树</a><a name="context.1"> </a><ul>
+<li><a href="#section.2">遍历方式</a><a name="context.2"> </a><ul>
+<li><a href="#section.3">深度优先DFS（Depth First Search）</a><a name="context.3"> </a></li>
+<li><a href="#section.4">广度优先BFS（Breath First Search）</a><a name="context.4"> </a></li>
 </ul>
 </li>
-<li><a href="#section.6">分类</a><a name="context.6"> </a></li>
+<li><a href="#section.5">分类</a><a name="context.5"> </a></li>
 </ul>
 </li>
-<li><a href="#section.7">二叉搜索树（BST）</a><a name="context.7"> </a></li>
-<li><a href="#section.8">AVL树（BBT）</a><a name="context.8"> </a><ul>
-<li><a href="#section.9">定义</a><a name="context.9"> </a></li>
-<li><a href="#section.10">使用场景</a><a name="context.10"> </a></li>
-<li><a href="#section.11">插入</a><a name="context.11"> </a><ul>
-<li><a href="#section.12">1.左左型右旋</a><a name="context.12"> </a></li>
-<li><a href="#section.13">2.左右型的左右旋</a><a name="context.13"> </a></li>
-<li><a href="#section.14">3.右右型左旋</a><a name="context.14"> </a></li>
-<li><a href="#section.15">4.右左型右左旋</a><a name="context.15"> </a></li>
+<li><a href="#section.6">二叉搜索树（BST）</a><a name="context.6"> </a></li>
+<li><a href="#section.7">AVL树（BBT）</a><a name="context.7"> </a><ul>
+<li><a href="#section.8">定义</a><a name="context.8"> </a></li>
+<li><a href="#section.9">使用场景</a><a name="context.9"> </a></li>
+<li><a href="#section.10">插入</a><a name="context.10"> </a><ul>
+<li><a href="#section.11">1.左左型右旋</a><a name="context.11"> </a></li>
+<li><a href="#section.12">2.左右型的左右旋</a><a name="context.12"> </a></li>
+<li><a href="#section.13">3.右右型左旋</a><a name="context.13"> </a></li>
+<li><a href="#section.14">4.右左型右左旋</a><a name="context.14"> </a></li>
 </ul>
 </li>
-<li><a href="#section.16">总结</a><a name="context.16"> </a></li>
+<li><a href="#section.15">总结</a><a name="context.15"> </a></li>
 </ul>
 </li>
-<li><a href="#section.17">红黑树</a><a name="context.17"> </a><ul>
-<li><a href="#section.18">定义</a><a name="context.18"> </a></li>
+<li><a href="#section.16">红黑树</a><a name="context.16"> </a><ul>
+<li><a href="#section.17">定义</a><a name="context.17"> </a></li>
 </ul>
 </li>
 </ul>
 <hr>
-<span id="more"></span>
-
-<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树 "></a><a href="#context.2">二叉树</a><a name="section.2"> </a></h2><p>为<strong>有序树</strong>：</p>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树 "></a><a href="#context.1">二叉树</a><a name="section.1"> </a></h2><p>为<strong>有序树</strong>：</p>
 <p>如果结点的各子树从左到右是有次序的、不能颠倒，则为有序树，否则为无序树。对于有序树的孩子来说，最左边的孩子称为第一个孩子，最右边的孩子称为最后一个孩子。</p>
 <p>比如，如果树T1是一个有序树，则其根结点的第一个孩子为结点B，最后一个孩子为结点D</p>
-<h3 id="遍历方式"><a href="#遍历方式" class="headerlink" title="遍历方式 "></a><a href="#context.3">遍历方式</a><a name="section.3"> </a></h3><h4 id="深度优先DFS（Depth-First-Search）"><a href="#深度优先DFS（Depth-First-Search）" class="headerlink" title="深度优先DFS（Depth First Search） "></a><a href="#context.4">深度优先DFS（Depth First Search）</a><a name="section.4"> </a></h4><p>递归遍历 - 函数递归</p>
+<h3 id="遍历方式"><a href="#遍历方式" class="headerlink" title="遍历方式 "></a><a href="#context.2">遍历方式</a><a name="section.2"> </a></h3><h4 id="深度优先DFS（Depth-First-Search）"><a href="#深度优先DFS（Depth-First-Search）" class="headerlink" title="深度优先DFS（Depth First Search） "></a><a href="#context.3">深度优先DFS（Depth First Search）</a><a name="section.3"> </a></h4><p>递归遍历 - 函数递归</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Tree</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Recur</span><span class="params">(Tree *tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (tree != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">///&lt; 中左右</span></span><br><span class="line">        cout &lt;&lt; tree-&gt;val &lt;&lt; endl;</span><br><span class="line">        <span class="built_in">Recur</span>(tree-&gt;left);</span><br><span class="line">        <span class="built_in">Recur</span>(tree-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFSTree</span><span class="params">(Tree *tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">Recur</span>(tree);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 统一遍历方法！！！ */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        stack&lt;TreeNode*&gt; st;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) st.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (!st.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            TreeNode* node = st.<span class="built_in">top</span>();</span><br><span class="line">            <span class="keyword">if</span> (node != <span class="literal">NULL</span>) &#123;</span><br><span class="line">                st.<span class="built_in">pop</span>(); <span class="comment">// 将该节点弹出，避免重复操作，下面再将右中左节点添加到栈中</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) st.<span class="built_in">push</span>(node-&gt;right);  <span class="comment">// 添加右节点（空节点不入栈）</span></span><br><span class="line"></span><br><span class="line">                st.<span class="built_in">push</span>(node);                          <span class="comment">// 添加中节点</span></span><br><span class="line">                st.<span class="built_in">push</span>(<span class="literal">NULL</span>); <span class="comment">// 中节点访问过，但是还没有处理，加入空节点做为标记。</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) st.<span class="built_in">push</span>(node-&gt;left);    <span class="comment">// 添加左节点（空节点不入栈）</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// 只有遇到空节点的时候，才将下一个节点放进结果集</span></span><br><span class="line">                st.<span class="built_in">pop</span>();           <span class="comment">// 将空节点弹出</span></span><br><span class="line">                node = st.<span class="built_in">top</span>();    <span class="comment">// 重新取出栈中元素</span></span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">                result.<span class="built_in">push_back</span>(node-&gt;val); <span class="comment">// 加入到结果集</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
@@ -153,12 +153,12 @@
 
 
 
-<h4 id="广度优先BFS（Breath-First-Search）"><a href="#广度优先BFS（Breath-First-Search）" class="headerlink" title="广度优先BFS（Breath First Search） "></a><a href="#context.5">广度优先BFS（Breath First Search）</a><a name="section.5"> </a></h4><p>层序遍历 - 队列</p>
+<h4 id="广度优先BFS（Breath-First-Search）"><a href="#广度优先BFS（Breath-First-Search）" class="headerlink" title="广度优先BFS（Breath First Search） "></a><a href="#context.4">广度优先BFS（Breath First Search）</a><a name="section.4"> </a></h4><p>层序遍历 - 队列</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 迭代法 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; que;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) que.<span class="built_in">push</span>(root);</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="keyword">while</span> (!que.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="type">int</span> size = que.<span class="built_in">size</span>();</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">            <span class="comment">// 这里一定要使用固定大小size，不要使用que.size()，因为que.size是不断变化的</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">                TreeNode* node = que.<span class="built_in">front</span>();</span><br><span class="line">                que.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) que.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) que.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            result.<span class="built_in">push_back</span>(vec);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 递归法 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">order</span><span class="params">(TreeNode* cur, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; result, <span class="type">int</span> depth)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (result.<span class="built_in">size</span>() == depth) result.<span class="built_in">push_back</span>(<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">        result[depth].<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line">        <span class="built_in">order</span>(cur-&gt;left, result, depth + <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">order</span>(cur-&gt;right, result, depth + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="type">int</span> depth = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">order</span>(root, result, depth);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类 "></a><a href="#context.6">分类</a><a name="section.6"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230719102948357.png" alt="image-20230719102948357"></p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类 "></a><a href="#context.5">分类</a><a name="section.5"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230719102948357.png" alt="image-20230719102948357"></p>
 <p>C++标准库是有多个版本的，要知道我们使用的STL是哪个版本，才能知道对应的栈和队列的实现原理。</p>
 <p>那么来介绍一下，三个最为普遍的STL版本：</p>
 <ol>
@@ -183,7 +183,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">queue</span>&lt;<span class="type">int</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="type">int</span>&gt;&gt; third; <span class="comment">// 定义以list为底层容器的队列</span></span><br></pre></td></tr></table></figure>
 
 <p>所以STL 队列也不被归类为容器，而被归类为container adapter（ 容器适配器）。</p>
-<h2 id="二叉搜索树（BST）"><a href="#二叉搜索树（BST）" class="headerlink" title="二叉搜索树（BST） "></a><a href="#context.7">二叉搜索树（BST）</a><a name="section.7"> </a></h2><p>也称<strong>二叉查找树 BST（Binary Search Tree）</strong></p>
+<h2 id="二叉搜索树（BST）"><a href="#二叉搜索树（BST）" class="headerlink" title="二叉搜索树（BST） "></a><a href="#context.6">二叉搜索树（BST）</a><a name="section.6"> </a></h2><p>也称<strong>二叉查找树 BST（Binary Search Tree）</strong></p>
 <p>二叉搜索树的<strong>重要特质</strong>为，<strong>在二叉树的基础上增加了左子树的所有值应都小于根节点的值，右子树的所有值应都大于根节点的值</strong>。</p>
 <p>乍看二叉搜索树的访问效率很高，最大的遍历次数为树的高度，最小的遍历次数为1。但实际存在某种特殊情况，比如根节点只有一个右孩子，然后剩下的全部元素为一条直线向下排列在左子树，造成分部不均匀，查找和插入效率几乎等同于线性结构。如下图：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230717160027885.png" alt="image-20230717160027885"></p>
@@ -192,8 +192,8 @@
 
 
 
-<h2 id="AVL树（BBT）"><a href="#AVL树（BBT）" class="headerlink" title="AVL树（BBT） "></a><a href="#context.8">AVL树（BBT）</a><a name="section.8"> </a></h2><p><strong>平衡二叉树</strong>全称叫做 平衡二叉搜索（排序）树，简称 AVL树。英文：Balanced Binary Tree （BBT）</p>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义 "></a><a href="#context.9">定义</a><a name="section.9"> </a></h3><p>AVL树本质上是一颗二叉搜索树，但它又具有以下特点：</p>
+<h2 id="AVL树（BBT）"><a href="#AVL树（BBT）" class="headerlink" title="AVL树（BBT） "></a><a href="#context.7">AVL树（BBT）</a><a name="section.7"> </a></h2><p><strong>平衡二叉树</strong>全称叫做 平衡二叉搜索（排序）树，简称 AVL树。英文：Balanced Binary Tree （BBT）</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义 "></a><a href="#context.8">定义</a><a name="section.8"> </a></h3><p>AVL树本质上是一颗二叉搜索树，但它又具有以下特点：</p>
 <ol>
 <li>它是一颗空树或它的左右两个子树的高度差的绝对值不超过 1</li>
 <li>左右两个子树也是一颗平衡二叉树</li>
@@ -205,21 +205,21 @@
 <li>每个节点的左右子节点的高度之差的绝对值最多为1；</li>
 </ol>
 <p><strong>平衡因子（BF -  Balance Factor） &#x3D; 左子树的深度 - 右子树的深度</strong></p>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景 "></a><a href="#context.10">使用场景</a><a name="section.10"> </a></h3><p>由于AVL树必须保证左右子树平衡，Max(最大树高-最小树高) &lt;&#x3D; 1，所以在插入的时候很容易出现不平衡的情况，一旦这样，就需要进行旋转以求达到平衡。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景 "></a><a href="#context.9">使用场景</a><a name="section.9"> </a></h3><p>由于AVL树必须保证左右子树平衡，Max(最大树高-最小树高) &lt;&#x3D; 1，所以在插入的时候很容易出现不平衡的情况，一旦这样，就需要进行旋转以求达到平衡。</p>
 <p>正是由于这种严格的平衡条件，导致AVL需要花大量时间在调整上，故AVL树一般使用场景在于<strong>查询场景</strong>， 而不是增加删除频繁的场景。</p>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入 "></a><a href="#context.11">插入</a><a name="section.11"> </a></h3><h4 id="1-左左型右旋"><a href="#1-左左型右旋" class="headerlink" title="1.左左型右旋 "></a><a href="#context.12">1.左左型右旋</a><a name="section.12"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718152017647.png" alt="image-20230718152017647"></p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入 "></a><a href="#context.10">插入</a><a name="section.10"> </a></h3><h4 id="1-左左型右旋"><a href="#1-左左型右旋" class="headerlink" title="1.左左型右旋 "></a><a href="#context.11">1.左左型右旋</a><a name="section.11"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718152017647.png" alt="image-20230718152017647"></p>
 <p>在结点T的 <strong>左结点（L）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左左型</strong> ，我们应该进行右旋转。</p>
-<h4 id="2-左右型的左右旋"><a href="#2-左右型的左右旋" class="headerlink" title="2.左右型的左右旋 "></a><a href="#context.13">2.左右型的左右旋</a><a name="section.13"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718152120654.png" alt="image-20230718152120654"></p>
+<h4 id="2-左右型的左右旋"><a href="#2-左右型的左右旋" class="headerlink" title="2.左右型的左右旋 "></a><a href="#context.12">2.左右型的左右旋</a><a name="section.12"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718152120654.png" alt="image-20230718152120654"></p>
 <p>在结点T的 <strong>左结点（L）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左右型</strong> ，我们应该进行左右旋。</p>
 <p><strong>步骤如下：</strong></p>
 <p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154009644.png" alt="image-20230718154009644"></p>
-<h4 id="3-右右型左旋"><a href="#3-右右型左旋" class="headerlink" title="3.右右型左旋 "></a><a href="#context.14">3.右右型左旋</a><a name="section.14"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154115097.png" alt="image-20230718154115097"></p>
+<h4 id="3-右右型左旋"><a href="#3-右右型左旋" class="headerlink" title="3.右右型左旋 "></a><a href="#context.13">3.右右型左旋</a><a name="section.13"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154115097.png" alt="image-20230718154115097"></p>
 <p>在结点T的 <strong>右结点（R）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右右型</strong> ，我们应该进行左旋转。</p>
-<h4 id="4-右左型右左旋"><a href="#4-右左型右左旋" class="headerlink" title="4.右左型右左旋 "></a><a href="#context.15">4.右左型右左旋</a><a name="section.15"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154205.png" alt="image-20230718154205"></p>
+<h4 id="4-右左型右左旋"><a href="#4-右左型右左旋" class="headerlink" title="4.右左型右左旋 "></a><a href="#context.14">4.右左型右左旋</a><a name="section.14"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154205.png" alt="image-20230718154205"></p>
 <p>在结点T的 <strong>右结点（R）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右左型</strong> ，我们应该进行右左旋。</p>
 <p><strong>步骤如下：</strong></p>
 <p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154226276.png" alt="image-20230718154226276"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结 "></a><a href="#context.16">总结</a><a name="section.16"> </a></h3><table>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结 "></a><a href="#context.15">总结</a><a name="section.15"> </a></h3><table>
 <thead>
 <tr>
 <th>插入位置</th>
@@ -248,11 +248,11 @@
 <td>右左旋</td>
 </tr>
 </tbody></table>
-<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树 "></a><a href="#context.17">红黑树</a><a name="section.17"> </a></h2><p>红黑树（RBT）继承了AVL可自平衡的优点，</p>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树 "></a><a href="#context.16">红黑树</a><a name="section.16"> </a></h2><p>红黑树（RBT）继承了AVL可自平衡的优点，</p>
 <p>同时, 红黑树（RBT）在<strong>查询速率和平衡调整</strong>中寻找平衡，放宽了<strong>树的平衡条件</strong>，从而可以用于 <strong>增加删除频繁</strong>的场景。</p>
 <p>在实际应用中，红黑树的使用要多得多。</p>
 <p><strong>查找插入删除的时间复杂度为 O(logN)</strong></p>
-<h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义 "></a><a href="#context.18">定义</a><a name="section.18"> </a></h3><p><strong>需满足以下特征：</strong></p>
+<h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义 "></a><a href="#context.17">定义</a><a name="section.17"> </a></h3><p><strong>需满足以下特征：</strong></p>
 <ol>
 <li>节点非黑即红</li>
 <li>根节点一定是黑色</li>

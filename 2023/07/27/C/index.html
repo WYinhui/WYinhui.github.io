@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">3.9k</span>
+            <span class="post-count">3.8k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">15 分钟</span>
+            <span class="post-count">14 分钟</span>
         </span>
     </span>
 </div>
@@ -108,7 +108,9 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+  <h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><span id="more"></span>
+
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
 <li><a href="#section.1">快速判断是否是字母</a><a name="context.1"> </a></li>
 <li><a href="#section.2">快速判断两字符是否相同且为字母</a><a name="context.2"> </a></li>
 <li><a href="#section.3">C 关键字</a><a name="context.3"> </a><ul>
@@ -119,8 +121,6 @@
 </li>
 </ul>
 <hr>
-<span id="more"></span>
-
 <p><strong>c语言宏 <code>__stdcall</code>, <code>__cdecl</code></strong></p>
 <p>​		调用函数时，计算机常用栈来存放函数执行需要的参数，由于栈的空间大小是有限的，在windows下，栈是向低地址扩展的数据结构，是一块连续的内存区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，如果申请的空间超过栈的剩余空间时，将提示overflow。</p>
 <p>​		在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的！</p>
@@ -316,13 +316,7 @@
 <p>while(判断);</p>
 <p>b &#x3D; a++		后置++表示先把a给b，a自己在++</p>
 <p>​			前置相反</p>
-<p><strong>函数</strong><strong>:</strong></p>
-<p>​	声明放到.h中，int Add(int x, int y);	定义放到.c中</p>
-<p>​	.h中 à		#ifndef <strong>ADD_H</strong>		&#x2F;&#x2F;if not def 判断是否引用过ADD_H</p>
-<p>​				#define <strong>ADD_H</strong>		&#x2F;&#x2F;未引用为真，则往下运行</p>
-<p>​				&#x2F;&#x2F;函数声明</p>
-<p>​				int Add(int x, int y);</p>
-<p>#endif					&#x2F;&#x2F;到endif结束</p>
+<p>函数</p>
 <p>scanf(“%d”, &amp;n)		获得输入给n</p>
 <p>printf(“%d”, n)			打印n</p>
 <p>sizeof(char)			看char的长度，单位：byte字节</p>
@@ -657,6 +651,15 @@
 
    
   <nav class="article-nav">
+    
+      <a href="/2023/08/18/shell/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            shell
+          
+        </div>
+      </a>
     
     
       <a href="/2023/07/27/DS/" class="article-nav-link">

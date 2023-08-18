@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.4k</span>
+            <span class="post-count">2.6k</span>
         </span>
     </span>
 
@@ -93,7 +93,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">11 分钟</span>
+            <span class="post-count">12 分钟</span>
         </span>
     </span>
 </div>
@@ -108,21 +108,24 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h1 id="算法（c-）"><a href="#算法（c-）" class="headerlink" title="算法（c++）"></a>算法（c++）</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+  <h1 id="算法（c-）"><a href="#算法（c-）" class="headerlink" title="算法（c++）"></a>算法（c++）</h1><span id="more"></span>
+
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
 <li><a href="#section.1">字符串</a><a name="context.1"> </a><ul>
 <li><a href="#section.2">KMP算法</a><a name="context.2"> </a></li>
 <li><a href="#section.3">Manacher算法（马拉车）</a><a name="context.3"> </a></li>
 <li><a href="#section.4">不重复最长子串</a><a name="context.4"> </a></li>
 </ul>
 </li>
-<li><a href="#section.5">快排</a><a name="context.5"> </a></li>
-<li><a href="#section.6">回溯</a><a name="context.6"> </a></li>
-<li><a href="#section.7">递归法</a><a name="context.7"> </a></li>
-<li><a href="#section.8">贪心</a><a name="context.8"> </a></li>
+<li><a href="#section.5">排序算法</a><a name="context.5"> </a><ul>
+<li><a href="#section.6">快排</a><a name="context.6"> </a></li>
+</ul>
+</li>
+<li><a href="#section.7">回溯</a><a name="context.7"> </a></li>
+<li><a href="#section.8">递归法</a><a name="context.8"> </a></li>
+<li><a href="#section.9">贪心</a><a name="context.9"> </a></li>
 </ul>
 <hr>
-<span id="more"></span>
-
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串 "></a><a href="#context.1">字符串</a><a name="section.1"> </a></h2><h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法 "></a><a href="#context.2">KMP算法</a><a name="section.2"> </a></h3><p>用于字符串匹配。给你两个字符串，寻找其中一个字符串是否包含另一个字符串，如果包含，返回包含的起始位置。</p>
 <p><strong>求前缀表</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 求前缀表（最长公共子串） */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">getNext</span> <span class="params">(<span class="type">int</span>* next, <span class="type">const</span> string&amp; s)</span></span>&#123;</span><br><span class="line">    next[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt; s.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; s[i] != s[j]) &#123;</span><br><span class="line">            j = next[j - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(s[i] == s[j]) &#123;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">        next[i] = j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -168,20 +171,110 @@
 
 
 
-
-
-<h2 id="快排"><a href="#快排" class="headerlink" title="快排 "></a><a href="#context.5">快排</a><a name="section.5"> </a></h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sort-an-array/">912. 排序数组 - 力扣（LeetCode）</a></p>
+<h2 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法 "></a><a href="#context.5">排序算法</a><a name="section.5"> </a></h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>平均时间复杂度</th>
+<th>最好情况</th>
+<th>最坏情况</th>
+<th>空间复杂度</th>
+<th>稳定性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>冒泡</td>
+<td>O(n²)</td>
+<td>O(n)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>选择</td>
+<td>O(n²)</td>
+<td>O(n²)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>插入</td>
+<td>O(n²)</td>
+<td>O(n)</td>
+<td>O(n²)</td>
+<td>O(1)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>希尔</td>
+<td>O(n log n)</td>
+<td>O(n log² n)</td>
+<td>O(n log² n)</td>
+<td>O(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>归并</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+<td>O(n)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td><a href="#%E5%BF%AB%E6%8E%92">快速</a></td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+<td>O(n²)</td>
+<td>O(log n)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>堆</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+<td>O(n log n)</td>
+<td>O(1)</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>计数</td>
+<td>O(n + k)</td>
+<td>O(n + k)</td>
+<td>O(n + k)</td>
+<td>O(k)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>桶</td>
+<td>O(n + k)</td>
+<td>O(n + k)</td>
+<td>O(n²)</td>
+<td>O(n + k)</td>
+<td>稳定</td>
+</tr>
+<tr>
+<td>基数</td>
+<td>O(n * k)</td>
+<td>O(n * k)</td>
+<td>O(n * k)</td>
+<td>O(n + k)</td>
+<td>稳定</td>
+</tr>
+</tbody></table>
+<h3 id="快排"><a href="#快排" class="headerlink" title="快排 "></a><a href="#context.6">快排</a><a name="section.6"> </a></h3><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sort-an-array/">912. 排序数组 - 力扣（LeetCode）</a></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">Compare</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">RecurQS</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums, <span class="type">int</span> start, <span class="type">int</span> end)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> left, right, mid, temp;</span><br><span class="line">        <span class="keyword">while</span> (start &lt; end)</span><br><span class="line">        &#123;</span><br><span class="line">            left = start;</span><br><span class="line">            right = end;</span><br><span class="line"></span><br><span class="line">            mid = nums[<span class="built_in">rand</span>() % (end - start + <span class="number">1</span>) + start];  <span class="comment">// 随机效率比中位数高将近10倍</span></span><br><span class="line"><span class="comment">//            mid = nums[start + ((end - start) &gt;&gt; 1)];</span></span><br><span class="line">            <span class="keyword">do</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">Compare</span>(nums[left], mid))</span><br><span class="line">                    ++left;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">Compare</span>(mid, nums[right]))</span><br><span class="line">                    --right;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (left &lt; right)</span><br><span class="line">                &#123;</span><br><span class="line">                    temp = nums[left];</span><br><span class="line">                    nums[left] = nums[right];</span><br><span class="line">                    nums[right] = temp;</span><br><span class="line">                    ++left;</span><br><span class="line">                    --right;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (left == right)</span><br><span class="line">                &#123;</span><br><span class="line">                    ++left;</span><br><span class="line">                    --right;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">while</span> (left &lt;= right);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (start &lt; right)</span><br><span class="line">                <span class="built_in">RecurQS</span>(nums, start, right);</span><br><span class="line"></span><br><span class="line">            start = left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">sortArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">size</span>() &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">RecurQS</span>(nums, <span class="number">0</span>, nums.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯 "></a><a href="#context.6">回溯</a><a name="section.6"> </a></h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 伪代码模板 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">backtracking</span><span class="params">(参数)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (终止条件) &#123;</span><br><span class="line">        存放结果;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) &#123;</span><br><span class="line">        处理节点;</span><br><span class="line">        <span class="built_in">backtracking</span>(路径，选择列表); <span class="comment">// 递归</span></span><br><span class="line">        回溯，撤销处理结果</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯 "></a><a href="#context.7">回溯</a><a name="section.7"> </a></h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 伪代码模板 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">backtracking</span><span class="params">(参数)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (终止条件) &#123;</span><br><span class="line">        存放结果;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) &#123;</span><br><span class="line">        处理节点;</span><br><span class="line">        <span class="built_in">backtracking</span>(路径，选择列表); <span class="comment">// 递归</span></span><br><span class="line">        回溯，撤销处理结果</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 
 
-<h2 id="递归法"><a href="#递归法" class="headerlink" title="递归法 "></a><a href="#context.7">递归法</a><a name="section.7"> </a></h2><p>三部曲：</p>
+<h2 id="递归法"><a href="#递归法" class="headerlink" title="递归法 "></a><a href="#context.8">递归法</a><a name="section.8"> </a></h2><p>三部曲：</p>
 <ol>
 <li><p><strong>确定递归函数的参数和返回值</strong></p>
 <p>因为我们要比较的是根节点的两个子树是否是相互翻转的，进而判断这个树是不是对称树，所以要比较的是两个树，参数自然也是左子树节点和右子树节点。</p>
@@ -223,7 +316,7 @@
 
 
 
-<h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心 "></a><a href="#context.8">贪心</a><a name="section.8"> </a></h2><p>如果找到局部最优，然后推出整体最优，那么就是贪心</p>
+<h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心 "></a><a href="#context.9">贪心</a><a name="section.9"> </a></h2><p>如果找到局部最优，然后推出整体最优，那么就是贪心</p>
 <p>局部最优 → 总体最优</p>
 <p><a target="_blank" rel="noopener" href="https://www.programmercarl.com/0053.%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C.html">代码随想录 (programmercarl.com)</a></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 贪心 53 最大子数组和 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">///&lt; 1. 贪心</span></span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!nums.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            ret = INT32_MIN;</span><br><span class="line">            <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">                sum += nums[i];</span><br><span class="line">                ret = <span class="built_in">max</span>(ret, sum);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (sum &lt;= <span class="number">0</span>)</span><br><span class="line">                    sum = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">///&lt; 2. 优化空间后的动态规划</span></span><br><span class="line"><span class="comment">//            ret = nums[0];</span></span><br><span class="line"><span class="comment">//            int pre = 0;</span></span><br><span class="line"><span class="comment">//            for (int i = 0; i &lt; nums.size(); ++i) &#123;</span></span><br><span class="line"><span class="comment">//                pre = max(pre + nums[i], nums[i]);</span></span><br><span class="line"><span class="comment">//                ret = max(ret, pre);</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">///&lt; 3. 未优化空间的动态规划</span></span><br><span class="line"><span class="comment">//            vector&lt;int&gt; dp(nums.size(), 0);</span></span><br><span class="line"><span class="comment">//            dp[0] = nums[0];</span></span><br><span class="line"><span class="comment">//            ret = dp[0];</span></span><br><span class="line"><span class="comment">//            for (int i = 1; i &lt; nums.size(); ++i) &#123;</span></span><br><span class="line"><span class="comment">//                if (dp[i - 1] &gt; 0)</span></span><br><span class="line"><span class="comment">//                    dp[i] = dp[i - 1] + nums[i];</span></span><br><span class="line"><span class="comment">//                else</span></span><br><span class="line"><span class="comment">//                    dp[i] = nums[i];</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                ret = max(ret, dp[i]);</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>

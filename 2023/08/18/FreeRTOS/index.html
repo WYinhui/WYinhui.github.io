@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>FreeRTOS |  breeze</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-FreeRTOS"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  FreeRTOS
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/08/18/FreeRTOS/" class="article-date">
+  <time datetime="2023-08-17T16:00:00.000Z" itemprop="datePublished">2023-08-18</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%98%9F%E6%B5%B7/">星海</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">12.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">47 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="FreeRTOS"><a href="#FreeRTOS" class="headerlink" title="FreeRTOS"></a>FreeRTOS</h1><span id="more"></span>
+
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#section.1">第11章 - 移植FreeRTOS到STM32</a><a name="context.1"> </a></li>
+<li><a href="#section.2">第12章 - 任务</a><a name="context.2"> </a><ul>
+<li><a href="#section.3">静态创建示例</a><a name="context.3"> </a></li>
+<li><a href="#section.4">动态创建示例</a><a name="context.4"> </a></li>
+</ul>
+</li>
+<li><a href="#section.5">第13章 - FreeRTOS 的启动流程</a><a name="context.5"> </a></li>
+<li><a href="#section.6">第14章 - 任务管理</a><a name="context.6"> </a><ul>
+<li><a href="#section.7">任务迁移图</a><a name="context.7"> </a></li>
+<li><a href="#section.8">任务函数</a><a name="context.8"> </a></li>
+<li><a href="#section.9">任务设计要点</a><a name="context.9"> </a></li>
+<li><a href="#section.10">互斥量</a><a name="context.10"> </a></li>
+</ul>
+</li>
+<li><a href="#section.11">第15章 - 消息队列</a><a name="context.11"> </a><ul>
+<li><a href="#section.12">应用场景</a><a name="context.12"> </a></li>
+<li><a href="#section.13">常用函数</a><a name="context.13"> </a></li>
+</ul>
+</li>
+<li><a href="#section.14">第16章 - 信号量</a><a name="context.14"> </a><ul>
+<li><a href="#section.15">二值信号量</a><a name="context.15"> </a><ul>
+<li><a href="#section.16">二值信号量与互斥量的区别</a><a name="context.16"> </a></li>
+</ul>
+</li>
+<li><a href="#section.17">互斥信号量量</a><a name="context.17"> </a></li>
+<li><a href="#section.18">计数信号量</a><a name="context.18"> </a></li>
+<li><a href="#section.19">递归信号量</a><a name="context.19"> </a></li>
+<li><a href="#section.20">其他函数</a><a name="context.20"> </a></li>
+</ul>
+</li>
+<li><a href="#section.21">第17章 - 互斥量</a><a name="context.21"> </a><ul>
+<li><a href="#section.22">相关函数</a><a name="context.22"> </a></li>
+</ul>
+</li>
+<li><a href="#section.23">第18章 - 事件</a><a name="context.23"> </a><ul>
+<li><a href="#section.24">事件函数</a><a name="context.24"> </a></li>
+</ul>
+</li>
+<li><a href="#section.25">第19章 - 软件定时器</a><a name="context.25"> </a><ul>
+<li><a href="#section.26">定时器函数</a><a name="context.26"> </a></li>
+</ul>
+</li>
+<li><a href="#section.27">第20章 - 任务通知</a><a name="context.27"> </a><ul>
+<li><a href="#section.28">任务通知函数</a><a name="context.28"> </a></li>
+</ul>
+</li>
+<li><a href="#section.29">第21章 - 内存管理</a><a name="context.29"> </a><ul>
+<li><a href="#section.30">内存管理接口</a><a name="context.30"> </a></li>
+</ul>
+</li>
+<li><a href="#section.31">第22章 - 中断管理</a><a name="context.31"> </a><ul>
+<li><a href="#section.32">异常分类</a><a name="context.32"> </a></li>
+<li><a href="#section.33">中断</a><a name="context.33"> </a></li>
+</ul>
+</li>
+<li><a href="#section.34">第23章 - CPU利用率</a><a name="context.34"> </a></li>
+<li><a href="#section.35">FreeRTOS操作系统调度方式有哪些？</a><a name="context.35"> </a></li>
+</ul>
+<hr>
+<h2 id="第11章-移植FreeRTOS到STM32"><a href="#第11章-移植FreeRTOS到STM32" class="headerlink" title="第11章 - 移植FreeRTOS到STM32 "></a><a href="#context.1">第11章 - 移植FreeRTOS到STM32</a><a name="section.1"> </a></h2><p>demo工程目录结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">└---- demo</span><br><span class="line">      ├---- doc</span><br><span class="line">      ...</span><br><span class="line">      ├---- FreeRTOS</span><br><span class="line">      |     ├---- include		# FreeRTOS/Source/include/*</span><br><span class="line">      |     ├---- port			# FreeRTOS/Source/portable/ MemMang + RVDS</span><br><span class="line">      |     └---- src			# FreeRTOS/Source/*.c</span><br><span class="line">      └---- User</span><br><span class="line">            ...</span><br><span class="line">            ├---- FreeRTOSConfig.h		# FreeRTOS/Demo/CORTEX_STM32F103_Keil/  建议使用野火的，有注释</span><br><span class="line">            ├---- stm32f10x_conf.h</span><br><span class="line">            ├---- stm32f10x_it.c</span><br><span class="line">            ├---- stm32f10x_it.h</span><br><span class="line">            </span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>修改 FreeRTOSConfig.h 一定要注意</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stm32f10x.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bsp_usart.h&quot;</span></span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">/****************************************************************</span></span><br><span class="line"><span class="comment">            FreeRTOS与中断服务函数有关的配置选项                         </span></span><br><span class="line"><span class="comment">****************************************************************/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> xPortPendSVHandler 	PendSV_Handler		<span class="comment">///&lt; 实现需注释掉</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> vPortSVCHandler 	SVC_Handler</span></span><br></pre></td></tr></table></figure>
+
+<p>同时，将 <code>stm32f10x_it.c</code> 中的上面两个实现注释掉，并且实现 <code>systick</code>中断服务函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * @brief  This function handles SysTick Handler.</span></span><br><span class="line"><span class="comment">  * @param  None</span></span><br><span class="line"><span class="comment">  * @retval None</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">xPortSysTickHandler</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">SysTick_Handler</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> (INCLUDE_xTaskGetSchedulerState == 1)</span></span><br><span class="line">    <span class="keyword">if</span> (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED) &#123;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/* INCLUDE_xTaskGetSchedulerState */</span>        </span></span><br><span class="line">        xPortSysTickHandler();</span><br><span class="line"><span class="meta">#<span class="keyword">if</span> (INCLUDE_xTaskGetSchedulerState == 1)</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">/* INCLUDE_xTaskGetSchedulerState */</span>        </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>多任务管理机制分为<strong>抢占式</strong>和<strong>协作式</strong>两种。</p>
+<p>抢占式优先处理优先级高的任务，协作式等待任务主动释放后才切换任务。</p>
+<h2 id="第12章-任务"><a href="#第12章-任务" class="headerlink" title="第12章 - 任务 "></a><a href="#context.2">第12章 - 任务</a><a name="section.2"> </a></h2><p>创建任务方式分为两种：</p>
+<ol>
+<li>静态创建<br><code>SRAM</code> 静态内存的例程中，任务控制块和任务栈的内存空间都是从内部的 <code>SRAM</code> 中分配的，具体分配到哪个地址由编译器决定。</li>
+<li>动态创建<br>即，堆。其实堆也是内存，也属于 <code>SRAM</code> 。<code>FreeRTOS</code> 的做法是在 <code>SRAM</code> 中定义一个大数组（即堆内存）供 <code>FreeRTOS</code> 的动态内存分配函数使用。第一次使用会对堆初始化，在 <code>heap_x.c</code> 中实现。</li>
+</ol>
+<p><strong>注：FreeRTOS默认动态创建</strong></p>
+<h3 id="静态创建示例"><a href="#静态创建示例" class="headerlink" title="静态创建示例 "></a><a href="#context.3">静态创建示例</a><a name="section.3"> </a></h3><p>静态创建需要自己定义栈大小等，且在 <code>FreeRTOSConfig.h</code> 中需要打开宏 <code>configSUPPORT_STATIC_ALLOCATION</code></p>
+<p>还需要对栈进行8字节对齐(FreeRTOS默认8字节对齐)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*************************************************************************</span></span><br><span class="line"><span class="comment">*                             包含的头文件</span></span><br><span class="line"><span class="comment">*************************************************************************</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="comment">/* FreeRTOS头文件 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;FreeRTOS.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;task.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 开发板硬件bsp头文件 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bsp_led.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bsp_usart.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/******************************** 任务句柄 ****************************/</span></span><br><span class="line"><span class="comment">/* 创建任务句柄 */</span></span><br><span class="line"><span class="type">static</span> TaskHandle_t AppTaskCreate_Handle;</span><br><span class="line"><span class="comment">/* LED 任务句柄 */</span></span><br><span class="line"><span class="type">static</span> TaskHandle_t LED_Task_Handle;</span><br><span class="line"></span><br><span class="line"><span class="comment">/******************************** 全局变量申明(静态创建任务需要) ****************************/</span></span><br><span class="line"><span class="comment">/* AppTaskCreate任务栈 */</span></span><br><span class="line"><span class="type">static</span> StackType_t AppTaskCreate_Stack[<span class="number">128</span>];</span><br><span class="line"><span class="comment">/* LED任务栈*/</span></span><br><span class="line"><span class="type">static</span> StackType_t LED_Task_Stack[<span class="number">128</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* AppTaskCreate 任务控制块 */</span></span><br><span class="line"><span class="type">static</span> StaticTask_t AppTaskCreate_TCB;</span><br><span class="line"><span class="comment">/* LED_Task 任务控制块 */</span></span><br><span class="line"><span class="type">static</span> StaticTask_t LED_Task_TCB;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 空闲任务栈 */</span></span><br><span class="line"><span class="type">static</span> StackType_t Idle_Task_Stack[configMINIMAL_STACK_SIZE];</span><br><span class="line"><span class="comment">/* 定时器任务栈 */</span></span><br><span class="line"><span class="type">static</span> StackType_t Timer_Task_Stack[configTIMER_TASK_STACK_DEPTH];</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 空闲任务控制块 */</span></span><br><span class="line"><span class="type">static</span> StaticTask_t Idle_Task_TCB;</span><br><span class="line"><span class="comment">/* 定时器任务控制块 */</span></span><br><span class="line"><span class="type">static</span> StaticTask_t Timer_Task_TCB;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*************************************************************************</span></span><br><span class="line"><span class="comment">*                             函数申明</span></span><br><span class="line"><span class="comment">*************************************************************************</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">AppTaskCreate</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">LED_Task</span><span class="params">(<span class="type">void</span> *pvParameters)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 静态创建任务需要 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vApplicationGetIdleTaskMemory</span><span class="params">(StaticTask_t **ppxIdleTaskTCBBuffer,</span></span><br><span class="line"><span class="params">                                   StackType_t **ppxIdleTaskStackBuffer,</span></span><br><span class="line"><span class="params">                                   <span class="type">uint32_t</span> *pulIdleTaskStackSize)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 静态创建任务需要 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vApplicationGetTimerTaskMemory</span><span class="params">(StaticTask_t **ppxTimerTaskTCBBuffer,</span></span><br><span class="line"><span class="params">                                    StackType_t **ppxTimerTaskStackBuffer,</span></span><br><span class="line"><span class="params">                                    <span class="type">uint32_t</span> *pulTimerTaskStackSize)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">* @brief 主函数</span></span><br><span class="line"><span class="comment">* @param 无</span></span><br><span class="line"><span class="comment">* @retval 无</span></span><br><span class="line"><span class="comment">* @note step.1 开发板硬件初始化</span></span><br><span class="line"><span class="comment">        step.2 创建APP应用任务</span></span><br><span class="line"><span class="comment">        step.3 启动FreeTROS，开始多任务调度</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/* 开发板硬件初始化 */</span></span><br><span class="line">    BSP_Init();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;my rtos demo\r\n&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 创建AppTaskCreate 任务 */</span></span><br><span class="line">    AppTaskCreate_Handle = xTaskCreateStatic((TaskFunction_t)AppTaskCreate,</span><br><span class="line">                                             (<span class="type">const</span> <span class="type">char</span>*)<span class="string">&quot;AppTaskCreate&quot;</span>,</span><br><span class="line">                                             (<span class="type">uint32_t</span>)<span class="number">128</span>,</span><br><span class="line">                                             (<span class="type">void</span>*)<span class="literal">NULL</span>,</span><br><span class="line">                                             (UBaseType_t)<span class="number">3</span>,</span><br><span class="line">                                             (StackType_t*)AppTaskCreate_Stack,</span><br><span class="line">                                             (StaticTask_t*)&amp;AppTaskCreate_TCB);</span><br><span class="line">                                             </span><br><span class="line">    <span class="keyword">if</span> (AppTaskCreate_Handle != <span class="literal">NULL</span>)  <span class="comment">///&lt; 任务创建成功</span></span><br><span class="line">    &#123;</span><br><span class="line">        vTaskStartScheduler();  <span class="comment">///&lt; 启动任务，开启调度</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>);  <span class="comment">///&lt; 正常情况下不会执行到这里</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">AppTaskCreate</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    taskENTER_CRITICAL();  <span class="comment">///&lt; 进入临界区</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 创建 LED_Task 任务 */</span></span><br><span class="line">    LED_Task_Handle = xTaskCreateStatic((TaskFunction_t)LED_Task,</span><br><span class="line">                                       (<span class="type">const</span> <span class="type">char</span>*)<span class="string">&quot;LED_Task&quot;</span>,</span><br><span class="line">                                       (<span class="type">uint32_t</span>)<span class="number">128</span>,</span><br><span class="line">                                       (<span class="type">void</span>*)<span class="literal">NULL</span>,</span><br><span class="line">                                       (UBaseType_t)<span class="number">4</span>,</span><br><span class="line">                                       (StackType_t*)LED_Task_Stack,</span><br><span class="line">                                       (StaticTask_t*)&amp;LED_Task_TCB);</span><br><span class="line">                                       </span><br><span class="line">    <span class="keyword">if</span> (LED_Task_Handle != <span class="literal">NULL</span>)  <span class="comment">///&lt; 任务创建成功</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;LED_Task 任务创建成功！\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;LED_Task 任务创建失败！\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    vTaskDelete(AppTaskCreate_Handle);  <span class="comment">///&lt; 删除 AppTaskCreate 任务</span></span><br><span class="line">    taskEXIT_CRITICAL();  <span class="comment">///&lt; 退出临界区</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">LED_Task</span><span class="params">(<span class="type">void</span> *parameter)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LED3_ON;</span><br><span class="line">        vTaskDelay(<span class="number">500</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;led3_task running, LED3_ON\r\n&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        LED3_OFF;</span><br><span class="line">        vTaskDelay(<span class="number">500</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;led3_task running, LED3_OFF\r\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * STM32中断优先级分组为4，即4位都用来表示抢占优先级，范围为0~15</span></span><br><span class="line"><span class="comment">     * 优先级只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">     * 都统一用这个优先级分组，千万不要再分组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* LED 初始化 */</span></span><br><span class="line">    LED_GPIO_Config();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 测试硬件是否正常工作 */</span></span><br><span class="line">    LED3_ON;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 串口初始化 */</span></span><br><span class="line">    USART_Config();</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">vApplicationGetIdleTaskMemory</span><span class="params">(StaticTask_t **ppxIdleTaskTCBBuffer,</span></span><br><span class="line"><span class="params">                                   StackType_t **ppxIdleTaskStackBuffer,</span></span><br><span class="line"><span class="params">                                   <span class="type">uint32_t</span> *pulIdleTaskStackSize)</span></span><br><span class="line">&#123;</span><br><span class="line">    *ppxIdleTaskTCBBuffer = &amp;Idle_Task_TCB;</span><br><span class="line">    *ppxIdleTaskStackBuffer = Idle_Task_Stack;</span><br><span class="line">    *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">vApplicationGetTimerTaskMemory</span><span class="params">(StaticTask_t **ppxTimerTaskTCBBuffer,</span></span><br><span class="line"><span class="params">                                    StackType_t **ppxTimerTaskStackBuffer,</span></span><br><span class="line"><span class="params">                                    <span class="type">uint32_t</span> *pulTimerTaskStackSize)</span></span><br><span class="line">&#123;</span><br><span class="line">    *ppxTimerTaskTCBBuffer = &amp;Timer_Task_TCB;</span><br><span class="line">    *ppxTimerTaskStackBuffer = Timer_Task_Stack;</span><br><span class="line">    *pulTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/********************************END OF FILE****************************/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="动态创建示例"><a href="#动态创建示例" class="headerlink" title="动态创建示例 "></a><a href="#context.4">动态创建示例</a><a name="section.4"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*************************************************************************</span></span><br><span class="line"><span class="comment">*                             包含的头文件</span></span><br><span class="line"><span class="comment">*************************************************************************</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="comment">/* FreeRTOS头文件 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;FreeRTOS.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;task.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 开发板硬件bsp头文件 */</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bsp_led.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bsp_usart.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/******************************** 任务句柄 ****************************/</span></span><br><span class="line"><span class="comment">/* 创建任务句柄 */</span></span><br><span class="line"><span class="type">static</span> TaskHandle_t AppTaskCreate_Handle = <span class="literal">NULL</span>;</span><br><span class="line"><span class="comment">/* LED1 任务句柄 */</span></span><br><span class="line"><span class="type">static</span> TaskHandle_t LED1_Task_Handle = <span class="literal">NULL</span>;</span><br><span class="line"><span class="comment">/* LED2 任务句柄 */</span></span><br><span class="line"><span class="type">static</span> TaskHandle_t LED2_Task_Handle = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/******************************** 全局变量申明 ****************************/</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*************************************************************************</span></span><br><span class="line"><span class="comment">*                             函数申明</span></span><br><span class="line"><span class="comment">*************************************************************************</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">AppTaskCreate</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">LED1_Task</span><span class="params">(<span class="type">void</span> *pvParameters)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">LED2_Task</span><span class="params">(<span class="type">void</span> *pvParameters)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**************************************************************************</span></span><br><span class="line"><span class="comment">* @brief 主函数</span></span><br><span class="line"><span class="comment">* @param 无</span></span><br><span class="line"><span class="comment">* @retval 无</span></span><br><span class="line"><span class="comment">* @note step.1 开发板硬件初始化</span></span><br><span class="line"><span class="comment">        step.2 创建APP应用任务</span></span><br><span class="line"><span class="comment">        step.3 启动FreeTROS，开始多任务调度</span></span><br><span class="line"><span class="comment">**************************************************************************/</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    BaseType_t xReturn = pdPASS;  <span class="comment">///&lt; 定义一个创建信息返回值</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 开发板硬件初始化 */</span></span><br><span class="line">    BSP_Init();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;my rtos demo\r\n&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 创建 AppTaskCreate 任务 */</span></span><br><span class="line">    xReturn = xTaskCreate((TaskFunction_t)AppTaskCreate,</span><br><span class="line">                          (<span class="type">const</span> <span class="type">char</span>*   )<span class="string">&quot;AppTaskCreate&quot;</span>,</span><br><span class="line">                          (<span class="type">uint16_t</span>      )<span class="number">512</span>,</span><br><span class="line">                          (<span class="type">void</span>*         )<span class="literal">NULL</span>,</span><br><span class="line">                          (UBaseType_t   )<span class="number">1</span>,</span><br><span class="line">                          (TaskHandle_t* )&amp;AppTaskCreate_Handle);</span><br><span class="line">                          </span><br><span class="line">    <span class="keyword">if</span> (xReturn == pdPASS)  <span class="comment">///&lt; 任务创建成功</span></span><br><span class="line">        vTaskStartScheduler();  <span class="comment">///&lt; 启动任务，开启调度</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>);  <span class="comment">///&lt; 正常情况下不会执行到这里</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">AppTaskCreate</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    BaseType_t xReturn = pdPASS;  <span class="comment">///&lt; 定义一个创建信息返回值</span></span><br><span class="line">    </span><br><span class="line">    taskENTER_CRITICAL();  <span class="comment">///&lt; 进入临界区</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 创建 LED1_Task 任务 */</span></span><br><span class="line">    xReturn = xTaskCreate((TaskFunction_t)LED1_Task,</span><br><span class="line">                          (<span class="type">const</span> <span class="type">char</span>*   )<span class="string">&quot;LED1_Task&quot;</span>,</span><br><span class="line">                          (<span class="type">uint16_t</span>      )<span class="number">512</span>,</span><br><span class="line">                          (<span class="type">void</span>*         )<span class="literal">NULL</span>,</span><br><span class="line">                          (UBaseType_t   )<span class="number">2</span>,</span><br><span class="line">                          (TaskHandle_t* )&amp;LED1_Task_Handle);</span><br><span class="line">                                </span><br><span class="line">    <span class="keyword">if</span> (xReturn == pdPASS)  <span class="comment">///&lt; 任务创建成功</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;LED1_Task 任务创建成功！\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;LED1_Task 任务创建失败！\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 创建 LED2_Task 任务 */</span></span><br><span class="line">    xReturn = xTaskCreate((TaskFunction_t)LED2_Task,</span><br><span class="line">                          (<span class="type">const</span> <span class="type">char</span>*   )<span class="string">&quot;LED2_Task&quot;</span>,</span><br><span class="line">                          (<span class="type">uint16_t</span>      )<span class="number">512</span>,</span><br><span class="line">                          (<span class="type">void</span>*         )<span class="literal">NULL</span>,</span><br><span class="line">                          (UBaseType_t   )<span class="number">3</span>,</span><br><span class="line">                          (TaskHandle_t* )&amp;LED2_Task_Handle);</span><br><span class="line">                                </span><br><span class="line">    <span class="keyword">if</span> (xReturn == pdPASS)  <span class="comment">///&lt; 任务创建成功</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;LED2_Task 任务创建成功！\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;LED2_Task 任务创建失败！\n&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    vTaskDelete(AppTaskCreate_Handle);  <span class="comment">///&lt; 删除 AppTaskCreate 任务</span></span><br><span class="line">    taskEXIT_CRITICAL();  <span class="comment">///&lt; 退出临界区</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">LED1_Task</span><span class="params">(<span class="type">void</span> *parameter)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LED3_ON;</span><br><span class="line">        vTaskDelay(<span class="number">500</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;led1_task running, LED3_ON\r\n&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        LED3_OFF;</span><br><span class="line">        vTaskDelay(<span class="number">500</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;led1_task running, LED3_OFF\r\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">LED2_Task</span><span class="params">(<span class="type">void</span> *parameter)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LED2_ON;</span><br><span class="line">        vTaskDelay(<span class="number">1000</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;led2_task running, LED2_ON\r\n&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        LED3_OFF;</span><br><span class="line">        vTaskDelay(<span class="number">1000</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;led2_task running, LED2_OFF\r\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * STM32中断优先级分组为4，即4位都用来表示抢占优先级，范围为0~15</span></span><br><span class="line"><span class="comment">     * 优先级只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">     * 都统一用这个优先级分组，千万不要再分组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* LED 初始化 */</span></span><br><span class="line">    LED_GPIO_Config();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 测试硬件是否正常工作 */</span></span><br><span class="line">    LED3_ON;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/* 串口初始化 */</span></span><br><span class="line">    USART_Config();</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/********************************END OF FILE****************************/</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="第13章-FreeRTOS-的启动流程"><a href="#第13章-FreeRTOS-的启动流程" class="headerlink" title="第13章 - FreeRTOS 的启动流程 "></a><a href="#context.5">第13章 - FreeRTOS 的启动流程</a><a name="section.5"> </a></h2><p>主要有两种：</p>
+<ol>
+<li>万事俱备只欠东风<br>一次性创建完所有带阻塞的任务，然后直接进行任务调度</li>
+<li>小心翼翼，十分谨慎<br>只创建一个任务，然后开始调度，在任务中创建其他带阻塞的任务，最后需删除初始任务</li>
+</ol>
+<p><strong>注：RT-Thread和FreeRTOS默认使用第二种</strong></p>
+<p><strong>在临界区创建的任务会在退出临界区后按优先级排序执行！</strong></p>
+<h2 id="第14章-任务管理"><a href="#第14章-任务管理" class="headerlink" title="第14章 - 任务管理 "></a><a href="#context.6">第14章 - 任务管理</a><a name="section.6"> </a></h2><p><code>freeRTOS</code> 内核采用两种方法寻找最高优先级的任务，</p>
+<ol>
+<li>通用方法：<br>在就绪链表中从高优先级往低优先级查找 <code>uxTopPriority</code>，因为在创建任务时已经将优先级进行排序，查找到的第一个 <code>uxTopPriority</code> 就是我们需要的任务，然后通过 <code>uxTopPriority</code> 获取对应的任务控制块。</li>
+<li>特殊方法：<br>利用计算前导零指令 <code>CLZ</code>，直接在 <code>uxTopReadyPriority</code> 这个32位的变量中得出 <code>uxTopPriority</code>，这样就可以知道哪一个优先级任务能够运行，这种调度算法比普通方法更便捷，但受限于平台（在 <code>STM32</code> 中我们就使用这种方法）。</li>
+</ol>
+<h3 id="任务迁移图"><a href="#任务迁移图" class="headerlink" title="任务迁移图 "></a><a href="#context.7">任务迁移图</a><a name="section.7"> </a></h3><p><img src="D:\1wyh\Learning\经验书23\FreeRTOS.assets\image-20230510190415673.png" alt="image-20230510190415673"></p>
+<h3 id="任务函数"><a href="#任务函数" class="headerlink" title="任务函数 "></a><a href="#context.8">任务函数</a><a name="section.8"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务挂起</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskSuspend</span><span class="params">(TaskHandle_t xTaskToSuspend)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务挂起</span></span><br><span class="line"><span class="comment"> * @note: 挂起任务调度器（挂起所有任务），调用几次就需要恢复几次</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskSuspendAll</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务恢复</span></span><br><span class="line"><span class="comment"> * @note: 调用一次即可恢复</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskResume</span><span class="params">(TaskHandle_t xTaskToResume)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务恢复</span></span><br><span class="line"><span class="comment"> * @note: 同上，区别是此函数专门用在中断服务函数程序中，不能用于任务和中断间的同步!!!</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 需要进行上下文切换; pdFASLE: 不需要上下文切换</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">vTaskResumeFromISR</span><span class="params">(TaskHandle_t xTaskToResume)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务恢复</span></span><br><span class="line"><span class="comment"> * return pdTRUE: 需要进行上下文切换; pdFASLE: 不需要上下文切换</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">vTaskResumeAll</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务删除</span></span><br><span class="line"><span class="comment"> * @param xTaskToDelete: 若为 NULL 则表示删除自身</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelete</span><span class="params">(TaskHandle_t xTaskToDelete)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务延时（相对）</span></span><br><span class="line"><span class="comment"> * @note: 相对延时，调用结束后开始计算，不适用于周期性执行任务的场合，因为会被打断!!!</span></span><br><span class="line"><span class="comment"> * @param xTicksToDelay: 单位为系统节拍周期</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelay</span><span class="params">(<span class="type">const</span> TickType_t xTicksToDelay)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务延时（绝对）</span></span><br><span class="line"><span class="comment"> * @note: 绝对延时，常用于较精确的周期运行任务，不受外界影响</span></span><br><span class="line"><span class="comment"> * @param pxPreviousWakeTime: 指针变量，保存任务最后一次解除阻塞的时刻，第一次使用时必须为当前时间!</span></span><br><span class="line"><span class="comment"> * @param xTimeIncrement: 周期循环时间</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelayUntil</span><span class="params">(TickType_T * <span class="type">const</span> pxPreviousWakeTime, </span></span><br><span class="line"><span class="params">                     <span class="type">const</span> TickType_t   xTimeIncrement )</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="任务设计要点"><a href="#任务设计要点" class="headerlink" title="任务设计要点 "></a><a href="#context.9">任务设计要点</a><a name="section.9"> </a></h3><p>需要考虑任务运行的上下文环境，任务的执行时间是否合理</p>
+<ol>
+<li><p>中断服务函数</p>
+<p>优先级最高，运行在非任务的执行环境下（一般为芯片的特殊运行模式，也称特权模式），一般只标记事件的发生，然后通知任务去处理，需要快进快出，因此不能挂起当前任务，不能调用会阻塞运行的API</p>
+</li>
+<li><p>普通任务<br>不允许出现死循环（无阻塞）</p>
+</li>
+<li><p>空闲任务（idle任务）<br>FreeRTOS需要保证至少有一个任务在运行，因此这是唯一一个不允许出现阻塞的任务</p>
+</li>
+<li><p>任务的执行时间<br>指两方面，一是任务从开始到结束的时间；二是任务的周期<br>设计时，必须考虑任务的时间，一般来说处理时间更短的任务，其优先级应设置得更高一些。</p>
+</li>
+</ol>
+<h3 id="互斥量"><a href="#互斥量" class="headerlink" title="互斥量 "></a><a href="#context.10">互斥量</a><a name="section.10"> </a></h3><p>互斥量是二值信号量的特殊形式 (它也是通过 Queue 实现)，与二值信号量不同，互斥量用于控制多个任务之间共享资源的访问，也就是互锁；</p>
+<p>不同于上面两种，互斥量不但开放了中断，同时也不挂起调度器；</p>
+<p>注：<strong>互斥量具有优先级继承机制！！！</strong>使用互斥量，需要定义 <strong>configUSE_MUTEXES</strong> 为 1</p>
+<p>如下例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">为什么优先级继承能够降低优先级翻转的影响呢？举个例子，现在有任务A、任务B和任务C，三个任务的优先级顺序为任务C&gt;任务B&gt;任务A。任务A和任务C都要使用某一个硬件资源，并且当前任务A占有该资源。</span><br><span class="line"></span><br><span class="line">先看没有优先级继承的情况：任务C也要使用该资源，但是此时任务A正在使用这个资源，因此任务C进入阻塞，此时三个任务的优先级顺序没有发生变化。在任务C进入阻塞之后，某硬件产生了一次中断，唤醒了一个事件，该事件可以解除任务B的阻塞状态。在中断结束后，因为任务B的优先级是大于任务A的，所以任务B抢占任务A的CPU权限。那么任务C的阻塞时间就至少为：中断处理时间+任务B的运行时间+任务A的运行时间。</span><br><span class="line"></span><br><span class="line">再看有优先级继承的情况：任务C也要使用该资源，但是此时任务A正在使用这个资源，因此任务C进入阻塞，此时由于优先级A会继承任务C的优先级，三个任务的优先级顺序发生了变化，新的优先级顺序为：任务C=任务A&gt;任务B。在任务C进入阻塞之后，某硬件产生了一次中断，唤醒了一个事件，该事件可以解除任务B的阻塞状态。在中断结束后，因为任务A的优先级临时被提高，大于任务B的优先级，所以任务A继续获得CPU权限。任务A完成后，处于高优先级的任务C会接管CPU。所以任务C的阻塞时间为：中断处理时间+任务A的运行时间。看，任务C的阻塞时间变小了，这就是优先级继承的优势。</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="第15章-消息队列"><a href="#第15章-消息队列" class="headerlink" title="第15章 - 消息队列 "></a><a href="#context.11">第15章 - 消息队列</a><a name="section.11"> </a></h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景 "></a><a href="#context.12">应用场景</a><a name="section.12"> </a></h3><p>队列是 <code>FreeRTOS</code> 主要的任务间通信方式，读取采用先进先出（FIFO），也支持后进先出（LIFO）</p>
+<p>用于 1.任务与任务间；2.中断和任务间；传送信息，通过复制的方式实现的，数据量过大时传指针。</p>
+<h3 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数 "></a><a href="#context.13">常用函数</a><a name="section.13"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 动态创建队列</span></span><br><span class="line"><span class="comment"> * @param uxQueueLength: 队列能够存储的最大消息单元数目，即队列长度</span></span><br><span class="line"><span class="comment"> * @param uxItemSize: 队列中消息单元的大小、以字节为单位</span></span><br><span class="line"><span class="comment"> * @return 创建成功则返回队列句柄，用于访问创建的队列；不成功则返回NULL，可能原因是创建队列所需的RAM分配失败</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">QueueHandle_t <span class="title function_">xQueueCreate</span><span class="params">(UBaseType_t uxQueueLength,</span></span><br><span class="line"><span class="params">                           UBaseType_t uxItemSize)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 静态创建队列</span></span><br><span class="line"><span class="comment"> * @param uxQueueLength: 队列能够存储的最大单元数目，即队列深度</span></span><br><span class="line"><span class="comment"> * @param uxItemSize: 队列中数据单元的长度，以字节为单位</span></span><br><span class="line"><span class="comment"> * @param pucQueueStorageBuffer: 指针，指向一个 uint8_t 类型的数组，数组大小至少为 uxQueueLength * uxItemSize 个字节；</span></span><br><span class="line"><span class="comment"> *							     为 0 时，pxQueueBuffer 可以为NULL</span></span><br><span class="line"><span class="comment"> * @param pxQueueBuffer: 指针，指向 StaticQueue_t 类型的变量，此变量用于存储队列的数据结构</span></span><br><span class="line"><span class="comment"> * @return 创建成功则返回队列句柄，用于访问创建的队列；不成功则返回NULL，可能原因是创建队列所需的RAM分配失败</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">QueueHandle_t <span class="title function_">xQueueCreateStatic</span><span class="params">(UBaseType_t   uxQueueLength,</span></span><br><span class="line"><span class="params">                                 UBaseType_t   uxItemSize,</span></span><br><span class="line"><span class="params">                                 <span class="type">uint8_t</span>       *pucQueueStorageBuffer,</span></span><br><span class="line"><span class="params">                                 StaticQueue_t *pxQueueBuffer)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 删除队列</span></span><br><span class="line"><span class="comment"> * @param xQueue: 所需删除的队列句柄，如果未被创建无法删除</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">xQueueDelete</span><span class="params">(QueueHandle_t xQueue)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 向队列发送消息</span></span><br><span class="line"><span class="comment"> * @brief: 向队列尾部插入</span></span><br><span class="line"><span class="comment"> * @note: 等同于 xQueueSendToBack();</span></span><br><span class="line"><span class="comment"> * 		  不能在中断服务程序中被调用，在中断中必须使用带有中断保护功能的 xQueueSendFromISR()</span></span><br><span class="line"><span class="comment"> * @param xQueue: 队列句柄</span></span><br><span class="line"><span class="comment"> * @param pvItemToQueue: 指针，指向要发送到队列尾部的队列消息</span></span><br><span class="line"><span class="comment"> * @param xTicksToWait: 队列满时，等待队列空闲的最大超时时间，单位为系统节拍周期</span></span><br><span class="line"><span class="comment"> *					    若队列满且此参数为0，则立即返回；若为 portMAX_DELAY，将导致任务挂起(没有超时)</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 消息发送成功; errQUEUE_FULL: 发送失败，队列已满</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xQueueSend</span><span class="params">(QueueHandle_t xQueue,</span></span><br><span class="line"><span class="params">                      cosnt <span class="type">void</span>    *pvItemToQueue,</span></span><br><span class="line"><span class="params">                      TickType_t    xTicksToWait)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 向队列发送消息(中断中)</span></span><br><span class="line"><span class="comment"> * @brief: 在中断中向队列尾部插入</span></span><br><span class="line"><span class="comment"> * @param xQueue: 队列句柄</span></span><br><span class="line"><span class="comment"> * @param pvItemToQueue: 指针，指向要发送到队列尾部的队列消息</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 如果入队导致一个任务解锁，并且解锁的任务优先级高于当前被中断的任务，则将此设置成 pdTRUE，</span></span><br><span class="line"><span class="comment"> *                                   然后再中断退出前进行一次上下文切换，去执行比唤醒任务的优先级更高的任务</span></span><br><span class="line"><span class="comment"> *                                   注：从FreeRTOS V7.3.0 起，此参数作为可选项，可以设置成NULL</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 消息发送成功; errQUEUE_FULL: 发送失败，队列已满</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xQueueSendFromISR</span><span class="params">(QueueHandle_t xQueue,</span></span><br><span class="line"><span class="params">                      	     cosnt <span class="type">void</span>    *pvItemToQueue,</span></span><br><span class="line"><span class="params">                             BaseType_t    *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"><span class="comment">/* demo</span></span><br><span class="line"><span class="comment">void vBufferISR(void)</span></span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    char cIn;</span></span><br><span class="line"><span class="comment">    BaseType_t xHighterPriorityTaskWoken;</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    /* 在ISR开始时，我们并没有唤醒任务 */</span></span><br><span class="line">    xHighterPriorityTaskWoken = pdFALSE;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 直到缓冲区为空 */</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="comment">/* 从缓冲区获取一个字节的数据 */</span></span><br><span class="line">        cIn = portINPUT_BTYE(RX_REGISTER_ADRESS);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/* 发送这个数据 */</span></span><br><span class="line">        xQueueSendFromISR(xRxQueue, &amp;cIn, &amp;xHighterPriorityTaskWoken);</span><br><span class="line">    &#125; <span class="keyword">while</span> (portINPUT_BTYE(BUFFER_COUNT));</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 这时 buffer 已经为空，如果需要，则进行上下文切换 */</span></span><br><span class="line">    <span class="keyword">if</span> (xHighterPriorityTaskWoken) &#123;</span><br><span class="line">        <span class="comment">/* 上下文切换，这时一个宏，不同的处理器，具体的方法不一样 */</span></span><br><span class="line">        taskYIELD_FROM_ISR();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 向队列头发送消息</span></span><br><span class="line"><span class="comment"> * @brief: 向队列头部插入</span></span><br><span class="line"><span class="comment"> * @param xQueue: 队列句柄</span></span><br><span class="line"><span class="comment"> * @param pvItemToQueue: 指针，指向要发送到队列头部的消息</span></span><br><span class="line"><span class="comment"> * @param xTicksToWait: 队列满时，等待队列空闲的最大超时时间，单位为系统节拍周期</span></span><br><span class="line"><span class="comment"> *					    若队列满且此参数为0，则立即返回；若为 portMAX_DELAY，将导致任务挂起(没有超时)</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 消息发送成功; errQUEUE_FULL: 发送失败，队列已满</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xQueueSendToFront</span><span class="params">(QueueHandle_t xQueue,</span></span><br><span class="line"><span class="params">                      	     cosnt <span class="type">void</span>    *pvItemToQueue,</span></span><br><span class="line"><span class="params">                             TickType_t    xTicksToWait)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 向队列头发送消息(中断中)</span></span><br><span class="line"><span class="comment"> * @brief: 在中断中向队列头部插入信息</span></span><br><span class="line"><span class="comment"> * @param xQueue: 队列句柄</span></span><br><span class="line"><span class="comment"> * @param pvItemToQueue: 指针，指向要发送到队列头部的消息</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 如果入队导致一个任务解锁，并且解锁的任务优先级高于当前被中断的任务，则将此设置成 pdTRUE，</span></span><br><span class="line"><span class="comment"> *                                   然后再中断退出前进行一次上下文切换，去执行比唤醒任务的优先级更高的任务</span></span><br><span class="line"><span class="comment"> *                                   注：从FreeRTOS V7.3.0 起，此参数作为可选项，可以设置成NULL</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 消息发送成功; errQUEUE_FULL: 发送失败，队列已满</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xQueueSendToFrontFromISR</span><span class="params">(QueueHandle_t xQueue,</span></span><br><span class="line"><span class="params">                      	            cosnt <span class="type">void</span>    *pvItemToQueue,</span></span><br><span class="line"><span class="params">                                    BaseType_t    *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 读取消息</span></span><br><span class="line"><span class="comment"> * @brief: 从一个队列中接收消息，并把接收的消息从队列中删除</span></span><br><span class="line"><span class="comment"> * @param xQueue: 队列句柄</span></span><br><span class="line"><span class="comment"> * @param pvBuffer: 指针，指向接收到的要保存的数据</span></span><br><span class="line"><span class="comment"> * @param xTicksToWait: 队列满时，等待队列空闲的最大超时时间，单位为系统节拍周期</span></span><br><span class="line"><span class="comment"> *					    若队列满且此参数为0，则立即返回；若为 portMAX_DELAY，将导致任务挂起(没有超时)</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 接收成功; pdFALSE: 接收失败</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xQueueReceive</span><span class="params">(QueueHandle_t xQueue,</span></span><br><span class="line"><span class="params">                         <span class="type">void</span>          *pvBuffer,</span></span><br><span class="line"><span class="params">                         TickType_t    xTicksToWait)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 读取消息</span></span><br><span class="line"><span class="comment"> * @brief: 从一个队列中接收消息，不删除</span></span><br><span class="line"><span class="comment"> * @param xQueue: 队列句柄</span></span><br><span class="line"><span class="comment"> * @param pvBuffer: 指针，指向接收到的要保存的数据</span></span><br><span class="line"><span class="comment"> * @param xTicksToWait: 队列满时，等待队列空闲的最大超时时间，单位为系统节拍周期</span></span><br><span class="line"><span class="comment"> *					    若队列满且此参数为0，则立即返回；若为 portMAX_DELAY，将导致任务挂起(没有超时)</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 接收成功; pdFALSE: 接收失败</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xQueuePeek</span><span class="params">(QueueHandle_t xQueue,</span></span><br><span class="line"><span class="params">                      <span class="type">void</span>          *pvBuffer,</span></span><br><span class="line"><span class="params">                      TickType_t    xTicksToWait)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 读取消息(中断中)</span></span><br><span class="line"><span class="comment"> * @brief: 在中断中从一个队列中接收消息，并从队列中删除该消息</span></span><br><span class="line"><span class="comment"> * @param xQueue: 队列句柄</span></span><br><span class="line"><span class="comment"> * @param pvBuffer: 指针，指向接收到的要保存的数据</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 任务在向队列投递消息时，如果队列已满，则任务将阻塞在该队列上。</span></span><br><span class="line"><span class="comment"> *                                   如果导致一个任务解除阻塞，需将此设置成 pdTRUE，否则不变</span></span><br><span class="line"><span class="comment"> *                                   然后再中断退出前进行一次上下文切换，去执行比唤醒任务的优先级更高的任务</span></span><br><span class="line"><span class="comment"> *                                   注：从FreeRTOS V7.3.0 起，此参数作为可选项，可以设置成NULL</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 接收成功; pdFALSE: 接收失败</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xQueueReceiveFromISR</span><span class="params">(QueueHandle_t xQueue,</span></span><br><span class="line"><span class="params">                                <span class="type">void</span>          *pvBuffer,</span></span><br><span class="line"><span class="params">                                BaseType_t    *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 读取消息(中断中)</span></span><br><span class="line"><span class="comment"> * @brief: 在中断中从一个队列中接收消息，不删除</span></span><br><span class="line"><span class="comment"> * @param xQueue: 队列句柄</span></span><br><span class="line"><span class="comment"> * @param pvBuffer: 指针，指向接收到的要保存的数据</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 任务在向队列投递消息时，如果队列已满，则任务将阻塞在该队列上。</span></span><br><span class="line"><span class="comment"> *                                   如果导致一个任务解除阻塞，需将此设置成 pdTRUE，否则不变</span></span><br><span class="line"><span class="comment"> *                                   然后再中断退出前进行一次上下文切换，去执行比唤醒任务的优先级更高的任务</span></span><br><span class="line"><span class="comment"> *                                   注：从FreeRTOS V7.3.0 起，此参数作为可选项，可以设置成NULL</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 接收成功; pdFALSE: 接收失败</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xQueuePeekFromISR</span><span class="params">(QueueHandle_t xQueue,</span></span><br><span class="line"><span class="params">                             <span class="type">void</span>          *pvBuffer)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第16章-信号量"><a href="#第16章-信号量" class="headerlink" title="第16章 - 信号量 "></a><a href="#context.14">第16章 - 信号量</a><a name="section.14"> </a></h2><p>信号量控制块结构体与消息队列结构体是一样的，只是某些成员参数代表含义不同。</p>
+<h3 id="二值信号量"><a href="#二值信号量" class="headerlink" title="二值信号量 "></a><a href="#context.15">二值信号量</a><a name="section.15"> </a></h3><p>既可以用于临界资源访问，也可以用于同步功能。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 创建二值信号量</span></span><br><span class="line"><span class="comment"> * @note: 创建成功后为空，需要先调用 xSemaphoreGive()，归还后才能获取</span></span><br><span class="line"><span class="comment"> *        老式函数 vSemaphoreCreateBinary() 创建的二值信号量则不用，创建后为1，可以直接获取(take)</span></span><br><span class="line"><span class="comment"> * @return 成功: 句柄，原型为 void 类型指针; 失败: NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">SemaphoreHandle_t <span class="title function_">xSemaphoreCreateBinary</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h5 id="二值信号量与互斥量的区别"><a href="#二值信号量与互斥量的区别" class="headerlink" title="二值信号量与互斥量的区别 "></a><a href="#context.16">二值信号量与互斥量的区别</a><a name="section.16"> </a></h5><p>互斥量具有继承机制，二值信号没有。</p>
+<p>二值信号更适合应用于同步功能（任务与任务，任务和中断）</p>
+<p>互斥量更偏向应用于临街资源访问</p>
+<h3 id="互斥信号量量"><a href="#互斥信号量量" class="headerlink" title="互斥信号量量 "></a><a href="#context.17">互斥信号量量</a><a name="section.17"> </a></h3><p>为特殊的二值信号量，其特有的优先级继承机制使它更适用于简单互斥锁，也就是保护临界资源。</p>
+<h3 id="计数信号量"><a href="#计数信号量" class="headerlink" title="计数信号量 "></a><a href="#context.18">计数信号量</a><a name="section.18"> </a></h3><p>用于计数，被任务取走时（take），计数减一；归还时（give），计数加一；为0不可用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 创建计数信号量</span></span><br><span class="line"><span class="comment"> * @brief: 创建一个计数信号量</span></span><br><span class="line"><span class="comment"> * @param uxMaxCount: 计数信号量的最大值，当达到这个值时，信号量不能再被释放(give)</span></span><br><span class="line"><span class="comment"> * @param uxInitialCount: 创建计数信号量的初始值(一般为uxMaxCount)</span></span><br><span class="line"><span class="comment"> * @return 成功: 句柄; 失败: NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">SemaphoreHandle_t <span class="title function_">xSemaphoreCreateCounting</span><span class="params">(UBaseType_t uxMaxCount,</span></span><br><span class="line"><span class="params">                                           UBaseType_t uxInitialCount)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="递归信号量"><a href="#递归信号量" class="headerlink" title="递归信号量 "></a><a href="#context.19">递归信号量</a><a name="section.19"> </a></h3><p>是可以重复获取调用的信号量。</p>
+<p>已经获取递归互斥量的任务可以重复获取该递归互斥量，该任务拥有递归信号量的所有权。</p>
+<p>注意，成功获取几次就需归返几次，在此之前递归互斥量都处于无效状态，其他任务无法获取，只有持有递归信号量的任务才能获取与释放。</p>
+<h3 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数 "></a><a href="#context.20">其他函数</a><a name="section.20"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 信号量删除</span></span><br><span class="line"><span class="comment"> * @brief: 删除一个信号量</span></span><br><span class="line"><span class="comment"> * @note: 如果有任务阻塞在该信号量上，不要删除</span></span><br><span class="line"><span class="comment"> * @param xSemaphore: 信号量句柄</span></span><br><span class="line"><span class="comment"> * @return</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">xSemaphoreDelete</span><span class="params">(SemaphoreHandle_t xSemaphore)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 信号量释放（归还）</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数，用于释放信号量，实现为消息队列通用发送函数 xQueueGenericSend()</span></span><br><span class="line"><span class="comment"> * @note: 可用于释放 1.二值信号量 2.计数信号量 3.互斥信号量</span></span><br><span class="line"><span class="comment"> *        不能用于递归互斥量，由 xSemaphoreCreateRecursiveMutex() 创建</span></span><br><span class="line"><span class="comment"> *        不能在中断中使用！！！</span></span><br><span class="line"><span class="comment"> * @param xSemaphore: 信号量句柄</span></span><br><span class="line"><span class="comment"> * @return</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xSemaphoreGive</span><span class="params">(SemaphoreHandle_t xSemaphore)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 信号量释放（中断中归还）</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数，用于释放信号量，带中断保护</span></span><br><span class="line"><span class="comment"> * @note: 可用于释放 1.二值信号量 2.计数信号量</span></span><br><span class="line"><span class="comment"> *        不能用于互斥信号量，因为互斥量不可在中断中使用，且互斥量的优先级继承只能在任务中起作用，在中断中毫无意义</span></span><br><span class="line"><span class="comment"> * @param xSemaphore: 信号量句柄</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 因为调用此函数可能会唤醒阻塞在该信号量上的任务，</span></span><br><span class="line"><span class="comment"> *                                   如果被唤醒的优先级大于当前任务，则此为 pdTRUE，然后在中断退出前执行一次上下文切换；</span></span><br><span class="line"><span class="comment"> *                                   从 FreeRTOS V7.3.0 开始作为可选参数，可以为 NULL</span></span><br><span class="line"><span class="comment"> * @return 成功: pdTRUE; 失败: pdFALSE；</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xSemaphoreGiveFromISR</span><span class="params">(SemaphoreHandle_t xSemaphore,</span></span><br><span class="line"><span class="params">                                 BaseType_t        *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 信号量获取(拿走)</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数，用于获取信号量，不带中断保护</span></span><br><span class="line"><span class="comment"> * @note: 可用于获取 1.二值信号量 2.计数信号量 3.互斥信号量</span></span><br><span class="line"><span class="comment"> *        不能用于递归互斥量，不能在中断中使用！！！</span></span><br><span class="line"><span class="comment"> * @param xSemaphore: 信号量句柄</span></span><br><span class="line"><span class="comment"> * @param xBlockTime: 等待信号量可用的最大超时时间，单位为 tick（系统节拍周期），若为 portMAX_DELAY，则将一直阻塞</span></span><br><span class="line"><span class="comment"> * @return 成功: pdTRUE; 失败: errQUEUE_EMPTY；</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xSemaphoreTake</span><span class="params">(SemaphoreHandle_t xSemaphore,</span></span><br><span class="line"><span class="params">                          TickType_t        xBlockTime)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 信号量获取(中断中拿走)</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数，用于中断中获取信号量，不带阻塞机制（其实很少在中断中获取信号量）</span></span><br><span class="line"><span class="comment"> * @note: 可用于获取 1.二值信号量 2.计数信号量</span></span><br><span class="line"><span class="comment"> *        不能用于互斥信号量，因为互斥量不可在中断中使用，且互斥量的优先级继承只能在任务中起作用，在中断中毫无意义</span></span><br><span class="line"><span class="comment"> * @param xSemaphore: 信号量句柄</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 因为调用此函数可能会唤醒阻塞在该信号量上的任务，</span></span><br><span class="line"><span class="comment"> *                                   如果被唤醒的优先级大于当前任务，则此为 pdTRUE，然后在中断退出前执行一次上下文切换；</span></span><br><span class="line"><span class="comment"> *                                   从 FreeRTOS V7.3.0 开始作为可选参数，可以为 NULL</span></span><br><span class="line"><span class="comment"> * @return 成功: pdTRUE; 失败: errQUEUE_EMPTY, 表信号量不可用;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xSemaphoreTakeFromISR</span><span class="params">(SemaphoreHandle_t xSemaphore,</span></span><br><span class="line"><span class="params">                                 <span class="type">signed</span> BaseType_t *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 获取当前计数信号的可用次数</span></span><br><span class="line"><span class="comment"> * @param xSemaphore: 计数信号量句柄，二值信号量句柄</span></span><br><span class="line"><span class="comment"> * @return 如果信号量是计数信号量，则返回信号量的当前计数值 &gt;=0</span></span><br><span class="line"><span class="comment"> *         如果信号量是二值信号量，则当信号量可用时，返回 1，当信号量不可用时，返回 0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">UBaseType_t <span class="title function_">uxSemaphoreGetCount</span><span class="params">(SemaphoreHandle_t xSemaphore)</span>;</span><br><span class="line"><span class="comment">/* demo</span></span><br><span class="line"><span class="comment">UBaseType_t semavalue = uxSemaphoreGetCount(xCountingSemaphore);</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="第17章-互斥量"><a href="#第17章-互斥量" class="headerlink" title="第17章 - 互斥量 "></a><a href="#context.21">第17章 - 互斥量</a><a name="section.21"> </a></h2><p>互斥量又称互斥信号量，是一种特殊的二值信号。互斥量和信号量的不同之处在于，它支持互斥量所有权、递归访问以及防止优先级翻转的特性，用于实现对临界区资源的独占式处理。</p>
+<p><strong>注：只在任务中起作用，不能用于中断服务函数中！！！</strong></p>
+<h3 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数 "></a><a href="#context.22">相关函数</a><a name="section.22"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 创建互斥量</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数，创建一个互斥信号量</span></span><br><span class="line"><span class="comment"> * @return 成功: 互斥量句柄; 失败: NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">SemaphoreHandle_t <span class="title function_">xSemaphoreCreateMutex</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 创建递归互斥量</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数</span></span><br><span class="line"><span class="comment"> * @return 成功: 互斥量句柄; 失败: NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">SemaphoreHandle_t <span class="title function_">xSemaphoreCreateRecursiveMutex</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 删除互斥量</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数</span></span><br><span class="line"><span class="comment"> * @note: 详见 16章 其他函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">xSemaphoreDelete</span><span class="params">(SemaphoreHandle_t xSemaphore)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 互斥量获取</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数</span></span><br><span class="line"><span class="comment"> * @note: 详见 16章 其他函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xSemaphoreTake</span><span class="params">(SemaphoreHandle_t xSemaphore,</span></span><br><span class="line"><span class="params">                          TickType_t        xBlockTime)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 递归互斥量获取</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数</span></span><br><span class="line"><span class="comment"> * @note: 只能获取由 xSemaphoreCreateRecursiveMutex 创建的互斥量</span></span><br><span class="line"><span class="comment"> * @param xSemaphore: 信号量句柄</span></span><br><span class="line"><span class="comment"> * @param xBlockTime: 等待信号量可用的最大超时时间，单位为 tick（系统节拍周期），若为 portMAX_DELAY，则将一直阻塞</span></span><br><span class="line"><span class="comment"> * @return 成功: pdTRUE; 失败: errQUEUE_EMPTY;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xSemaphoreTakeRecursive</span><span class="params">(SemaphoreHandle_t xSemaphore,</span></span><br><span class="line"><span class="params">                                   TickType_t        xBlockTime)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 互斥量释放</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数</span></span><br><span class="line"><span class="comment"> * @note: 详见 16章 其他函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xSemaphoreGive</span><span class="params">(SemaphoreHandle_t xSemaphore)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 递归互斥量释放</span></span><br><span class="line"><span class="comment"> * @brief: 为宏函数</span></span><br><span class="line"><span class="comment"> * @note: 只能获取由 xSemaphoreCreateRecursiveMutex 创建的互斥量</span></span><br><span class="line"><span class="comment"> *        拿走几次都需要释放几次!</span></span><br><span class="line"><span class="comment"> * @param xSemaphore: 信号量句柄</span></span><br><span class="line"><span class="comment"> * @return 成功: pdTRUE; 失败: errQUEUE_EMPTY;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xSemaphoreGiveRecursive</span><span class="params">(SemaphoreHandle_t xSemaphore)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="第18章-事件"><a href="#第18章-事件" class="headerlink" title="第18章 - 事件 "></a><a href="#context.23">第18章 - 事件</a><a name="section.23"> </a></h2><p>​		事件是一种实现任务间通信的机制，主要用于实现多任务间的同步，但<strong>事件通信只能是事件类型的通信，无数据传输</strong>。与信号量不同的是，事件可以实现一对多、多对多的同步，即一个任务可以等待多个事件的发生：1.可以是任意一个事件发生时唤醒任务进行事件处理；2.也可以是几个事件都发生后才唤醒任务进行事件处理。同样，也可以是多个任务同步多个事件。</p>
+<p>​		每一个事件组只需要很少的RAM空间来保存其状态。</p>
+<p>​		如果宏 <code>configUSE_16_BIT_TICKS</code> 定义为1，则 <code>uxEventBits</code> 就是16位的，其中有8位来存储事件组。</p>
+<p>​		否则， <code>uxEventBits</code> 就是32位的，其中有24位来存储事件组。</p>
+<h3 id="事件函数"><a href="#事件函数" class="headerlink" title="事件函数 "></a><a href="#context.24">事件函数</a><a name="section.24"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 事件创建</span></span><br><span class="line"><span class="comment"> * @return 成功: 句柄; 失败: NULL;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">EventGroupHandle_t <span class="title function_">xEventGroupCreate</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 事件删除</span></span><br><span class="line"><span class="comment"> * @param xEventGroup: 事件句柄</span></span><br><span class="line"><span class="comment"> * @return 成功: 句柄; 失败: NULL;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">xEventGroupDelete</span><span class="params">(EventGroupHandle_t xEventGroup)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 事件置位</span></span><br><span class="line"><span class="comment"> * @brief: 置位事件组中指定的位</span></span><br><span class="line"><span class="comment"> * @param xEventGroup: 事件组句柄</span></span><br><span class="line"><span class="comment"> * @param uxBitsToSet: 指定事件中的事件标志位。</span></span><br><span class="line"><span class="comment"> *                     如果设置 uxBitsToSet 为 0x08，则只置位位3,</span></span><br><span class="line"><span class="comment"> *                     如果设置 uxBitsToSet 为 0x09，则置位位3和位0</span></span><br><span class="line"><span class="comment"> * @return 返回调用 xEventGroupSetBits() 时事件组中的值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">EventBits_t <span class="title function_">xEventGroupSetBits</span><span class="params">(EventGroupHandle_t xEventGroup, </span></span><br><span class="line"><span class="params">                               <span class="type">const</span> EventBits_t  uxBitsToSet)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 事件置位（中断）</span></span><br><span class="line"><span class="comment"> * @brief: 在中断函数中，置位事件组中指定的位</span></span><br><span class="line"><span class="comment"> * @param xEventGroup: 事件组句柄</span></span><br><span class="line"><span class="comment"> * @param uxBitsToSet: 指定事件中的事件标志位。</span></span><br><span class="line"><span class="comment"> *                     如果设置 uxBitsToSet 为 0x08，则只置位位3,</span></span><br><span class="line"><span class="comment"> *                     如果设置 uxBitsToSet 为 0x09，则置位位3和位0</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 使用之前必须初始化为 pdFALSE;</span></span><br><span class="line"><span class="comment"> *                                   调用会给守护任务发送一个消息，如果守护任务的优先级高于当前被中断的任务的优先级，</span></span><br><span class="line"><span class="comment"> *                                   此参会被置为 pdTRUE，然后再中断退出前执行一次上下文切换</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 消息成功发送给守护任务; pdFALSE: 发送失败;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xEventGroupSetBitsFromISR</span><span class="params">(EventGroupHandle_t xEventGroup, </span></span><br><span class="line"><span class="params">                                     <span class="type">const</span> EventBits_t  uxBitsToSet,</span></span><br><span class="line"><span class="params">                                     BaseType_t         *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 等待事件</span></span><br><span class="line"><span class="comment"> * @brief: 用于获取任务感兴趣的事件</span></span><br><span class="line"><span class="comment"> * @param xEventGroup: 事件组句柄</span></span><br><span class="line"><span class="comment"> * @param uxBitsToWaitFor: 一个按位或的值，指定需要等待事件组中的哪些位 置1</span></span><br><span class="line"><span class="comment"> * @param xClearOnExit: pdTRUE: 当等待到满足任务唤醒的事件时，系统将清除由形参 uxBitsToWaitFor 指定的事件标志位</span></span><br><span class="line"><span class="comment"> *                      pdFALSE: 不会清除由形参 uxBitsToWaitFor 指定的事件标志位</span></span><br><span class="line"><span class="comment"> * @param xWaitForAllBits: pdTRUE: 指定的标志位都置位时（事件都存在），才满足唤醒条件</span></span><br><span class="line"><span class="comment"> *                         pdFALSE: 指定的标志位任一位 置位时（事件存在一个即可），满足唤醒条件</span></span><br><span class="line"><span class="comment"> * @param xTicksToWait: 最大超时时间</span></span><br><span class="line"><span class="comment"> * @return 返回事件中的哪些事件标志位被置位，返回值很可能并不是用户指定的事件位，需要对返回值进行判断后再处理</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">EventBits_t <span class="title function_">xEventGroupWaitBits</span><span class="params">(<span class="type">const</span> EventGroupHandle_t xEventGroup,</span></span><br><span class="line"><span class="params">                                <span class="type">const</span> EventBits_t        uxBitsToWaitFor,</span></span><br><span class="line"><span class="params">                                <span class="type">const</span> BaseType_t         xClearOnExit,</span></span><br><span class="line"><span class="params">                                <span class="type">const</span> BaseType_t         xWaitForAllBits,</span></span><br><span class="line"><span class="params">                                TickType_t               xTicksToWait)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 清除事件组指定位</span></span><br><span class="line"><span class="comment"> * @brief: 清除事件组中指定的位</span></span><br><span class="line"><span class="comment"> * @param xEventGroup: 事件组句柄</span></span><br><span class="line"><span class="comment"> * @param uxBitsToClear: 指定事件组中的哪个位需要清除</span></span><br><span class="line"><span class="comment"> * @return 在还没有清除指定位之前事件的值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">EventBits_t <span class="title function_">xEventGroupClearBits</span><span class="params">(EventGroupHandle_t xEventGroup,</span></span><br><span class="line"><span class="params">                                 <span class="type">const</span> EventBits_t  uxBitsToClear)</span>;</span><br><span class="line">EventBits_t <span class="title function_">xEventGroupClearBitsFromISR</span><span class="params">(EventGroupHandle_t xEventGroup,</span></span><br><span class="line"><span class="params">                                        <span class="type">const</span> EventBits_t  uxBitsToClear)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="第19章-软件定时器"><a href="#第19章-软件定时器" class="headerlink" title="第19章 - 软件定时器 "></a><a href="#context.25">第19章 - 软件定时器</a><a name="section.25"> </a></h2><p>​		定时器，是指从指定的时刻开始，经过一段指定的时间后触发一个超时事件，用户可以自定义定时器的周期与频率。类似生活中的闹钟，我们可以设置闹钟什么时候响，还能设置响的次数，是响一次还是每天都响。</p>
+<ol>
+<li>硬件定时器<br>    是芯片本身提供定时功能，一般是由外部晶振为芯片提供输入时钟，芯片向软件模块提供一组配置寄存器，接受控制输入，到达设定时间值后，芯片中断控制产生时钟中断。硬件定时器的精度一般很高，可以达到纳秒级别，并且是中断触发方式。</li>
+<li>软件定时器<br>    利用回调函数的方式处理中断。定时精度与系统时钟的周期有关。一般系统利用 <code>SysTick</code> 作为软件定时器的基础时钟，软件定时器的回调函数类似硬件的中断服务函数，所以回调函数也需要快进快出，并且不能有任何阻塞任务运行的情况。</li>
+</ol>
+<p><code>FreeRTOS</code> 软件定时器功能上支持：</p>
+<ol>
+<li>裁剪，可通过宏关闭软件定时器功能</li>
+<li>软件定时器创建</li>
+<li>软件定时器启动</li>
+<li>软件定时器停止</li>
+<li>软件定时器复位</li>
+<li>软件定时器删除</li>
+<li>单次模式</li>
+<li>周期模式</li>
+</ol>
+<p><strong>注意：软件定时器的精度是无法和硬件定时器相比的，因为软件定时器过程中有可能被其他中断所打断，这是由于软件定时器的执行上下文是任务。</strong></p>
+<h3 id="定时器函数"><a href="#定时器函数" class="headerlink" title="定时器函数 "></a><a href="#context.26">定时器函数</a><a name="section.26"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 软件定时器创建</span></span><br><span class="line"><span class="comment"> * @brief: </span></span><br><span class="line"><span class="comment"> * @note: 创建成功后是休眠的</span></span><br><span class="line"><span class="comment"> * @param pcTimerName: 定时器名称</span></span><br><span class="line"><span class="comment"> * @param xTimerPeriodInTicks: 软件定时器的周期，单位为系统节拍周期(即 tick)，</span></span><br><span class="line"><span class="comment"> *                             使用 pdMS_TO_TICKS()可以把时间单位从ms转换为系统节拍周期</span></span><br><span class="line"><span class="comment"> * @param uxAutoReload: pdTRUE: 周期模式; pdFALSE: 单次模式，运行一次后就进去休眠态</span></span><br><span class="line"><span class="comment"> * @param pvTimerID: 软件定时器ID，数字形式。该ID典型的用法是当一个回调函数分配给一个或多个软件定时器时，</span></span><br><span class="line"><span class="comment"> *                   在回调函数中根据 ID 号来处理不同的软件定时器</span></span><br><span class="line"><span class="comment"> * @param pxCallbackFunction: 软件定时器的回调函数，时间到时会调用这个函数</span></span><br><span class="line"><span class="comment"> * @return 成功: 定时器句柄; 失败: NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">TimerHandle_t <span class="title function_">xTimerCreate</span><span class="params">(<span class="type">const</span> <span class="type">char</span> * <span class="type">const</span> pcTimerName,</span></span><br><span class="line"><span class="params">                           <span class="type">const</span> TickType_t   xTimerPeriodInTicks,</span></span><br><span class="line"><span class="params">                           <span class="type">const</span> UBaseType_t  uxAutoReload,</span></span><br><span class="line"><span class="params">                           <span class="type">void</span> * <span class="type">const</span>       pvTimerID,</span></span><br><span class="line"><span class="params">                           TimerCallbackFunction_t pxCallbackFunction)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 软件定时器启动</span></span><br><span class="line"><span class="comment"> * @brief: </span></span><br><span class="line"><span class="comment"> * @note: 宏函数</span></span><br><span class="line"><span class="comment"> * @param xTimer: 定时器句柄</span></span><br><span class="line"><span class="comment"> * @param xTicksToWait: 用户指定超时阻塞时间，单位为系统节拍周期（即tick）</span></span><br><span class="line"><span class="comment"> *                      如果该值不为0，则调用该函数的任务将被锁定在阻塞态，阻塞时间为用户指定的时间，</span></span><br><span class="line"><span class="comment"> *                      直到指定的时间过去后，系统才会将启动软件定时器的命令发送出去。</span></span><br><span class="line"><span class="comment"> *                      如果在 FreeRTOS 调度器开启之前调用此函数，此参将不起作用</span></span><br><span class="line"><span class="comment"> * @return 成功: 定时器句柄; 失败: NULL</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTimerStart</span><span class="params">(TimerHandle_t    xTimer,</span></span><br><span class="line"><span class="params">                       <span class="type">const</span> TickType_t xTicksToWait)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 软件定时器启动（中断）</span></span><br><span class="line"><span class="comment"> * @brief: 在中断中启动一个软件定时器</span></span><br><span class="line"><span class="comment"> * @note: 宏函数</span></span><br><span class="line"><span class="comment"> * @param xTimer: 定时器句柄</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 定时器守护任务的大部分时间都在阻塞态等待定时器命令队列的命令。</span></span><br><span class="line"><span class="comment"> *                                   调用此函数将会向定时器的命令队列发送一个启动命令，这很可能会将定时器从阻塞态移除。</span></span><br><span class="line"><span class="comment"> *                                   如果调用此函数让定时器任务脱离阻塞态，且定时器守护任务的优先级大于等于当前被中断的任务的优先级，</span></span><br><span class="line"><span class="comment"> *                                   那么此参数的值会在函数内部设置为 pdTRUE，然后在中断退出之前执行一次上下文切换</span></span><br><span class="line"><span class="comment"> * @return 成功: pdPASS; 失败: pdFALSE;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTimerStartFromISR</span><span class="params">(TimerHandle_t xTimer,</span></span><br><span class="line"><span class="params">                              BaseType_t    *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 软件定时器停止</span></span><br><span class="line"><span class="comment"> * @brief: 停止一个软件定时器，让其进入休眠态</span></span><br><span class="line"><span class="comment"> * @note: </span></span><br><span class="line"><span class="comment"> * @param xTimer: 定时器句柄</span></span><br><span class="line"><span class="comment"> * @param xBlockTime: 用户指定的超时时间，单位为系统节拍周期（即tick）</span></span><br><span class="line"><span class="comment"> *                    如果在 FreeRTOS 调度器开启之前调用此函数，则此参数不起作用</span></span><br><span class="line"><span class="comment"> * @return 成功: pdPASS; 失败: pdFALSE;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTimerStop</span><span class="params">(TimerHandle_t xTimer,</span></span><br><span class="line"><span class="params">                      TickType_t    xBlockTime)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 软件定时器停止(中断)</span></span><br><span class="line"><span class="comment"> * @brief: 在中断中停止一个软件定时器，让其进入休眠态</span></span><br><span class="line"><span class="comment"> * @note: </span></span><br><span class="line"><span class="comment"> * @param xTimer: 定时器句柄</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 定时器守护任务的大部分时间都在阻塞态等待定时器命令队列的命令。</span></span><br><span class="line"><span class="comment"> *                                   调用此函数将会向定时器的命令队列发送一个启动命令，这很可能会将定时器从阻塞态移除。</span></span><br><span class="line"><span class="comment"> *                                   如果调用此函数让定时器任务脱离阻塞态，且定时器守护任务的优先级大于等于当前被中断的任务的优先级，</span></span><br><span class="line"><span class="comment"> *                                   那么此参数的值会在函数内部设置为 pdTRUE，然后在中断退出之前执行一次上下文切换</span></span><br><span class="line"><span class="comment"> * @return 成功: pdPASS; 失败: pdFALSE;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTimerStopFromISR</span><span class="params">(TimerHandle_t xTimer,</span></span><br><span class="line"><span class="params">                             BaseType_t    *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 软件定时器删除</span></span><br><span class="line"><span class="comment"> * @brief: 删除一个已经被创建成功的软件定时器</span></span><br><span class="line"><span class="comment"> * @note: 为宏函数</span></span><br><span class="line"><span class="comment"> * @param xTimer: 定时器句柄</span></span><br><span class="line"><span class="comment"> * @param xBlockTime: 用户指定的超时时间，单位为系统节拍周期（即tick）</span></span><br><span class="line"><span class="comment"> *                    如果在 FreeRTOS 调度器开启之前调用此函数，则此参数不起作用</span></span><br><span class="line"><span class="comment"> * @return 成功: pdPASS; 失败: pdFALSE;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTimerDelete</span><span class="params">(TimerHandle_t xTimer,</span></span><br><span class="line"><span class="params">                        TickType_t    xTicksToWait)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="第20章-任务通知"><a href="#第20章-任务通知" class="headerlink" title="第20章 - 任务通知 "></a><a href="#context.27">第20章 - 任务通知</a><a name="section.27"> </a></h2><p>​		<code>FreeRTOS</code> 从 <code>V8.2.0</code> 版本开始提供任务通知功能，每个任务都有一个32位的通知值，在大多数情况下，任务通知可以替代二值信号量、计数信号量、事件组，也可以替代长度为1的队列（可以保存一个32位整数或指针值）。</p>
+<p>​		使用任务通知比通过信号量等ICP通信方式接触阻塞的任务速度要快45%，并且更加省RAM内存空间（使用GCC编译器，-o2优化级别），任务通知的使用无需创建队列。</p>
+<p><code>FreeRTOS</code> 提供以下几种方式发送通知给任务：</p>
+<ol>
+<li>如果有通知未读，则不覆盖通知值</li>
+<li>直接覆盖通知值</li>
+<li>设置通知值的一个或者多个位，可以当作事件组来使用</li>
+<li>递增通知值，可以当作计数信号量使用</li>
+</ol>
+<p>注意有以下限制：</p>
+<ol>
+<li>只能有一个任务接收任务通知消息，因为必须指定接受通知的任务</li>
+<li>只有等待通知的任务可以被阻塞，发送通知的任务在任何情况下都不会因为发送失败而进入阻塞态</li>
+</ol>
+<h3 id="任务通知函数"><a href="#任务通知函数" class="headerlink" title="任务通知函数 "></a><a href="#context.28">任务通知函数</a><a name="section.28"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 发送任务通知</span></span><br><span class="line"><span class="comment"> * @brief: 用于在任务中向指定任务发送任务通知，并更新对方的任务通知值（加1操作）</span></span><br><span class="line"><span class="comment"> * @note: 为宏函数，用于二值信号量和计数信号量</span></span><br><span class="line"><span class="comment"> * @param xTaskToNotify: 接受通知的任务句柄，并让其自身的任务通知值加一</span></span><br><span class="line"><span class="comment"> * @return 总是返回 pdPASS</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTaskNotifyGive</span><span class="params">(TaskHandle_t xTaskToNotify)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 发送任务通知（中断）</span></span><br><span class="line"><span class="comment"> * @brief: 在中断中，用于在任务中向指定任务发送任务通知，并更新对方的任务通知值（加1操作）</span></span><br><span class="line"><span class="comment"> * @note: </span></span><br><span class="line"><span class="comment"> * @param xTaskToNotify: 接受通知的任务句柄，并让其自身的任务通知值加一</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 使用前必须被初始化为 pdFALSE</span></span><br><span class="line"><span class="comment"> *                                   当调用该函数发送一个任务通知时，目标任务接收到通知后将从阻塞态变为就绪态</span></span><br><span class="line"><span class="comment"> *                                   并且如果其优先级比当前运行的任务的优先级高，那么此参会被设置为 pdTRUE</span></span><br><span class="line"><span class="comment"> *                                   然后在中断退出前执行一次上下文切换，为可选参数，可以为 NULL</span></span><br><span class="line"><span class="comment"> * @return </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">xTaskNotifyGiveFromISR</span><span class="params">(TaskHandle_t xTaskToNotify,</span></span><br><span class="line"><span class="params">                            BaseType_t   *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 发送任务通知</span></span><br><span class="line"><span class="comment"> * @brief: 向指定的任务发送一个任务通知，带有通知值并且用户可以指定通知值的发送方式</span></span><br><span class="line"><span class="comment"> * @note: 指定一个通知值，和此通知值的发送方式</span></span><br><span class="line"><span class="comment"> * @param xTaskToNotify: 接受通知的任务句柄</span></span><br><span class="line"><span class="comment"> * @param ulValue: 用于更新接受任务通知的 任务通知值，具体如何更新由形参 eAction 决定</span></span><br><span class="line"><span class="comment"> * @param eAction: 任务通知值的更新方式，详见下表</span></span><br><span class="line"><span class="comment"> * @return 参数 eAction 为 eSetValueWithoutOverwrite 时，如果被通知任务还没取走上一个通知，又接收到了一个通知，</span></span><br><span class="line"><span class="comment"> *         则这次通知值未能更新并返回 pdFALSE;</span></span><br><span class="line"><span class="comment"> *         其他情况均返回 pdPASS;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTaskNotify</span><span class="params">(TaskHandle_t  xTaskToNotify,</span></span><br><span class="line"><span class="params">                       <span class="type">uint32_t</span>      ulValue,</span></span><br><span class="line"><span class="params">                       eNotifyAction eAction)</span>;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>eAction取值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>eNoAction</td>
+<td>对象任务接受任务通知，但是任务自身的任务通知值不更新，即形参 ulValue没有用</td>
+</tr>
+<tr>
+<td>eSetBits</td>
+<td>对象任务接收任务通知，同时任务自身的任务通知值与ulValue按位或。<br />如果 ulValue 为 0x01，那么任务的通知值的位0将被置1</td>
+</tr>
+<tr>
+<td>eIncrement</td>
+<td>对象任务接受任务通知。任务自身的任务通知值加1，即形参 ulValue 没用，<br />这时调用 xTaskNotify 相当于调用 xTaskNotifyGive</td>
+</tr>
+<tr>
+<td>eSetValueWithOverwrite</td>
+<td>对象任务接收任务通知，且任务自身的任务通知值会无条件的被设置为 ulValue</td>
+</tr>
+<tr>
+<td>eSetValueWithoutOverwrite</td>
+<td>对象任务接收任务通知，且对象任务没有通知值，那么通知值就会被设置为 ulValue<br />若上次通知值没有被取走，则不更新，同时返回 pdFALSE</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 发送任务通知（中断）</span></span><br><span class="line"><span class="comment"> * @brief: 在中断中向指定的任务发送一个任务通知</span></span><br><span class="line"><span class="comment"> * @note: 指定一个通知值，和此通知值的发送方式</span></span><br><span class="line"><span class="comment"> * @param xTaskToNotify: 接受通知的任务句柄</span></span><br><span class="line"><span class="comment"> * @param ulValue: 用于更新接受任务通知的 任务通知值，具体如何更新由形参 eAction 决定</span></span><br><span class="line"><span class="comment"> * @param eAction: 任务通知值的更新方式，详见上表</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 使用前必须被初始化为 pdFALSE</span></span><br><span class="line"><span class="comment"> *                                   当调用该函数发送一个任务通知时，目标任务接收到通知后将从阻塞态变为就绪态</span></span><br><span class="line"><span class="comment"> *                                   并且如果其优先级比当前运行的任务的优先级高，那么此参会被设置为 pdTRUE</span></span><br><span class="line"><span class="comment"> *                                   然后在中断退出前执行一次上下文切换，为可选参数，可以为 NULL</span></span><br><span class="line"><span class="comment"> * @return 参数 eAction 为 eSetValueWithoutOverwrite 时，如果被通知任务还没取走上一个通知，又接收到了一个通知，</span></span><br><span class="line"><span class="comment"> *         则这次通知值未能更新并返回 pdFALSE;</span></span><br><span class="line"><span class="comment"> *         其他情况均返回 pdPASS;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTaskNotifyFromISR</span><span class="params">(TaskHandle_t  xTaskToNotify,</span></span><br><span class="line"><span class="params">                              <span class="type">uint32_t</span>      ulValue,</span></span><br><span class="line"><span class="params">                              eNotifyAction eAction,</span></span><br><span class="line"><span class="params">                              BaseType_t    *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 发送任务通知</span></span><br><span class="line"><span class="comment"> * @brief: 向指定的任务发送一个任务通知，并返回对象任务的上一个通知值</span></span><br><span class="line"><span class="comment"> * @note: </span></span><br><span class="line"><span class="comment"> * @param xTaskToNotify: 接受通知的任务句柄</span></span><br><span class="line"><span class="comment"> * @param ulValue: 用于更新接受任务通知的 任务通知值，具体如何更新由形参 eAction 决定</span></span><br><span class="line"><span class="comment"> * @param eAction: 任务通知值的更新方式，详见上表</span></span><br><span class="line"><span class="comment"> * @param pulPreviousNotifyValue: 对象任务的上一个任务通知值，如果为 NULL ，则不需要回传，这时等价于 xTaskNotify</span></span><br><span class="line"><span class="comment"> * @return 参数 eAction 为 eSetValueWithoutOverwrite 时，如果被通知任务还没取走上一个通知，又接收到了一个通知，</span></span><br><span class="line"><span class="comment"> *         则这次通知值未能更新并返回 pdFALSE;</span></span><br><span class="line"><span class="comment"> *         其他情况均返回 pdPASS;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTaskNotifyAndQuery</span><span class="params">(TaskHandle_t xTaskToNotify,</span></span><br><span class="line"><span class="params">                              <span class="type">uint32_t</span>      ulValue,</span></span><br><span class="line"><span class="params">                              eNotifyAction eAction,</span></span><br><span class="line"><span class="params">                              <span class="type">uint32_t</span>      *pulPreviousNotifyValue)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 发送任务通知（中断）</span></span><br><span class="line"><span class="comment"> * @brief: 中断中向指定的任务发送一个任务通知，并返回对象任务的上一个通知值</span></span><br><span class="line"><span class="comment"> * @note: </span></span><br><span class="line"><span class="comment"> * @param xTaskToNotify: 接受通知的任务句柄</span></span><br><span class="line"><span class="comment"> * @param ulValue: 用于更新接受任务通知的 任务通知值，具体如何更新由形参 eAction 决定</span></span><br><span class="line"><span class="comment"> * @param eAction: 任务通知值的更新方式，详见上表</span></span><br><span class="line"><span class="comment"> * @param pulPreviousNotifyValue: 对象任务的上一个任务通知值，如果为 NULL ，则不需要回传，这时等价于 xTaskNotify</span></span><br><span class="line"><span class="comment"> * @param pxHigherPriorityTaskWoken: 使用前必须被初始化为 pdFALSE</span></span><br><span class="line"><span class="comment"> *                                   当调用该函数发送一个任务通知时，目标任务接收到通知后将从阻塞态变为就绪态</span></span><br><span class="line"><span class="comment"> *                                   并且如果其优先级比当前运行的任务的优先级高，那么此参会被设置为 pdTRUE</span></span><br><span class="line"><span class="comment"> *                                   然后在中断退出前执行一次上下文切换，为可选参数，可以为 NULL</span></span><br><span class="line"><span class="comment"> * @return 参数 eAction 为 eSetValueWithoutOverwrite 时，如果被通知任务还没取走上一个通知，又接收到了一个通知，</span></span><br><span class="line"><span class="comment"> *         则这次通知值未能更新并返回 pdFALSE;</span></span><br><span class="line"><span class="comment"> *         其他情况均返回 pdPASS;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTaskNotifyAndQueryFromISR</span><span class="params">(TaskHandle_t xTaskToNotify,</span></span><br><span class="line"><span class="params">                                      <span class="type">uint32_t</span>      ulValue,</span></span><br><span class="line"><span class="params">                                      eNotifyAction eAction,</span></span><br><span class="line"><span class="params">                                      <span class="type">uint32_t</span>      *pulPreviousNotifyValue,</span></span><br><span class="line"><span class="params">                                      BaseType_t    *pxHigherPriorityTaskWoken)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 获取任务通知</span></span><br><span class="line"><span class="comment"> * @brief: 用于获取一个任务通知，如获取二值信号量、计数信号量类型的任务通知</span></span><br><span class="line"><span class="comment"> * @note: </span></span><br><span class="line"><span class="comment"> * @param xClearCountOnExit: 为 pdFALSE 时，此函数退出前，将任务的通知值减1，可以用来实现计数信号量</span></span><br><span class="line"><span class="comment"> *                           为 pdTRUE 时，退出前将任务通知值清0，可用来实现二值信号量</span></span><br><span class="line"><span class="comment"> * @param xTicksToWait: 超时时间，单位为系统节拍周期，宏 pdMS_TO_TICKS 用于将毫秒转化为系统节拍数</span></span><br><span class="line"><span class="comment"> * @return 在任务通知值减1或者清零之前，返回任务的当前通知值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">uint32_t</span> <span class="title function_">ulTaskNotifyTake</span><span class="params">(BaseType_t xClearCountOnExit,</span></span><br><span class="line"><span class="params">                          TickType_t xTicksToWait)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 全功能等待任务通知</span></span><br><span class="line"><span class="comment"> * @brief: 用于等待一个任务通知，并带有超时等待</span></span><br><span class="line"><span class="comment"> * @note: </span></span><br><span class="line"><span class="comment"> * @param ulBitsToClearOnEntry: 表在使用通知前，将任务通知值的哪些位清零，实现是按位取反后位与</span></span><br><span class="line"><span class="comment"> *                              如果设置为 0x01，那么在进入函数前，位1会被清零</span></span><br><span class="line"><span class="comment"> *                              如果设置为 0xFFFFFFFF（ULONG_MAX），那么在进入函数前，所有位清零，表清空通知值</span></span><br><span class="line"><span class="comment"> * @param ulBitsToClearOnExit: 表在函数退出前，决定任务接收到的通知值的哪些位会被清零，实现同上</span></span><br><span class="line"><span class="comment"> *                             在清零前，接收到的任务通知值会先保存到形参 *pulNotificationValue 中</span></span><br><span class="line"><span class="comment"> *                             比如为 0x03，那么在退出前，接收到的任务通知值的位0-1会被清零</span></span><br><span class="line"><span class="comment"> *                             如果设置为 0xFFFFFFFF（ULONG_MAX），那么所有位清零，表清空通知值</span></span><br><span class="line"><span class="comment"> * @param pulNotificationValue: 用于保存接收到的任务通知值，不用则设为 NULL</span></span><br><span class="line"><span class="comment"> * @param xTicksToWait: 超时时间，单位为系统节拍周期，宏 pdMS_TO_TICKS 用于将毫秒转化为系统节拍数</span></span><br><span class="line"><span class="comment"> * @return 成功: pdTRUE; 失败: pdFALSE;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">xTaskNotifyWait</span><span class="params">(<span class="type">uint32_t</span>   ulBitsToClearOnEntry,</span></span><br><span class="line"><span class="params">                           <span class="type">uint32_t</span>   ulBitsToClearOnExit,</span></span><br><span class="line"><span class="params">                           <span class="type">uint32_t</span>   *pulNotificationValue,</span></span><br><span class="line"><span class="params">                           TickType_t xTicksToWait)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="第21章-内存管理"><a href="#第21章-内存管理" class="headerlink" title="第21章 - 内存管理 "></a><a href="#context.29">第21章 - 内存管理</a><a name="section.29"> </a></h2><p>​		在计算机系统中，变量、中间数据一般存放在系统存储空间中，只有在实际使用时才将它们从存储空间调入中央处理器内部进行运算。通常存储空间分为两种：1.内部存储空间（RAM）；2.外部存储空间</p>
+<p>​		内部存储空间访问速度比较快，能够按照变量地址随机地访问。外部存储空间内所保存的内容相对来说比较固定，即使掉电后数据也不会丢失，可以把它理解为计算机的硬盘。</p>
+<p>​		一些可靠性要求非常高的系统应该选择使用静态分配；普通业务系统可以使用动态分配，来提高内存的使用率。</p>
+<p><strong>注意：嵌入式实时操作系统中，一般不调用计算机中的 <code>malloc()</code> 和 <code>free()</code></strong></p>
+<p>原因如下：</p>
+<ol>
+<li>这些函数在小型嵌入式系统中并不总是可用的，小型嵌入式设备中的RAM不足</li>
+<li>实现可能需要占用相当大的一块代码空间</li>
+<li>几乎都不是安全的</li>
+<li>不是确定的，每次调用这些函数执行的时间可能都不一样</li>
+<li>有可能产生碎片</li>
+<li>会使链接器配置的更复杂</li>
+<li>如果允许堆空间的生长方向覆盖其他变量占据的内存，那么它们会成为 debug 的灾难</li>
+</ol>
+<h3 id="内存管理接口"><a href="#内存管理接口" class="headerlink" title="内存管理接口 "></a><a href="#context.30">内存管理接口</a><a name="section.30"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">pvPortMalloc</span><span class="params">(<span class="type">size_t</span> xSize)</span>;              <span class="comment">///&lt; 内存申请函数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vPortFree</span><span class="params">(<span class="type">void</span> *pv)</span>;                      <span class="comment">///&lt; 内存释放函数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vPortInitialiseBlocks</span><span class="params">(<span class="type">void</span>)</span>;              <span class="comment">///&lt; 初始化内存堆函数</span></span><br><span class="line"><span class="type">size_t</span> <span class="title function_">xPortGetFreeHeapSize</span><span class="params">(<span class="type">void</span>)</span>;             <span class="comment">///&lt; 获取当前未分配的内存堆大小</span></span><br><span class="line"><span class="type">size_t</span> <span class="title function_">xPortGetMinimumEverFreeHeapSize</span><span class="params">(<span class="type">void</span>)</span>;  <span class="comment">///&lt; 获取未分配的内存堆历史最小值</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>FreeRTOS</code> 的 <code>V 9.0.0</code> 版本提供了5中内存管理算法：</p>
+<ol>
+<li><p><code>heap_1.c</code></p>
+<p>最简单的一个，只能申请，不能释放，申请时间是常量</p>
+<p>特点：</p>
+<p>（1）用于从不删除任务、队列、信号量、互斥量等的应用程序（实际上大多数使用FreeRTOS的应用程序都符合这个条件）</p>
+<p>（2）函数的执行时间是确定的，并且不会产生内存碎片</p>
+</li>
+<li><p><code>heap_2.c</code><br>采用一种最佳匹配算法<br>特点：<br>（1）可以用于那些反复删除任务、队列、信号量等内核对象且不担心内存碎片的应用程序<br>（2）如果我们的应用程序中的队列、任务、信号量等的顺序不可预测，也有可能导致内存碎片<br>（3）具有不确定性，但是效率比标准C库中的 <code>malloc()</code> 函数高得多<br>（4）不能用于内存分配和释放是随机大小的应用程序</p>
+</li>
+<li><p><code>heap_3.c</code></p>
+<p>简单的封装了标准C库的 <code>malloc()</code> 和 <code>free()</code> ，但具有保护功能，即操作内存前挂起调度器，完成后再恢复调度器</p>
+<p>特点：</p>
+<p>（1）需要链接器设置一个堆，<code>malloc()</code> 和 <code>free()</code> 由编译器提供</p>
+<p>（2）具有不确定性</p>
+<p>（3）很可能增大 RTOS 内核的代码大小</p>
+</li>
+<li><p><code>heap_4.c</code></p>
+<p>与2一样，均采用最佳匹配算法来实现动态的内存分配，不一样的是此方法包含了一种合并算法，能把相邻的空闲内存块合并成一个更大的块，减少内存碎片<br>特点：</p>
+<p>（1）可用于重复删除任务、队列、信号量、互斥量等的应用程序</p>
+<p>（2）可用于分配和释放随机字节内存的应用程序，但并不像2那样产生严重的内存碎片</p>
+<p>（3）具有不确定性，但是效率比标准C库中的 <code>malloc()</code> 函数高得多</p>
+</li>
+<li><p><code>heap_5.c</code><br>和4一样，但允许内存堆跨越多个非连续的内存区，也就是允许在不连续的内存堆中实现内存分配，比如在片内RAM中定义一个内存堆，还可以在外部SDRAM中再定义一个或多个内存堆，这些内存都归系统管理</p>
+</li>
+</ol>
+<h2 id="第22章-中断管理"><a href="#第22章-中断管理" class="headerlink" title="第22章 - 中断管理 "></a><a href="#context.31">第22章 - 中断管理</a><a name="section.31"> </a></h2><h3 id="异常分类"><a href="#异常分类" class="headerlink" title="异常分类 "></a><a href="#context.32">异常分类</a><a name="section.32"> </a></h3><ol>
+<li><p>同步异常</p>
+<p>由内部事件（像处理器指令运行产生的事件）引起的异常称为同步异常，例如，造成被零除的算术运算引发一个异常。</p>
+</li>
+<li><p>异步异常</p>
+<p>主要指由外部异常源产生的异常，事件来源是外部硬件装置。例如，按下按键。</p>
+</li>
+</ol>
+<p>区别：</p>
+<p>同步异常触发后，系统必须立刻进行处理而不能依然执行原有的程序指令步骤</p>
+<p>异步异常触发后，可以延缓处理甚至是忽略</p>
+<p><strong>中断属于异步异常</strong></p>
+<p><code>FreeRTOS</code> 的中断管理支持：</p>
+<ol>
+<li>开&#x2F;关中断</li>
+<li>恢复中断</li>
+<li>中断屏蔽</li>
+<li>可选择系统管理的中断优先级</li>
+</ol>
+<h3 id="中断"><a href="#中断" class="headerlink" title="中断 "></a><a href="#context.33">中断</a><a name="section.33"> </a></h3><p>与中断相关的硬件可以划分为3类：外设、中断控制器、CPU本身</p>
+<ol>
+<li><p>外设</p>
+<p>当外设需要请求CPU时，产生一个中断信号，该信号连接至中断控制器</p>
+</li>
+<li><p>中断控制器</p>
+<p>是CPU众多外设中的一个，一方面接收其他外设中断信号的输入，另一方面会发出中断信号给CPU。可以通过对中断控制器编程实现对中断源的优先级、触发方式、打开和关闭源等设置操作。在 <code>Cortex-M</code> 系列控制器中，常用的中断控制器是 <code>NVIC (Nested Vectored Interrupt Controller)</code> 内嵌向量中断控制器</p>
+</li>
+<li><p>CPU</p>
+<p>CPU 会响应中断源的请求、中断当前正在执行的任务，转而执行中断处理程序。NVIC最多支持240个中断，每个中断最多有256个优先级</p>
+</li>
+</ol>
+<p><strong>中断管理的运作机制</strong></p>
+<ol>
+<li>保存当前处理器状态信息</li>
+<li>载入异常或中断处理函数到PC寄存器</li>
+<li>把控制权转交给处理函数并开始执行</li>
+<li>当处理函数执行完成时，恢复处理器状态信息</li>
+<li>从异常或中断中返回到前一个程序执行点</li>
+</ol>
+<p><strong>注：FreeRTOS允许中断嵌套！！</strong></p>
+<h2 id="第23章-CPU利用率"><a href="#第23章-CPU利用率" class="headerlink" title="第23章 - CPU利用率 "></a><a href="#context.34">第23章 - CPU利用率</a><a name="section.34"> </a></h2><h2 id="FreeRTOS操作系统调度方式有哪些？"><a href="#FreeRTOS操作系统调度方式有哪些？" class="headerlink" title="FreeRTOS操作系统调度方式有哪些？ "></a><a href="#context.35">FreeRTOS操作系统调度方式有哪些？</a><a name="section.35"> </a></h2><p>FreeRTOS操作系统支持三种调度方式：</p>
+<ol>
+<li>抢占式调度（Pre-emptive）</li>
+<li>时间片调度（time slice）</li>
+<li>合作式调度（co-operative）</li>
+</ol>
+<p>实际应用主要是抢占式调度和时间片调度结合的调度方法，合作式调度用到的很少。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wyinhui.github.io/2023/08/18/FreeRTOS/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%98%9F%E6%B5%B7/" rel="tag">星海</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/08/18/python/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Python</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023
+        <i class="ri-heart-fill heart_icon"></i> WYh
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/favicon.ico" alt="breeze"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
