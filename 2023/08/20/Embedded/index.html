@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>嵌入式 |  breeze</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Embedded"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  嵌入式
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/08/20/Embedded/" class="article-date">
+  <time datetime="2023-08-19T16:00:00.000Z" itemprop="datePublished">2023-08-20</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%98%9F%E6%B5%B7/">星海</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">17 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <span id="more"></span>
+<h1 id="嵌入式"><a href="#嵌入式" class="headerlink" title="嵌入式"></a>嵌入式</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#section.1">STM32</a><a name="context.1"> </a><ul>
+<li><a href="#section.2">系统架构</a><a name="context.2"> </a></li>
+<li><a href="#section.3">启动配置</a><a name="context.3"> </a></li>
+<li><a href="#section.4">启动流程</a><a name="context.4"> </a></li>
+<li><a href="#section.5">中断向量表</a><a name="context.5"> </a></li>
+<li><a href="#section.6">map文件分析</a><a name="context.6"> </a></li>
+</ul>
+</li>
+<li><a href="#section.7">总线概览</a><a name="context.7"> </a></li>
+<li><a href="#section.8">I2C</a><a name="context.8"> </a></li>
+<li><a href="#section.9">SPI</a><a name="context.9"> </a><ul>
+<li><a href="#section.10">连接方式</a><a name="context.10"> </a></li>
+<li><a href="#section.11">基本通讯过程</a><a name="context.11"> </a></li>
+<li><a href="#section.12">四种模式</a><a name="context.12"> </a></li>
+<li><a href="#section.13">CPOL</a><a name="context.13"> </a></li>
+<li><a href="#section.14">CPHA</a><a name="context.14"> </a></li>
+</ul>
+</li>
+<li><a href="#section.15">串口通讯</a><a name="context.15"> </a><ul>
+<li><a href="#section.16">物理层</a><a name="context.16"> </a><ul>
+<li><a href="#section.17">电平标准</a><a name="context.17"> </a></li>
+<li><a href="#section.18">RS232信号线</a><a name="context.18"> </a></li>
+</ul>
+</li>
+<li><a href="#section.19">协议层</a><a name="context.19"> </a><ul>
+<li><a href="#section.20">波特率</a><a name="context.20"> </a></li>
+<li><a href="#section.21">通讯的起始和停止信号</a><a name="context.21"> </a></li>
+<li><a href="#section.22">有效数据</a><a name="context.22"> </a></li>
+<li><a href="#section.23">数据校验</a><a name="context.23"> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#section.24">中断</a><a name="context.24"> </a></li>
+<li><a href="#section.25">DMA</a><a name="context.25"> </a><ul>
+<li><a href="#section.26">主要作用</a><a name="context.26"> </a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32 "></a><a href="#context.1">STM32</a><a name="section.1"> </a></h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构 "></a><a href="#context.2">系统架构</a><a name="section.2"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336971.png" alt="img"></p>
+<p><strong>代码区(code area)从0x00000000开始</strong>，通过指令总线(ICode Bus)和数据总线(DCode Bus)对Flash中代码进行访问。</p>
+<p><strong>数据区(SRAM)从0x20000000开始</strong>，通过系统总线(System Bus)进行访问。</p>
+<h3 id="启动配置"><a href="#启动配置" class="headerlink" title="启动配置 "></a><a href="#context.3">启动配置</a><a name="section.3"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336683.png" alt="img"></p>
+<p> STM32系列可以有3种启动模式，由BOOT1与BOOT0的设置决定选择Flash、System memory还是SRAM作为启动空间。</p>
+<ol>
+<li><strong>从主闪存存储器启动(Main Flash memory)：</strong><br> 主闪存存储器被映射到启动空间(0x0000 0000)，<strong>但仍然能够在它原有的地址(0x0800 0000)访问它</strong>，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</li>
+<li><strong>从系统存储器启动(System memory)：</strong><br> 系统存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的地址(互联型产品原有地址为0x1FFF B000，其它产品原有地址为0x1FFF F000)访问它。 </li>
+<li><strong>从内置SRAM启动(Embedded SRAM)：</strong><br> <strong>只能在0x20000000开始的地址区访问SRAM，启动后这个映射消失，需要重定位中断向量表。</strong></li>
+</ol>
+<p>STM32将 0x00000000 到 0x0005FFFF 的区域作为启动空间（boot space）的别名区。</p>
+<h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程 "></a><a href="#context.4">启动流程</a><a name="section.4"> </a></h3><p>精简版：</p>
+<ol>
+<li><p>&#x3D;&#x3D;<strong>通过Boot引脚设定,寻找初始地址</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>初始化栈指针 __initial_sp，指针位于SRAM区</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>指向复位程序 Reset_Hander</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>设置异常中断 HardFault_Handler</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>设置系统时钟 SystemInit</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>调用C库函数 _main</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p><strong>首先复位MCU，进行地址映射，获取栈顶指针MSP和PC指针的内容</strong></p>
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336585.png" alt="img"><br> MCU上电后，自动执行<br> 当程序编译完成之后，sp堆栈栈顶指针都已经确定。<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201307158.png" alt="img"><br> R13(SP堆栈指针)的值为0x20000868(MSP)存在地址为0x00000000中，R15(PC程序计数器)的值为0x08000420存在地址为0x00000004中，堆栈指针指向sram区，且堆栈必须建立在该区。</p>
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336697.png" alt="img"></p>
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201308463.png" alt="img"></p>
+<p> 当从flash中启动时SP在地址0x08000000中存储,PC的值在地址0x08000004中存储。但仍可以在原地址中被访问。这也就是所谓的映射。</p>
+<p>  <b><font color='blue' size=3 face="">这即是手册中所说：主闪存存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的地址(0x0800 0000)访问它，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</font></b> </p>
+</li>
+<li><p><strong>根据PC的值找到复位中断处理函数Reset_Handler</strong><br> <strong>(1) 进入中断处理函数 <code>Reset_Handler</code></strong><br> 中断处理函数外部定义<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201459507.png" alt="img">原地址0x00000004处的内容为0x0800022D,取出后的内容变为了0x0800022C,它把末位的1变成了0，这个是由于内存对齐造成的，因为cortex-m3核PC的LSB一定读回0，因此指令至少是半字对齐的（《cortex-m3编程手册》）。</p>
+<p> <code>LDR  R0,  =SystemInit</code> 将函数 <code>SystemInit</code> 的入口地址传给 R0，从反汇编窗口可以看到指令被写成 <code>LDR   r0,   [pc,#36]</code>，表明 <code>SystemInit</code> 的入口地址在存放在 PC 指针偏移 36 处，即：<code>0x08000022C（+0x4）+0x24=0x08000254</code>（因为CM3内部使用了指令流水线，读PC时返回的值是当前指令的地址+4《Cortex™-M3权威指南》）下一条指令在 0x0800022E 处。</p>
+<p> <strong>(2) 进入 <code>SystemInit</code> 函数MCU复位后，PC所指向的第一行代码</strong></p>
+<p> 复位PC后，此时程序寻址到PC指针指示的地址0x0800022C处准备执行</p>
+<p> BLX R0 将R0的值传给PC（必须保证加载到PC的数值是奇数（即LSB&#x3D;1），传给PC后，PC的LSB读回0），调用SystemInit函数。</p>
+<p> SystemInit这个函数里面开启了外部晶振，设置了锁相环PLL，关闭了所有中断，设置了时钟为72MHz，并且重定位中断向量表在0x08000000处（这句在Flash启动时可以不需要，因为能从0x00000000映射到0x08000000）。<br> (3) </p>
+</li>
+<li><p>1</p>
+</li>
+</ol>
+<h3 id="中断向量表"><a href="#中断向量表" class="headerlink" title="中断向量表 "></a><a href="#context.5">中断向量表</a><a name="section.5"> </a></h3><p>STM32的中断向量表是干什么的？到底有什么用？它放在哪里？</p>
+<p>一、中断向量表里有什么？它放在那里？到底有什么用？<br>1、中断向量表实际上就是存放在Code区（也就是STM32内部的Flash区）从0x00000000地址开始的一个数组，数组的成员为4个字节，而且这些数组在启动文件的时候已经初始化好。</p>
+<p>2、STM32根据内核和外设中断优先级，同一标号，标号越小，优先级越大。然后把内核和外设的中断服务函数的地址放在这个数组里面，数组的下标跟中断的优先级对应，我们也把这个中断的编号叫做中断向量。</p>
+<p>3、在启动文件执行的时候，内核和每个外设的中断服务函数的地址都是已经确定好的，地址就存放在中断向量表中，而且在启动文件里面已经写好了中断服务函数，只是这些中断服务函数为空，而且带[weak]弱定义，那么我们就需要在C文件里面重新实现这个中断服务函数，用户写这个中断服务函数的时候，函数名必须跟启动文件里面写的中断函数名对应，因为函数名对应的就是中断服务函数的地址，如果中断服务函数名和启动文件的名字不一样，就默认启动文件里面预先写好的空的中断服务函数，而且是一个死循环，程序就会一直卡死在中断服务函数里面。</p>
+<p>二、那内核是如何响应中断的呢？<br>当中断来临的时候，首先取向量，每个中断的中断向量不一样，然后根据向量查询中断向量表，根据里面的地址找到中断服务函数，从而实现整个中断的响应过程。</p>
+<h3 id="map文件分析"><a href="#map文件分析" class="headerlink" title="map文件分析 "></a><a href="#context.6">map文件分析</a><a name="section.6"> </a></h3><p>在map文件的最后，都会有这样的汇总信息，如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336777.png" alt="image-20230625222801536"></p>
+<p>上图中：</p>
+<p><strong>Code：</strong>代码存储区。这部分是存放代码的。</p>
+<p><strong>RO-Data：</strong>只读数据区。这部分保存程序中用 const 定义的全局常量数据和字符串。</p>
+<p><strong>RW-Data：</strong>已初始化的读写数据。程序中定义的已经初始化的全局变量和静态变量。</p>
+<p><strong>ZI-Data：</strong>未初始化的读写数据。程序中定义的未初始化的全局变量和静态变量。这部分内容是在程序运行的时候保存在RAM中的。</p>
+<p><strong>&#x3D;&#x3D;栈顶指针的值 &#x3D; RW-data + ZI-data&#x3D;&#x3D;</strong> </p>
+<p>map文件中还做了统计：</p>
+<p><img src="/../../../1wyh/Learning/%E7%BB%8F%E9%AA%8C%E4%B9%A623/BCCPP.assets/image-20230625222912989.png" alt="image-20230625222912989"></p>
+<p>从上图可以看出：</p>
+<p><strong>RO：</strong>只读数据。这部分包含 Code 和 RO-Data 这部分是存放在Flash中的。</p>
+<p><strong>RW：</strong>可读写数据。这部分包含 RW-Data 和 ZI-Data，这部分是存放在RAM中的，就是占据运行内存的。</p>
+<p><strong>ROM Size：</strong>总的ROM的大小。这部分包含Code、RO-data、RW-Data，是程序中占Flash的实际大小。</p>
+<p>为了方便理解，可以参考下图：</p>
+<p><img src="/../../../1wyh/Learning/%E7%BB%8F%E9%AA%8C%E4%B9%A623/BCCPP.assets/image-20230625222928677.png" alt="image-20230625222928677"></p>
+<h2 id="总线概览"><a href="#总线概览" class="headerlink" title="总线概览 "></a><a href="#context.7">总线概览</a><a name="section.7"> </a></h2><p>UART、I2C、SPI、USB异同</p>
+<table>
+<thead>
+<tr>
+<th>总线接口</th>
+<th>串&#x2F;并</th>
+<th>同步&#x2F;异步</th>
+<th>速率</th>
+<th>工作方式</th>
+<th>用线</th>
+<th>总线拓扑结构</th>
+<th>信号距离</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UART</td>
+<td>串</td>
+<td>异步</td>
+<td>慢<br />波特率设置</td>
+<td>全双工</td>
+<td>2线<br />RX、TX</td>
+<td>RS485支持总线式、<br />星形、树形</td>
+<td>远<br />最远1200m</td>
+</tr>
+<tr>
+<td>I2C</td>
+<td>串</td>
+<td>同步</td>
+<td>慢</td>
+<td>半双工</td>
+<td>2线<br />SDA、SCL</td>
+<td>总线型（特殊的树形）</td>
+<td>近</td>
+</tr>
+<tr>
+<td>SPI</td>
+<td>串</td>
+<td>同步</td>
+<td>快</td>
+<td>全双工</td>
+<td>3线或4线<br />SCLK、SIMO、<br />SOMI、SS（片选）</td>
+<td>环形</td>
+<td>远</td>
+</tr>
+<tr>
+<td>USB</td>
+<td>串</td>
+<td>同步</td>
+<td>快</td>
+<td>半双工</td>
+<td>4线<br />VBUS（5V）、GND、<br />D+、D-（3.3V）</td>
+<td>星形</td>
+<td>近</td>
+</tr>
+</tbody></table>
+<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C "></a><a href="#context.8">I2C</a><a name="section.8"> </a></h2><h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI "></a><a href="#context.9">SPI</a><a name="section.9"> </a></h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式 "></a><a href="#context.10">连接方式</a><a name="section.10"> </a></h3><p>3条总线 + 1条片选线</p>
+<p><code>SCK、MOSI、MISO + SS/NSS/CS</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336215.png" alt="image-20230805195959632"></p>
+<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.11">基本通讯过程</a><a name="section.11"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336677.png" alt="image-20230805194747396"></p>
+<h3 id="四种模式"><a href="#四种模式" class="headerlink" title="四种模式 "></a><a href="#context.12">四种模式</a><a name="section.12"> </a></h3><table>
+<thead>
+<tr>
+<th>SPI 模式</th>
+<th>时钟极性<br />CPOL</th>
+<th>时钟相位<br />CPHA</th>
+<th>空闲时 SCK 时钟</th>
+<th>采样时刻</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>低电平</td>
+<td>奇数边沿</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>低电平</td>
+<td>偶数边沿</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>高电平</td>
+<td>奇数边沿</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>高电平</td>
+<td>偶数边沿</td>
+</tr>
+</tbody></table>
+<p>主机与从机需要工作在相同的模式下才可以正常通讯</p>
+<p>实际中采用较多的是 <strong>“模式 0”</strong> 与 <strong>“模式 3”</strong>。</p>
+<h3 id="CPOL"><a href="#CPOL" class="headerlink" title="CPOL "></a><a href="#context.13">CPOL</a><a name="section.13"> </a></h3><p>指 SPI 通讯设备处于空闲状态时，SCK 信号线的电平信号 (即 SPI 通讯开始前、 NSS 线为高电平时 SCK 的状态)。CPOL&#x3D;0 时，SCK 在空闲状态时为低电平，CPOL&#x3D;1 时，则相反。</p>
+<h3 id="CPHA"><a href="#CPHA" class="headerlink" title="CPHA "></a><a href="#context.14">CPHA</a><a name="section.14"> </a></h3><p>指数据的采样的时刻，当 CPHA&#x3D;0 时，MOSI 或 MISO 数据线上的信号将会在SCK 时钟线的“奇数边沿”被采样。 当 CPHA&#x3D;1 时，数据线在 SCK 的“偶数边沿”采样</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336847.png" alt="image-20230805194827664"></p>
+<h2 id="串口通讯"><a href="#串口通讯" class="headerlink" title="串口通讯 "></a><a href="#context.15">串口通讯</a><a name="section.15"> </a></h2><p>分为<strong>物理层</strong>和<strong>协议层</strong>来讲解</p>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层 "></a><a href="#context.16">物理层</a><a name="section.16"> </a></h3><h4 id="电平标准"><a href="#电平标准" class="headerlink" title="电平标准 "></a><a href="#context.17">电平标准</a><a name="section.17"> </a></h4><p>根据通讯使用的电平标准不同，串口通讯可分为 TTL 标准及 RS-232 标准，见下表</p>
+<table>
+<thead>
+<tr>
+<th>通讯标准</th>
+<th>电平标准（发送端）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5V TTL</td>
+<td>逻辑1：2.4V ~ 5V</td>
+</tr>
+<tr>
+<td></td>
+<td>逻辑0：0 ~ 0.5V</td>
+</tr>
+<tr>
+<td>RS-232</td>
+<td>逻辑1：-15 ~ -3V</td>
+</tr>
+<tr>
+<td></td>
+<td>逻辑0：+3V ~ +15V</td>
+</tr>
+</tbody></table>
+<p>我们知道<strong>常见的电子电路中常使用 TTL 的电平标准</strong>，理想状态下，使用 5V 表示二进制逻辑 1， 使用 0V 表示逻辑 0；</p>
+<p>而为了增加串口通讯的远距离传输及抗干扰能力，它使用-15V 表示逻辑 1， +15V 表示逻辑 0。</p>
+<p>使用 RS232 与 TTL 电平校准表示同一个信号时的对比如下图</p>
+<p><img src="/../../../1wyh/Learning/%E7%BB%8F%E9%AA%8C%E4%B9%A623/BCCPP.assets/image-20230720165301371.png" alt="image-20230720165301371"></p>
+<p><strong>注：</strong>因为控制器一般使用 TTL 电平标准，所以常常会使用 MA3232 芯片对 TTL 及 RS-232 电平的信号进行互相转换。</p>
+<h4 id="RS232信号线"><a href="#RS232信号线" class="headerlink" title="RS232信号线 "></a><a href="#context.18">RS232信号线</a><a name="section.18"> </a></h4><p>在最初的应用中，RS-232 串口标准常用于计算机、路由与调制调解器 (MODEN，俗称“猫”) 之间的通讯， 在这种通讯系统中，设备被分为数据终端设备 DTE(计算机、路由) 和数据通讯设备DCE(调制调解器)。 我们以这种通讯模型讲解它们的信号线连接方式及各个信号线的作用。</p>
+<p>在旧式的台式计算机中一般会有 RS-232 标准的 COM 口 (也称 DB9 接口)，见图下。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336103.png" alt="image-20230720165655500"></p>
+<p><strong>接口示意：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336122.png" alt="image-20230720165720644"></p>
+<p>信号线说明 (公头，为方便理解，可把 DTE 理解为计算机，DCE 理解为调制调解器)</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>名称</th>
+<th>符号</th>
+<th>数据方向</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>载波检测</td>
+<td>DCD</td>
+<td>DTEDCE</td>
+<td>Data Carrier Detect，数据载波检测，用于DTE告知对方，本机是否收到对方的载波信号</td>
+</tr>
+<tr>
+<td>2</td>
+<td>接收数据</td>
+<td>RXD</td>
+<td>DTEDCE</td>
+<td>Receive Data，数据接收信号，即输入 。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>发送数据</td>
+<td>TXD</td>
+<td>DTEDCE</td>
+<td>Transmit Data，数据发送信号，即输出。两个设备之间的TXD与RXD应交叉相连</td>
+</tr>
+<tr>
+<td>4</td>
+<td>数据终端 (DTE) 就绪</td>
+<td>DTR</td>
+<td>DTEDCE</td>
+<td>Data Terminal Ready，数据终端就绪，用于DTE向对方告知本机是否已准备好</td>
+</tr>
+<tr>
+<td>5</td>
+<td>信号地</td>
+<td>GND</td>
+<td></td>
+<td>地线，两个通讯设备之间的地电位可能不一样，这会影响收发双方的电平信号，所以两个串口设备之间必须要使用地线连接，即共地。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>数据设备(DCE)就绪</td>
+<td>DSR</td>
+<td>DTEDCE</td>
+<td>Data Set Ready，数据发送就绪，用于DCE告知对方本机是否处于待命状态</td>
+</tr>
+<tr>
+<td>7</td>
+<td>请求发送</td>
+<td>RTS</td>
+<td>DTEDCE</td>
+<td>Request To Send，请求发送， DTE 请求 DCE 本设备向DCE端发送数据</td>
+</tr>
+<tr>
+<td>8</td>
+<td>允许发送</td>
+<td>CTS</td>
+<td>DTEDCE</td>
+<td>Clear To Send，允许发送，DCE回应对方的RTS发送请求，告知对方是否可以发送数据</td>
+</tr>
+<tr>
+<td>9</td>
+<td>响铃指示</td>
+<td>RI</td>
+<td>DTEDCE</td>
+<td>Ring Indicator，响铃指示，表示DCE端与线路已接通</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336553.png" alt="image-20230720165858716"></p>
+<p>串口线中的 RTS、CTS、DSR、DTR 及 DCD 信号，使用逻辑 1 表示信号有效，逻辑 0 表示信号无效。 例如，当计算机端控制 DTR 信号线表示为逻辑 1 时，它是为了告知远端的调制调解器，本机已准备好接收数据， 0 则表示还没准备就绪。</p>
+<p><strong>在目前的其它工业控制使用的串口通讯中，一般只使用 RXD、TXD 以及 GND 三条信号线！！！</strong></p>
+<h3 id="协议层"><a href="#协议层" class="headerlink" title="协议层 "></a><a href="#context.19">协议层</a><a name="section.19"> </a></h3><p>串口通讯的数据包由发送设备通过自身的 TXD 接口传输到接收设备的 RXD 接口。在串口通讯的协议层中， 规定了数据包的内容，它由启始位、主体数据、校验位以及停止位组成，通讯双方的数据包格式要约定一致才能正常收发数据</p>
+<p><img src="/../../../1wyh/Learning/%E7%BB%8F%E9%AA%8C%E4%B9%A623/BCCPP.assets/image-20230720170204183.png" alt="image-20230720170204183"></p>
+<h4 id="波特率"><a href="#波特率" class="headerlink" title="波特率 "></a><a href="#context.20">波特率</a><a name="section.20"> </a></h4><p>本章中主要讲解的是串口异步通讯，异步通讯中由于没有时钟信号 (如前面讲解的 DB9 接口中是没有时钟信号的)， 所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码，如上图中用虚线分开的每一格就是代表一个码元。 常见的波特率为 4800、9600、115200 等。</p>
+<h4 id="通讯的起始和停止信号"><a href="#通讯的起始和停止信号" class="headerlink" title="通讯的起始和停止信号 "></a><a href="#context.21">通讯的起始和停止信号</a><a name="section.21"> </a></h4><p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0 的数据位表示， 而数据包的停止信号可由 0.5、1、1.5 或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
+<h4 id="有效数据"><a href="#有效数据" class="headerlink" title="有效数据 "></a><a href="#context.22">有效数据</a><a name="section.22"> </a></h4><p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度 常被约定为 5、6、7 或 8 位长。</p>
+<h4 id="数据校验"><a href="#数据校验" class="headerlink" title="数据校验 "></a><a href="#context.23">数据校验</a><a name="section.23"> </a></h4><p>在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差， 可以在传输过程加上校验位来解决这个问题。校验方法有奇校验 (odd)、偶校验(even)、0 校验 (space)、1 校验 (mark) 以及无校验 (noparity)，它们介绍如下：</p>
+<p>奇校验要求有效数据和校验位中“1”的个数为奇数，比如一个 8 位长的有效数据为：01101001， 此时总共有 4 个“1”，为达到奇校验效果，校验位为“1”，最后传输的数据将是 8 位的有效数据 加上 1 位的校验位总共 9 位。</p>
+<p>偶校验与奇校验要求刚好相反，要求帧数据和校验位中“1”的个数为偶数，比如数据帧：11001010，此时数据帧“1”的个数为 4 个，所以偶校验位为“0”。</p>
+<p>0 校验是不管有效数据中的内容是什么，校验位总为“0”，1 校验是校验位总为“1”。</p>
+<p>在无校验的情况下，数据包中不包含校验位。</p>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断 "></a><a href="#context.24">中断</a><a name="section.24"> </a></h2><p>在嵌入式系统中，ISR中断和IRQ中断是两种不同类型的中断。</p>
+<p><strong>ISR</strong>中断，全称为“Interrupt Service Routine”，是指由硬件或软件触发的中断事件所对应的中断处理程序。当系统发生中断事件时，CPU会暂停当前正在执行的程序，并跳转到ISR中断处理程序的入口点执行特定的操作。ISR中断通常用于处理实时事件和外部设备的中断，例如定时器中断、串口数据到达中断等。</p>
+<p><strong>IRQ</strong>中断，全称为“Interrupt Request”，指的是CPU接收到一个外部设备请求服务的信号。外部设备通常通过引脚将中断信息发送给CPU，CPU收到中断信号后会执行相应的中断处理程序。IRQ中断通常用于处理外部设备的事件，例如键盘输入、鼠标点击以及外部中断信号等。</p>
+<p>异同点如下：</p>
+<ol>
+<li>触发方式不同：ISR中断是由硬件或软件触发的中断事件，而IRQ中断是由外部设备发送的中断请求信号触发的。</li>
+<li>处理对象不同：ISR中断常用于处理实时事件和外部设备中断，而IRQ中断常用于处理外部设备的事件。</li>
+<li>响应时间不同：ISR中断的响应时间通常比IRQ中断更为紧迫，因为ISR中断通常用于处理实时事件，需要尽快响应。</li>
+<li>中断优先级不同：ISR中断的优先级可以通过编程设置，而IRQ中断的优先级通常由硬件决定。</li>
+<li>中断误差处理方式不同：ISR中断可以轻松地使程序从中断处理程序返回到中断之前的位置，而IRQ中断不具备这种能力，必须通过其他方式解决。</li>
+</ol>
+<p>需要注意的是，ISR中断的概念更广泛，可以是任何中断处理程序，包括IRQ中断。IRQ中断是一种特定类型的中断，指的是由外部设备请求服务的中断。</p>
+<h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA "></a><a href="#context.25">DMA</a><a name="section.25"> </a></h2><p>即直接内存访问（Direct Memory Access），是计算机系统中一种用于减轻中央处理器（CPU）负载的技术。它允许外设（如网络卡、硬盘控制器等）直接与系统内存交换数据，而不需要经过CPU的介入。</p>
+<h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用 "></a><a href="#context.26">主要作用</a><a name="section.26"> </a></h3><p>DMA的主要作用是提高数据传输的效率和系统的整体性能，它可以实现以下功能：</p>
+<ol>
+<li>数据传输：DMA可以直接控制总线，将数据从外设读入内存或从内存写出到外设，而无需通过CPU进行数据传输。</li>
+<li>解放CPU负载：DMA的工作过程中，CPU可以继续执行其他任务，而不需要等待数据传输完成，从而减轻了CPU的负载。</li>
+<li>快速数据交换：DMA传输数据的速度往往比CPU慢，因此它常用于大数据量的高速输入输出设备，可以快速地将数据从外设传输到内存或者从内存传输到外设。</li>
+<li>多任务处理：使用DMA可以使CPU在数据传输过程中同时处理其他任务，从而提高系统的并发处理能力。</li>
+</ol>
+<p><strong>一些常见的应用场景包括：</strong></p>
+<ol>
+<li>高速网络传输：DMA技术广泛应用于以太网卡和网络交换机等网络设备中，可以实现高速数据传输和实时流处理。</li>
+<li>存储设备控制：DMA可以用于硬盘控制器、固态硬盘(SSD)等存储设备，提高数据传输速度和读写操作的效率。</li>
+<li>图形处理：DMA可以用于图形处理单元（GPU）与系统内存之间的数据传输，加速图形渲染和图形计算等操作。</li>
+<li>音视频处理：DMA技术常用于音频和视频编解码、实时流媒体传输等领域，提高数据传输速度和处理效率。</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wyinhui.github.io/2023/08/20/Embedded/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%98%9F%E6%B5%B7/" rel="tag">星海</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/08/18/FreeRTOS/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">FreeRTOS</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023
+        <i class="ri-heart-fill heart_icon"></i> WYh
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/favicon.ico" alt="breeze"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
