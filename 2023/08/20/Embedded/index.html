@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">4.7k</span>
+            <span class="post-count">4.8k</span>
         </span>
     </span>
 
@@ -150,6 +150,8 @@
 </li>
 </ul>
 <hr>
+<h2 id="OTA"><a href="#OTA" class="headerlink" title="OTA"></a>OTA</h2><p>OTA 是空中升级 <code>Over the air</code> 的缩写，指的是通过无线通信网络（如Wi-Fi、蓝牙、LoRa等）对嵌入式系统进行远程升级或更新。</p>
+<p>在嵌入式系统中，OTA技术可以用于更新固件、软件或配置文件等。通过OTA技术，用户可以在不需要物理接触设备的情况下，对其进行升级和更新，从而提高系统的可靠性、安全性和灵活性。</p>
 <h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32 "></a><a href="#context.1">STM32</a><a name="section.1"> </a></h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构 "></a><a href="#context.2">系统架构</a><a name="section.2"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336971.png" alt="img"></p>
 <p><strong>代码区(code area)从0x00000000开始</strong>，通过指令总线(ICode Bus)和数据总线(DCode Bus)对Flash中代码进行访问。</p>
 <p><strong>数据区(SRAM)从0x20000000开始</strong>，通过系统总线(System Bus)进行访问。</p>
@@ -187,9 +189,7 @@
 <p> <strong>(2) 进入 <code>SystemInit</code> 函数MCU复位后，PC所指向的第一行代码</strong></p>
 <p> 复位PC后，此时程序寻址到PC指针指示的地址0x0800022C处准备执行</p>
 <p> BLX R0 将R0的值传给PC（必须保证加载到PC的数值是奇数（即LSB&#x3D;1），传给PC后，PC的LSB读回0），调用SystemInit函数。</p>
-<p> SystemInit这个函数里面开启了外部晶振，设置了锁相环PLL，关闭了所有中断，设置了时钟为72MHz，并且重定位中断向量表在0x08000000处（这句在Flash启动时可以不需要，因为能从0x00000000映射到0x08000000）。<br> (3) </p>
-</li>
-<li><p>1</p>
+<p> SystemInit这个函数里面开启了外部晶振，设置了锁相环PLL，关闭了所有中断，设置了时钟为72MHz，并且重定位中断向量表在0x08000000处（这句在Flash启动时可以不需要，因为能从0x00000000映射到0x08000000）。</p>
 </li>
 </ol>
 <h3 id="中断向量表"><a href="#中断向量表" class="headerlink" title="中断向量表 "></a><a href="#context.5">中断向量表</a><a name="section.5"> </a></h3><p>STM32的中断向量表是干什么的？到底有什么用？它放在哪里？</p>
