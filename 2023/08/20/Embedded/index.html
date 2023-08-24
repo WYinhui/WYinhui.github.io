@@ -166,17 +166,17 @@
 <p>STM32将 0x00000000 到 0x0005FFFF 的区域作为启动空间（boot space）的别名区。</p>
 <h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程 "></a><a href="#context.5">启动流程</a><a name="section.5"> </a></h3><p>精简版：</p>
 <ol>
-<li><p>&#x3D;&#x3D;<strong>通过Boot引脚设定,寻找初始地址</strong>&#x3D;&#x3D; </p>
+<li><p><mark><strong>通过Boot引脚设定,寻找初始地址</strong></mark></p>
 </li>
-<li><p>&#x3D;&#x3D;<strong>初始化栈指针 __initial_sp，指针位于SRAM区</strong>&#x3D;&#x3D; </p>
+<li><p><mark><strong>初始化栈指针 __initial_sp，指针位于SRAM区</strong></mark></p>
 </li>
-<li><p>&#x3D;&#x3D;<strong>指向复位程序 Reset_Hander</strong>&#x3D;&#x3D; </p>
+<li><p><mark><strong>指向复位程序 Reset_Hander</strong></mark></p>
 </li>
-<li><p>&#x3D;&#x3D;<strong>设置异常中断 HardFault_Handler</strong>&#x3D;&#x3D; </p>
+<li><p><mark><strong>设置异常中断 HardFault_Handler</strong></mark></p>
 </li>
-<li><p>&#x3D;&#x3D;<strong>设置系统时钟 SystemInit</strong>&#x3D;&#x3D; </p>
+<li><p><mark><strong>设置系统时钟 SystemInit</strong></mark></p>
 </li>
-<li><p>&#x3D;&#x3D;<strong>调用C库函数 _main</strong>&#x3D;&#x3D; </p>
+<li><p><mark><strong>调用C库函数 _main</strong></mark></p>
 </li>
 <li><p><strong>首先复位MCU，进行地址映射，获取栈顶指针MSP和PC指针的内容</strong></p>
 <p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336585.png" alt="img"><br> MCU上电后，自动执行<br> 当程序编译完成之后，sp堆栈栈顶指针都已经确定。<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201307158.png" alt="img"><br> R13(SP堆栈指针)的值为0x20000868(MSP)存在地址为0x00000000中，R15(PC程序计数器)的值为0x08000420存在地址为0x00000004中，堆栈指针指向sram区，且堆栈必须建立在该区。</p>
