@@ -2222,11 +2222,11 @@
       </tags>
   </entry>
   <entry>
-    <title>算法(c++)</title>
-    <url>/2023/07/26/algorithm/</url>
+    <title>算法 &amp; 技巧</title>
+    <url>/2023/09/04/algorithm/</url>
     <content><![CDATA[<span id="more"></span>
 
-<h1 id="算法（c-）"><a href="#算法（c-）" class="headerlink" title="算法（c++）"></a>算法（c++）</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<h1 id="算法-技巧"><a href="#算法-技巧" class="headerlink" title="算法 &amp; 技巧"></a>算法 &amp; 技巧</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
 <li><a href="#section.1">字符串</a><a name="context.1"> </a><ul>
 <li><a href="#section.2">KMP算法</a><a name="context.2"> </a></li>
 <li><a href="#section.3">Manacher算法（马拉车）</a><a name="context.3"> </a></li>
@@ -2234,12 +2234,19 @@
 </ul>
 </li>
 <li><a href="#section.5">排序算法</a><a name="context.5"> </a><ul>
-<li><a href="#section.6">快排</a><a name="context.6"> </a></li>
+<li><a href="#section.6">归并</a><a name="context.6"> </a></li>
+<li><a href="#section.7">快排</a><a name="context.7"> </a></li>
 </ul>
 </li>
-<li><a href="#section.7">回溯</a><a name="context.7"> </a></li>
-<li><a href="#section.8">递归法</a><a name="context.8"> </a></li>
-<li><a href="#section.9">贪心</a><a name="context.9"> </a></li>
+<li><a href="#section.8">回溯</a><a name="context.8"> </a></li>
+<li><a href="#section.9">递归法</a><a name="context.9"> </a></li>
+<li><a href="#section.10">贪心</a><a name="context.10"> </a></li>
+<li><a href="#section.11">动规</a><a name="context.11"> </a></li>
+<li><a href="#section.12">正则表达式</a><a name="context.12"> </a></li>
+<li><a href="#section.13">向上取整</a><a name="context.13"> </a></li>
+<li><a href="#section.14">向下取整</a><a name="context.14"> </a></li>
+<li><a href="#section.15">四舍五入</a><a name="context.15"> </a></li>
+<li><a href="#section.16">保留小数</a><a name="context.16"> </a></li>
 </ul>
 <hr>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串 "></a><a href="#context.1">字符串</a><a name="section.1"> </a></h2><h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法 "></a><a href="#context.2">KMP算法</a><a name="section.2"> </a></h3><p>用于字符串匹配。给你两个字符串，寻找其中一个字符串是否包含另一个字符串，如果包含，返回包含的起始位置。</p>
@@ -2261,7 +2268,7 @@
 
 <h3 id="Manacher算法（马拉车）"><a href="#Manacher算法（马拉车）" class="headerlink" title="Manacher算法（马拉车） "></a><a href="#context.3">Manacher算法（马拉车）</a><a name="section.3"> </a></h3><p>一个高效匹配回文子串长度的算法，他可以在o(n)的时间复杂度中计算出一个字符串的回文子串的长度</p>
 <p><a href="https://leetcode.cn/problems/longest-palindromic-substring/description/">5. 最长回文子串 - 力扣（LeetCode）</a></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** 字符串 5 最长回文子串 马拉车算法 Manacher */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">longestPalindrome</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        string t = <span class="string">&quot;*#&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> c: s)</span><br><span class="line">        &#123;</span><br><span class="line">            t += c;</span><br><span class="line">            t += <span class="string">&quot;#&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        t += <span class="string">&quot;!&quot;</span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">p</span><span class="params">(t.size(), <span class="number">0</span>)</span></span>;  <span class="comment">///&lt; p 用来记录各点的回文半径</span></span><br><span class="line">        <span class="type">int</span> r = <span class="number">0</span>;           <span class="comment">///&lt; 某个回文串延伸到的最右边下标</span></span><br><span class="line">        <span class="type">int</span> mid = <span class="number">0</span>;         <span class="comment">///&lt; r 所属回文串中心下标</span></span><br><span class="line">        <span class="type">int</span> max_mid = <span class="number">0</span>;     <span class="comment">///&lt; 遍历过的最大回文串中心下标</span></span><br><span class="line">        <span class="type">int</span> max_rad = <span class="number">0</span>;     <span class="comment">///&lt; 遍历过的最大回文半径</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>, end = t.<span class="built_in">size</span>() - <span class="number">1</span>; i &lt; end; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 如果 i 还在区间内, 则此处半径为 i 关于 mid 对称点 j 处的半径(不超过左边界)</span></span><br><span class="line">            p[i] = i &lt; r ? <span class="built_in">min</span>(p[<span class="number">2</span> * mid - i], r - i) : <span class="number">1</span>;  <span class="comment">///&lt; 重要!!! 需理解!!!</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 暴力计算回文串长度</span></span><br><span class="line">            <span class="keyword">while</span> (t[i - p[i]] == t[i + p[i]])</span><br><span class="line">                ++p[i];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 当 i 处的回文字符串长度超过右边界 r 时  更新 mid 和 r</span></span><br><span class="line">            <span class="keyword">if</span> (i + p[i] &gt; r) &#123;</span><br><span class="line">                mid = i;</span><br><span class="line">                r = i + p[i];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// max_rad 记录最大的半径 max_mid 记录最大半径的位置</span></span><br><span class="line">            <span class="keyword">if</span> (p[i] &gt; max_rad) &#123;</span><br><span class="line">                max_rad = p[i];</span><br><span class="line">                max_mid = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s.<span class="built_in">substr</span>((max_mid - max_rad) &gt;&gt; <span class="number">1</span>, max_rad - <span class="number">1</span>);  <span class="comment">///&lt; 注意起始点需 / 2, 长度需 - 1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** 字符串 5 最长回文子串 马拉车算法 Manacher */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">longestPalindrome</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        string t = <span class="string">&quot;*#&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> c: s)</span><br><span class="line">        &#123;</span><br><span class="line">            t += c;</span><br><span class="line">            t += <span class="string">&quot;#&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        t += <span class="string">&quot;!&quot;</span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">p</span><span class="params">(t.size(), <span class="number">0</span>)</span></span>;  <span class="comment">///&lt; p 用来记录各点的回文半径</span></span><br><span class="line">        <span class="type">int</span> r = <span class="number">0</span>;           <span class="comment">///&lt; 某个回文串延伸到的最右边下标</span></span><br><span class="line">        <span class="type">int</span> mid = <span class="number">0</span>;         <span class="comment">///&lt; r 所属回文串中心下标</span></span><br><span class="line">        <span class="type">int</span> max_mid = <span class="number">0</span>;     <span class="comment">///&lt; 遍历过的最大回文串中心下标</span></span><br><span class="line">        <span class="type">int</span> max_rad = <span class="number">0</span>;     <span class="comment">///&lt; 遍历过的最大回文半径</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>, end = t.<span class="built_in">size</span>() - <span class="number">1</span>; i &lt; end; ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 1. 如果 i 还在区间内, 则此处半径为 i 关于 mid 对称点 j 处的半径(不超过左边界)</span></span><br><span class="line">            p[i] = i &lt; r ? <span class="built_in">min</span>(p[<span class="number">2</span> * mid - i], r - i) : <span class="number">1</span>;  <span class="comment">///&lt; 重要!!! 需理解!!!</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 2. 暴力计算回文串长度</span></span><br><span class="line">            <span class="keyword">while</span> (t[i - p[i]] == t[i + p[i]])</span><br><span class="line">                ++p[i];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 3. 当 i 处的回文字符串长度超过右边界 r 时  更新 mid 和 r</span></span><br><span class="line">            <span class="keyword">if</span> (i + p[i] &gt; r) &#123;</span><br><span class="line">                mid = i;</span><br><span class="line">                r = i + p[i];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// max_rad 记录最大的半径 max_mid 记录最大半径的位置</span></span><br><span class="line">            <span class="keyword">if</span> (p[i] &gt; max_rad) &#123;</span><br><span class="line">                max_rad = p[i];</span><br><span class="line">                max_mid = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> s.<span class="built_in">substr</span>((max_mid - max_rad) &gt;&gt; <span class="number">1</span>, max_rad - <span class="number">1</span>);  <span class="comment">///&lt; 注意起始点需 / 2, 长度需 - 1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -2331,7 +2338,7 @@
 <td>不稳定</td>
 </tr>
 <tr>
-<td>归并</td>
+<td><a href="#%E5%BD%92%E5%B9%B6">归并</a></td>
 <td>O(n log n)</td>
 <td>O(n log n)</td>
 <td>O(n log n)</td>
@@ -2379,18 +2386,22 @@
 <td>稳定</td>
 </tr>
 </tbody></table>
-<h3 id="快排"><a href="#快排" class="headerlink" title="快排 "></a><a href="#context.6">快排</a><a name="section.6"> </a></h3><p><a href="https://leetcode.cn/problems/sort-an-array/">912. 排序数组 - 力扣（LeetCode）</a></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">Compare</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">RecurQS</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums, <span class="type">int</span> start, <span class="type">int</span> end)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> left, right, mid, temp;</span><br><span class="line">        <span class="keyword">while</span> (start &lt; end)</span><br><span class="line">        &#123;</span><br><span class="line">            left = start;</span><br><span class="line">            right = end;</span><br><span class="line"></span><br><span class="line">            mid = nums[<span class="built_in">rand</span>() % (end - start + <span class="number">1</span>) + start];  <span class="comment">// 随机效率比中位数高将近10倍</span></span><br><span class="line"><span class="comment">//            mid = nums[start + ((end - start) &gt;&gt; 1)];</span></span><br><span class="line">            <span class="keyword">do</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">Compare</span>(nums[left], mid))</span><br><span class="line">                    ++left;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">Compare</span>(mid, nums[right]))</span><br><span class="line">                    --right;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (left &lt; right)</span><br><span class="line">                &#123;</span><br><span class="line">                    temp = nums[left];</span><br><span class="line">                    nums[left] = nums[right];</span><br><span class="line">                    nums[right] = temp;</span><br><span class="line">                    ++left;</span><br><span class="line">                    --right;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (left == right)</span><br><span class="line">                &#123;</span><br><span class="line">                    ++left;</span><br><span class="line">                    --right;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">while</span> (left &lt;= right);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (start &lt; right)</span><br><span class="line">                <span class="built_in">RecurQS</span>(nums, start, right);</span><br><span class="line"></span><br><span class="line">            start = left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">sortArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">size</span>() &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">RecurQS</span>(nums, <span class="number">0</span>, nums.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="归并"><a href="#归并" class="headerlink" title="归并 "></a><a href="#context.6">归并</a><a name="section.6"> </a></h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">Cmp</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">Recur</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums, vector&lt;<span class="type">int</span>&gt; &amp;v, <span class="type">int</span> left, <span class="type">int</span> right)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left &lt; right)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> mid = (left + right) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="built_in">Recur</span>(nums, v, left, mid);</span><br><span class="line">            <span class="built_in">Recur</span>(nums, v, mid + <span class="number">1</span>, right);</span><br><span class="line">            <span class="type">int</span> i = left, j = mid + <span class="number">1</span>, p = left;</span><br><span class="line">            <span class="keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= right)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="built_in">Cmp</span>(nums[i], nums[j]))</span><br><span class="line">                    v[p++] = nums[i++];</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    v[p++] = nums[j++];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (i &lt;= mid)</span><br><span class="line">                v[p++] = nums[i++];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span> (j &lt;= right)</span><br><span class="line">                v[p++] = nums[j++];</span><br><span class="line"></span><br><span class="line">            <span class="built_in">copy</span>(v.<span class="built_in">begin</span>() + left, v.<span class="built_in">begin</span>() + right + <span class="number">1</span>, nums.<span class="built_in">begin</span>() + left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">sortArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">size</span>() &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">v</span><span class="params">(nums.size())</span></span>;</span><br><span class="line">            <span class="built_in">Recur</span>(nums, v, <span class="number">0</span>, nums.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯 "></a><a href="#context.7">回溯</a><a name="section.7"> </a></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 伪代码模板 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">backtracking</span><span class="params">(参数)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (终止条件) &#123;</span><br><span class="line">        存放结果;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) &#123;</span><br><span class="line">        处理节点;</span><br><span class="line">        <span class="built_in">backtracking</span>(路径，选择列表); <span class="comment">// 递归</span></span><br><span class="line">        回溯，撤销处理结果</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="快排"><a href="#快排" class="headerlink" title="快排 "></a><a href="#context.7">快排</a><a name="section.7"> </a></h3><p><a href="https://leetcode.cn/problems/sort-an-array/">912. 排序数组 - 力扣（LeetCode）</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">Compare</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a &lt; b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">RecurQS</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums, <span class="type">int</span> start, <span class="type">int</span> end)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> left, right, mid, temp;</span><br><span class="line">        <span class="keyword">while</span> (start &lt; end)</span><br><span class="line">        &#123;</span><br><span class="line">            left = start;</span><br><span class="line">            right = end;</span><br><span class="line"></span><br><span class="line">            mid = nums[<span class="built_in">rand</span>() % (end - start + <span class="number">1</span>) + start];  <span class="comment">// 随机效率比中位数高将近10倍</span></span><br><span class="line"><span class="comment">//            mid = nums[start + ((end - start) &gt;&gt; 1)];</span></span><br><span class="line">            <span class="keyword">do</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">Compare</span>(nums[left], mid))  <span class="comment">///&lt; 注意这里是拿数 mid 去比！！！</span></span><br><span class="line">                    ++left;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">Compare</span>(mid, nums[right]))</span><br><span class="line">                    --right;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (left &lt; right)</span><br><span class="line">                &#123;</span><br><span class="line">                    temp = nums[left];</span><br><span class="line">                    nums[left] = nums[right];</span><br><span class="line">                    nums[right] = temp;</span><br><span class="line">                    ++left;</span><br><span class="line">                    --right;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (left == right)</span><br><span class="line">                &#123;</span><br><span class="line">                    ++left;</span><br><span class="line">                    --right;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">while</span> (left &lt;= right);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (start &lt; right)</span><br><span class="line">                <span class="built_in">RecurQS</span>(nums, start, right);</span><br><span class="line"></span><br><span class="line">            start = left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">sortArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">size</span>() &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">RecurQS</span>(nums, <span class="number">0</span>, nums.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯 "></a><a href="#context.8">回溯</a><a name="section.8"> </a></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 伪代码模板 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">backtracking</span><span class="params">(参数)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (终止条件) &#123;</span><br><span class="line">        存放结果;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (选择：本层集合中元素（树中节点孩子的数量就是集合的大小）) &#123;</span><br><span class="line">        处理节点;</span><br><span class="line">        <span class="built_in">backtracking</span>(路径，选择列表); <span class="comment">// 递归</span></span><br><span class="line">        回溯，撤销处理结果</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 
 
-<h2 id="递归法"><a href="#递归法" class="headerlink" title="递归法 "></a><a href="#context.8">递归法</a><a name="section.8"> </a></h2><p>三部曲：</p>
+<h2 id="递归法"><a href="#递归法" class="headerlink" title="递归法 "></a><a href="#context.9">递归法</a><a name="section.9"> </a></h2><p>三部曲：</p>
 <ol>
 <li><p><strong>确定递归函数的参数和返回值</strong></p>
 <p>因为我们要比较的是根节点的两个子树是否是相互翻转的，进而判断这个树是不是对称树，所以要比较的是两个树，参数自然也是左子树节点和右子树节点。</p>
@@ -2432,10 +2443,127 @@
 
 
 
-<h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心 "></a><a href="#context.9">贪心</a><a name="section.9"> </a></h2><p>如果找到局部最优，然后推出整体最优，那么就是贪心</p>
+<h2 id="贪心"><a href="#贪心" class="headerlink" title="贪心 "></a><a href="#context.10">贪心</a><a name="section.10"> </a></h2><p>如果找到局部最优，然后推出整体最优，那么就是贪心</p>
 <p>局部最优 → 总体最优</p>
 <p><a href="https://www.programmercarl.com/0053.%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C.html">代码随想录 (programmercarl.com)</a></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** 贪心 53 最大子数组和 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxSubArray</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="comment">///&lt; 1. 贪心</span></span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!nums.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            ret = INT32_MIN;</span><br><span class="line">            <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">                sum += nums[i];</span><br><span class="line">                ret = <span class="built_in">max</span>(ret, sum);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (sum &lt;= <span class="number">0</span>)</span><br><span class="line">                    sum = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">///&lt; 2. 优化空间后的动态规划</span></span><br><span class="line"><span class="comment">//            ret = nums[0];</span></span><br><span class="line"><span class="comment">//            int pre = 0;</span></span><br><span class="line"><span class="comment">//            for (int i = 0; i &lt; nums.size(); ++i) &#123;</span></span><br><span class="line"><span class="comment">//                pre = max(pre + nums[i], nums[i]);</span></span><br><span class="line"><span class="comment">//                ret = max(ret, pre);</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">///&lt; 3. 未优化空间的动态规划</span></span><br><span class="line"><span class="comment">//            vector&lt;int&gt; dp(nums.size(), 0);</span></span><br><span class="line"><span class="comment">//            dp[0] = nums[0];</span></span><br><span class="line"><span class="comment">//            ret = dp[0];</span></span><br><span class="line"><span class="comment">//            for (int i = 1; i &lt; nums.size(); ++i) &#123;</span></span><br><span class="line"><span class="comment">//                if (dp[i - 1] &gt; 0)</span></span><br><span class="line"><span class="comment">//                    dp[i] = dp[i - 1] + nums[i];</span></span><br><span class="line"><span class="comment">//                else</span></span><br><span class="line"><span class="comment">//                    dp[i] = nums[i];</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                ret = max(ret, dp[i]);</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="动规"><a href="#动规" class="headerlink" title="动规 "></a><a href="#context.11">动规</a><a name="section.11"> </a></h2><p><strong>0 - 1 背包问题</strong> 以及 <strong>完全背包问题</strong> 的  <b><font color='blue' size=3 face="">遍历顺序</font></b> </p>
+<ul>
+<li><p>0 - 1 背包是只能取一次</p>
+</li>
+<li><p>完全背包则是无限次取</p>
+</li>
+</ul>
+<ol>
+<li><p><strong>先遍历物品总数，为 <b><font color='blue' size=3 face="">组合类型</font></b> 问题</strong></p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; weight.<span class="built_in">size</span>(); i++) &#123; <span class="comment">// 遍历物品</span></span><br><span class="line">    <span class="comment">// for(int j = weight[i]; j &lt;= bagWeight; j--) &#123; // 遍历背包容量, 可重复，从小到大</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j = bagWeight; j &gt;= weight[i]; j--) &#123; <span class="comment">// 遍历背包容量, 不可重复，从大到小</span></span><br><span class="line">        dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i]);  <span class="comment">///&lt; 形式 1: 解决总数问题</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>先遍历容量，为 <b><font color='blue' size=3 face="">排列类型</font></b> 问题</strong></p>
+ <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt;= amount; j++) &#123; <span class="comment">// 遍历背包容量</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; coins.<span class="built_in">size</span>(); i++) &#123; <span class="comment">// 遍历物品</span></span><br><span class="line">        <span class="keyword">if</span> (j - coins[i] &gt;= <span class="number">0</span>) dp[j] += dp[j - coins[i]];  <span class="comment">///&lt; 形式 2: 解决次数问题，组合类</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式 "></a><a href="#context.12">正则表达式</a><a name="section.12"> </a></h2><p>任意⼀个字符表示匹配任意对应的字符，如a匹配a， 7匹配7， -匹配-  </p>
+<p><code>[ ]</code> 代表匹配中括号中其中任⼀字符，如 <code>[abc]</code> 匹配 a 或 b 或 c  </p>
+<p><strong><code>-</code> 在中括号里面和外面不同：</strong></p>
+<ol>
+<li>在外，就匹配 <code>-</code></li>
+<li>在内，如 <code>[a-b]</code> 表示匹配26个小写字母中的任一个</li>
+</ol>
+<p><code>[a-zA-Z]</code> 表匹配大小写共52个字母中任一个  </p>
+<p><code>[0-9]</code> 表匹配十个数字中任一个  </p>
+<p><strong><code>^</code> 在中括号里面和外面含义不同：</strong></p>
+<ol>
+<li>在外时，就表示开头，如 <code>^7[0-9]</code> 表示匹配开头是7的，且第二位是任一数字的字符串</li>
+<li>在中括号里面，表示除了这个字符以外的任意字符（包括数字，特殊字符），如 <code>[^abc]</code> 表示匹配除去 <code>abc</code> 之外的其他任一字符</li>
+</ol>
+<p><strong>常用匹配字符</strong></p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>表示字符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.</td>
+<td>任意字符</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>数字</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>非数字</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>由空字符组成， [ \t\n\r\x\f]</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>由非空字符组成， [ ^ \s]</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>字母、数字、下划线， [ a-zA-Z0-9_]</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>不是由字母、数字、下划线组成</td>
+</tr>
+<tr>
+<td>?</td>
+<td>出现0次或1次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>出现 &gt;&#x3D; 1 次</td>
+</tr>
+<tr>
+<td>*</td>
+<td>出现任意次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>出现 n 次</td>
+</tr>
+<tr>
+<td>{n, m}</td>
+<td>表示出现 n~m 次</td>
+</tr>
+<tr>
+<td>{n, }</td>
+<td>出现 &gt;&#x3D; n 次</td>
+</tr>
+<tr>
+<td>XY</td>
+<td>表示 X 后面跟着Y</td>
+</tr>
+<tr>
+<td>X|Y</td>
+<td>表示 X 或 Y</td>
+</tr>
+<tr>
+<td>(X) 子表达式</td>
+<td>将 X 看做是⼀个整体</td>
+</tr>
+</tbody></table>
+<h2 id="向上取整"><a href="#向上取整" class="headerlink" title="向上取整 "></a><a href="#context.13">向上取整</a><a name="section.13"> </a></h2><p><code>double ceil()</code></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">///&lt; a/b -&gt; (a + b - 1) / b</span></span><br><span class="line"><span class="comment">///&lt; double ceil();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// demo</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="type">double</span> d = <span class="number">3.14</span>;</span><br><span class="line"><span class="type">double</span> r = <span class="built_in">ceil</span>(d);  <span class="comment">///&lt; r = 4</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="向下取整"><a href="#向下取整" class="headerlink" title="向下取整 "></a><a href="#context.14">向下取整</a><a name="section.14"> </a></h2><p><code>double floor()</code></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">///&lt; double ceil();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// demo</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="type">double</span> d = <span class="number">3.14</span>;</span><br><span class="line"><span class="type">double</span> r = <span class="built_in">ceil</span>(d);  <span class="comment">///&lt; r = 4</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="四舍五入"><a href="#四舍五入" class="headerlink" title="四舍五入 "></a><a href="#context.15">四舍五入</a><a name="section.15"> </a></h2><p><code>double round()</code></p>
+<p><code>a / b -&gt; (a + b / 2) / b</code></p>
+<h2 id="保留小数"><a href="#保留小数" class="headerlink" title="保留小数 "></a><a href="#context.16">保留小数</a><a name="section.16"> </a></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> n = <span class="number">3.14</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%.1lf\n&quot;</span>, n); <span class="comment">///&lt; 此方法也会四舍五入</span></span><br><span class="line">cout &lt;&lt; <span class="built_in">round</span>(n * <span class="number">10</span>) / <span class="number">10</span> &lt;&lt; endl;  <span class="comment">///&lt; 利用round, 此处保留小数点后一位，注意会四舍五入</span></span><br><span class="line"></span><br><span class="line">cout &lt;&lt; <span class="built_in">setprecision</span>(<span class="number">1</span>) &lt;&lt; n &lt;&lt; endl;  <span class="comment">///&lt; 需要引入头  &lt;iomanip&gt;</span></span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
