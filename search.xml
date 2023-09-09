@@ -1102,7 +1102,7 @@
   </entry>
   <entry>
     <title>嵌入式</title>
-    <url>/2023/08/20/Embedded/</url>
+    <url>/2023/09/09/Embedded/</url>
     <content><![CDATA[<span id="more"></span>
 <h1 id="嵌入式"><a href="#嵌入式" class="headerlink" title="嵌入式"></a>嵌入式</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
 <li><a href="#section.1">OTA</a><a name="context.1"> </a></li>
@@ -1112,46 +1112,54 @@
 <li><a href="#section.5">启动流程</a><a name="context.5"> </a></li>
 <li><a href="#section.6">中断向量表</a><a name="context.6"> </a></li>
 <li><a href="#section.7">map文件分析</a><a name="context.7"> </a></li>
+<li><a href="#section.8">内存管理</a><a name="context.8"> </a><ul>
+<li><a href="#section.9">6个储存数据段</a><a name="context.9"> </a></li>
+<li><a href="#section.10">3种存储属性区</a><a name="context.10"> </a></li>
+<li><a href="#section.11">加载域和运行域</a><a name="context.11"> </a></li>
+<li><a href="#section.12">FreeRTOS中的堆</a><a name="context.12"> </a></li>
 </ul>
 </li>
-<li><a href="#section.8">总线概览</a><a name="context.8"> </a></li>
-<li><a href="#section.9">I2C</a><a name="context.9"> </a></li>
-<li><a href="#section.10">SPI</a><a name="context.10"> </a><ul>
-<li><a href="#section.11">连接方式</a><a name="context.11"> </a></li>
-<li><a href="#section.12">基本通讯过程</a><a name="context.12"> </a></li>
-<li><a href="#section.13">四种模式</a><a name="context.13"> </a></li>
-<li><a href="#section.14">CPOL</a><a name="context.14"> </a></li>
-<li><a href="#section.15">CPHA</a><a name="context.15"> </a></li>
+<li><a href="#section.13">生成bin文件</a><a name="context.13"> </a></li>
 </ul>
 </li>
-<li><a href="#section.16">串口通讯</a><a name="context.16"> </a><ul>
-<li><a href="#section.17">物理层</a><a name="context.17"> </a><ul>
-<li><a href="#section.18">电平标准</a><a name="context.18"> </a></li>
-<li><a href="#section.19">RS232信号线</a><a name="context.19"> </a></li>
+<li><a href="#section.14">总线概览</a><a name="context.14"> </a></li>
+<li><a href="#section.15">I2C</a><a name="context.15"> </a></li>
+<li><a href="#section.16">SPI</a><a name="context.16"> </a><ul>
+<li><a href="#section.17">连接方式</a><a name="context.17"> </a></li>
+<li><a href="#section.18">基本通讯过程</a><a name="context.18"> </a></li>
+<li><a href="#section.19">四种模式</a><a name="context.19"> </a></li>
+<li><a href="#section.20">CPOL</a><a name="context.20"> </a></li>
+<li><a href="#section.21">CPHA</a><a name="context.21"> </a></li>
 </ul>
 </li>
-<li><a href="#section.20">协议层</a><a name="context.20"> </a><ul>
-<li><a href="#section.21">波特率</a><a name="context.21"> </a></li>
-<li><a href="#section.22">通讯的起始和停止信号</a><a name="context.22"> </a></li>
-<li><a href="#section.23">有效数据</a><a name="context.23"> </a></li>
-<li><a href="#section.24">数据校验</a><a name="context.24"> </a></li>
+<li><a href="#section.22">串口通讯</a><a name="context.22"> </a><ul>
+<li><a href="#section.23">物理层</a><a name="context.23"> </a><ul>
+<li><a href="#section.24">电平标准</a><a name="context.24"> </a></li>
+<li><a href="#section.25">RS232信号线</a><a name="context.25"> </a></li>
+</ul>
+</li>
+<li><a href="#section.26">协议层</a><a name="context.26"> </a><ul>
+<li><a href="#section.27">波特率</a><a name="context.27"> </a></li>
+<li><a href="#section.28">通讯的起始和停止信号</a><a name="context.28"> </a></li>
+<li><a href="#section.29">有效数据</a><a name="context.29"> </a></li>
+<li><a href="#section.30">数据校验</a><a name="context.30"> </a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#section.25">中断</a><a name="context.25"> </a></li>
-<li><a href="#section.26">DMA</a><a name="context.26"> </a><ul>
-<li><a href="#section.27">主要作用</a><a name="context.27"> </a></li>
+<li><a href="#section.31">中断</a><a name="context.31"> </a></li>
+<li><a href="#section.32">DMA</a><a name="context.32"> </a><ul>
+<li><a href="#section.33">主要作用</a><a name="context.33"> </a></li>
 </ul>
 </li>
 </ul>
 <hr>
 <h2 id="OTA"><a href="#OTA" class="headerlink" title="OTA "></a><a href="#context.1">OTA</a><a name="section.1"> </a></h2><p>OTA 是空中升级 <code>Over the air</code> 的缩写，指的是通过无线通信网络（如Wi-Fi、蓝牙、LoRa等）对嵌入式系统进行远程升级或更新。</p>
 <p>在嵌入式系统中，OTA技术可以用于更新固件、软件或配置文件等。通过OTA技术，用户可以在不需要物理接触设备的情况下，对其进行升级和更新，从而提高系统的可靠性、安全性和灵活性。</p>
-<h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32 "></a><a href="#context.2">STM32</a><a name="section.2"> </a></h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构 "></a><a href="#context.3">系统架构</a><a name="section.3"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336971.png" alt="img"></p>
+<h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32 "></a><a href="#context.2">STM32</a><a name="section.2"> </a></h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构 "></a><a href="#context.3">系统架构</a><a name="section.3"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192253545.png" alt="img"></p>
 <p><strong>代码区(code area)从0x00000000开始</strong>，通过指令总线(ICode Bus)和数据总线(DCode Bus)对Flash中代码进行访问。</p>
 <p><strong>数据区(SRAM)从0x20000000开始</strong>，通过系统总线(System Bus)进行访问。</p>
-<h3 id="启动配置"><a href="#启动配置" class="headerlink" title="启动配置 "></a><a href="#context.4">启动配置</a><a name="section.4"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336683.png" alt="img"></p>
+<h3 id="启动配置"><a href="#启动配置" class="headerlink" title="启动配置 "></a><a href="#context.4">启动配置</a><a name="section.4"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192255947.png" alt="img"></p>
 <p> STM32系列可以有3种启动模式，由BOOT1与BOOT0的设置决定选择Flash、System memory还是SRAM作为启动空间。</p>
 <ol>
 <li><strong>从主闪存存储器启动(Main Flash memory)：</strong><br> 主闪存存储器被映射到启动空间(0x0000 0000)，<strong>但仍然能够在它原有的地址(0x0800 0000)访问它</strong>，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</li>
@@ -1161,21 +1169,21 @@
 <p>STM32将 0x00000000 到 0x0005FFFF 的区域作为启动空间（boot space）的别名区。</p>
 <h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程 "></a><a href="#context.5">启动流程</a><a name="section.5"> </a></h3><p>精简版：</p>
 <ol>
-<li><p><mark><strong>通过Boot引脚设定,寻找初始地址</strong></mark></p>
+<li><p>&#x3D;&#x3D;<strong>通过Boot引脚设定,寻找初始地址</strong>&#x3D;&#x3D; </p>
 </li>
-<li><p><mark><strong>初始化栈指针 __initial_sp，指针位于SRAM区</strong></mark></p>
+<li><p>&#x3D;&#x3D;<strong>初始化栈指针 __initial_sp，指针位于SRAM区</strong>&#x3D;&#x3D; </p>
 </li>
-<li><p><mark><strong>指向复位程序 Reset_Hander</strong></mark></p>
+<li><p>&#x3D;&#x3D;<strong>指向复位程序 Reset_Hander</strong>&#x3D;&#x3D; </p>
 </li>
-<li><p><mark><strong>设置异常中断 HardFault_Handler</strong></mark></p>
+<li><p>&#x3D;&#x3D;<strong>设置异常中断 HardFault_Handler</strong>&#x3D;&#x3D; </p>
 </li>
-<li><p><mark><strong>设置系统时钟 SystemInit</strong></mark></p>
+<li><p>&#x3D;&#x3D;<strong>设置系统时钟 SystemInit</strong>&#x3D;&#x3D; </p>
 </li>
-<li><p><mark><strong>调用C库函数 _main</strong></mark></p>
+<li><p>&#x3D;&#x3D;<strong>调用C库函数 _main</strong>&#x3D;&#x3D; </p>
 </li>
 <li><p><strong>首先复位MCU，进行地址映射，获取栈顶指针MSP和PC指针的内容</strong></p>
-<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336585.png" alt="img"><br> MCU上电后，自动执行<br> 当程序编译完成之后，sp堆栈栈顶指针都已经确定。<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201307158.png" alt="img"><br> R13(SP堆栈指针)的值为0x20000868(MSP)存在地址为0x00000000中，R15(PC程序计数器)的值为0x08000420存在地址为0x00000004中，堆栈指针指向sram区，且堆栈必须建立在该区。</p>
-<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336697.png" alt="img"></p>
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201444357.png" alt="img"><br> MCU上电后，自动执行<br> 当程序编译完成之后，sp堆栈栈顶指针都已经确定。<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201307158.png" alt="img"><br> R13(SP堆栈指针)的值为0x20000868(MSP)存在地址为0x00000000中，R15(PC程序计数器)的值为0x08000420存在地址为0x00000004中，堆栈指针指向sram区，且堆栈必须建立在该区。</p>
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201308487.png" alt="img"></p>
 <p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201308463.png" alt="img"></p>
 <p> 当从flash中启动时SP在地址0x08000000中存储,PC的值在地址0x08000004中存储。但仍可以在原地址中被访问。这也就是所谓的映射。</p>
 <p>  <b><font color='blue' size=3 face="">这即是手册中所说：主闪存存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的地址(0x0800 0000)访问它，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</font></b> </p>
@@ -1194,22 +1202,64 @@
 <p>3、在启动文件执行的时候，内核和每个外设的中断服务函数的地址都是已经确定好的，地址就存放在中断向量表中，而且在启动文件里面已经写好了中断服务函数，只是这些中断服务函数为空，而且带[weak]弱定义，那么我们就需要在C文件里面重新实现这个中断服务函数，用户写这个中断服务函数的时候，函数名必须跟启动文件里面写的中断函数名对应，因为函数名对应的就是中断服务函数的地址，如果中断服务函数名和启动文件的名字不一样，就默认启动文件里面预先写好的空的中断服务函数，而且是一个死循环，程序就会一直卡死在中断服务函数里面。</p>
 <p>二、那内核是如何响应中断的呢？<br>当中断来临的时候，首先取向量，每个中断的中断向量不一样，然后根据向量查询中断向量表，根据里面的地址找到中断服务函数，从而实现整个中断的响应过程。</p>
 <h3 id="map文件分析"><a href="#map文件分析" class="headerlink" title="map文件分析 "></a><a href="#context.7">map文件分析</a><a name="section.7"> </a></h3><p>在map文件的最后，都会有这样的汇总信息，如下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336777.png" alt="image-20230625222801536"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103093.png" alt="image-20230625222801536"></p>
 <p>上图中：</p>
 <p><strong>Code：</strong>代码存储区。这部分是存放代码的。</p>
 <p><strong>RO-Data：</strong>只读数据区。这部分保存程序中用 const 定义的全局常量数据和字符串。</p>
 <p><strong>RW-Data：</strong>已初始化的读写数据。程序中定义的已经初始化的全局变量和静态变量。</p>
 <p><strong>ZI-Data：</strong>未初始化的读写数据。程序中定义的未初始化的全局变量和静态变量。这部分内容是在程序运行的时候保存在RAM中的。</p>
-<p><strong>&#x3D;&#x3D;栈顶指针的值 &#x3D; RW-data + ZI-data&#x3D;&#x3D;</strong> </p>
+<p><strong><mark>栈顶指针的值 &#x3D; RW-data + ZI-data</mark></strong></p>
 <p>map文件中还做了统计：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242106706.png" alt="image-20230625222912989"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103870.png" alt="image-20230625222912989"></p>
 <p>从上图可以看出：</p>
 <p><strong>RO：</strong>只读数据。这部分包含 Code 和 RO-Data 这部分是存放在Flash中的。</p>
 <p><strong>RW：</strong>可读写数据。这部分包含 RW-Data 和 ZI-Data，这部分是存放在RAM中的，就是占据运行内存的。</p>
 <p><strong>ROM Size：</strong>总的ROM的大小。这部分包含Code、RO-data、RW-Data，是程序中占Flash的实际大小。</p>
 <p>为了方便理解，可以参考下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242106761.png" alt="image-20230625222928677"></p>
-<h2 id="总线概览"><a href="#总线概览" class="headerlink" title="总线概览 "></a><a href="#context.8">总线概览</a><a name="section.8"> </a></h2><p>UART、I2C、SPI、USB异同</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103202.png" alt="image-20230625222928677"></p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理 "></a><a href="#context.8">内存管理</a><a name="section.8"> </a></h3><p><code>stm32</code> 的内存管理就是对 <code>0x0800 0000</code> 开始的 <code>Flash</code> 部分和 <code>0x2000 0000</code> 开始的 <code>SRAM</code> 部分的使用和管理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092223474.png" alt="image-20230909222128002"></p>
+<h4 id="6个储存数据段"><a href="#6个储存数据段" class="headerlink" title="6个储存数据段 "></a><a href="#context.9">6个储存数据段</a><a name="section.9"> </a></h4><ul>
+<li><strong>data</strong><br>  数据段，储存已初始化的，且初始化不为0的全局变量和静态变量</li>
+<li><strong>bss</strong><br>  Block Started by Symbol。储存未初始化的，或初始化为0的全局变量和静态变量</li>
+<li><strong>text（Code Segment&#x2F;Text Segment）</strong><br>  代码段，储存程序代码</li>
+<li><strong>constdata</strong><br>  储存只读常量</li>
+<li><strong>heap</strong><br>  堆，存放进程运行中被动态分配的内存段。其可用大小定义在启动文件startup_stm32fxx.s中，由程序员使用malloc()和free()函数进行分配和释放</li>
+<li><strong>stack</strong><br>  栈，其大小定义在启动文件startup_stm32fxx.s中，由系统自动分配和释放。可存放局部变量、函数的参数和返回值，中断发生时能保存现场。但是static声明的局部静态变量不储存在栈中，而是放在data数据段</li>
+</ul>
+<h4 id="3种存储属性区"><a href="#3种存储属性区" class="headerlink" title="3种存储属性区 "></a><a href="#context.10">3种存储属性区</a><a name="section.10"> </a></h4><ul>
+<li><strong>RO（Read Only）</strong><br>  烧写到 Flash 中，可以长久保存。text 代码段和 constdata 都属于 RO。由于需要掉电储存，RO 里也保存了一份 data 的数据</li>
+<li><strong>RW（Read Write）</strong><br>  储存在RAM中。data属于此区。上电时单片机会将Flash中保存的data类型数据复制到RAM中，以供读写使用</li>
+<li><strong>ZI（Zero Init）</strong><br>  零初始化区，同样储存在RAM里。系统上电时会把此区域的数据进行0初始化。bss，heap，stack均属于这个区域</li>
+</ul>
+<h4 id="加载域和运行域"><a href="#加载域和运行域" class="headerlink" title="加载域和运行域 "></a><a href="#context.11">加载域和运行域</a><a name="section.11"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092245842.png" alt="image-20230909224556738"></p>
+<p><strong>程序占用 <mark>Flash &#x3D; Code + RO data + RW data</mark></strong></p>
+<p><strong>程序运行时候占用 <mark>RAM &#x3D; RW data + ZI data</mark></strong></p>
+<p><strong>Code + RO data + RW data</strong> 的大小也是生成的 <strong>bin</strong> 文件的大小</p>
+<h4 id="FreeRTOS中的堆"><a href="#FreeRTOS中的堆" class="headerlink" title="FreeRTOS中的堆 "></a><a href="#context.12">FreeRTOS中的堆</a><a name="section.12"> </a></h4><p><mark>FreeRTOS中的堆也属于ZI区</mark>，但是它与STM32内存结构中的堆并不占用相同的空间，两个堆同时存在。以下出现的堆(heap)表示FreeRTOS堆，另外<mark>在STM32启动文件中定义大小的堆称为系统堆</mark></p>
+<p>FreeRTOS内核主要使用的内存管理函数为：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">pvPortMalloc</span><span class="params">( <span class="type">size_t</span> xSize )</span>;	<span class="comment">//申请内存</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vPortFree</span><span class="params">( <span class="type">void</span> *pv )</span>;	        <span class="comment">//释放内存</span></span><br></pre></td></tr></table></figure>
+
+<p>以上函数控制的是 FreeRTOS 堆；系统堆则应使用 <code>malloc()</code> 和 <code>free()</code> 来分配和释放。</p>
+<p>FreeRTOS有 5 种 heap 的实现方式，在STM32CubeMX中默认为 heap_4.c。这种方式可以满足大部分使用需求，暂时不用关注其实现细节。</p>
+<p>这一个堆的大小定义在 <code>FreeRTOSConfig.c</code> 中：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> configTOTAL_HEAP_SIZE ((size_t)3072)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>FreeRTOS创建任务时默认的任务栈大小为128字，在32位系统中即为128*4&#x3D;512Byte，再加上TCB块占用84Byte，一共596Byte。而大小为3072Byte的堆允许创建3个这样的任务，占用约1800Byte。堆中剩余的部分则存放了系统内核、信号量、队列、任务通知等数据。</p>
+<p>需要创建更多任务时，堆的大小可自行修改。用RAM的空间减去已分配的空间，即为能给堆分配的最大空间：</p>
+<p><code>Space = RAM − bss − data − SysHeap − Stack</code></p>
+<h3 id="生成bin文件"><a href="#生成bin文件" class="headerlink" title="生成bin文件 "></a><a href="#context.13">生成bin文件</a><a name="section.13"> </a></h3><ol>
+<li><p><strong>生成 axf 输入文件</strong><br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092258040.png" alt="image-20230909225724296"></p>
+</li>
+<li><p><strong>生成 bin 输出文件</strong></p>
+ <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// D:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin --output .\Obj\DW21CTLA.bin .\Obj\xxx.axf</span></span><br><span class="line"><span class="comment">// --output 可缩写为 -o</span></span><br></pre></td></tr></table></figure>
+
+<p> <img src="C:/Users/breeze/AppData/Roaming/Typora/typora-user-images/image-20230909225816776.png" alt="image-20230909225816776"></p>
+</li>
+</ol>
+<h2 id="总线概览"><a href="#总线概览" class="headerlink" title="总线概览 "></a><a href="#context.14">总线概览</a><a name="section.14"> </a></h2><p>UART、I2C、SPI、USB异同</p>
 <table>
 <thead>
 <tr>
@@ -1264,11 +1314,11 @@
 <td>近</td>
 </tr>
 </tbody></table>
-<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C "></a><a href="#context.9">I2C</a><a name="section.9"> </a></h2><h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI "></a><a href="#context.10">SPI</a><a name="section.10"> </a></h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式 "></a><a href="#context.11">连接方式</a><a name="section.11"> </a></h3><p>3条总线 + 1条片选线</p>
+<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C "></a><a href="#context.15">I2C</a><a name="section.15"> </a></h2><h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI "></a><a href="#context.16">SPI</a><a name="section.16"> </a></h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式 "></a><a href="#context.17">连接方式</a><a name="section.17"> </a></h3><p>3条总线 + 1条片选线</p>
 <p><code>SCK、MOSI、MISO + SS/NSS/CS</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336215.png" alt="image-20230805195959632"></p>
-<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.12">基本通讯过程</a><a name="section.12"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336677.png" alt="image-20230805194747396"></p>
-<h3 id="四种模式"><a href="#四种模式" class="headerlink" title="四种模式 "></a><a href="#context.13">四种模式</a><a name="section.13"> </a></h3><table>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242104024.png" alt="image-20230805195959632"></p>
+<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.18">基本通讯过程</a><a name="section.18"> </a></h3><p><img src="/BCCPP.assets/image-20230805194747396.png" alt="image-20230805194747396"></p>
+<h3 id="四种模式"><a href="#四种模式" class="headerlink" title="四种模式 "></a><a href="#context.19">四种模式</a><a name="section.19"> </a></h3><table>
 <thead>
 <tr>
 <th>SPI 模式</th>
@@ -1309,11 +1359,11 @@
 </tbody></table>
 <p>主机与从机需要工作在相同的模式下才可以正常通讯</p>
 <p>实际中采用较多的是 <strong>“模式 0”</strong> 与 <strong>“模式 3”</strong>。</p>
-<h3 id="CPOL"><a href="#CPOL" class="headerlink" title="CPOL "></a><a href="#context.14">CPOL</a><a name="section.14"> </a></h3><p>指 SPI 通讯设备处于空闲状态时，SCK 信号线的电平信号 (即 SPI 通讯开始前、 NSS 线为高电平时 SCK 的状态)。CPOL&#x3D;0 时，SCK 在空闲状态时为低电平，CPOL&#x3D;1 时，则相反。</p>
-<h3 id="CPHA"><a href="#CPHA" class="headerlink" title="CPHA "></a><a href="#context.15">CPHA</a><a name="section.15"> </a></h3><p>指数据的采样的时刻，当 CPHA&#x3D;0 时，MOSI 或 MISO 数据线上的信号将会在SCK 时钟线的“奇数边沿”被采样。 当 CPHA&#x3D;1 时，数据线在 SCK 的“偶数边沿”采样</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336847.png" alt="image-20230805194827664"></p>
-<h2 id="串口通讯"><a href="#串口通讯" class="headerlink" title="串口通讯 "></a><a href="#context.16">串口通讯</a><a name="section.16"> </a></h2><p>分为<strong>物理层</strong>和<strong>协议层</strong>来讲解</p>
-<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层 "></a><a href="#context.17">物理层</a><a name="section.17"> </a></h3><h4 id="电平标准"><a href="#电平标准" class="headerlink" title="电平标准 "></a><a href="#context.18">电平标准</a><a name="section.18"> </a></h4><p>根据通讯使用的电平标准不同，串口通讯可分为 TTL 标准及 RS-232 标准，见下表</p>
+<h3 id="CPOL"><a href="#CPOL" class="headerlink" title="CPOL "></a><a href="#context.20">CPOL</a><a name="section.20"> </a></h3><p>指 SPI 通讯设备处于空闲状态时，SCK 信号线的电平信号 (即 SPI 通讯开始前、 NSS 线为高电平时 SCK 的状态)。CPOL&#x3D;0 时，SCK 在空闲状态时为低电平，CPOL&#x3D;1 时，则相反。</p>
+<h3 id="CPHA"><a href="#CPHA" class="headerlink" title="CPHA "></a><a href="#context.21">CPHA</a><a name="section.21"> </a></h3><p>指数据的采样的时刻，当 CPHA&#x3D;0 时，MOSI 或 MISO 数据线上的信号将会在SCK 时钟线的“奇数边沿”被采样。 当 CPHA&#x3D;1 时，数据线在 SCK 的“偶数边沿”采样</p>
+<p><img src="/BCCPP.assets/image-20230805194827664.png" alt="image-20230805194827664"></p>
+<h2 id="串口通讯"><a href="#串口通讯" class="headerlink" title="串口通讯 "></a><a href="#context.22">串口通讯</a><a name="section.22"> </a></h2><p>分为<strong>物理层</strong>和<strong>协议层</strong>来讲解</p>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层 "></a><a href="#context.23">物理层</a><a name="section.23"> </a></h3><h4 id="电平标准"><a href="#电平标准" class="headerlink" title="电平标准 "></a><a href="#context.24">电平标准</a><a name="section.24"> </a></h4><p>根据通讯使用的电平标准不同，串口通讯可分为 TTL 标准及 RS-232 标准，见下表</p>
 <table>
 <thead>
 <tr>
@@ -1341,13 +1391,13 @@
 <p>我们知道<strong>常见的电子电路中常使用 TTL 的电平标准</strong>，理想状态下，使用 5V 表示二进制逻辑 1， 使用 0V 表示逻辑 0；</p>
 <p>而为了增加串口通讯的远距离传输及抗干扰能力，它使用-15V 表示逻辑 1， +15V 表示逻辑 0。</p>
 <p>使用 RS232 与 TTL 电平校准表示同一个信号时的对比如下图</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242106529.png" alt="image-20230720165301371"></p>
+<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165301371.png" alt="image-20230720165301371"></p>
 <p><strong>注：</strong>因为控制器一般使用 TTL 电平标准，所以常常会使用 MA3232 芯片对 TTL 及 RS-232 电平的信号进行互相转换。</p>
-<h4 id="RS232信号线"><a href="#RS232信号线" class="headerlink" title="RS232信号线 "></a><a href="#context.19">RS232信号线</a><a name="section.19"> </a></h4><p>在最初的应用中，RS-232 串口标准常用于计算机、路由与调制调解器 (MODEN，俗称“猫”) 之间的通讯， 在这种通讯系统中，设备被分为数据终端设备 DTE(计算机、路由) 和数据通讯设备DCE(调制调解器)。 我们以这种通讯模型讲解它们的信号线连接方式及各个信号线的作用。</p>
+<h4 id="RS232信号线"><a href="#RS232信号线" class="headerlink" title="RS232信号线 "></a><a href="#context.25">RS232信号线</a><a name="section.25"> </a></h4><p>在最初的应用中，RS-232 串口标准常用于计算机、路由与调制调解器 (MODEN，俗称“猫”) 之间的通讯， 在这种通讯系统中，设备被分为数据终端设备 DTE(计算机、路由) 和数据通讯设备DCE(调制调解器)。 我们以这种通讯模型讲解它们的信号线连接方式及各个信号线的作用。</p>
 <p>在旧式的台式计算机中一般会有 RS-232 标准的 COM 口 (也称 DB9 接口)，见图下。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336103.png" alt="image-20230720165655500"></p>
+<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165655500.png" alt="image-20230720165655500"></p>
 <p><strong>接口示意：</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336122.png" alt="image-20230720165720644"></p>
+<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165720644.png" alt="image-20230720165720644"></p>
 <p>信号线说明 (公头，为方便理解，可把 DTE 理解为计算机，DCE 理解为调制调解器)</p>
 <table>
 <thead>
@@ -1423,20 +1473,20 @@
 <td>Ring Indicator，响铃指示，表示DCE端与线路已接通</td>
 </tr>
 </tbody></table>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308202336553.png" alt="image-20230720165858716"></p>
+<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165858716.png" alt="image-20230720165858716"></p>
 <p>串口线中的 RTS、CTS、DSR、DTR 及 DCD 信号，使用逻辑 1 表示信号有效，逻辑 0 表示信号无效。 例如，当计算机端控制 DTR 信号线表示为逻辑 1 时，它是为了告知远端的调制调解器，本机已准备好接收数据， 0 则表示还没准备就绪。</p>
 <p><strong>在目前的其它工业控制使用的串口通讯中，一般只使用 RXD、TXD 以及 GND 三条信号线！！！</strong></p>
-<h3 id="协议层"><a href="#协议层" class="headerlink" title="协议层 "></a><a href="#context.20">协议层</a><a name="section.20"> </a></h3><p>串口通讯的数据包由发送设备通过自身的 TXD 接口传输到接收设备的 RXD 接口。在串口通讯的协议层中， 规定了数据包的内容，它由启始位、主体数据、校验位以及停止位组成，通讯双方的数据包格式要约定一致才能正常收发数据</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242107089.png" alt="image-20230720170204183"></p>
-<h4 id="波特率"><a href="#波特率" class="headerlink" title="波特率 "></a><a href="#context.21">波特率</a><a name="section.21"> </a></h4><p>本章中主要讲解的是串口异步通讯，异步通讯中由于没有时钟信号 (如前面讲解的 DB9 接口中是没有时钟信号的)， 所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码，如上图中用虚线分开的每一格就是代表一个码元。 常见的波特率为 4800、9600、115200 等。</p>
-<h4 id="通讯的起始和停止信号"><a href="#通讯的起始和停止信号" class="headerlink" title="通讯的起始和停止信号 "></a><a href="#context.22">通讯的起始和停止信号</a><a name="section.22"> </a></h4><p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0 的数据位表示， 而数据包的停止信号可由 0.5、1、1.5 或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
-<h4 id="有效数据"><a href="#有效数据" class="headerlink" title="有效数据 "></a><a href="#context.23">有效数据</a><a name="section.23"> </a></h4><p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度 常被约定为 5、6、7 或 8 位长。</p>
-<h4 id="数据校验"><a href="#数据校验" class="headerlink" title="数据校验 "></a><a href="#context.24">数据校验</a><a name="section.24"> </a></h4><p>在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差， 可以在传输过程加上校验位来解决这个问题。校验方法有奇校验 (odd)、偶校验(even)、0 校验 (space)、1 校验 (mark) 以及无校验 (noparity)，它们介绍如下：</p>
+<h3 id="协议层"><a href="#协议层" class="headerlink" title="协议层 "></a><a href="#context.26">协议层</a><a name="section.26"> </a></h3><p>串口通讯的数据包由发送设备通过自身的 TXD 接口传输到接收设备的 RXD 接口。在串口通讯的协议层中， 规定了数据包的内容，它由启始位、主体数据、校验位以及停止位组成，通讯双方的数据包格式要约定一致才能正常收发数据</p>
+<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720170204183.png" alt="image-20230720170204183"></p>
+<h4 id="波特率"><a href="#波特率" class="headerlink" title="波特率 "></a><a href="#context.27">波特率</a><a name="section.27"> </a></h4><p>本章中主要讲解的是串口异步通讯，异步通讯中由于没有时钟信号 (如前面讲解的 DB9 接口中是没有时钟信号的)， 所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码，如上图中用虚线分开的每一格就是代表一个码元。 常见的波特率为 4800、9600、115200 等。</p>
+<h4 id="通讯的起始和停止信号"><a href="#通讯的起始和停止信号" class="headerlink" title="通讯的起始和停止信号 "></a><a href="#context.28">通讯的起始和停止信号</a><a name="section.28"> </a></h4><p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0 的数据位表示， 而数据包的停止信号可由 0.5、1、1.5 或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
+<h4 id="有效数据"><a href="#有效数据" class="headerlink" title="有效数据 "></a><a href="#context.29">有效数据</a><a name="section.29"> </a></h4><p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度 常被约定为 5、6、7 或 8 位长。</p>
+<h4 id="数据校验"><a href="#数据校验" class="headerlink" title="数据校验 "></a><a href="#context.30">数据校验</a><a name="section.30"> </a></h4><p>在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差， 可以在传输过程加上校验位来解决这个问题。校验方法有奇校验 (odd)、偶校验(even)、0 校验 (space)、1 校验 (mark) 以及无校验 (noparity)，它们介绍如下：</p>
 <p>奇校验要求有效数据和校验位中“1”的个数为奇数，比如一个 8 位长的有效数据为：01101001， 此时总共有 4 个“1”，为达到奇校验效果，校验位为“1”，最后传输的数据将是 8 位的有效数据 加上 1 位的校验位总共 9 位。</p>
 <p>偶校验与奇校验要求刚好相反，要求帧数据和校验位中“1”的个数为偶数，比如数据帧：11001010，此时数据帧“1”的个数为 4 个，所以偶校验位为“0”。</p>
 <p>0 校验是不管有效数据中的内容是什么，校验位总为“0”，1 校验是校验位总为“1”。</p>
 <p>在无校验的情况下，数据包中不包含校验位。</p>
-<h2 id="中断"><a href="#中断" class="headerlink" title="中断 "></a><a href="#context.25">中断</a><a name="section.25"> </a></h2><p>在嵌入式系统中，ISR中断和IRQ中断是两种不同类型的中断。</p>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断 "></a><a href="#context.31">中断</a><a name="section.31"> </a></h2><p>在嵌入式系统中，ISR中断和IRQ中断是两种不同类型的中断。</p>
 <p><strong>ISR</strong>中断，全称为“Interrupt Service Routine”，是指由硬件或软件触发的中断事件所对应的中断处理程序。当系统发生中断事件时，CPU会暂停当前正在执行的程序，并跳转到ISR中断处理程序的入口点执行特定的操作。ISR中断通常用于处理实时事件和外部设备的中断，例如定时器中断、串口数据到达中断等。</p>
 <p><strong>IRQ</strong>中断，全称为“Interrupt Request”，指的是CPU接收到一个外部设备请求服务的信号。外部设备通常通过引脚将中断信息发送给CPU，CPU收到中断信号后会执行相应的中断处理程序。IRQ中断通常用于处理外部设备的事件，例如键盘输入、鼠标点击以及外部中断信号等。</p>
 <p>异同点如下：</p>
@@ -1448,8 +1498,8 @@
 <li>中断误差处理方式不同：ISR中断可以轻松地使程序从中断处理程序返回到中断之前的位置，而IRQ中断不具备这种能力，必须通过其他方式解决。</li>
 </ol>
 <p>需要注意的是，ISR中断的概念更广泛，可以是任何中断处理程序，包括IRQ中断。IRQ中断是一种特定类型的中断，指的是由外部设备请求服务的中断。</p>
-<h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA "></a><a href="#context.26">DMA</a><a name="section.26"> </a></h2><p>即直接内存访问（Direct Memory Access），是计算机系统中一种用于减轻中央处理器（CPU）负载的技术。它允许外设（如网络卡、硬盘控制器等）直接与系统内存交换数据，而不需要经过CPU的介入。</p>
-<h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用 "></a><a href="#context.27">主要作用</a><a name="section.27"> </a></h3><p>DMA的主要作用是提高数据传输的效率和系统的整体性能，它可以实现以下功能：</p>
+<h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA "></a><a href="#context.32">DMA</a><a name="section.32"> </a></h2><p>即直接内存访问（Direct Memory Access），是计算机系统中一种用于减轻中央处理器（CPU）负载的技术。它允许外设（如网络卡、硬盘控制器等）直接与系统内存交换数据，而不需要经过CPU的介入。</p>
+<h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用 "></a><a href="#context.33">主要作用</a><a name="section.33"> </a></h3><p>DMA的主要作用是提高数据传输的效率和系统的整体性能，它可以实现以下功能：</p>
 <ol>
 <li>数据传输：DMA可以直接控制总线，将数据从外设读入内存或从内存写出到外设，而无需通过CPU进行数据传输。</li>
 <li>解放CPU负载：DMA的工作过程中，CPU可以继续执行其他任务，而不需要等待数据传输完成，从而减轻了CPU的负载。</li>
@@ -1872,9 +1922,7 @@
 
 
 <p><a href="https://leetcode.cn/problems/longest-consecutive-sequence/?envType=study-plan-v2&envId=top-100-liked">128. 最长连续序列 - 力扣（LeetCode）</a></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。</span></span><br><span class="line"><span class="comment">请你设计并实现时间复杂度为 O(n) 的算法解决此问题。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [100,4,200,1,3,2]</span></span><br><span class="line"><span class="comment">输出：4</span></span><br><span class="line"><span class="comment">解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [0,3,7,2,5,8,4,6,0,1]</span></span><br><span class="line"><span class="comment">输出：9</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">0 &lt;= nums.length &lt;= 105</span></span><br><span class="line"><span class="comment">-109 &lt;= nums[i] &lt;= 109</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">longestConsecutive</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!nums.<span class="built_in">empty</span>())</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="function">unordered_set&lt;<span class="type">int</span>&gt; <span class="title">us</span><span class="params">(nums.begin(), nums.end())</span></span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> num: nums)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (!us.<span class="built_in">count</span>(num - <span class="number">1</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="type">int</span> cur = num;</span><br><span class="line">                    <span class="type">int</span> size = <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">while</span> (us.<span class="built_in">count</span>(++cur))</span><br><span class="line">                        ++size;</span><br><span class="line"></span><br><span class="line">                    ret = <span class="built_in">max</span>(ret, size);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。</span></span><br><span class="line"><span class="comment">请你设计并实现时间复杂度为 O(n) 的算法解决此问题。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [100,4,200,1,3,2]</span></span><br><span class="line"><span class="comment">输出：4</span></span><br><span class="line"><span class="comment">解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [0,3,7,2,5,8,4,6,0,1]</span></span><br><span class="line"><span class="comment">输出：9</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">0 &lt;= nums.length &lt;= 105</span></span><br><span class="line"><span class="comment">-109 &lt;= nums[i] &lt;= 109</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">longestConsecutive</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="function">unordered_set&lt;<span class="type">int</span>&gt; <span class="title">us</span><span class="params">(nums.begin(), nums.end())</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">auto</span> num: nums)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!us.<span class="built_in">count</span>(num + <span class="number">1</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">int</span> n = num - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span> (us.<span class="built_in">count</span>(n))</span><br><span class="line">                    --n;</span><br><span class="line">                </span><br><span class="line">                ret = <span class="built_in">max</span>(ret, num - n);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -1884,21 +1932,19 @@
 
 
 <p><a href="https://leetcode.cn/problems/container-with-most-water/?envType=study-plan-v2&envId=top-100-liked">11. 盛最多水的容器 - 力扣（LeetCode）</a></p>
-<p><img src="/BCCPP.assets/image-20230808221705531.png" alt="image-20230808221705531"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309052152274.png" alt="img"></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。</span></span><br><span class="line"><span class="comment">找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</span></span><br><span class="line"><span class="comment">返回容器可以储存的最大水量。</span></span><br><span class="line"><span class="comment">说明：你不能倾斜容器。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：[1,8,6,2,5,4,8,3,7]</span></span><br><span class="line"><span class="comment">输出：49 </span></span><br><span class="line"><span class="comment">解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：height = [1,1]</span></span><br><span class="line"><span class="comment">输出：1</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">n == height.length</span></span><br><span class="line"><span class="comment">2 &lt;= n &lt;= 105</span></span><br><span class="line"><span class="comment">0 &lt;= height[i] &lt;= 104</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxArea</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (height.<span class="built_in">size</span>() &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> left = <span class="number">0</span>;</span><br><span class="line">            <span class="type">int</span> right = height.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> len;</span><br><span class="line">            <span class="keyword">while</span> (left &lt; right)</span><br><span class="line">            &#123;</span><br><span class="line">                len = right - left;</span><br><span class="line">                ret = height[left] &gt; height[right]</span><br><span class="line">                      ? <span class="built_in">max</span>(ret, len * height[right--])</span><br><span class="line">                      : <span class="built_in">max</span>(ret, len * height[left++]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
 <p><a href="https://leetcode.cn/problems/3sum/?envType=study-plan-v2&envId=top-100-liked">15. 3Sum - 力扣（LeetCode）</a></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请</span></span><br><span class="line"><span class="comment">你返回所有和为 0 且不重复的三元组。</span></span><br><span class="line"><span class="comment">注意：答案中不可以包含重复的三元组。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [-1,0,1,2,-1,-4]</span></span><br><span class="line"><span class="comment">输出：[[-1,-1,2],[-1,0,1]]</span></span><br><span class="line"><span class="comment">解释：</span></span><br><span class="line"><span class="comment">nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。</span></span><br><span class="line"><span class="comment">nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。</span></span><br><span class="line"><span class="comment">nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。</span></span><br><span class="line"><span class="comment">不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。</span></span><br><span class="line"><span class="comment">注意，输出的顺序和三元组的顺序并不重要。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [0,1,1]</span></span><br><span class="line"><span class="comment">输出：[]</span></span><br><span class="line"><span class="comment">解释：唯一可能的三元组和不为 0 。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [0,0,0]</span></span><br><span class="line"><span class="comment">输出：[[0,0,0]]</span></span><br><span class="line"><span class="comment">解释：唯一可能的三元组和为 0 。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">3 &lt;= nums.length &lt;= 3000</span></span><br><span class="line"><span class="comment">-105 &lt;= nums[i] &lt;= 105</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">threeSum</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ret;</span><br><span class="line">        <span class="keyword">if</span> (nums.<span class="built_in">size</span>() &gt; <span class="number">2</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> s = <span class="number">0</span>, e = nums.<span class="built_in">size</span>() - <span class="number">2</span>; s &lt; e; ++s)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (nums[s] &gt; <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (s &gt; <span class="number">0</span> &amp;&amp; nums[s] == nums[s - <span class="number">1</span>])</span><br><span class="line">                    ;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="type">int</span> left = s + <span class="number">1</span>;</span><br><span class="line">                    <span class="type">int</span> right = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">                    <span class="type">int</span> sum;</span><br><span class="line">                    <span class="keyword">while</span> (left &lt; right)</span><br><span class="line">                    &#123;</span><br><span class="line">                        sum = nums[s] + nums[left] + nums[right];</span><br><span class="line">                        <span class="keyword">if</span> (sum &gt; <span class="number">0</span>)</span><br><span class="line">                            --right;</span><br><span class="line">                        <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; <span class="number">0</span>)</span><br><span class="line">                            ++left;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            ret.<span class="built_in">emplace_back</span>(vector&lt;<span class="type">int</span>&gt;&#123;nums[s], nums[left], nums[right]&#125;);</span><br><span class="line">                            <span class="keyword">while</span> (++left &lt; right &amp;&amp; nums[left] == nums[left - <span class="number">1</span>]);</span><br><span class="line">                            <span class="keyword">while</span> (left &lt; --right &amp;&amp; nums[right] == nums[right + <span class="number">1</span>]);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请</span></span><br><span class="line"><span class="comment">你返回所有和为 0 且不重复的三元组。</span></span><br><span class="line"><span class="comment">注意：答案中不可以包含重复的三元组。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [-1,0,1,2,-1,-4]</span></span><br><span class="line"><span class="comment">输出：[[-1,-1,2],[-1,0,1]]</span></span><br><span class="line"><span class="comment">解释：</span></span><br><span class="line"><span class="comment">nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。</span></span><br><span class="line"><span class="comment">nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。</span></span><br><span class="line"><span class="comment">nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。</span></span><br><span class="line"><span class="comment">不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。</span></span><br><span class="line"><span class="comment">注意，输出的顺序和三元组的顺序并不重要。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [0,1,1]</span></span><br><span class="line"><span class="comment">输出：[]</span></span><br><span class="line"><span class="comment">解释：唯一可能的三元组和不为 0 。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：nums = [0,0,0]</span></span><br><span class="line"><span class="comment">输出：[[0,0,0]]</span></span><br><span class="line"><span class="comment">解释：唯一可能的三元组和为 0 。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">3 &lt;= nums.length &lt;= 3000</span></span><br><span class="line"><span class="comment">-105 &lt;= nums[i] &lt;= 105</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">threeSum</span>(vector&lt;<span class="type">int</span>&gt;&amp; nums) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; ret;</span><br><span class="line">        <span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>());</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; nums.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] &gt; <span class="number">0</span>)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i - <span class="number">1</span>] == nums[i])</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">            <span class="type">int</span> l = i + <span class="number">1</span>;</span><br><span class="line">            <span class="type">int</span> r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="type">int</span> sum = nums[i] + nums[l] + nums[r];</span><br><span class="line">                <span class="keyword">if</span> (sum &gt; <span class="number">0</span>)</span><br><span class="line">                    --r;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; <span class="number">0</span>)</span><br><span class="line">                    ++l;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    ret.<span class="built_in">emplace_back</span>(vector&lt;<span class="type">int</span>&gt;&#123;nums[i], nums[l++], nums[r--]&#125;);</span><br><span class="line">                    <span class="keyword">while</span> (l &lt; r &amp;&amp; nums[l - <span class="number">1</span>] == nums[l]) ++l;</span><br><span class="line">                    <span class="keyword">while</span> (l &lt; r &amp;&amp; nums[r] == nums[r + <span class="number">1</span>]) --r;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
 <p><a href="https://leetcode.cn/problems/trapping-rain-water/?envType=study-plan-v2&envId=top-100-liked">42. 接雨水 - 力扣（LeetCode）</a></p>
-<p><img src="/BCCPP.assets/image-20230808221849426.png" alt="image-20230808221849426"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230808221849426.png" alt="img"></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：height = [0,1,0,2,1,0,1,3,2,1,2,1]</span></span><br><span class="line"><span class="comment">输出：6</span></span><br><span class="line"><span class="comment">解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入：height = [4,2,0,3,2,5]</span></span><br><span class="line"><span class="comment">输出：9</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">n == height.length</span></span><br><span class="line"><span class="comment">1 &lt;= n &lt;= 2 * 104</span></span><br><span class="line"><span class="comment">0 &lt;= height[i] &lt;= 105</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">trap</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (height.<span class="built_in">size</span>() &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> left = <span class="number">0</span>, hl = <span class="number">0</span>;</span><br><span class="line">            <span class="type">int</span> right = height.<span class="built_in">size</span>() - <span class="number">1</span>, hr = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (left &lt; right)</span><br><span class="line">            &#123;</span><br><span class="line">                hl = <span class="built_in">max</span>(hl, height[left]);</span><br><span class="line">                hr = <span class="built_in">max</span>(hr, height[right]);</span><br><span class="line">                ret += height[left] &gt; height[right] ? hr - height[right--] : hl - height[left++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
 
 
 
@@ -2050,9 +2096,7 @@
 
 
 
-
-
-<p><a href="https://leetcode.cn/problems/binary-tree-maximum-path-sum/?envType=study-plan-v2&envId=top-100-liked">124. Binary Tree Maximum Path Sum - 力扣（LeetCode）</a></p>
+<p><a href="https://leetcode.cn/problems/binary-tree-maximum-path-sum/?envType=study-plan-v2&envId=top-100-liked">124. 二叉树中的最大路径和 - 力扣（LeetCode）</a></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">二叉树中的 路径 被定义为一条节点序列，序列中每对相邻节点之间都存在一条边。同一个节点在一条路径序列中 至多出现一次 。该路径 至少包含一个 节点，且不一定经过根节点。</span></span><br><span class="line"><span class="comment">路径和 是路径中各节点值的总和。</span></span><br><span class="line"><span class="comment">给你一个二叉树的根节点 root ，返回其 最大路径和 。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">树中节点数目范围是 [1, 3 * 104]</span></span><br><span class="line"><span class="comment">-1000 &lt;= Node.val &lt;= 1000</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">///&lt; Method 1: 直接递归即可, 类似 力扣 543 二叉树的直径</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> max_sum = INT_MIN;</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">RecurSum</span><span class="params">(TreeNode *node)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (node)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">int</span> l = <span class="built_in">max</span>(<span class="built_in">RecurSum</span>(node-&gt;left), <span class="number">0</span>);</span><br><span class="line">            <span class="type">int</span> r = <span class="built_in">max</span>(<span class="built_in">RecurSum</span>(node-&gt;right), <span class="number">0</span>);</span><br><span class="line">            ret = node-&gt;val;</span><br><span class="line">            max_sum = <span class="built_in">max</span>(max_sum, ret + l + r);</span><br><span class="line">            ret += <span class="built_in">max</span>(l, r);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">maxPathSum</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(max_sum, <span class="built_in">RecurSum</span>(root));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
@@ -2107,8 +2151,6 @@
 
 <p><a href="https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/description/?envType=study-plan-v2&envId=top-100-liked">153. 寻找旋转排序数组中的最小值 - 力扣（LeetCode）</a></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。例如，原数组 nums = [0,1,2,4,5,6,7] 在变化后可能得到：</span></span><br><span class="line"><span class="comment">若旋转 4 次，则可以得到 [4,5,6,7,0,1,2]</span></span><br><span class="line"><span class="comment">若旋转 7 次，则可以得到 [0,1,2,4,5,6,7]</span></span><br><span class="line"><span class="comment">注意，数组 [a[0], a[1], a[2], ..., a[n-1]] 旋转一次 的结果为数组 [a[n-1], a[0], a[1], a[2], ..., a[n-2]] 。</span></span><br><span class="line"><span class="comment">给你一个元素值 互不相同 的数组 nums ，它原来是一个升序排列的数组，并按上述情形进行了多次旋转。请你找出并返回数组中的 最小元素 </span></span><br><span class="line"><span class="comment">你必须设计一个时间复杂度为 O(log n) 的算法解决此问题</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">n == nums.length</span></span><br><span class="line"><span class="comment">1 &lt;= n &lt;= 5000</span></span><br><span class="line"><span class="comment">-5000 &lt;= nums[i] &lt;= 5000</span></span><br><span class="line"><span class="comment">nums 中的所有整数 互不相同</span></span><br><span class="line"><span class="comment">nums 原来是一个升序排序的数组，并进行了 1 至 n 次旋转</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">///&lt; Method 1: 函数递归二分，这复杂度真的满足要求吗？？？</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Recur</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;nums, <span class="type">int</span> l, <span class="type">int</span> r)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">int</span> ret = INT_MAX;</span><br><span class="line">        <span class="type">int</span> m;</span><br><span class="line">        <span class="keyword">if</span> (l &lt;= r)</span><br><span class="line">        &#123;</span><br><span class="line">            m = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[l] &lt;= nums[m])</span><br><span class="line">                ret = <span class="built_in">min</span>(nums[l], <span class="built_in">Recur</span>(nums, m + <span class="number">1</span>, r));</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                ret = <span class="built_in">min</span>(nums[m + <span class="number">1</span>], <span class="built_in">Recur</span>(nums, l, m));</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findMin</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Recur</span>(nums, <span class="number">0</span>, nums.<span class="built_in">size</span>() - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">///&lt; Method 2: 严格二分</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">findMin</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> l = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> r = nums.<span class="built_in">size</span>() - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> m;</span><br><span class="line">        <span class="keyword">while</span> (l &lt; r)</span><br><span class="line">        &#123;</span><br><span class="line">            m = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (nums[m] &lt; nums[r])</span><br><span class="line">                r = m;</span><br><span class="line">            <span class="keyword">else</span>  <span class="comment">///&lt; 由题可知，实际上 nums[m] != nums[r], 因为 m 是偏左值, 又由 l &lt; r 限定不会等</span></span><br><span class="line">                l = m + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> nums[l];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
 
 
 
