@@ -75,8 +75,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2023/09/09/Embedded/" class="article-date">
-  <time datetime="2023-09-08T16:00:00.000Z" itemprop="datePublished">2023-09-09</time>
+      <a href="/2023/10/10/Embedded/" class="article-date">
+  <time datetime="2023-10-09T16:00:00.000Z" itemprop="datePublished">2023-10-10</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E6%98%9F%E6%B5%B7/">星海</a>
@@ -87,7 +87,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">5.7k</span>
+            <span class="post-count">7.7k</span>
         </span>
     </span>
 
@@ -96,7 +96,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">20 分钟</span>
+            <span class="post-count">28 分钟</span>
         </span>
     </span>
 </div>
@@ -113,61 +113,130 @@
        
   <span id="more"></span>
 <h1 id="嵌入式"><a href="#嵌入式" class="headerlink" title="嵌入式"></a>嵌入式</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#section.1">OTA</a><a name="context.1"> </a></li>
-<li><a href="#section.2">STM32</a><a name="context.2"> </a><ul>
-<li><a href="#section.3">系统架构</a><a name="context.3"> </a></li>
-<li><a href="#section.4">启动配置</a><a name="context.4"> </a></li>
-<li><a href="#section.5">启动流程</a><a name="context.5"> </a></li>
-<li><a href="#section.6">中断向量表</a><a name="context.6"> </a></li>
-<li><a href="#section.7">map文件分析</a><a name="context.7"> </a></li>
-<li><a href="#section.8">内存管理</a><a name="context.8"> </a><ul>
-<li><a href="#section.9">6个储存数据段</a><a name="context.9"> </a></li>
-<li><a href="#section.10">3种存储属性区</a><a name="context.10"> </a></li>
-<li><a href="#section.11">加载域和运行域</a><a name="context.11"> </a></li>
-<li><a href="#section.12">FreeRTOS中的堆</a><a name="context.12"> </a></li>
-</ul>
-</li>
-<li><a href="#section.13">生成bin文件</a><a name="context.13"> </a></li>
-</ul>
-</li>
-<li><a href="#section.14">总线概览</a><a name="context.14"> </a></li>
-<li><a href="#section.15">I2C</a><a name="context.15"> </a></li>
-<li><a href="#section.16">SPI</a><a name="context.16"> </a><ul>
-<li><a href="#section.17">连接方式</a><a name="context.17"> </a></li>
-<li><a href="#section.18">基本通讯过程</a><a name="context.18"> </a></li>
-<li><a href="#section.19">四种模式</a><a name="context.19"> </a></li>
-<li><a href="#section.20">CPOL</a><a name="context.20"> </a></li>
-<li><a href="#section.21">CPHA</a><a name="context.21"> </a></li>
-</ul>
-</li>
-<li><a href="#section.22">串口通讯</a><a name="context.22"> </a><ul>
-<li><a href="#section.23">物理层</a><a name="context.23"> </a><ul>
-<li><a href="#section.24">电平标准</a><a name="context.24"> </a></li>
-<li><a href="#section.25">RS232信号线</a><a name="context.25"> </a></li>
-</ul>
-</li>
-<li><a href="#section.26">协议层</a><a name="context.26"> </a><ul>
-<li><a href="#section.27">波特率</a><a name="context.27"> </a></li>
-<li><a href="#section.28">通讯的起始和停止信号</a><a name="context.28"> </a></li>
-<li><a href="#section.29">有效数据</a><a name="context.29"> </a></li>
-<li><a href="#section.30">数据校验</a><a name="context.30"> </a></li>
+<li><a href="#section.1">函数传参寄存器</a><a name="context.1"> </a></li>
+<li><a href="#section.2">IAP</a><a name="context.2"> </a></li>
+<li><a href="#section.3">ISP</a><a name="context.3"> </a></li>
+<li><a href="#section.4">OTA</a><a name="context.4"> </a><ul>
+<li><a href="#section.5">跳转函数</a><a name="context.5"> </a></li>
+<li><a href="#section.6">踩坑记录</a><a name="context.6"> </a><ul>
+<li><a href="#section.7">协议传输失败？</a><a name="context.7"> </a></li>
+<li><a href="#section.8">跳转函数？</a><a name="context.8"> </a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#section.31">中断</a><a name="context.31"> </a></li>
-<li><a href="#section.32">DMA</a><a name="context.32"> </a><ul>
-<li><a href="#section.33">主要作用</a><a name="context.33"> </a></li>
+<li><a href="#section.9">STM32</a><a name="context.9"> </a><ul>
+<li><a href="#section.10">系统架构</a><a name="context.10"> </a></li>
+<li><a href="#section.11">内核</a><a name="context.11"> </a></li>
+<li><a href="#section.12">启动配置</a><a name="context.12"> </a></li>
+<li><a href="#section.13">启动流程</a><a name="context.13"> </a></li>
+<li><a href="#section.14">中断向量表</a><a name="context.14"> </a></li>
+<li><a href="#section.15">map文件分析</a><a name="context.15"> </a></li>
+<li><a href="#section.16">内存管理</a><a name="context.16"> </a><ul>
+<li><a href="#section.17">6个储存数据段</a><a name="context.17"> </a></li>
+<li><a href="#section.18">3种存储属性区</a><a name="context.18"> </a></li>
+<li><a href="#section.19">加载域和运行域</a><a name="context.19"> </a></li>
+<li><a href="#section.20">FreeRTOS中的堆</a><a name="context.20"> </a></li>
+</ul>
+</li>
+<li><a href="#section.21">生成bin文件</a><a name="context.21"> </a></li>
+</ul>
+</li>
+<li><a href="#section.22">总线概览</a><a name="context.22"> </a></li>
+<li><a href="#section.23">I2C</a><a name="context.23"> </a></li>
+<li><a href="#section.24">SPI</a><a name="context.24"> </a><ul>
+<li><a href="#section.25">连接方式</a><a name="context.25"> </a></li>
+<li><a href="#section.26">基本通讯过程</a><a name="context.26"> </a></li>
+<li><a href="#section.27">四种模式</a><a name="context.27"> </a></li>
+<li><a href="#section.28">CPOL</a><a name="context.28"> </a></li>
+<li><a href="#section.29">CPHA</a><a name="context.29"> </a></li>
+</ul>
+</li>
+<li><a href="#section.30">串口通讯</a><a name="context.30"> </a><ul>
+<li><a href="#section.31">物理层</a><a name="context.31"> </a><ul>
+<li><a href="#section.32">电平标准</a><a name="context.32"> </a></li>
+<li><a href="#section.33">RS232信号线</a><a name="context.33"> </a></li>
+</ul>
+</li>
+<li><a href="#section.34">协议层</a><a name="context.34"> </a><ul>
+<li><a href="#section.35">波特率</a><a name="context.35"> </a></li>
+<li><a href="#section.36">通讯的起始和停止信号</a><a name="context.36"> </a></li>
+<li><a href="#section.37">有效数据</a><a name="context.37"> </a></li>
+<li><a href="#section.38">数据校验</a><a name="context.38"> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#section.39">Cortex - M 架构</a><a name="context.39"> </a><ul>
+<li><a href="#section.40">处理器内部的寄存器组和特殊寄存器</a><a name="context.40"> </a></li>
+<li><a href="#section.41">通用寄存器组</a><a name="context.41"> </a></li>
+<li><a href="#section.42">堆栈指针SP</a><a name="context.42"> </a></li>
+<li><a href="#section.43">LR（linker registers）</a><a name="context.43"> </a></li>
+<li><a href="#section.44">特殊寄存器</a><a name="context.44"> </a><ul>
+<li><a href="#section.45">中断屏蔽特殊寄存器IMSR</a><a name="context.45"> </a></li>
+<li><a href="#section.46">特殊寄存器CONTROL</a><a name="context.46"> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#section.47">中断</a><a name="context.47"> </a><ul>
+<li><a href="#section.48">NVIC配置</a><a name="context.48"> </a></li>
+</ul>
+</li>
+<li><a href="#section.49">DMA</a><a name="context.49"> </a><ul>
+<li><a href="#section.50">主要作用</a><a name="context.50"> </a></li>
 </ul>
 </li>
 </ul>
 <hr>
-<h2 id="OTA"><a href="#OTA" class="headerlink" title="OTA "></a><a href="#context.1">OTA</a><a name="section.1"> </a></h2><p>OTA 是空中升级 <code>Over the air</code> 的缩写，指的是通过无线通信网络（如Wi-Fi、蓝牙、LoRa等）对嵌入式系统进行远程升级或更新。</p>
+<h2 id="函数传参寄存器"><a href="#函数传参寄存器" class="headerlink" title="函数传参寄存器 "></a><a href="#context.1">函数传参寄存器</a><a name="section.1"> </a></h2><p>在主程序和子程序中传递参数，通常有3种方法，（1）寄存器（2）数据区的变量传递（3）堆栈传递</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x86-32位</td>
+<td>使用栈传递</td>
+</tr>
+<tr>
+<td>x64-64位</td>
+<td>前4个参数分别是 <code>rcx rdx r8 r9</code>进行传参。多余的通过栈传参，从右向左入栈。<br />在被调用函数执行前，会先将寄存器中的参数压入堆栈，之后的访问会通过栈寄存器加上偏移位置来访问。<br />点型参数保存在寄存器xmm0,xmm1…中。</td>
+</tr>
+<tr>
+<td>arm</td>
+<td><code>R0 R1 R2 R3</code>为参数寄存器，大于四个参数时，借助于栈进行传递</td>
+</tr>
+</tbody></table>
+<h2 id="IAP"><a href="#IAP" class="headerlink" title="IAP "></a><a href="#context.2">IAP</a><a name="section.2"> </a></h2><p>IAP（In Application Programming 应用编程）技术，是从结构上将 Flash 存储器映射为两个或多个分区，在一个分区中对其他分区进行编程，这个分区通常成为 BootLoader</p>
+<h2 id="ISP"><a href="#ISP" class="headerlink" title="ISP "></a><a href="#context.3">ISP</a><a name="section.3"> </a></h2><p>ISP（In System Programming 系统编程）技术，是通过下载器对单片机内部的 Flash 存储器进行编程，如 JTAG 等</p>
+<h2 id="OTA"><a href="#OTA" class="headerlink" title="OTA "></a><a href="#context.4">OTA</a><a name="section.4"> </a></h2><p>OTA 是空中升级 <code>Over the air</code> 的缩写，指的是通过无线通信网络（如Wi-Fi、蓝牙、LoRa等）对嵌入式系统进行远程升级或更新。</p>
 <p>在嵌入式系统中，OTA技术可以用于更新固件、软件或配置文件等。通过OTA技术，用户可以在不需要物理接触设备的情况下，对其进行升级和更新，从而提高系统的可靠性、安全性和灵活性。</p>
-<h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32 "></a><a href="#context.2">STM32</a><a name="section.2"> </a></h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构 "></a><a href="#context.3">系统架构</a><a name="section.3"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192253545.png" alt="img"></p>
+<h3 id="跳转函数"><a href="#跳转函数" class="headerlink" title="跳转函数 "></a><a href="#context.5">跳转函数</a><a name="section.5"> </a></h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">IapJumpToApp</span><span class="params">(<span class="type">uint32_t</span> appaddr)</span></span><br><span class="line">&#123;</span><br><span class="line">    pFunction JumpToApplication;</span><br><span class="line">    <span class="comment">/** stm32F103 的 SRAM 为 0x2000 0000 ~ 0x2000 FFFF */</span></span><br><span class="line">    <span class="keyword">if</span>(((*(vu32*)appaddr)&amp;<span class="number">0x2FF00000</span>) == <span class="number">0x20000000</span>)  <span class="comment">///&lt; 检查栈顶地址是否合法</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Initialize user application&#x27;s Stack Pointer &amp; Jump to user application */</span></span><br><span class="line">        <span class="comment">/** 屏蔽所有中断 */</span></span><br><span class="line">        __disable_irq();</span><br><span class="line"><span class="comment">//        __set_PRIMASK(1);  ///&lt; 均可</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">/** 1.设置用户代码区第二个字为程序开始地址 (复位地址) */</span></span><br><span class="line">        JumpToApplication = (pFunction) (*(__IO <span class="type">uint32_t</span>*) (appaddr + <span class="number">4</span>));</span><br><span class="line">        __set_PSP(*(__IO <span class="type">uint32_t</span>*) appaddr);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/** 2.初始化 APP 堆栈指针 (用户代码区的第一个字用于存放栈顶地址) */</span></span><br><span class="line">        __set_MSP(*(__IO <span class="type">uint32_t</span>*) appaddr);</span><br><span class="line">        </span><br><span class="line">        __set_CONTROL(<span class="number">0</span>);  <span class="comment">///&lt; 设置堆栈指针为 MSP</span></span><br><span class="line">        <span class="comment">/** 3.跳转到 APP */</span></span><br><span class="line">        JumpToApplication();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录 "></a><a href="#context.6">踩坑记录</a><a name="section.6"> </a></h3><h4 id="协议传输失败？"><a href="#协议传输失败？" class="headerlink" title="协议传输失败？ "></a><a href="#context.7">协议传输失败？</a><a name="section.7"> </a></h4><p>中断问题，后续让 <code>os</code> 管理即可，同时在串口中断加入 <code>taskENTER_CRITICAL_FROM_ISR();</code></p>
+<h4 id="跳转函数？"><a href="#跳转函数？" class="headerlink" title="跳转函数？ "></a><a href="#context.8">跳转函数？</a><a name="section.8"> </a></h4><p><code>jump</code> 函数需要屏蔽中断，并且 <code>__set_CONTROL(0)</code>，将0写入 <code>CONTROL</code> 寄存器，即程序运行在特权访问等级，使用MSP主栈指针。 <b><font color='blue' size=3 face="">主要作用是将 PSP 改为 MSP</font></b> </p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310052104239.png" alt="image-20231005210154317"></p>
+<h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32 "></a><a href="#context.9">STM32</a><a name="section.9"> </a></h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构 "></a><a href="#context.10">系统架构</a><a name="section.10"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192253545.png" alt="img"></p>
 <p><strong>代码区(code area)从0x00000000开始</strong>，通过指令总线(ICode Bus)和数据总线(DCode Bus)对Flash中代码进行访问。</p>
 <p><strong>数据区(SRAM)从0x20000000开始</strong>，通过系统总线(System Bus)进行访问。</p>
-<h3 id="启动配置"><a href="#启动配置" class="headerlink" title="启动配置 "></a><a href="#context.4">启动配置</a><a name="section.4"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192255947.png" alt="img"></p>
+<p> <b><font color='blue' size=3 face="">内存为小端存储</font></b> </p>
+<h3 id="内核"><a href="#内核" class="headerlink" title="内核 "></a><a href="#context.11">内核</a><a name="section.11"> </a></h3><p>为  <b><font color='blue' size=3 face="">Cortex-M3 内核</font></b> 处理器</p>
+<p>三个特殊的寄存器R13、R14、R15<br>R13：堆栈<br>R14 ：LR寄存器，链接寄存器。保存调用子程序的地址<br>R15：程序计数器<br>另外还有一个特殊的寄存器 <strong>状态寄存器</strong>，通常用在操作系统中，参考 <a href="#%E7%89%B9%E6%AE%8A%E5%AF%84%E5%AD%98%E5%99%A8">特殊寄存器</a></p>
+<p><strong>双堆栈</strong></p>
+<p><strong>简述：</strong></p>
+<p>本质是寄存器R13，分成两个堆栈， <b><font color='blue' size=3 face="">MSP（中断中使用的）</font></b>  和  <b><font color='blue' size=3 face="">PSP（任务中使用）</font></b> 。</p>
+<p><strong>意义：</strong></p>
+<p>两个堆栈，一个处理任务，一个处理中断，更安全。</p>
+<h3 id="启动配置"><a href="#启动配置" class="headerlink" title="启动配置 "></a><a href="#context.12">启动配置</a><a name="section.12"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192255947.png" alt="img"></p>
 <p> STM32系列可以有3种启动模式，由BOOT1与BOOT0的设置决定选择Flash、System memory还是SRAM作为启动空间。</p>
 <ol>
 <li><strong>从主闪存存储器启动(Main Flash memory)：</strong><br> 主闪存存储器被映射到启动空间(0x0000 0000)，<strong>但仍然能够在它原有的地址(0x0800 0000)访问它</strong>，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</li>
@@ -175,7 +244,7 @@
 <li><strong>从内置SRAM启动(Embedded SRAM)：</strong><br> <strong>只能在0x20000000开始的地址区访问SRAM，启动后这个映射消失，需要重定位中断向量表。</strong></li>
 </ol>
 <p>STM32将 0x00000000 到 0x0005FFFF 的区域作为启动空间（boot space）的别名区。</p>
-<h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程 "></a><a href="#context.5">启动流程</a><a name="section.5"> </a></h3><p>精简版：</p>
+<h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程 "></a><a href="#context.13">启动流程</a><a name="section.13"> </a></h3><p>精简版：</p>
 <ol>
 <li><p>&#x3D;&#x3D;<strong>通过Boot引脚设定,寻找初始地址</strong>&#x3D;&#x3D; </p>
 </li>
@@ -204,12 +273,12 @@
 <p> SystemInit这个函数里面开启了外部晶振，设置了锁相环PLL，关闭了所有中断，设置了时钟为72MHz，并且重定位中断向量表在0x08000000处（这句在Flash启动时可以不需要，因为能从0x00000000映射到0x08000000）。</p>
 </li>
 </ol>
-<h3 id="中断向量表"><a href="#中断向量表" class="headerlink" title="中断向量表 "></a><a href="#context.6">中断向量表</a><a name="section.6"> </a></h3><p>STM32的中断向量表是干什么的？到底有什么用？它放在哪里？</p>
+<h3 id="中断向量表"><a href="#中断向量表" class="headerlink" title="中断向量表 "></a><a href="#context.14">中断向量表</a><a name="section.14"> </a></h3><p>STM32的中断向量表是干什么的？到底有什么用？它放在哪里？</p>
 <p>一、中断向量表里有什么？它放在那里？到底有什么用？<br>1、中断向量表实际上就是存放在Code区（也就是STM32内部的Flash区）从0x00000000地址开始的一个数组，数组的成员为4个字节，而且这些数组在启动文件的时候已经初始化好。</p>
 <p>2、STM32根据内核和外设中断优先级，同一标号，标号越小，优先级越大。然后把内核和外设的中断服务函数的地址放在这个数组里面，数组的下标跟中断的优先级对应，我们也把这个中断的编号叫做中断向量。</p>
 <p>3、在启动文件执行的时候，内核和每个外设的中断服务函数的地址都是已经确定好的，地址就存放在中断向量表中，而且在启动文件里面已经写好了中断服务函数，只是这些中断服务函数为空，而且带[weak]弱定义，那么我们就需要在C文件里面重新实现这个中断服务函数，用户写这个中断服务函数的时候，函数名必须跟启动文件里面写的中断函数名对应，因为函数名对应的就是中断服务函数的地址，如果中断服务函数名和启动文件的名字不一样，就默认启动文件里面预先写好的空的中断服务函数，而且是一个死循环，程序就会一直卡死在中断服务函数里面。</p>
 <p>二、那内核是如何响应中断的呢？<br>当中断来临的时候，首先取向量，每个中断的中断向量不一样，然后根据向量查询中断向量表，根据里面的地址找到中断服务函数，从而实现整个中断的响应过程。</p>
-<h3 id="map文件分析"><a href="#map文件分析" class="headerlink" title="map文件分析 "></a><a href="#context.7">map文件分析</a><a name="section.7"> </a></h3><p>在map文件的最后，都会有这样的汇总信息，如下图：</p>
+<h3 id="map文件分析"><a href="#map文件分析" class="headerlink" title="map文件分析 "></a><a href="#context.15">map文件分析</a><a name="section.15"> </a></h3><p>在map文件的最后，都会有这样的汇总信息，如下图：</p>
 <p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103093.png" alt="image-20230625222801536"></p>
 <p>上图中：</p>
 <p><strong>Code：</strong>代码存储区。这部分是存放代码的。</p>
@@ -224,10 +293,10 @@
 <p><strong>RW：</strong>可读写数据。这部分包含 RW-Data 和 ZI-Data，这部分是存放在RAM中的，就是占据运行内存的。</p>
 <p><strong>ROM Size：</strong>总的ROM的大小。这部分包含Code、RO-data、RW-Data，是程序中占Flash的实际大小。</p>
 <p>为了方便理解，可以参考下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103202.png" alt="image-20230625222928677"></p>
-<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理 "></a><a href="#context.8">内存管理</a><a name="section.8"> </a></h3><p><code>stm32</code> 的内存管理就是对 <code>0x0800 0000</code> 开始的 <code>Flash</code> 部分和 <code>0x2000 0000</code> 开始的 <code>SRAM</code> 部分的使用和管理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103202.png" alt="image-20230625222928677"><br> <b><font color='blue' size=3 face="">注意：Flash &#x3D; Code + RO-Data + RW-Data</font></b> </p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理 "></a><a href="#context.16">内存管理</a><a name="section.16"> </a></h3><p><code>stm32</code> 的内存管理就是对 <code>0x0800 0000</code> 开始的 <code>Flash</code> 部分和 <code>0x2000 0000</code> 开始的 <code>SRAM</code> 部分的使用和管理</p>
 <p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092223474.png" alt="image-20230909222128002"></p>
-<h4 id="6个储存数据段"><a href="#6个储存数据段" class="headerlink" title="6个储存数据段 "></a><a href="#context.9">6个储存数据段</a><a name="section.9"> </a></h4><ul>
+<h4 id="6个储存数据段"><a href="#6个储存数据段" class="headerlink" title="6个储存数据段 "></a><a href="#context.17">6个储存数据段</a><a name="section.17"> </a></h4><ul>
 <li><strong>data</strong><br>  数据段，储存已初始化的，且初始化不为0的全局变量和静态变量</li>
 <li><strong>bss</strong><br>  Block Started by Symbol。储存未初始化的，或初始化为0的全局变量和静态变量</li>
 <li><strong>text（Code Segment&#x2F;Text Segment）</strong><br>  代码段，储存程序代码</li>
@@ -235,16 +304,16 @@
 <li><strong>heap</strong><br>  堆，存放进程运行中被动态分配的内存段。其可用大小定义在启动文件startup_stm32fxx.s中，由程序员使用malloc()和free()函数进行分配和释放</li>
 <li><strong>stack</strong><br>  栈，其大小定义在启动文件startup_stm32fxx.s中，由系统自动分配和释放。可存放局部变量、函数的参数和返回值，中断发生时能保存现场。但是static声明的局部静态变量不储存在栈中，而是放在data数据段</li>
 </ul>
-<h4 id="3种存储属性区"><a href="#3种存储属性区" class="headerlink" title="3种存储属性区 "></a><a href="#context.10">3种存储属性区</a><a name="section.10"> </a></h4><ul>
+<h4 id="3种存储属性区"><a href="#3种存储属性区" class="headerlink" title="3种存储属性区 "></a><a href="#context.18">3种存储属性区</a><a name="section.18"> </a></h4><ul>
 <li><strong>RO（Read Only）</strong><br>  烧写到 Flash 中，可以长久保存。text 代码段和 constdata 都属于 RO。由于需要掉电储存，RO 里也保存了一份 data 的数据</li>
 <li><strong>RW（Read Write）</strong><br>  储存在RAM中。data属于此区。上电时单片机会将Flash中保存的data类型数据复制到RAM中，以供读写使用</li>
 <li><strong>ZI（Zero Init）</strong><br>  零初始化区，同样储存在RAM里。系统上电时会把此区域的数据进行0初始化。bss，heap，stack均属于这个区域</li>
 </ul>
-<h4 id="加载域和运行域"><a href="#加载域和运行域" class="headerlink" title="加载域和运行域 "></a><a href="#context.11">加载域和运行域</a><a name="section.11"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092245842.png" alt="image-20230909224556738"></p>
+<h4 id="加载域和运行域"><a href="#加载域和运行域" class="headerlink" title="加载域和运行域 "></a><a href="#context.19">加载域和运行域</a><a name="section.19"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092245842.png" alt="image-20230909224556738"></p>
 <p><strong>程序占用 <mark>Flash &#x3D; Code + RO data + RW data</mark></strong></p>
 <p><strong>程序运行时候占用 <mark>RAM &#x3D; RW data + ZI data</mark></strong></p>
 <p><strong>Code + RO data + RW data</strong> 的大小也是生成的 <strong>bin</strong> 文件的大小</p>
-<h4 id="FreeRTOS中的堆"><a href="#FreeRTOS中的堆" class="headerlink" title="FreeRTOS中的堆 "></a><a href="#context.12">FreeRTOS中的堆</a><a name="section.12"> </a></h4><p><mark>FreeRTOS中的堆也属于ZI区</mark>，但是它与STM32内存结构中的堆并不占用相同的空间，两个堆同时存在。以下出现的堆(heap)表示FreeRTOS堆，另外<mark>在STM32启动文件中定义大小的堆称为系统堆</mark></p>
+<h4 id="FreeRTOS中的堆"><a href="#FreeRTOS中的堆" class="headerlink" title="FreeRTOS中的堆 "></a><a href="#context.20">FreeRTOS中的堆</a><a name="section.20"> </a></h4><p><mark>FreeRTOS中的堆也属于ZI区</mark>，但是它与STM32内存结构中的堆并不占用相同的空间，两个堆同时存在。以下出现的堆(heap)表示FreeRTOS堆，另外<mark>在STM32启动文件中定义大小的堆称为系统堆</mark></p>
 <p>FreeRTOS内核主要使用的内存管理函数为：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">pvPortMalloc</span><span class="params">( <span class="type">size_t</span> xSize )</span>;	<span class="comment">//申请内存</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vPortFree</span><span class="params">( <span class="type">void</span> *pv )</span>;	        <span class="comment">//释放内存</span></span><br></pre></td></tr></table></figure>
 
@@ -258,7 +327,7 @@
 <p>FreeRTOS创建任务时默认的任务栈大小为128字，在32位系统中即为128*4&#x3D;512Byte，再加上TCB块占用84Byte，一共596Byte。而大小为3072Byte的堆允许创建3个这样的任务，占用约1800Byte。堆中剩余的部分则存放了系统内核、信号量、队列、任务通知等数据。</p>
 <p>需要创建更多任务时，堆的大小可自行修改。用RAM的空间减去已分配的空间，即为能给堆分配的最大空间：</p>
 <p><code>Space = RAM − bss − data − SysHeap − Stack</code></p>
-<h3 id="生成bin文件"><a href="#生成bin文件" class="headerlink" title="生成bin文件 "></a><a href="#context.13">生成bin文件</a><a name="section.13"> </a></h3><ol>
+<h3 id="生成bin文件"><a href="#生成bin文件" class="headerlink" title="生成bin文件 "></a><a href="#context.21">生成bin文件</a><a name="section.21"> </a></h3><ol>
 <li><p><strong>生成 axf 输入文件</strong><br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092258040.png" alt="image-20230909225724296"></p>
 </li>
 <li><p><strong>生成 bin 输出文件</strong></p>
@@ -267,7 +336,7 @@
 <p> <img src="C:/Users/breeze/AppData/Roaming/Typora/typora-user-images/image-20230909225816776.png" alt="image-20230909225816776"></p>
 </li>
 </ol>
-<h2 id="总线概览"><a href="#总线概览" class="headerlink" title="总线概览 "></a><a href="#context.14">总线概览</a><a name="section.14"> </a></h2><p>UART、I2C、SPI、USB异同</p>
+<h2 id="总线概览"><a href="#总线概览" class="headerlink" title="总线概览 "></a><a href="#context.22">总线概览</a><a name="section.22"> </a></h2><p>UART、I2C、SPI、USB异同</p>
 <table>
 <thead>
 <tr>
@@ -322,11 +391,11 @@
 <td>近</td>
 </tr>
 </tbody></table>
-<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C "></a><a href="#context.15">I2C</a><a name="section.15"> </a></h2><h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI "></a><a href="#context.16">SPI</a><a name="section.16"> </a></h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式 "></a><a href="#context.17">连接方式</a><a name="section.17"> </a></h3><p>3条总线 + 1条片选线</p>
+<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C "></a><a href="#context.23">I2C</a><a name="section.23"> </a></h2><h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI "></a><a href="#context.24">SPI</a><a name="section.24"> </a></h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式 "></a><a href="#context.25">连接方式</a><a name="section.25"> </a></h3><p>3条总线 + 1条片选线</p>
 <p><code>SCK、MOSI、MISO + SS/NSS/CS</code></p>
 <p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242104024.png" alt="image-20230805195959632"></p>
-<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.18">基本通讯过程</a><a name="section.18"> </a></h3><p><img src="/BCCPP.assets/image-20230805194747396.png" alt="image-20230805194747396"></p>
-<h3 id="四种模式"><a href="#四种模式" class="headerlink" title="四种模式 "></a><a href="#context.19">四种模式</a><a name="section.19"> </a></h3><table>
+<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.26">基本通讯过程</a><a name="section.26"> </a></h3><p><img src="/BCCPP.assets/image-20230805194747396.png" alt="image-20230805194747396"></p>
+<h3 id="四种模式"><a href="#四种模式" class="headerlink" title="四种模式 "></a><a href="#context.27">四种模式</a><a name="section.27"> </a></h3><table>
 <thead>
 <tr>
 <th>SPI 模式</th>
@@ -367,11 +436,14 @@
 </tbody></table>
 <p>主机与从机需要工作在相同的模式下才可以正常通讯</p>
 <p>实际中采用较多的是 <strong>“模式 0”</strong> 与 <strong>“模式 3”</strong>。</p>
-<h3 id="CPOL"><a href="#CPOL" class="headerlink" title="CPOL "></a><a href="#context.20">CPOL</a><a name="section.20"> </a></h3><p>指 SPI 通讯设备处于空闲状态时，SCK 信号线的电平信号 (即 SPI 通讯开始前、 NSS 线为高电平时 SCK 的状态)。CPOL&#x3D;0 时，SCK 在空闲状态时为低电平，CPOL&#x3D;1 时，则相反。</p>
-<h3 id="CPHA"><a href="#CPHA" class="headerlink" title="CPHA "></a><a href="#context.21">CPHA</a><a name="section.21"> </a></h3><p>指数据的采样的时刻，当 CPHA&#x3D;0 时，MOSI 或 MISO 数据线上的信号将会在SCK 时钟线的“奇数边沿”被采样。 当 CPHA&#x3D;1 时，数据线在 SCK 的“偶数边沿”采样</p>
+<h3 id="CPOL"><a href="#CPOL" class="headerlink" title="CPOL "></a><a href="#context.28">CPOL</a><a name="section.28"> </a></h3><p>指 SPI 通讯设备处于空闲状态时，SCK 信号线的电平信号 (即 SPI 通讯开始前、 NSS 线为高电平时 SCK 的状态)。CPOL&#x3D;0 时，SCK 在空闲状态时为低电平，CPOL&#x3D;1 时，则相反。</p>
+<h3 id="CPHA"><a href="#CPHA" class="headerlink" title="CPHA "></a><a href="#context.29">CPHA</a><a name="section.29"> </a></h3><p>指数据的采样的时刻，当 CPHA&#x3D;0 时，MOSI 或 MISO 数据线上的信号将会在SCK 时钟线的“奇数边沿”被采样。 当 CPHA&#x3D;1 时，数据线在 SCK 的“偶数边沿”采样</p>
 <p><img src="/BCCPP.assets/image-20230805194827664.png" alt="image-20230805194827664"></p>
-<h2 id="串口通讯"><a href="#串口通讯" class="headerlink" title="串口通讯 "></a><a href="#context.22">串口通讯</a><a name="section.22"> </a></h2><p>分为<strong>物理层</strong>和<strong>协议层</strong>来讲解</p>
-<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层 "></a><a href="#context.23">物理层</a><a name="section.23"> </a></h3><h4 id="电平标准"><a href="#电平标准" class="headerlink" title="电平标准 "></a><a href="#context.24">电平标准</a><a name="section.24"> </a></h4><p>根据通讯使用的电平标准不同，串口通讯可分为 TTL 标准及 RS-232 标准，见下表</p>
+<h2 id="串口通讯"><a href="#串口通讯" class="headerlink" title="串口通讯 "></a><a href="#context.30">串口通讯</a><a name="section.30"> </a></h2><p>波特率 115200 为每秒传输 115200 bit</p>
+<p>如果串口为8位数据位，无校验位，则，一帧为 1起始位 + 8数据位 + 1停止位 &#x3D; 10bit</p>
+<p>115200 &#x2F; 10 &#x2F; 1024 &#x3D; 11.25 kb&#x2F;s</p>
+<p>分为<strong>物理层</strong>和<strong>协议层</strong>来讲解</p>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层 "></a><a href="#context.31">物理层</a><a name="section.31"> </a></h3><h4 id="电平标准"><a href="#电平标准" class="headerlink" title="电平标准 "></a><a href="#context.32">电平标准</a><a name="section.32"> </a></h4><p>根据通讯使用的电平标准不同，串口通讯可分为 TTL 标准及 RS-232 标准，见下表</p>
 <table>
 <thead>
 <tr>
@@ -401,7 +473,7 @@
 <p>使用 RS232 与 TTL 电平校准表示同一个信号时的对比如下图</p>
 <p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165301371.png" alt="image-20230720165301371"></p>
 <p><strong>注：</strong>因为控制器一般使用 TTL 电平标准，所以常常会使用 MA3232 芯片对 TTL 及 RS-232 电平的信号进行互相转换。</p>
-<h4 id="RS232信号线"><a href="#RS232信号线" class="headerlink" title="RS232信号线 "></a><a href="#context.25">RS232信号线</a><a name="section.25"> </a></h4><p>在最初的应用中，RS-232 串口标准常用于计算机、路由与调制调解器 (MODEN，俗称“猫”) 之间的通讯， 在这种通讯系统中，设备被分为数据终端设备 DTE(计算机、路由) 和数据通讯设备DCE(调制调解器)。 我们以这种通讯模型讲解它们的信号线连接方式及各个信号线的作用。</p>
+<h4 id="RS232信号线"><a href="#RS232信号线" class="headerlink" title="RS232信号线 "></a><a href="#context.33">RS232信号线</a><a name="section.33"> </a></h4><p>在最初的应用中，RS-232 串口标准常用于计算机、路由与调制调解器 (MODEN，俗称“猫”) 之间的通讯， 在这种通讯系统中，设备被分为数据终端设备 DTE(计算机、路由) 和数据通讯设备DCE(调制调解器)。 我们以这种通讯模型讲解它们的信号线连接方式及各个信号线的作用。</p>
 <p>在旧式的台式计算机中一般会有 RS-232 标准的 COM 口 (也称 DB9 接口)，见图下。</p>
 <p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165655500.png" alt="image-20230720165655500"></p>
 <p><strong>接口示意：</strong></p>
@@ -484,17 +556,85 @@
 <p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165858716.png" alt="image-20230720165858716"></p>
 <p>串口线中的 RTS、CTS、DSR、DTR 及 DCD 信号，使用逻辑 1 表示信号有效，逻辑 0 表示信号无效。 例如，当计算机端控制 DTR 信号线表示为逻辑 1 时，它是为了告知远端的调制调解器，本机已准备好接收数据， 0 则表示还没准备就绪。</p>
 <p><strong>在目前的其它工业控制使用的串口通讯中，一般只使用 RXD、TXD 以及 GND 三条信号线！！！</strong></p>
-<h3 id="协议层"><a href="#协议层" class="headerlink" title="协议层 "></a><a href="#context.26">协议层</a><a name="section.26"> </a></h3><p>串口通讯的数据包由发送设备通过自身的 TXD 接口传输到接收设备的 RXD 接口。在串口通讯的协议层中， 规定了数据包的内容，它由启始位、主体数据、校验位以及停止位组成，通讯双方的数据包格式要约定一致才能正常收发数据</p>
+<h3 id="协议层"><a href="#协议层" class="headerlink" title="协议层 "></a><a href="#context.34">协议层</a><a name="section.34"> </a></h3><p>串口通讯的数据包由发送设备通过自身的 TXD 接口传输到接收设备的 RXD 接口。在串口通讯的协议层中， 规定了数据包的内容，它由启始位、主体数据、校验位以及停止位组成，通讯双方的数据包格式要约定一致才能正常收发数据</p>
 <p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720170204183.png" alt="image-20230720170204183"></p>
-<h4 id="波特率"><a href="#波特率" class="headerlink" title="波特率 "></a><a href="#context.27">波特率</a><a name="section.27"> </a></h4><p>本章中主要讲解的是串口异步通讯，异步通讯中由于没有时钟信号 (如前面讲解的 DB9 接口中是没有时钟信号的)， 所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码，如上图中用虚线分开的每一格就是代表一个码元。 常见的波特率为 4800、9600、115200 等。</p>
-<h4 id="通讯的起始和停止信号"><a href="#通讯的起始和停止信号" class="headerlink" title="通讯的起始和停止信号 "></a><a href="#context.28">通讯的起始和停止信号</a><a name="section.28"> </a></h4><p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0 的数据位表示， 而数据包的停止信号可由 0.5、1、1.5 或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
-<h4 id="有效数据"><a href="#有效数据" class="headerlink" title="有效数据 "></a><a href="#context.29">有效数据</a><a name="section.29"> </a></h4><p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度 常被约定为 5、6、7 或 8 位长。</p>
-<h4 id="数据校验"><a href="#数据校验" class="headerlink" title="数据校验 "></a><a href="#context.30">数据校验</a><a name="section.30"> </a></h4><p>在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差， 可以在传输过程加上校验位来解决这个问题。校验方法有奇校验 (odd)、偶校验(even)、0 校验 (space)、1 校验 (mark) 以及无校验 (noparity)，它们介绍如下：</p>
+<h4 id="波特率"><a href="#波特率" class="headerlink" title="波特率 "></a><a href="#context.35">波特率</a><a name="section.35"> </a></h4><p>本章中主要讲解的是串口异步通讯，异步通讯中由于没有时钟信号 (如前面讲解的 DB9 接口中是没有时钟信号的)， 所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码，如上图中用虚线分开的每一格就是代表一个码元。 常见的波特率为 4800、9600、115200 等。</p>
+<h4 id="通讯的起始和停止信号"><a href="#通讯的起始和停止信号" class="headerlink" title="通讯的起始和停止信号 "></a><a href="#context.36">通讯的起始和停止信号</a><a name="section.36"> </a></h4><p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0 的数据位表示， 而数据包的停止信号可由 0.5、1、1.5 或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
+<h4 id="有效数据"><a href="#有效数据" class="headerlink" title="有效数据 "></a><a href="#context.37">有效数据</a><a name="section.37"> </a></h4><p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度 常被约定为 5、6、7 或 8 位长。</p>
+<h4 id="数据校验"><a href="#数据校验" class="headerlink" title="数据校验 "></a><a href="#context.38">数据校验</a><a name="section.38"> </a></h4><p>在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差， 可以在传输过程加上校验位来解决这个问题。校验方法有奇校验 (odd)、偶校验(even)、0 校验 (space)、1 校验 (mark) 以及无校验 (noparity)，它们介绍如下：</p>
 <p>奇校验要求有效数据和校验位中“1”的个数为奇数，比如一个 8 位长的有效数据为：01101001， 此时总共有 4 个“1”，为达到奇校验效果，校验位为“1”，最后传输的数据将是 8 位的有效数据 加上 1 位的校验位总共 9 位。</p>
 <p>偶校验与奇校验要求刚好相反，要求帧数据和校验位中“1”的个数为偶数，比如数据帧：11001010，此时数据帧“1”的个数为 4 个，所以偶校验位为“0”。</p>
 <p>0 校验是不管有效数据中的内容是什么，校验位总为“0”，1 校验是校验位总为“1”。</p>
 <p>在无校验的情况下，数据包中不包含校验位。</p>
-<h2 id="中断"><a href="#中断" class="headerlink" title="中断 "></a><a href="#context.31">中断</a><a name="section.31"> </a></h2><p>在嵌入式系统中，ISR中断和IRQ中断是两种不同类型的中断。</p>
+<h2 id="Cortex-M-架构"><a href="#Cortex-M-架构" class="headerlink" title="Cortex - M 架构 "></a><a href="#context.39">Cortex - M 架构</a><a name="section.39"> </a></h2><p>Arm Cortex-M系列处理器为32位RISC（精简指令集）处理器，具有：</p>
+<ul>
+<li>32-bit 寄存器</li>
+<li>32-bit 内部数据通道</li>
+<li>32-bit 总线通道</li>
+</ul>
+<p>Cortex-m0 为ARMv6架构，具有三级流水线结构（取值，译码，执行）— 处理器采用的是冯诺依曼结构，数据和指令共享一个总线接口和存储器，即取指令和数据访问不可同时执行。<br>支持Thumb指令集（绝大部分16-bit Thumb ISA 和32-bit Thumb-2 ISA),共有56种基本指令，分别包括对memory的读写访问，算数指令和逻辑操作指令。<br>存储器系统采用了32位寻址，具有最大4GB的寻址空间，存储器映射是一致的，空间内分别包括程序代码，数据，外设和处理器内的调试支持部件。<br>嵌套向量中断控制器(NVIC)为cortex-m处理器内部的中断控制器，可编程且其寄存器经<br>过存储器映射，NVIC 地址固定，编程模型对所有的 cortex-m 处理器都是一致的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092115412.png" alt="image-20231009211052562"></p>
+<h3 id="处理器内部的寄存器组和特殊寄存器"><a href="#处理器内部的寄存器组和特殊寄存器" class="headerlink" title="处理器内部的寄存器组和特殊寄存器 "></a><a href="#context.40">处理器内部的寄存器组和特殊寄存器</a><a name="section.40"> </a></h3><p>寄存器组主要用于在执行指令过程中用于保存和处理中间变量和指令地址，由于这些寄存器处于处理器内部，所以访问速度较快；采用加载-保存结构，例如如果想处理某个处于存储器中某个地址上的数据，需要先把该数据加载到寄存器中，在处理器内部处理后再写回该存储器中。<br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092116455.png" alt="image-20231009211606325"></p>
+<h3 id="通用寄存器组"><a href="#通用寄存器组" class="headerlink" title="通用寄存器组 "></a><a href="#context.41">通用寄存器组</a><a name="section.41"> </a></h3><p>通用寄存器包括低寄存器(R0-R7)和高寄存器(R8-R12)：<br>(1) R0-R7可以被任意指令访问<br>(2) R8-R12不可以被某些thumb指令访问</p>
+<h3 id="堆栈指针SP"><a href="#堆栈指针SP" class="headerlink" title="堆栈指针SP "></a><a href="#context.42">堆栈指针SP</a><a name="section.42"> </a></h3><p>R13寄存器可以作为stack pointer，SP用于记录当前堆栈的地址，当在不同任务中切换时，SP用于保存上下文（一般来说，SP寄存器中的地址是当前正在执行的指令所在的地址）</p>
+<p>Cortex-m0中可以将SP细化成 <b><font color='SEAGREEN' size=3 face="">MSP</font></b> 和 <b><font color='SEAGREEN' size=3 face="">PSP</font></b> ：在应用程序中， <b><font color='DODGERBLUE' size=3 face="">需要特权访问时使用MSP</font></b> ，例如异常访问和系统内核访问； <b><font color='DODGERBLUE' size=3 face="">PSP用于执行一般的程序代码</font></b> 。</p>
+<p>处理模式：执行中断服务程序（ISR）等异常处理，在处理模式下，处理器总是具有特权访问等级。</p>
+<p>线程模式：执行普通的应用程序代码，处理器可以处于特权访问等级&#x2F;非特权访问等级，实际操作权限由特殊寄存器CONTROL控制。</p>
+<h3 id="LR（linker-registers）"><a href="#LR（linker-registers）" class="headerlink" title="LR（linker registers） "></a><a href="#context.43">LR（linker registers）</a><a name="section.43"> </a></h3><p>R14可用于链式寄存器，主要功能：</p>
+<p>（1）用于保存子程序或者一个程序调用的返回地址 </p>
+<p>（2）当程序调用结束后，将LR中的返回地址加载到程序计数器(PC)中</p>
+<p><strong>注：</strong>  <b><font color='DODGERBLUE' size=3 face="">LR是用来保存在程序调用前所在的地址，即保存返回地址，保证程序在结束函数调用后回到原有的进程中，可以往后按顺序继续执行程序代码</font></b> </p>
+<h3 id="特殊寄存器"><a href="#特殊寄存器" class="headerlink" title="特殊寄存器 "></a><a href="#context.44">特殊寄存器</a><a name="section.44"> </a></h3><h4 id="中断屏蔽特殊寄存器IMSR"><a href="#中断屏蔽特殊寄存器IMSR" class="headerlink" title="中断屏蔽特殊寄存器IMSR "></a><a href="#context.45">中断屏蔽特殊寄存器IMSR</a><a name="section.45"> </a></h4><p>IMSR中包括一位PRIMASK，当PRIMASK &#x3D; 1时，除了NMI和hard fault外，将屏蔽掉其他所有中断</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092123396.png" alt="image-20231009212313244"></p>
+<h4 id="特殊寄存器CONTROL"><a href="#特殊寄存器CONTROL" class="headerlink" title="特殊寄存器CONTROL "></a><a href="#context.46">特殊寄存器CONTROL</a><a name="section.46"> </a></h4><p>CONTROL寄存器用来选择堆栈指针</p>
+<p>CONTROL[1] &#x3D; 1（PSP）</p>
+<p>CONTROL[1] &#x3D; 0（MSP）</p>
+<p><strong>注：</strong> 这也是为什么在 OTA 中需要设置 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092124802.png" alt="image-20231009212410697"></p>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断 "></a><a href="#context.47">中断</a><a name="section.47"> </a></h2><p> ARM Cortex-M 使用了 8 位宽的寄存器来配置中断的优先等级（最大2^8，256个优先级，0~255），这个寄存器就是中断优先级配置寄存器。但 <b><font color='blue' size=3 face="">STM32，只用了中断优先级配置寄存器的高4位</font></b>  [7 : 4]，所以 <b><font color='blue' size=3 face="">STM32提供了最大16级</font></b> 的中断优先等级。</p>
+<h3 id="NVIC配置"><a href="#NVIC配置" class="headerlink" title="NVIC配置 "></a><a href="#context.48">NVIC配置</a><a name="section.48"> </a></h3><p>一共有 5 种分配方式，对应着中断优先级分组的 5 个组， <b><font color='blue' size=3 face=""><code>FreeRTOS</code> 为了方便管理使用的是优先级分组4</font></b> ，全部用于抢占优先级</p>
+<table>
+<thead>
+<tr>
+<th>优先级分组</th>
+<th>抢占优先级</th>
+<th>子优先级</th>
+<th>优先级配置寄存器高 4 位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>NVIC_PriorityGroup_0</code></td>
+<td>0 级抢占优先级</td>
+<td>0-15 级子优先级</td>
+<td>0bit 用于抢占优先级<br />4bit 用于子优先级</td>
+</tr>
+<tr>
+<td><code>NVIC_PriorityGroup_1</code></td>
+<td>0-1 级抢占优先级</td>
+<td>0-7 级抢占优先级</td>
+<td>1bit 用于抢占优先级<br />3bit 用于子优先级</td>
+</tr>
+<tr>
+<td><code>NVIC_PriorityGroup_2</code></td>
+<td>0-3 级抢占优先级</td>
+<td>0-3 级抢占优先级</td>
+<td>2bit 用于抢占优先级<br />2bit 用于子优先级</td>
+</tr>
+<tr>
+<td><code>NVIC_PriorityGroup_3</code></td>
+<td>0-7 级抢占优先级</td>
+<td>0-1 级抢占优先级</td>
+<td>3bit 用于抢占优先级<br />1bit 用于子优先级</td>
+</tr>
+<tr>
+<td><code>NVIC_PriorityGroup_4</code></td>
+<td>0-15 级抢占优先级</td>
+<td>0 级抢占优先级</td>
+<td>4bit 用于抢占优先级<br />0bit 用于子优先级</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309191359033.png" alt="image-20230919135915857"></p>
+<p>在嵌入式系统中，ISR中断和IRQ中断是两种不同类型的中断。</p>
 <p><strong>ISR</strong>中断，全称为“Interrupt Service Routine”，是指由硬件或软件触发的中断事件所对应的中断处理程序。当系统发生中断事件时，CPU会暂停当前正在执行的程序，并跳转到ISR中断处理程序的入口点执行特定的操作。ISR中断通常用于处理实时事件和外部设备的中断，例如定时器中断、串口数据到达中断等。</p>
 <p><strong>IRQ</strong>中断，全称为“Interrupt Request”，指的是CPU接收到一个外部设备请求服务的信号。外部设备通常通过引脚将中断信息发送给CPU，CPU收到中断信号后会执行相应的中断处理程序。IRQ中断通常用于处理外部设备的事件，例如键盘输入、鼠标点击以及外部中断信号等。</p>
 <p>异同点如下：</p>
@@ -506,8 +646,8 @@
 <li>中断误差处理方式不同：ISR中断可以轻松地使程序从中断处理程序返回到中断之前的位置，而IRQ中断不具备这种能力，必须通过其他方式解决。</li>
 </ol>
 <p>需要注意的是，ISR中断的概念更广泛，可以是任何中断处理程序，包括IRQ中断。IRQ中断是一种特定类型的中断，指的是由外部设备请求服务的中断。</p>
-<h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA "></a><a href="#context.32">DMA</a><a name="section.32"> </a></h2><p>即直接内存访问（Direct Memory Access），是计算机系统中一种用于减轻中央处理器（CPU）负载的技术。它允许外设（如网络卡、硬盘控制器等）直接与系统内存交换数据，而不需要经过CPU的介入。</p>
-<h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用 "></a><a href="#context.33">主要作用</a><a name="section.33"> </a></h3><p>DMA的主要作用是提高数据传输的效率和系统的整体性能，它可以实现以下功能：</p>
+<h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA "></a><a href="#context.49">DMA</a><a name="section.49"> </a></h2><p>即直接内存访问（Direct Memory Access），是计算机系统中一种用于减轻中央处理器（CPU）负载的技术。它允许外设（如网络卡、硬盘控制器等）直接与系统内存交换数据，而不需要经过CPU的介入。</p>
+<h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用 "></a><a href="#context.50">主要作用</a><a name="section.50"> </a></h3><p>DMA的主要作用是提高数据传输的效率和系统的整体性能，它可以实现以下功能：</p>
 <ol>
 <li>数据传输：DMA可以直接控制总线，将数据从外设读入内存或从内存写出到外设，而无需通过CPU进行数据传输。</li>
 <li>解放CPU负载：DMA的工作过程中，CPU可以继续执行其他任务，而不需要等待数据传输完成，从而减轻了CPU的负载。</li>
@@ -585,7 +725,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wyinhui.github.io/2023/09/09/Embedded/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wyinhui.github.io/2023/10/10/Embedded/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -598,10 +738,19 @@
    
   <nav class="article-nav">
     
+      <a href="/2023/10/10/C++11/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            C++11
+          
+        </div>
+      </a>
     
-      <a href="/2023/09/04/LeetCodeTop100/" class="article-nav-link">
+    
+      <a href="/2023/09/09/Embedded_/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">力扣TOP100</div>
+        <div class="article-nav-title">嵌入式</div>
       </a>
     
   </nav>

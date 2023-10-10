@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>categories |  breeze</title>
+      <title> breeze</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -55,12 +55,158 @@
       
     <main class="content on">
       <section class="outer">
-  
-    <h1 class="page-type-title">分类</h1>
-    <div class="categories-box">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%98%9F%E6%B5%B7/">星海</a><span class="category-list-count">11</span></li></ul>
+  <article
+  id="post-skill"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+     
+    <div class="article-meta">
+      <a href="/2023/10/10/skill/" class="article-date">
+  <time datetime="2023-10-10T14:35:39.946Z" itemprop="datePublished">2023-10-10</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">158</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1 分钟</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
   
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="win文件夹上右键后以xx打开"><a href="#win文件夹上右键后以xx打开" class="headerlink" title="win文件夹上右键后以xx打开"></a>win文件夹上右键后以xx打开</h1><ol>
+<li><p><strong>win + r: regedit 打开注册表</strong><br>   找到如下路径<br>   计算机\HKEY_CLASSES_ROOT\Directory\shell<br>   <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102148004.png" alt="image-20230805222436761"></p>
+</li>
+<li><p><strong>新增项</strong><br>shell上右键 -&gt; 新建 -&gt; 项,名称可以自己设置，例如下我新建个 <code>Clion</code><br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102148324.png" alt="image-20230805222651808"></p>
+</li>
+<li><p><strong>设置菜单名字和图标</strong><br>一般新建项时,右边只会有个默认,Icon部分需要自己添加(新建字符串值)</p>
+<p>如果不设置默认值,项的名字就是菜单的名字，所以建议上面新建的名字为 <code>Open with Clion</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102148060.png" alt="image-20230805223106941"><br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149484.png" alt="image-20230805223146041"><br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149788.png" alt="image-20230805223403183"></p>
+</li>
+<li><p>在新建的项上再新建 <code>command</code> 项</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149580.png" alt="image-20230805223502198"><br>修改其默认的参数如下<br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149917.png" alt="image-20230805223639704"><br>验证结果，成功！<br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149339.png" alt="image-20230805223759373"></p>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wyinhui.github.io/2023/10/10/skill/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2023/10/10/AutoHotKey/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">AutoHotKey教程</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -181,6 +327,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>C++11 |  breeze</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-C++11"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  C++11
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/10/C++11/" class="article-date">
+  <time datetime="2023-10-09T16:00:00.000Z" itemprop="datePublished">2023-10-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%98%9F%E6%B5%B7/">星海</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">15 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <span id="more"></span>
+<h1 id="C-11"><a href="#C-11" class="headerlink" title="C++11"></a>C++11</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#section.1">auto</a><a name="context.1"> </a></li>
+<li><a href="#section.2">move</a><a name="context.2"> </a></li>
+<li><a href="#section.3">decltype &#x2F; auto</a><a name="context.3"> </a></li>
+<li><a href="#section.4">lambda表达式</a><a name="context.4"> </a></li>
+<li><a href="#section.5">智能指针</a><a name="context.5"> </a><ul>
+<li><a href="#section.6">定义</a><a name="context.6"> </a></li>
+<li><a href="#section.7">shared_ptr（常用）</a><a name="context.7"> </a></li>
+<li><a href="#section.8">unique_ptr</a><a name="context.8"> </a></li>
+<li><a href="#section.9">weak_ptr</a><a name="context.9"> </a></li>
+<li><a href="#section.10">auto_ptr</a><a name="context.10"> </a></li>
+</ul>
+</li>
+<li><a href="#section.11">function</a><a name="context.11"> </a></li>
+<li><a href="#section.12">作用域内枚举</a><a name="context.12"> </a></li>
+<li><a href="#section.13">多线程</a><a name="context.13"> </a><ul>
+<li><a href="#section.14">mutex 互斥锁</a><a name="context.14"> </a><ul>
+<li><a href="#section.15">1. std::mutex</a><a name="context.15"> </a></li>
+<li><a href="#section.16">2. std::recursive_mutex</a><a name="context.16"> </a></li>
+<li><a href="#section.17">3. std::timed_mutex</a><a name="context.17"> </a></li>
+<li><a href="#section.18">4. std::recursive_timed_mutex</a><a name="context.18"> </a></li>
+</ul>
+</li>
+<li><a href="#section.19">atomic 原子锁</a><a name="context.19"> </a></li>
+<li><a href="#section.20">std::lock_guard</a><a name="context.20"> </a></li>
+<li><a href="#section.21">std::unique_lock</a><a name="context.21"> </a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="auto"><a href="#auto" class="headerlink" title="auto "></a><a href="#context.1">auto</a><a name="section.1"> </a></h2><p>在早期版本中，关键字auto主要是用于声明具有自动存储期的局部变量。然而，它并没有被经常使用。原因是：除了static类型以外，其他变量(以“数据类型＋变量名”的方式定义)都默认为具有自动存储期，所以auto关键字可有可无。</p>
+<p>所以，在C++11的版本中，删除了auto原本的功能，并进行了重新定义了。即C++11中的auto具有类型推导的功能。在讲解auto之前，我们先来了解什么是静态类型，什么是动态类型。</p>
+<p><strong>静态类型、动态类型，类型推导</strong><br>通俗的来讲，所谓的静态类型就是在使用变量前需要先定义变量的数据类型，而动态类型无需定义。<br>严格的来讲，静态类型是在编译时进行类型检查，而动态类型是在运行时进行类型检查。</p>
+<blockquote>
+<p>如：python：a &#x3D; “helloworld”; &#x2F;&#x2F;&#x2F;&lt; 动态类型<br>而C++：std::string a &#x3D; “helloworld”; &#x2F;&#x2F;&#x2F;&lt; 静态类型</p>
+</blockquote>
+<p>如今c++11中重新定义了auto的功能，这便使得静态类型也能够实现类似于动态类型的类型推导功能</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">func</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">auto</span> a  = <span class="number">1</span>; <span class="comment">// int, 尽管1时const int类型，但是auto会自动去const</span></span><br><span class="line"><span class="keyword">auto</span> b = <span class="built_in">func</span>(); <span class="comment">// double</span></span><br><span class="line"><span class="keyword">auto</span> c; <span class="comment">// wrong, auto需要初始化的值进行类型推导，有点类似于引用</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>I. auto不能作为函数参数，否则无法通过编译；<br>II. auto不能推导非静态成员变量的类型，因为auto是在编译时期进行推导；<br>III.auto 不能用于声明数组，否则无法通过编译；<br>IV.auto不能作为模板参数(实例化时), 否则无法通过编译。</strong></p>
+<p><mark><strong>注意：</strong>  <b><font color='blue' size=3 face="">auto不会自动推导出引用类型，如需引用要加上&amp;</font></b> </mark></p>
+<h2 id="move"><a href="#move" class="headerlink" title="move "></a><a href="#context.2">move</a><a name="section.2"> </a></h2><p>在C++11中，标准库在中提供了一个有用的函数 <code>std::move</code></p>
+<p><code>std::move()</code> 函数并不能移动任何东西，它唯一的功能是 <b><font color='blue' size=3 face="">将一个左值引用强制转化为右值引用</font></b> ， <b><font color='DODGERBLUE' size=3 face="">继而可以通过右值引用使用该值</font></b> ，以用于移动语义。</p>
+<p>从实现上讲，<code>std::move</code> 基本等同于一个类型转换：<code>static_cast&lt;T&amp;&amp;&gt;(lvalue)</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">move</span>( arg ); <span class="comment">///&lt; 其中，arg 表示指定的左值对象。该函数会返回 arg 对象的右值形式。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="decltype-auto"><a href="#decltype-auto" class="headerlink" title="decltype &#x2F; auto "></a><a href="#context.3">decltype &#x2F; auto</a><a name="section.3"> </a></h2><p><strong>decltype 作用：</strong>用来<strong>推导表达式类型</strong>的关键字，用来在编译时期进行自动类型推导</p>
+<p>与 <code>auto</code> 的区别：</p>
+<p>auto 根据 &#x3D; 右边的初始值推导出变量的类型，decltype 根据 exp 表达式推导出变量的类型，跟 &#x3D; 右边的 value 没有关系；<br>auto 要求变量必须初始化，因为 auto 是根据变量的初始值来推导变量类型的，如果不初始化，变量的类型也就无法推导；<br>而 decltype 不要求，可不用赋值</p>
+<p><strong>decltype  的几种形式</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">decltype</span>(x) y = <span class="number">1</span>;            <span class="comment">// y -&gt; int</span></span><br><span class="line"><span class="keyword">decltype</span>(x + y) z = <span class="number">0</span>;        <span class="comment">// z -&gt; int</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span>&amp; i = x;</span><br><span class="line"><span class="keyword">decltype</span>(i) j = y;            <span class="comment">// j -&gt; const int&amp;</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="title">decltype</span><span class="params">(z)</span> *p </span>= &amp;z;    <span class="comment">// *p -&gt; const int, p -&gt; const int*</span></span><br><span class="line"><span class="keyword">decltype</span>(z) *m = &amp;z;          <span class="comment">// *m -&gt; int, m -&gt; int*</span></span><br><span class="line"><span class="keyword">decltype</span>(m)* n = &amp;m;          <span class="comment">// *n -&gt; int*, n -&gt; int**</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>推导规则</strong></p>
+<ol>
+<li><p>如果 <code>exp</code> 是一个不被括号<code>()</code>包围的表达式，或者是一个类成员访问表达式，或者是一个单独的变量，<code>decltype(exp)</code> 的类型和 <code>exp</code> 一致</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> total;</span><br><span class="line">    string name;</span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    <span class="type">float</span> scores;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> A::total = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> n = <span class="number">0</span>;</span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> &amp;r = n;</span><br><span class="line">	A a;</span><br><span class="line">	<span class="keyword">decltype</span>(n) x = n;           <span class="comment">// n 为 int，x 被推导为 int</span></span><br><span class="line">	<span class="keyword">decltype</span>(r) y = n;           <span class="comment">// r 为 const int &amp;，y 被推导为 const int &amp;</span></span><br><span class="line">	<span class="keyword">decltype</span>(A::total)  z = <span class="number">0</span>;   <span class="comment">// total 是类 A 的一个 int 类型的成员变量，z 被推导为 int</span></span><br><span class="line">	<span class="keyword">decltype</span>(A.name) url = <span class="string">&quot;www.baidu.com&quot;</span>; <span class="comment">// url 为 string 类型</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>如果 <code>exp</code> 是函数调用，则 <code>decltype(exp)</code> 的类型就和函数返回值的类型一致</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span>&amp; <span class="title">func1</span><span class="params">(<span class="type">int</span>, <span class="type">char</span>)</span></span>;   <span class="comment">// 函数返回值为 int&amp;</span></span><br><span class="line"><span class="function"><span class="type">int</span>&amp;&amp; <span class="title">func2</span><span class="params">(<span class="type">void</span>)</span></span>;       <span class="comment">// 函数返回值为 int&amp;&amp;</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">func3</span><span class="params">(<span class="type">double</span>)</span></span>;       <span class="comment">// 函数返回值为 int</span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">int</span>&amp; <span class="title">func4</span><span class="params">(<span class="type">int</span>, <span class="type">int</span>, <span class="type">int</span>)</span></span>;  <span class="comment">// 函数返回值为 const int&amp;</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">int</span>&amp;&amp; <span class="title">func5</span><span class="params">(<span class="type">void</span>)</span></span>;          <span class="comment">// 函数返回值为 const int&amp;&amp;</span></span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> n = <span class="number">50</span>;</span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">func1</span>(<span class="number">100</span>,<span class="string">&#x27;A&#x27;</span>)) a = n; <span class="comment">// a 的类型为 int&amp;</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">func2</span>()) b = <span class="number">0</span>;        <span class="comment">// b 的类型为 int&amp;&amp;</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">func3</span>(<span class="number">10.5</span>)) c = <span class="number">0</span>;    <span class="comment">// c 的类型为 int</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">func4</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)) x = n;    <span class="comment">// x 的类型为 const int&amp;</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">func5</span>()) y = <span class="number">0</span>;         <span class="comment">// y 的类型为 const int&amp;&amp;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>如果 <code>exp</code> 是一个左值，或被括号<code>()</code>包围，<code>decltype(exp)</code> 的类型就是 <code>exp</code> 的引用，假设 <code>exp</code> 的类型为 <code>T</code>，则 <code>decltype(exp)</code> 的类型为 <code>T&amp;</code></p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> </span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="type">int</span> x;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">const</span> A obj;</span><br><span class="line">	<span class="keyword">decltype</span>(obj.x) a = <span class="number">0</span>;   <span class="comment">// a 的类型为 int</span></span><br><span class="line">	<span class="keyword">decltype</span>((obj.x)) b = a; <span class="comment">// b 的类型为 int&amp;</span></span><br><span class="line">	 </span><br><span class="line">	<span class="type">int</span> n = <span class="number">0</span>, m = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">decltype</span>(m + n) c = <span class="number">0</span>;     <span class="comment">// n + m 得到一个右值，c 的类型为 int</span></span><br><span class="line">	<span class="keyword">decltype</span>(n = n + m) d = c; <span class="comment">// n = n + m 得到一个左值，d 的类型为 int &amp;</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">左值：表达式执行结束后依然存在的数据，即持久性数据；右值是指那些在表达式执行结束不再存在的数据，即临时性数据。一个区分的简单方法是：对表达式取地址，如果编译器不报错就是左值，否则为右值。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>类的静态成员可以使用 <code>auto</code>， 对于类的非静态成员无法使用 <code>auto</code>，如果想推导类的非静态成员的类型，只能使用 <code>decltype</code></p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span> :</span><br><span class="line">   <span class="keyword">decltype</span>(T.<span class="built_in">begin</span>()) m_it;</span><br><span class="line">   <span class="comment">// typename T::iterator m_it;   // 这种用法会出错</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T&amp; container)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">	   m_it = container.<span class="built_in">begin</span>();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">const</span> vector&lt;<span class="type">int</span>&gt; v;</span><br><span class="line">	A&lt;<span class="type">const</span> vector&lt;<span class="type">int</span>&gt;&gt; obj;</span><br><span class="line">	obj.<span class="built_in">func</span>(v);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式 "></a><a href="#context.4">lambda表达式</a><a name="section.4"> </a></h2><p>lambda表达式<strong>表示⼀个可调用的代码单元</strong>，没有命名的内联函数，不需要函数名因为我们直接（⼀次性的）用它，不需要其他地方调用它</p>
+<p>表达式语法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///&lt; [捕获列表] (参数列表) -&gt; 返回类型 &#123; 函数体 &#125;</span></span><br><span class="line"><span class="comment">///&lt; 只有 [capture list] 捕获列表和 &#123; function body &#125; 函数体是必选的</span></span><br><span class="line"><span class="comment">///&lt; 其中 -&gt; return type 可省略，单行函数自动判断返回类型</span></span><br><span class="line">[capture list] (parameter list) -&gt; <span class="keyword">return</span> type &#123;function body &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">///&lt; 例：</span></span><br><span class="line"><span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">auto</span> test = [&amp;count](<span class="type">int</span> x) &#123;</span><br><span class="line">    count += x % <span class="number">3</span> == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///&lt; count == 0;</span></span><br><span class="line"><span class="built_in">test</span>(<span class="number">3</span>);</span><br><span class="line"><span class="comment">///&lt; count == 1;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[]</code></td>
+<td>不捕获任何变量，这种情况下 <code>lambda</code> 表达式内部不能访问外部的变量</td>
+</tr>
+<tr>
+<td><code>[&amp;]</code></td>
+<td>以引用方式捕获所有变量（保证 <code>lambda</code> 执行时变量存在）</td>
+</tr>
+<tr>
+<td><code>[=]</code></td>
+<td>用值的方式捕获所有变量（创建时拷贝，修改对 <code>lambda</code> 内对象无影响）</td>
+</tr>
+<tr>
+<td><code>[=, &amp;foo]</code></td>
+<td>以引用捕获变量 <code>foo</code>，但其余变量都靠值捕获</td>
+</tr>
+<tr>
+<td><code>[&amp;, foo]</code></td>
+<td>以值捕获 <code>foo</code> ，但其余变量都靠引用捕获</td>
+</tr>
+<tr>
+<td><code>[bar]</code></td>
+<td>以值方式捕获 <code>bar</code>，不捕获其他变量</td>
+</tr>
+<tr>
+<td><code>[this]</code></td>
+<td>捕获所在类的 <code>this</code> 指针</td>
+</tr>
+</tbody></table>
+<p><strong>lambda最大的⼀个优势是在使⽤STL中的算法(algorithms)库</strong></p>
+<p>如数组排序：</p>
+<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230616102708669.png" alt="image-20230616102708669"></p>
+<h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针 "></a><a href="#context.5">智能指针</a><a name="section.5"> </a></h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义 "></a><a href="#context.6">定义</a><a name="section.6"> </a></h3><p> <b><font color='blue' size=3 face="">智能指针是一个类</font></b> ，用来存储指向动态分配对象的指针，负责自动释放动态分配的对象，防止堆内存泄漏。动态分配的资源，交给一个类对象去管理，当类对象声明周期结束时，自动调用析构函数释放资源。</p>
+<p>使用方法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TC</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> a;    </span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">unique_ptr&lt;TC&gt; <span class="title">ptr</span><span class="params">(<span class="keyword">new</span> TC())</span></span>;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    TC *tc = ptr.<span class="built_in">get</span>();  <span class="comment">///&lt; 获取原指针</span></span><br><span class="line">    ptr.<span class="built_in">reset</span>();  <span class="comment">///&lt; 析构原指针并赋值 nullptr</span></span><br><span class="line">    ptr.<span class="built_in">reset</span>(<span class="literal">nullptr</span>);  <span class="comment">///&lt; 析构原指针并赋值 nullptr</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="shared-ptr（常用）"><a href="#shared-ptr（常用）" class="headerlink" title="shared_ptr（常用） "></a><a href="#context.7">shared_ptr（常用）</a><a name="section.7"> </a></h3><p> <mark><b><font color='blue' size=3 face="">共享式拥有，多个智能指针可以指向相同对象</font></b></mark> </p>
+<p>采用引用计数器的方法，允许多个智能指针指向同一个对象，每当多一个指针指向该对象时，指向该对象的所有智能指针内部的引用计数加1，每当减少一个智能指针指向对象时，引用计数会减1，当计数为0的时候会自动的释放动态分配的资源。</p>
+<p><strong>注：</strong></p>
+<h3 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr "></a><a href="#context.8">unique_ptr</a><a name="section.8"> </a></h3><p><mark><b><font color='blue' size=3 face="">独占式拥有，同一时间只能有一个智能指针可以指向该对象</font></b></mark></p>
+<p>unique_ptr采用的是独享资源所有权，一个非空的unique_ptr总是拥有它所指向的资源。转移一个unique_ptr将会把所有权全部从源指针转移给目标指针，源指针被置空；所以unique_ptr不支持普通的拷贝和赋值操作，不能用在STL标准容器中；局部变量的返回值除外（因为编译器知道要返回的对象将要被销毁）；如果你拷贝一个unique_ptr，那么拷贝结束后，这两个unique_ptr都会指向相同的资源，造成在结束时对同一内存指针多次释放而导致程序崩溃。</p>
+<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr "></a><a href="#context.9">weak_ptr</a><a name="section.9"> </a></h3><p> <b><font color='blue' size=3 face="">和 shared_ptr 搭配，不会增加引用计数</font></b> ，用于避免循环引用（比如 a 对象持有 b 对象，b 对象持有 a 对象），这样必然会导致内存泄露</p>
+<p>弱引用。 引用计数有一个问题就是互相引用形成环（环形引用），这样两个指针指向的内存都无法释放。需要使用weak_ptr打破环形引用。weak_ptr是一个弱引用，它是为了配合shared_ptr而引入的一种智能指针，它指向一个由shared_ptr管理的对象而不影响所指对象的生命周期，也就是说，它只引用，不计数。如果一块内存被shared_ptr和weak_ptr同时引用，当所有shared_ptr析构了之后，不管还有没有weak_ptr引用该内存，内存也会被释放。所以weak_ptr不保证它指向的内存一定是有效的，在使用之前使用函数lock()检查weak_ptr是否为空指针。</p>
+<h3 id="auto-ptr"><a href="#auto-ptr" class="headerlink" title="auto_ptr "></a><a href="#context.10">auto_ptr</a><a name="section.10"> </a></h3><p><mark><strong>注：</strong>  <b><font color='blue' size=3 face="">C++11已弃用</font></b> </mark></p>
+<p>主要是为了解决“有异常抛出时发生内存泄漏”的问题 。因为发生异常而无法正常释放内存。auto_ptr不支持拷贝和赋值操作，不能用在STL标准容器中。</p>
+<p><code>auto_ptr</code> 是一个失败设计，很多公司明确要求不能使用 <code>auto_ptr</code></p>
+<h2 id="function"><a href="#function" class="headerlink" title="function "></a><a href="#context.11">function</a><a name="section.11"> </a></h2><p>类似c的函数指针</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function&lt;<span class="type">int</span>(<span class="type">int</span>,<span class="type">int</span>)&gt; f1 = add;<span class="comment">//函数指针</span></span><br><span class="line">function&lt;<span class="type">int</span>(<span class="type">int</span>,<span class="type">int</span>)&gt; f2 = <span class="built_in">divide</span>();<span class="comment">//函数对象类的对象</span></span><br><span class="line">function&lt;<span class="type">int</span>(<span class="type">int</span>,<span class="type">int</span>)&gt; f3 = [](<span class="type">int</span> a,<span class="type">int</span> b)&#123;<span class="keyword">return</span> a*b;&#125;;<span class="comment">//lambda表达式</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="作用域内枚举"><a href="#作用域内枚举" class="headerlink" title="作用域内枚举 "></a><a href="#context.12">作用域内枚举</a><a name="section.12"> </a></h2><p>传统枚举的成员名不能相同，C++11新增此项，使之能够同名</p>
+<p>需使用 <code>class</code> 或者 <code>struct</code> 定义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">TOld</span> &#123;yes, no, maybe&#125;;  <span class="comment">///&lt; traditional form</span></span><br><span class="line"><span class="keyword">enum class</span> <span class="title class_">TNew1</span> &#123;never, sometimes, often, always&#125;;  <span class="comment">///&lt; new form</span></span><br><span class="line"><span class="keyword">enum struct</span> <span class="title class_">TNew2</span> &#123;never, lever, sever&#125;;  <span class="comment">///&lt; new form</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<p>使用时需加定义名，如：<code>TNew1::never</code> 和 <code>TNew2::never</code></p>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程 "></a><a href="#context.13">多线程</a><a name="section.13"> </a></h2><blockquote>
+<p>在C++11之前，涉及到多线程问题，都是和平台相关的，比如windows和linux下各有自己的接口，这使得代码的可移植性比较差。C++11中最重要的特性就是对线程进行支持了，使得C++在并行编程时不需要依赖第三方库，而且在原子操作中还引入了原子类的概念。要使用标准库中的线程，必须包含&lt; thread &gt;头文件</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102037290.png" alt="image-20231010203732145"></p>
+<h3 id="mutex-互斥锁"><a href="#mutex-互斥锁" class="headerlink" title="mutex 互斥锁 "></a><a href="#context.14">mutex 互斥锁</a><a name="section.14"> </a></h3><p><strong>在C++11中，Mutex总共包了四个互斥量的种类：</strong></p>
+<h4 id="1-std-mutex"><a href="#1-std-mutex" class="headerlink" title="1. std::mutex "></a><a href="#context.15">1. std::mutex</a><a name="section.15"> </a></h4><p>C++11提供的最基本的互斥量，该类的对象之间不能拷贝，也不能进行移动。mutex最常用的三个函数：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102110589.png" alt="image-20231010210931714"></p>
+<p>线程函数调用 <code>try_lock()</code> 时，可能会发生以下三种情况：</p>
+<ul>
+<li>如果当前互斥量没有被其他线程占有，则该线程锁住互斥量，直到该线程调用 unlock释放互斥量</li>
+<li>如果当前互斥量被其他线程锁住，则当前调用线程返回 false，而并不会被阻塞掉</li>
+<li>如果当前互斥量被当前调用线程锁住，则会产生死锁(deadlock)</li>
+</ul>
+<p>批量上锁 <code>std::lock(mtx1, mtx2)</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;mutex&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> n = <span class="number">2</span>;</span><br><span class="line">	<span class="comment">//cin &gt;&gt; n;</span></span><br><span class="line">	<span class="function">vector&lt;thread&gt; <span class="title">works</span><span class="params">(n)</span></span>;</span><br><span class="line">	std::mutex mtx;</span><br><span class="line">	<span class="type">size_t</span> x = <span class="number">0</span>;</span><br><span class="line">	<span class="type">size_t</span> total_time = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span>&amp; thd : works)</span><br><span class="line">	&#123;</span><br><span class="line">		thd = <span class="built_in">thread</span>([&amp;mtx, &amp;x, &amp;total_time]()&#123;</span><br><span class="line">			<span class="type">size_t</span> begin = <span class="built_in">clock</span>();</span><br><span class="line">			mtx.<span class="built_in">lock</span>();</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100000</span>; ++i)</span><br><span class="line">			&#123;</span><br><span class="line">				++x;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="type">size_t</span> end = <span class="built_in">clock</span>();</span><br><span class="line">			total_time += (end - begin);</span><br><span class="line">			mtx.<span class="built_in">unlock</span>();</span><br><span class="line"></span><br><span class="line">			cout &lt;&lt; this_thread::<span class="built_in">get_id</span>() &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; end - begin &lt;&lt; endl;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">auto</span>&amp; thd : works)</span><br><span class="line">	&#123;</span><br><span class="line">		thd.<span class="built_in">join</span>();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">	cout &lt;&lt; total_time &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-std-recursive-mutex"><a href="#2-std-recursive-mutex" class="headerlink" title="2. std::recursive_mutex "></a><a href="#context.16">2. std::recursive_mutex</a><a name="section.16"> </a></h4><p><strong>其允许同一个线程对互斥量多次上锁（即递归上锁），来获得对互斥量对象的多层所有权</strong></p>
+<p><strong>释放互斥量时需要调用与该锁层次深度相同次数的 unlock()</strong></p>
+<p>除此之外，std::recursive_mutex 的特性和 std::mutex 大致相同。</p>
+<h4 id="3-std-timed-mutex"><a href="#3-std-timed-mutex" class="headerlink" title="3. std::timed_mutex "></a><a href="#context.17">3. std::timed_mutex</a><a name="section.17"> </a></h4><p>比 std::mutex 多了两个成员函数，<code>try_lock_for()</code>，<code>try_lock_until() </code></p>
+<ul>
+<li><code>try_lock_for()</code><br>  接受一个时间范围，表示在这一段时间范围之内线程如果没有获得锁则被阻塞住（与std::mutex 的 try_lock() 不同，try_lock 如果被调用时没有获得锁则直接返回false），如果在此期间其他线程释放了锁，则该线程可以获得对互斥量的锁，如果超时（即在指定时间内还是没有获得锁），则返回 false。</li>
+</ul>
+<ul>
+<li><code>try_lock_until()</code><br>  接受一个时间点作为参数，在指定时间点未到来之前线程如果没有获得锁则被阻塞住，如果在此期间其他线程释放了锁，则该线程可以获得对互斥量的锁，如果超时（即在指定时间内还是没有获得锁），则返回 false。</li>
+</ul>
+<h4 id="4-std-recursive-timed-mutex"><a href="#4-std-recursive-timed-mutex" class="headerlink" title="4. std::recursive_timed_mutex "></a><a href="#context.18">4. std::recursive_timed_mutex</a><a name="section.18"> </a></h4><h3 id="atomic-原子锁"><a href="#atomic-原子锁" class="headerlink" title="atomic 原子锁 "></a><a href="#context.19">atomic 原子锁</a><a name="section.19"> </a></h3><p>摒弃互斥锁，使线程间数据的同步变得非常高效</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;atmoic&gt;</span></span></span><br><span class="line"></span><br><span class="line">std::atomic&lt;<span class="type">int</span>&gt; globalVariable = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">task</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; ++i) &#123;</span><br><span class="line">        ++globalVariable;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">std::thread <span class="title">th1</span><span class="params">(task)</span></span>;</span><br><span class="line">    <span class="function">std::thread <span class="title">th2</span><span class="params">(task)</span></span>;</span><br><span class="line"></span><br><span class="line">    th1.<span class="built_in">join</span>();</span><br><span class="line">    th2.<span class="built_in">join</span>();</span><br><span class="line">    std::cout&lt;&lt;globalVariable;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="std-lock-guard"><a href="#std-lock-guard" class="headerlink" title="std::lock_guard "></a><a href="#context.20">std::lock_guard</a><a name="section.20"> </a></h3><p>能够防止死锁，当出现意外时，自动释放</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;thread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;mutex&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;atomic&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">mutex g_m;<span class="comment">//创建锁</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test3</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">1000000</span>; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function">lock_guard&lt;mutex&gt; <span class="title">la</span><span class="params">(g_m)</span></span>; <span class="comment">///&lt; 自动加锁, 自动释放</span></span><br><span class="line">        ++a;</span><br><span class="line">        cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">thread <span class="title">t1</span><span class="params">(test3)</span></span>;</span><br><span class="line">    <span class="function">thread <span class="title">t2</span><span class="params">(test3)</span></span>;</span><br><span class="line">    <span class="function">thread <span class="title">t3</span><span class="params">(test3)</span></span>;</span><br><span class="line"> </span><br><span class="line">    t1.<span class="built_in">join</span>();</span><br><span class="line">    t2.<span class="built_in">join</span>();</span><br><span class="line">    t3.<span class="built_in">join</span>();</span><br><span class="line">    cout &lt;&lt; a &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="std-unique-lock"><a href="#std-unique-lock" class="headerlink" title="std::unique_lock "></a><a href="#context.21">std::unique_lock</a><a name="section.21"> </a></h3><p>同上，不过功能更多</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func1</span><span class="params">(<span class="type">int</span>&amp; a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>*<span class="number">1000</span>; i++) &#123;</span><br><span class="line">        <span class="function">std::unique_lock&lt;std::mutex&gt; <span class="title">lck</span><span class="params">(mtx)</span></span>;</span><br><span class="line">        a+=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wyinhui.github.io/2023/10/10/C++11/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%98%9F%E6%B5%B7/" rel="tag">星海</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2023/10/10/C++/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            C++
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2023/10/10/Embedded/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">嵌入式</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2023
+        <i class="ri-heart-fill heart_icon"></i> WYh
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/favicon.ico" alt="breeze"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+ 
+<script src="/js/clickBoom2.js"></script>
+ 
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+ 
+<script src="/js/dz.js"></script>
+ 
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
