@@ -1,34 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>AutoHotKey教程</title>
-    <url>/2023/10/10/AutoHotKey/</url>
-    <content><![CDATA[<span id="more"></span>
-<h1 id="AutoHotKey教程"><a href="#AutoHotKey教程" class="headerlink" title="AutoHotKey教程"></a>AutoHotKey教程</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#section.1">语法</a><a name="context.1"> </a></li>
-<li><a href="#section.2">按键类</a><a name="context.2"> </a></li>
-</ul>
-<hr>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法 "></a><a href="#context.1">语法</a><a name="section.1"> </a></h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; 为注释</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="按键类"><a href="#按键类" class="headerlink" title="按键类 "></a><a href="#context.2">按键类</a><a name="section.2"> </a></h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^    ; Ctrl键, 或   Ctrl::</span><br><span class="line">!    ; Alt键, 或   Alt::</span><br><span class="line">+    ; Shift键, 或 Shift::</span><br><span class="line">&lt;    ; 左, 如 &lt;+ 左Shift</span><br><span class="line">&gt;    ; 右, 如 &gt;+ 右Shift</span><br><span class="line">&lt;#    ; 左win键, 注意没有单独的#(Win)键, 或 LWin::</span><br></pre></td></tr></table></figure>
-
-
-
-<p>demo：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">; AutoTrim, Off    ; 关闭忽略空格和tab</span><br><span class="line">AutoTrim, On    ; 开启忽略空格和tab</span><br><span class="line">#IfWinActive ahk_exe UV4.exe    ; 设定在 Keil 软件被选中时检测</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    ; alt+1 循环选色，行内文字</span><br><span class="line">    !1::timerHandler(1)</span><br><span class="line">    ; alt+` 循环选色，段落居中</span><br><span class="line">    !`::timerHandler(2)</span><br><span class="line">    </span><br><span class="line">    ; alt+3 强调</span><br><span class="line">    ;!3::addEnhance()</span><br><span class="line"></span><br><span class="line">    ; alt + 2 背景色强调</span><br><span class="line">    !2::addEnhance2()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addPicCenter()&#123;</span><br><span class="line">    SendInput &#123;#&#125;pic_center</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addEnhance()&#123;</span><br><span class="line">    clipboard := &quot;&quot; ; 清空剪切板</span><br><span class="line">    Send ^c         ; 复制</span><br><span class="line">    InputText = %clipboard%</span><br><span class="line">    clipboard = %A_Space%``%InputText%``%A_Space%</span><br><span class="line">    Sleep 50</span><br><span class="line">    Send ^v</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addEnhance2()&#123;</span><br><span class="line">    clipboard := &quot;&quot; ; 清空剪切板</span><br><span class="line">    Send ^c         ; 复制</span><br><span class="line">    InputText = %clipboard%</span><br><span class="line">    ; clipboard = %A_Space%==%InputText%==%A_Space%</span><br><span class="line">    ; clipboard = %A_Space%&lt;mark&gt;%InputText%&lt;/mark&gt;%A_Space%</span><br><span class="line">    clipboard = &lt;mark&gt;%InputText%&lt;/mark&gt;</span><br><span class="line">    Sleep 50</span><br><span class="line">    Send ^v</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addEnhance3()&#123;</span><br><span class="line">    clipboard := &quot;&quot; ; 清空剪切板</span><br><span class="line">    Send ^c         ; 复制</span><br><span class="line">    InputText = %clipboard%</span><br><span class="line">    ; InputText := SubStr(InputText, 4, strlen(InputText) - 6)</span><br><span class="line">    ; InputText := StrReplace(InputText, &quot;==&quot;, &quot;&quot;)</span><br><span class="line">    InputText := StrReplace(InputText, &quot;&lt;mark&gt;&quot;, &quot;&quot;)</span><br><span class="line">    InputText := StrReplace(InputText, &quot;&lt;/mark&gt;&quot;, &quot;&quot;)</span><br><span class="line">    clipboard = %InputText%</span><br><span class="line">    Sleep 50</span><br><span class="line">    Send ^v</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addReverse()&#123;</span><br><span class="line">    clipboard := &quot;&quot; ; 清空剪切板</span><br><span class="line">    Send ^c         ; 复制</span><br><span class="line">    InputText = %clipboard%</span><br><span class="line">    clipboard = %A_Space%&lt;b&gt;&lt;span style=&#x27;color:white;background:black;font-size:24px&#x27;&gt;%InputText%&lt;/span&gt;&lt;/b&gt;%A_Space%</span><br><span class="line">    Sleep 50</span><br><span class="line">    Send ^v</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">; 添加版权说明</span><br><span class="line">addCopyRight()&#123;</span><br><span class="line">    clipboard := &quot;&quot; ; 清空剪切板</span><br><span class="line">    ; 分割线</span><br><span class="line">    SendInput ---    </span><br><span class="line">    Send &#123;Enter&#125;</span><br><span class="line">    ; 版权说明</span><br><span class="line">    clipboard = &lt;center&gt;&lt;b&gt; &lt;font face=&#x27;楷体&#x27; size=4, color=red&gt; &lt;br/&gt; 部分图片来源网络，如有侵权请联系我删除。&lt;br/&gt; 如有疑问或错误，欢迎和我私信交流指正。&lt;br/&gt; 版权所有，未经授权，请勿转载！ &lt;br/&gt; &lt;/font&gt; &lt;font face=&#x27;Times&#x27; size=3, color=gray&gt; Copyright © %A_Year%.%A_Mon% by Mr.Idleman.&amp;ensp;All rights reserved. &lt;/font&gt; &lt;/center&gt;&lt;/b&gt; &lt;br/&gt; </span><br><span class="line">    Send ^v</span><br><span class="line">    Sleep 100</span><br><span class="line">    Send `n</span><br><span class="line">    Sleep 100</span><br><span class="line">    ; 分割线</span><br><span class="line">    SendInput ---    </span><br><span class="line">    Sleep 200</span><br><span class="line">    Send &#123;Enter&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">; 每次按下刷新定时任务，如果松下alt超过一定时间就退出</span><br><span class="line">timerHandler(flag)&#123;</span><br><span class="line">    SetTimer, Check, -1000 ; 在 1000 毫秒后检测.</span><br><span class="line">    addFontColor(flag)</span><br><span class="line">&#125;</span><br><span class="line">Check:</span><br><span class="line">    if(!GetKeyState(&quot;Alt&quot;, &quot;P&quot;))&#123;</span><br><span class="line">        addFontColor(0)</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        SetTimer, Check, -1000</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">; 快捷增加字体颜色</span><br><span class="line">addFontColor(flag)&#123;</span><br><span class="line">    ; 设置循环选色数量和颜色类型</span><br><span class="line">    color_num = 9</span><br><span class="line">    colors := [&quot;black&quot;, &quot;red&quot;, &quot;SEAGREEN&quot;, &quot;blue&quot;, &quot;DODGERBLUE&quot;, &quot;DARKORANGE&quot;, &quot;cyan&quot;, &quot;purple&quot;, &quot;ORCHID&quot;]</span><br><span class="line">    static index := 0</span><br><span class="line">    static InputText := -1</span><br><span class="line">    </span><br><span class="line">    if (!flag)&#123;</span><br><span class="line">        index := 0</span><br><span class="line">        clipboard := &quot;&quot; ; 清空剪切板</span><br><span class="line">        InputText = -1</span><br><span class="line">        </span><br><span class="line">        send !</span><br><span class="line">        Sleep 50</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    else&#123;</span><br><span class="line">        index += 1</span><br><span class="line">        if (InputText == -1)&#123;</span><br><span class="line">            clipboard := &quot;&quot; ; 清空剪切板</span><br><span class="line">            Send ^c         ; 复制</span><br><span class="line">            InputText = %clipboard%</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            Send ^z         ; 撤销</span><br><span class="line">            if(flag==2 || flag==3)&#123;</span><br><span class="line">                Send ^z         ; 多撤销一次，取消回车</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    ; 颜色赋值</span><br><span class="line">    color := colors[index]</span><br><span class="line">    if(index==color_num)&#123;</span><br><span class="line">        index = 0</span><br><span class="line">    &#125;</span><br><span class="line">    Sleep 50</span><br><span class="line">    if (flag==1)&#123;</span><br><span class="line">        clipboard = %A_Space%&lt;b&gt;&lt;font color=&#x27;%color%&#x27; size=3 face=&quot;&quot;&gt;%InputText%&lt;/font&gt;&lt;/b&gt;%A_Space% ; 组合赋值到剪切板</span><br><span class="line">    &#125;</span><br><span class="line">    else if(flag==2)&#123;    </span><br><span class="line">        clipboard = %A_Space%&lt;center&gt; &lt;b&gt; &lt;font color=&#x27;%color%&#x27; size=5 face=&quot;&quot;&gt; %InputText% &lt;/font&gt; &lt;/b&gt; &lt;/center&gt;%A_Space%&lt;br\&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    else if(flag==3)&#123;    </span><br><span class="line">        clipboard = %A_Space%&lt;center&gt; &lt;b&gt; &lt;span style=&#x27;color:white;background:%color%;font-size:24px&#x27;&gt;%InputText%&lt;/span&gt; &lt;/b&gt; &lt;/center&gt;%A_Space%&lt;br\&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    SendInput ^v    ; 粘贴</span><br><span class="line">    Sleep 50</span><br><span class="line">    if (flag==2 || flag==3)&#123;    ; 为了居中显示能够自动渲染，增加一个回车</span><br><span class="line">        SendInput `n</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>星海</category>
-      </categories>
-      <tags>
-        <tag>星海</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C++</title>
     <url>/2023/10/10/C++/</url>
     <content><![CDATA[<span id="more"></span>
@@ -662,6 +634,323 @@
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">func1</span><span class="params">(<span class="type">int</span>&amp; a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>*<span class="number">1000</span>; i++) &#123;</span><br><span class="line">        <span class="function">std::unique_lock&lt;std::mutex&gt; <span class="title">lck</span><span class="params">(mtx)</span></span>;</span><br><span class="line">        a+=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+]]></content>
+      <categories>
+        <category>星海</category>
+      </categories>
+      <tags>
+        <tag>星海</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C</title>
+    <url>/2023/10/10/C/</url>
+    <content><![CDATA[<span id="more"></span>
+<h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#section.1">读写文件</a><a name="context.1"> </a></li>
+<li><a href="#section.2">快速判断是否是字母</a><a name="context.2"> </a></li>
+<li><a href="#section.3">快速判断两字符是否为相同的字母</a><a name="context.3"> </a></li>
+<li><a href="#section.4">C 关键字</a><a name="context.4"> </a><ul>
+<li><a href="#section.5">free&#x2F;malloc</a><a name="context.5"> </a></li>
+<li><a href="#section.6">float&#x2F;double</a><a name="context.6"> </a></li>
+<li><a href="#section.7">union&#x2F;volatile</a><a name="context.7"> </a></li>
+</ul>
+</li>
+<li><a href="#section.8">宏定义</a><a name="context.8"> </a><ul>
+<li><a href="#section.9">字符串化 - #</a><a name="context.9"> </a></li>
+<li><a href="#section.10">连接符 - ##</a><a name="context.10"> </a></li>
+<li><a href="#section.11">单字符 - #@</a><a name="context.11"> </a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="读写文件"><a href="#读写文件" class="headerlink" title="读写文件 "></a><a href="#context.1">读写文件</a><a name="section.1"> </a></h2><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309271438554.png" alt="image-20230927142212999"></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** 打开文件 */</span></span><br><span class="line">FILE * <span class="title function_">fopen</span> <span class="params">( <span class="type">const</span> <span class="type">char</span> * filename, <span class="type">const</span> <span class="type">char</span> * mode )</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 读函数 */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fgetc</span><span class="params">( FILE * fp )</span>;</span><br><span class="line"><span class="type">char</span> *<span class="title function_">fgets</span><span class="params">( <span class="type">char</span> *buf, <span class="type">int</span> n, FILE *fp )</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 写函数 */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fputc</span><span class="params">( <span class="type">int</span> c, FILE *fp )</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fputs</span><span class="params">( <span class="type">const</span> <span class="type">char</span> *s, FILE *fp )</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fprintf</span><span class="params">(FILE *stream, <span class="type">const</span> <span class="type">char</span> *format, ...)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 关闭文件 */</span></span><br><span class="line">fclose(FILE *fp);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>c语言宏 <code>__stdcall</code>, <code>__cdecl</code></strong></p>
+<p>​		调用函数时，计算机常用栈来存放函数执行需要的参数，由于栈的空间大小是有限的，在windows下，栈是向低地址扩展的数据结构，是一块连续的内存区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，如果申请的空间超过栈的剩余空间时，将提示overflow。</p>
+<p>​		在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的！</p>
+<p>​		VC中默认调用是 <code>__cdecl</code> 方式，Windows API 使用 <code>__stdcall</code> 调用方式，在 DLL 导出函数中，为了跟 Windows API 保持一致，建议使用 <code>__stdcall</code> 方式。</p>
+<p><strong>C&#x2F;C++ 函数调用约定，主要是对以下两个方面进行了约定：</strong></p>
+<ol>
+<li>当参数个数多于一个时，按照什么顺序把参数压入堆栈。—-调用函数时，参数的入栈顺序。</li>
+<li>函数调用后，由谁来把堆栈恢复原状。—-调用结束后，由谁（调用者还是被调用者）负责将参数出栈。</li>
+</ol>
+<p>在高级语言中，就是通过函数的调用方式来说明这两个问题的。常见的调用方式有：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C 语言:   __cdecl、__stdcall、__fastcall、naked、__pascal。</span><br><span class="line">C++ 语言: __cdecl、__stdcall、__fastcall、naked、__pascal、__thiscall，比 C 语言多出一种 __thiscall 调用方式。</span><br></pre></td></tr></table></figure>
+
+
+
+<ol>
+<li><p><code>stdcall</code><br> <code>__stdcall</code> 是 StandardCall 的缩写，是C++的标准调用方式。stdcall 调用方式又被称为 Pascal 调用方式。在Microsoft C++系列的C&#x2F;C++编译器中，使用 PASCAL 宏，WINAPI 宏和 CALLBACK 宏来指定函数的调用方式为 stdcall。<br> 其声明语法为：</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int _stdcall function(int a, int b);</span><br></pre></td></tr></table></figure>
+
+<p> <code>stdcall</code> 的调用方式意味着：</p>
+<p> （1）参数从右向左依次压入堆栈.<br> （2）由被调用函数自己来恢复堆栈，称为自动清栈。<br> （3）函数名自动加前导下划线，后面紧跟着一个@，其后紧跟着参数的大小。</p>
+</li>
+<li><p><code>cdecl</code></p>
+<p> <code>__cdecl</code> 是C Declaration的缩写（declaration，声明），cdecl调用方式又称为C调用方式，是C语言缺省的调用方式。<br> 其声明语法为：</p>
+ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int function(int a, int b);        // 不加修饰符就是C调用方式</span><br><span class="line">int _cdecl function(int a, int b); // 明确指定用C调用方式</span><br></pre></td></tr></table></figure>
+
+<p> <code>cdecl</code> 的调用方式意味着：</p>
+<p> （1）参数从右向左依次压入堆栈.<br> （2）由调用者恢复堆栈，称为手动清栈。<br> （3）函数名自动加前导下划线。</p>
+<p> 由于是由调用者来恢复堆栈，因此C调用方式允许函数的参数个数是不固定的，这是C语言的一大特色。比如 <code>printf</code></p>
+</li>
+</ol>
+<h2 id="快速判断是否是字母"><a href="#快速判断是否是字母" class="headerlink" title="快速判断是否是字母 "></a><a href="#context.2">快速判断是否是字母</a><a name="section.2"> </a></h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">///&lt; 包括大小写字母</span></span><br><span class="line">(uchar)((ch | <span class="number">0x20</span>) - <span class="string">&#x27;a&#x27;</span>) &lt; <span class="number">26</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="快速判断两字符是否为相同的字母"><a href="#快速判断两字符是否为相同的字母" class="headerlink" title="快速判断两字符是否为相同的字母 "></a><a href="#context.3">快速判断两字符是否为相同的字母</a><a name="section.3"> </a></h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">///&lt; 不区分大小写</span></span><br><span class="line">((ch = ch1 ^ ch2) == <span class="number">0</span> || ch == <span class="number">0x20</span>) &amp;&amp; ((<span class="type">unsigned</span>)(ch1 | <span class="number">0x20</span>) - <span class="string">&#x27;a&#x27;</span>) &lt; <span class="number">26</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>bit -&gt; Byte -&gt; kb	1Byte &#x3D; 8bit</p>
+<p>bit比特位	byte字节	且内存中一个空间占一个字节&#x3D;8位</p>
+<p><strong>负数在内存中存储的是补码，求原码-1然后除符号位其余取反</strong></p>
+<p><strong>且任何数字在内存中都是以补码存储的，正数原反补都一样</strong></p>
+<h2 id="C-关键字"><a href="#C-关键字" class="headerlink" title="C 关键字 "></a><a href="#context.4">C 关键字</a><a name="section.4"> </a></h2><table>
+<thead>
+<tr>
+<th><strong>auto</strong></th>
+<th><strong>break</strong></th>
+<th><strong>case</strong></th>
+<th><strong>char</strong></th>
+<th><strong>const</strong></th>
+<th><strong>continue</strong></th>
+<th><strong>default</strong></th>
+<th><strong>do</strong></th>
+<th><strong>double</strong></th>
+<th><strong>else</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>enum</strong></td>
+<td><strong>extern</strong></td>
+<td><strong>float</strong></td>
+<td><strong>for</strong></td>
+<td><strong>goto</strong></td>
+<td><strong>if</strong></td>
+<td><strong>int</strong></td>
+<td><strong>long</strong></td>
+<td><strong>register</strong></td>
+<td><strong>return</strong></td>
+</tr>
+<tr>
+<td><strong>short</strong></td>
+<td><strong>signed</strong></td>
+<td><strong>sizeof</strong></td>
+<td><strong>static</strong></td>
+<td><strong>struct</strong></td>
+<td><strong>switch</strong></td>
+<td><strong>typedef</strong></td>
+<td><strong>union</strong></td>
+<td><strong>unsigned</strong></td>
+<td><strong>void</strong></td>
+</tr>
+<tr>
+<td><strong>volatile</strong></td>
+<td><strong>while</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>typedef</strong> unsigned int uint		把unsigned int重定义为unit</p>
+<p><strong>void</strong>							声明函数无返回值或无参数</p>
+<p><strong>auto</strong>							在局部中自动销毁原变量值</p>
+<p><strong>static</strong> 						静态局部变量，不会销毁，保存赋值</p>
+<p><strong>const</strong> <strong>x</strong>						定义常量x，不可改变</p>
+<p><strong>extern</strong>						声明外部-变量&#x2F;函数</p>
+<p><strong>#define</strong> a 100					定义常量和宏，可以是三目运算符</p>
+<table>
+<thead>
+<tr>
+<th>Char</th>
+<th>Short</th>
+<th>Int</th>
+<th>long</th>
+<th>long long</th>
+<th>folat</th>
+<th>double</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字符串</td>
+<td>短整型</td>
+<td>整型</td>
+<td>长整型</td>
+<td>超长整型</td>
+<td>浮点型</td>
+<td>双精度浮点型</td>
+</tr>
+<tr>
+<td>1字节</td>
+<td>2字节&#x2F;16位</td>
+<td>4字节&#x2F;32位</td>
+<td>4字节</td>
+<td></td>
+<td>4&#x2F;8字节</td>
+<td>64位保留后6位</td>
+</tr>
+</tbody></table>
+<p>a&lt;&lt;2			a左移2位</p>
+<table>
+<thead>
+<tr>
+<th>&amp;</th>
+<th>|</th>
+<th>^</th>
+<th>!</th>
+<th>~</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按位与</td>
+<td>按位或</td>
+<td>异或</td>
+<td>非</td>
+<td>按位取反</td>
+</tr>
+<tr>
+<td>a&amp;&amp;b（逻辑与）</td>
+<td>||</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>a, b均为真返回真</td>
+<td>逻辑或,有一个返回真</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>%c			打印一个字符串格式的数据</p>
+<p>%s			打印字符串</p>
+<p>%d			整型十进制数据</p>
+<p>%u			无符号的十进制整数</p>
+<p>%f			浮点型</p>
+<p>%g			浮点，不显示无意义的0</p>
+<p>%lf			双精度浮点型</p>
+<p>%p			指针，以地址的形式打印</p>
+<p>%x			打印十六进制</p>
+<p>%o			输出八进制数</p>
+<p>%%			‘%’</p>
+</blockquote>
+<p><strong>float</strong></p>
+<blockquote>
+<p>(-1)^s * M * 2^E		s&#x3D;0&#x2F;1	E&#x3D;n(8位,得加127)		M&#x3D;1.?? (23位1.省略)	</p>
+<p>​					S	E(8&#x2F;11bit)	M(23&#x2F;52bit)</p>
+<p>double				同上，E(加减1023)</p>
+</blockquote>
+<p><code>&gt;&gt;</code> 右移（除2），补符号位			左移补0,其他同</p>
+<blockquote>
+<p>qsort()</p>
+<p>strcat(1,2)			把字符串2加到1后面</p>
+<p>assert(?)				<strong>断言</strong>，如果?为假则报错，否则继续运行</p>
+<p>strcmp(1,2)			逐个比较字符串大小(ASCII)，1&gt;2返回正数，1&#x3D;2返回0，同</p>
+<p>strncmp()				同上，比较前n位</p>
+<p>strtok(arr,p)			arr,p为指针，在arr中按p切割</p>
+</blockquote>
+<p><strong>转义符：</strong></p>
+<blockquote>
+<p>\0		     在字符串里表到这结束</p>
+<p>\ddd		ddd表示1-3个八进制的数字，如：\130 表X</p>
+<p>\xdd		dd表2个十六进制数字，\x30 表0</p>
+</blockquote>
+<p><strong>数据内存存储模式（以字节为单位）</strong></p>
+<blockquote>
+<p>1.小端		数据低位存内存低位		内存地址：低 - 高（左低右高）</p>
+<p>2.大端		数据低位存内存高位		数据：高 - 低（左高右低）如二进制数</p>
+</blockquote>
+<p><strong>预处理符号</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">__FILE__				返回文件名+路径</span><br><span class="line"></span><br><span class="line">__LINE__				返回所在行数</span><br><span class="line"></span><br><span class="line">__DATE__			返回当今日期</span><br><span class="line"></span><br><span class="line">__TIME__			返回当前时间</span><br></pre></td></tr></table></figure>
+
+<p><strong>文件处理</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">FILE* pf = fopen(“<span class="built_in">log</span>.txt”, “w”);  <span class="comment">///&lt; 以只读打开/创建文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/** 格式化写文件 */</span></span><br><span class="line"><span class="built_in">fprintf</span>(pf, “file: %s\n”, __FILE__);</span><br><span class="line"><span class="built_in">fprintf</span>(pf, “line: %d\n”, __LINE__);</span><br><span class="line"><span class="built_in">fprintf</span>(pf, “date: %s\n”, __DATE__);</span><br><span class="line"><span class="built_in">fprintf</span>(pf, “time: %s\n”, __TIME__);</span><br><span class="line"><span class="built_in">fprintf</span>(pf, “i = %d\n”, i);</span><br><span class="line"></span><br><span class="line">fclose(pf);  <span class="comment">///&lt; 关闭文件</span></span><br><span class="line">pf = <span class="literal">NULL</span>;  <span class="comment">///&lt; 指针清空</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>运算效率</strong></p>
+<p>移位 &gt; 赋值 &gt; 大小比较 &gt; 加法 &gt; 减法 &gt; 乘法 &gt; 取模 &gt; 除法</p>
+<p><strong>回调函数详述</strong></p>
+<p><a href="https://www.runoob.com/w3cnote/c-callback-function.html">C 语言回调函数详解 | 菜鸟教程 (runoob.com)</a></p>
+<h3 id="free-malloc"><a href="#free-malloc" class="headerlink" title="free&#x2F;malloc "></a><a href="#context.5">free&#x2F;malloc</a><a name="section.5"> </a></h3><p>malloc 返回给用户态的内存起始地址比进程的堆空间起始地址多了 16 字节</p>
+<p>这个多出来的 16 字节就是保存了该内存块的描述信息，比如有该内存块的大小</p>
+<p>这样当执行 free() 函数时，free 会对传入进来的内存地址向左偏移 16 字节，然后从这个 16 字节的分析出当前的内存块的大小，自然就知道要释放多大的内存了</p>
+<h3 id="float-double"><a href="#float-double" class="headerlink" title="float&#x2F;double "></a><a href="#context.6">float&#x2F;double</a><a name="section.6"> </a></h3><p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float.png" alt="img"></p>
+<ul>
+<li><em>符号位</em>：表示数字是正数还是负数，为 0 表示正数，为 1 表示负数；</li>
+<li><em>指数位</em>：指定了小数点在数据中的位置，指数可以是负数，也可以是正数，<strong>指数位的长度越长则数值的表达范围就越大</strong>；</li>
+<li><em>尾数位</em>：小数点右侧的数字，也就是小数部分，比如二进制 1.0011 x 2^(-2)，尾数部分就是 0011，而且<strong>尾数的长度决定了这个数的精度</strong>，因此如果要表示精度更高的小数，则就要提高尾数位的长度；</li>
+</ul>
+<p>例：</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E5%AD%98%E5%82%A8.png" alt="img"></p>
+<p><strong>把小数点，移动到第一个有效数字后面</strong>，即将 1010.101 右移 <code>3</code> 位成 <code>1.010101</code>，右移 3 位就代表 +3，左移 3 位就是 -3。</p>
+<p><strong>float 中的「指数位」就跟这里移动的位数有关系，把移动的位数再加上「偏移量」，float 的话偏移量是 127，相加后就是指数位的值了</strong>，即指数位这 8 位存的是 <code>10000010</code>（十进制 130），因此你可以认为「指数位」相当于指明了小数点在数据中的位置。</p>
+<p><code>1.010101</code> 这个数的<strong>小数点右侧的数字就是 float 里的「尾数位」</strong>，由于尾数位是 23 位，则后面要补充 0，所以最终尾数位存储的数字是 <code>01010100000000000000000</code>。</p>
+<p>这是因为 IEEE 标准规定，二进制浮点数的小数点左侧只能有 1 位，并且还只能是 1，<strong>既然这一位永远都是 1，那就可以不用存起来了</strong>。</p>
+<p>于是就让 23 位尾数只存储小数部分，然后在计算时会<strong>自动把这个 1 加上，这样就可以节约 1 位的空间，尾数就能多存一位小数，相应的精度就更高了一点</strong>。</p>
+<p>那么，对于我们在从 float 的二进制浮点数转换成十进制时，要考虑到这个隐含的 1，转换公式如下：</p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E5%85%AC%E5%BC%8F.png" alt="img"></p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BE%8B%E5%AD%90.png" alt="img"></p>
+<p><strong>TIPS:</strong></p>
+<blockquote>
+<p><strong>为什么负数要用补码表示？</strong></p>
+</blockquote>
+<p>负数之所以用补码的方式来表示，主要是为了统一和正数的加减法操作一样，毕竟数字的加减法是很常用的一个操作，就不要搞特殊化，尽量以统一的方式来运算。</p>
+<blockquote>
+<p><strong>十进制小数怎么转成二进制？</strong></p>
+</blockquote>
+<p>十进制整数转二进制使用的是「除 2 取余法」，十进制小数使用的是「乘 2 取整法」。</p>
+<blockquote>
+<p><strong>计算机是怎么存小数的？</strong></p>
+</blockquote>
+<p>计算机是以浮点数的形式存储小数的，大多数计算机都是 IEEE 754 标准定义的浮点数格式，包含三个部分：</p>
+<ul>
+<li>符号位：表示数字是正数还是负数，为 0 表示正数，为 1 表示负数；</li>
+<li>指数位：指定了小数点在数据中的位置，指数可以是负数，也可以是正数，指数位的长度越长则数值的表达范围就越大；</li>
+<li>尾数位：小数点右侧的数字，也就是小数部分，比如二进制 1.0011 x 2^(-2)，尾数部分就是 0011，而且尾数的长度决定了这个数的精度，因此如果要表示精度更高的小数，则就要提高尾数位的长度；</li>
+</ul>
+<p>用 32 位来表示的浮点数，则称为单精度浮点数，也就是我们编程语言中的 float 变量，而用 64 位来表示的浮点数，称为双精度浮点数，也就是 double 变量。</p>
+<blockquote>
+<p><strong>0.1 + 0.2 &#x3D;&#x3D; 0.3 吗？</strong></p>
+</blockquote>
+<p>不是的，0.1 和 0.2 这两个数字用二进制表达会是一个一直循环的二进制数，比如 0.1 的二进制表示为 0.0 0011 0011 0011… （0011 无限循环)，对于计算机而言，0.1 无法精确表达，这是浮点数计算造成精度损失的根源。</p>
+<p>因此，IEEE 754 标准定义的浮点数只能根据精度舍入，然后用「近似值」来表示该二进制，那么意味着计算机存放的小数可能不是一个真实值。</p>
+<p>0.1 + 0.2 并不等于完整的 0.3，这主要是因为这两个小数无法用「完整」的二进制来表示，只能根据精度舍入，所以计算机里只能采用近似数的方式来保存，那两个近似数相加，得到的必然也是一个近似数。</p>
+<h3 id="union-volatile"><a href="#union-volatile" class="headerlink" title="union&#x2F;volatile "></a><a href="#context.7">union&#x2F;volatile</a><a name="section.7"> </a></h3><p><strong>union</strong></p>
+<p>共用体的所有成员占用同一段内存，修改一个成员会影响其余所有成员。其占内存为最大成员</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">data</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="type">char</span> ch;</span><br><span class="line">    <span class="type">double</span> f;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">data</span> <span class="title">a</span>, <span class="title">b</span>, <span class="title">c</span>;</span></span><br><span class="line"><span class="comment">// sizeof(data) 为 sizeof(double) = 8</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>volatile</strong></p>
+<p>修饰异变的参数，每次都要去寄存器或内存重新读取</p>
+<p>只要变量可能被意外的修改，就需要把该变量声明为volatile。在实际应用中，只有三种类型数据可能被修改：</p>
+<ul>
+<li>外设寄存器地址映射</li>
+<li>在中断服务程序中修改全局变量</li>
+<li>在多线程、多任务应用中，全局变量被多个任务读写</li>
+</ul>
+<h2 id="宏定义"><a href="#宏定义" class="headerlink" title="宏定义 "></a><a href="#context.8">宏定义</a><a name="section.8"> </a></h2><h3 id="字符串化"><a href="#字符串化" class="headerlink" title="字符串化 - # "></a><a href="#context.9">字符串化 - #</a><a name="section.9"> </a></h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> ToString(x) #x</span></span><br><span class="line"><span class="type">char</span>* str = ToString(<span class="number">123132</span>);  <span class="comment">///&lt; 就成了str=&quot;123132&quot;;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="连接符"><a href="#连接符" class="headerlink" title="连接符 - ## "></a><a href="#context.10">连接符 - ##</a><a name="section.10"> </a></h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> Conn(x,y) x##y </span></span><br><span class="line"><span class="type">int</span>  n = Conn(<span class="number">123</span>,<span class="number">456</span>);   <span class="comment">///&lt; 结果就是n=123456;</span></span><br><span class="line"><span class="type">char</span>* str = Conn(<span class="string">&quot;asdf&quot;</span>, <span class="string">&quot;adf&quot;</span>)  <span class="comment">///&lt; 结果就是 str = &quot;asdfadf&quot;;   注意：待验证！！！？</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="单字符"><a href="#单字符" class="headerlink" title="单字符 - #@ "></a><a href="#context.11">单字符 - #@</a><a name="section.11"> </a></h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -1375,427 +1664,6 @@
 <p>需要注意的是，ISR中断的概念更广泛，可以是任何中断处理程序，包括IRQ中断。IRQ中断是一种特定类型的中断，指的是由外部设备请求服务的中断。</p>
 <h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA "></a><a href="#context.49">DMA</a><a name="section.49"> </a></h2><p>即直接内存访问（Direct Memory Access），是计算机系统中一种用于减轻中央处理器（CPU）负载的技术。它允许外设（如网络卡、硬盘控制器等）直接与系统内存交换数据，而不需要经过CPU的介入。</p>
 <h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用 "></a><a href="#context.50">主要作用</a><a name="section.50"> </a></h3><p>DMA的主要作用是提高数据传输的效率和系统的整体性能，它可以实现以下功能：</p>
-<ol>
-<li>数据传输：DMA可以直接控制总线，将数据从外设读入内存或从内存写出到外设，而无需通过CPU进行数据传输。</li>
-<li>解放CPU负载：DMA的工作过程中，CPU可以继续执行其他任务，而不需要等待数据传输完成，从而减轻了CPU的负载。</li>
-<li>快速数据交换：DMA传输数据的速度往往比CPU慢，因此它常用于大数据量的高速输入输出设备，可以快速地将数据从外设传输到内存或者从内存传输到外设。</li>
-<li>多任务处理：使用DMA可以使CPU在数据传输过程中同时处理其他任务，从而提高系统的并发处理能力。</li>
-</ol>
-<p><strong>一些常见的应用场景包括：</strong></p>
-<ol>
-<li>高速网络传输：DMA技术广泛应用于以太网卡和网络交换机等网络设备中，可以实现高速数据传输和实时流处理。</li>
-<li>存储设备控制：DMA可以用于硬盘控制器、固态硬盘(SSD)等存储设备，提高数据传输速度和读写操作的效率。</li>
-<li>图形处理：DMA可以用于图形处理单元（GPU）与系统内存之间的数据传输，加速图形渲染和图形计算等操作。</li>
-<li>音视频处理：DMA技术常用于音频和视频编解码、实时流媒体传输等领域，提高数据传输速度和处理效率。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>星海</category>
-      </categories>
-      <tags>
-        <tag>星海</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>嵌入式</title>
-    <url>/2023/09/09/Embedded_/</url>
-    <content><![CDATA[<span id="more"></span>
-<h1 id="嵌入式"><a href="#嵌入式" class="headerlink" title="嵌入式"></a>嵌入式</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#section.1">OTA</a><a name="context.1"> </a></li>
-<li><a href="#section.2">STM32</a><a name="context.2"> </a><ul>
-<li><a href="#section.3">系统架构</a><a name="context.3"> </a></li>
-<li><a href="#section.4">启动配置</a><a name="context.4"> </a></li>
-<li><a href="#section.5">启动流程</a><a name="context.5"> </a></li>
-<li><a href="#section.6">中断向量表</a><a name="context.6"> </a></li>
-<li><a href="#section.7">map文件分析</a><a name="context.7"> </a></li>
-<li><a href="#section.8">内存管理</a><a name="context.8"> </a><ul>
-<li><a href="#section.9">6个储存数据段</a><a name="context.9"> </a></li>
-<li><a href="#section.10">3种存储属性区</a><a name="context.10"> </a></li>
-<li><a href="#section.11">加载域和运行域</a><a name="context.11"> </a></li>
-<li><a href="#section.12">FreeRTOS中的堆</a><a name="context.12"> </a></li>
-</ul>
-</li>
-<li><a href="#section.13">生成bin文件</a><a name="context.13"> </a></li>
-</ul>
-</li>
-<li><a href="#section.14">总线概览</a><a name="context.14"> </a></li>
-<li><a href="#section.15">I2C</a><a name="context.15"> </a></li>
-<li><a href="#section.16">SPI</a><a name="context.16"> </a><ul>
-<li><a href="#section.17">连接方式</a><a name="context.17"> </a></li>
-<li><a href="#section.18">基本通讯过程</a><a name="context.18"> </a></li>
-<li><a href="#section.19">四种模式</a><a name="context.19"> </a></li>
-<li><a href="#section.20">CPOL</a><a name="context.20"> </a></li>
-<li><a href="#section.21">CPHA</a><a name="context.21"> </a></li>
-</ul>
-</li>
-<li><a href="#section.22">串口通讯</a><a name="context.22"> </a><ul>
-<li><a href="#section.23">物理层</a><a name="context.23"> </a><ul>
-<li><a href="#section.24">电平标准</a><a name="context.24"> </a></li>
-<li><a href="#section.25">RS232信号线</a><a name="context.25"> </a></li>
-</ul>
-</li>
-<li><a href="#section.26">协议层</a><a name="context.26"> </a><ul>
-<li><a href="#section.27">波特率</a><a name="context.27"> </a></li>
-<li><a href="#section.28">通讯的起始和停止信号</a><a name="context.28"> </a></li>
-<li><a href="#section.29">有效数据</a><a name="context.29"> </a></li>
-<li><a href="#section.30">数据校验</a><a name="context.30"> </a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#section.31">中断</a><a name="context.31"> </a></li>
-<li><a href="#section.32">DMA</a><a name="context.32"> </a><ul>
-<li><a href="#section.33">主要作用</a><a name="context.33"> </a></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="OTA"><a href="#OTA" class="headerlink" title="OTA "></a><a href="#context.1">OTA</a><a name="section.1"> </a></h2><p>OTA 是空中升级 <code>Over the air</code> 的缩写，指的是通过无线通信网络（如Wi-Fi、蓝牙、LoRa等）对嵌入式系统进行远程升级或更新。</p>
-<p>在嵌入式系统中，OTA技术可以用于更新固件、软件或配置文件等。通过OTA技术，用户可以在不需要物理接触设备的情况下，对其进行升级和更新，从而提高系统的可靠性、安全性和灵活性。</p>
-<h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32 "></a><a href="#context.2">STM32</a><a name="section.2"> </a></h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构 "></a><a href="#context.3">系统架构</a><a name="section.3"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192253545.png" alt="img"></p>
-<p><strong>代码区(code area)从0x00000000开始</strong>，通过指令总线(ICode Bus)和数据总线(DCode Bus)对Flash中代码进行访问。</p>
-<p><strong>数据区(SRAM)从0x20000000开始</strong>，通过系统总线(System Bus)进行访问。</p>
-<h3 id="启动配置"><a href="#启动配置" class="headerlink" title="启动配置 "></a><a href="#context.4">启动配置</a><a name="section.4"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192255947.png" alt="img"></p>
-<p> STM32系列可以有3种启动模式，由BOOT1与BOOT0的设置决定选择Flash、System memory还是SRAM作为启动空间。</p>
-<ol>
-<li><strong>从主闪存存储器启动(Main Flash memory)：</strong><br> 主闪存存储器被映射到启动空间(0x0000 0000)，<strong>但仍然能够在它原有的地址(0x0800 0000)访问它</strong>，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</li>
-<li><strong>从系统存储器启动(System memory)：</strong><br> 系统存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的地址(互联型产品原有地址为0x1FFF B000，其它产品原有地址为0x1FFF F000)访问它。 </li>
-<li><strong>从内置SRAM启动(Embedded SRAM)：</strong><br> <strong>只能在0x20000000开始的地址区访问SRAM，启动后这个映射消失，需要重定位中断向量表。</strong></li>
-</ol>
-<p>STM32将 0x00000000 到 0x0005FFFF 的区域作为启动空间（boot space）的别名区。</p>
-<h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程 "></a><a href="#context.5">启动流程</a><a name="section.5"> </a></h3><p>精简版：</p>
-<ol>
-<li><p>&#x3D;&#x3D;<strong>通过Boot引脚设定,寻找初始地址</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>初始化栈指针 __initial_sp，指针位于SRAM区</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>指向复位程序 Reset_Hander</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>设置异常中断 HardFault_Handler</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>设置系统时钟 SystemInit</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>调用C库函数 _main</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p><strong>首先复位MCU，进行地址映射，获取栈顶指针MSP和PC指针的内容</strong></p>
-<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201444357.png" alt="img"><br> MCU上电后，自动执行<br> 当程序编译完成之后，sp堆栈栈顶指针都已经确定。<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201307158.png" alt="img"><br> R13(SP堆栈指针)的值为0x20000868(MSP)存在地址为0x00000000中，R15(PC程序计数器)的值为0x08000420存在地址为0x00000004中，堆栈指针指向sram区，且堆栈必须建立在该区。</p>
-<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201308487.png" alt="img"></p>
-<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201308463.png" alt="img"></p>
-<p> 当从flash中启动时SP在地址0x08000000中存储,PC的值在地址0x08000004中存储。但仍可以在原地址中被访问。这也就是所谓的映射。</p>
-<p>  <b><font color='blue' size=3 face="">这即是手册中所说：主闪存存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的地址(0x0800 0000)访问它，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</font></b> </p>
-</li>
-<li><p><strong>根据PC的值找到复位中断处理函数Reset_Handler</strong><br> <strong>(1) 进入中断处理函数 <code>Reset_Handler</code></strong><br> 中断处理函数外部定义<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201459507.png" alt="img">原地址0x00000004处的内容为0x0800022D,取出后的内容变为了0x0800022C,它把末位的1变成了0，这个是由于内存对齐造成的，因为cortex-m3核PC的LSB一定读回0，因此指令至少是半字对齐的（《cortex-m3编程手册》）。</p>
-<p> <code>LDR  R0,  =SystemInit</code> 将函数 <code>SystemInit</code> 的入口地址传给 R0，从反汇编窗口可以看到指令被写成 <code>LDR   r0,   [pc,#36]</code>，表明 <code>SystemInit</code> 的入口地址在存放在 PC 指针偏移 36 处，即：<code>0x08000022C（+0x4）+0x24=0x08000254</code>（因为CM3内部使用了指令流水线，读PC时返回的值是当前指令的地址+4《Cortex™-M3权威指南》）下一条指令在 0x0800022E 处。</p>
-<p> <strong>(2) 进入 <code>SystemInit</code> 函数MCU复位后，PC所指向的第一行代码</strong></p>
-<p> 复位PC后，此时程序寻址到PC指针指示的地址0x0800022C处准备执行</p>
-<p> BLX R0 将R0的值传给PC（必须保证加载到PC的数值是奇数（即LSB&#x3D;1），传给PC后，PC的LSB读回0），调用SystemInit函数。</p>
-<p> SystemInit这个函数里面开启了外部晶振，设置了锁相环PLL，关闭了所有中断，设置了时钟为72MHz，并且重定位中断向量表在0x08000000处（这句在Flash启动时可以不需要，因为能从0x00000000映射到0x08000000）。</p>
-</li>
-</ol>
-<h3 id="中断向量表"><a href="#中断向量表" class="headerlink" title="中断向量表 "></a><a href="#context.6">中断向量表</a><a name="section.6"> </a></h3><p>STM32的中断向量表是干什么的？到底有什么用？它放在哪里？</p>
-<p>一、中断向量表里有什么？它放在那里？到底有什么用？<br>1、中断向量表实际上就是存放在Code区（也就是STM32内部的Flash区）从0x00000000地址开始的一个数组，数组的成员为4个字节，而且这些数组在启动文件的时候已经初始化好。</p>
-<p>2、STM32根据内核和外设中断优先级，同一标号，标号越小，优先级越大。然后把内核和外设的中断服务函数的地址放在这个数组里面，数组的下标跟中断的优先级对应，我们也把这个中断的编号叫做中断向量。</p>
-<p>3、在启动文件执行的时候，内核和每个外设的中断服务函数的地址都是已经确定好的，地址就存放在中断向量表中，而且在启动文件里面已经写好了中断服务函数，只是这些中断服务函数为空，而且带[weak]弱定义，那么我们就需要在C文件里面重新实现这个中断服务函数，用户写这个中断服务函数的时候，函数名必须跟启动文件里面写的中断函数名对应，因为函数名对应的就是中断服务函数的地址，如果中断服务函数名和启动文件的名字不一样，就默认启动文件里面预先写好的空的中断服务函数，而且是一个死循环，程序就会一直卡死在中断服务函数里面。</p>
-<p>二、那内核是如何响应中断的呢？<br>当中断来临的时候，首先取向量，每个中断的中断向量不一样，然后根据向量查询中断向量表，根据里面的地址找到中断服务函数，从而实现整个中断的响应过程。</p>
-<h3 id="map文件分析"><a href="#map文件分析" class="headerlink" title="map文件分析 "></a><a href="#context.7">map文件分析</a><a name="section.7"> </a></h3><p>在map文件的最后，都会有这样的汇总信息，如下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103093.png" alt="image-20230625222801536"></p>
-<p>上图中：</p>
-<p><strong>Code：</strong>代码存储区。这部分是存放代码的。</p>
-<p><strong>RO-Data：</strong>只读数据区。这部分保存程序中用 const 定义的全局常量数据和字符串。</p>
-<p><strong>RW-Data：</strong>已初始化的读写数据。程序中定义的已经初始化的全局变量和静态变量。</p>
-<p><strong>ZI-Data：</strong>未初始化的读写数据。程序中定义的未初始化的全局变量和静态变量。这部分内容是在程序运行的时候保存在RAM中的。</p>
-<p><strong><mark>栈顶指针的值 &#x3D; RW-data + ZI-data</mark></strong></p>
-<p>map文件中还做了统计：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103870.png" alt="image-20230625222912989"></p>
-<p>从上图可以看出：</p>
-<p><strong>RO：</strong>只读数据。这部分包含 Code 和 RO-Data 这部分是存放在Flash中的。</p>
-<p><strong>RW：</strong>可读写数据。这部分包含 RW-Data 和 ZI-Data，这部分是存放在RAM中的，就是占据运行内存的。</p>
-<p><strong>ROM Size：</strong>总的ROM的大小。这部分包含Code、RO-data、RW-Data，是程序中占Flash的实际大小。</p>
-<p>为了方便理解，可以参考下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103202.png" alt="image-20230625222928677"></p>
-<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理 "></a><a href="#context.8">内存管理</a><a name="section.8"> </a></h3><p><code>stm32</code> 的内存管理就是对 <code>0x0800 0000</code> 开始的 <code>Flash</code> 部分和 <code>0x2000 0000</code> 开始的 <code>SRAM</code> 部分的使用和管理</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092223474.png" alt="image-20230909222128002"></p>
-<h4 id="6个储存数据段"><a href="#6个储存数据段" class="headerlink" title="6个储存数据段 "></a><a href="#context.9">6个储存数据段</a><a name="section.9"> </a></h4><ul>
-<li><strong>data</strong><br>  数据段，储存已初始化的，且初始化不为0的全局变量和静态变量</li>
-<li><strong>bss</strong><br>  Block Started by Symbol。储存未初始化的，或初始化为0的全局变量和静态变量</li>
-<li><strong>text（Code Segment&#x2F;Text Segment）</strong><br>  代码段，储存程序代码</li>
-<li><strong>constdata</strong><br>  储存只读常量</li>
-<li><strong>heap</strong><br>  堆，存放进程运行中被动态分配的内存段。其可用大小定义在启动文件startup_stm32fxx.s中，由程序员使用malloc()和free()函数进行分配和释放</li>
-<li><strong>stack</strong><br>  栈，其大小定义在启动文件startup_stm32fxx.s中，由系统自动分配和释放。可存放局部变量、函数的参数和返回值，中断发生时能保存现场。但是static声明的局部静态变量不储存在栈中，而是放在data数据段</li>
-</ul>
-<h4 id="3种存储属性区"><a href="#3种存储属性区" class="headerlink" title="3种存储属性区 "></a><a href="#context.10">3种存储属性区</a><a name="section.10"> </a></h4><ul>
-<li><strong>RO（Read Only）</strong><br>  烧写到 Flash 中，可以长久保存。text 代码段和 constdata 都属于 RO。由于需要掉电储存，RO 里也保存了一份 data 的数据</li>
-<li><strong>RW（Read Write）</strong><br>  储存在RAM中。data属于此区。上电时单片机会将Flash中保存的data类型数据复制到RAM中，以供读写使用</li>
-<li><strong>ZI（Zero Init）</strong><br>  零初始化区，同样储存在RAM里。系统上电时会把此区域的数据进行0初始化。bss，heap，stack均属于这个区域</li>
-</ul>
-<h4 id="加载域和运行域"><a href="#加载域和运行域" class="headerlink" title="加载域和运行域 "></a><a href="#context.11">加载域和运行域</a><a name="section.11"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092245842.png" alt="image-20230909224556738"></p>
-<p><strong>程序占用 <mark>Flash &#x3D; Code + RO data + RW data</mark></strong></p>
-<p><strong>程序运行时候占用 <mark>RAM &#x3D; RW data + ZI data</mark></strong></p>
-<p><strong>Code + RO data + RW data</strong> 的大小也是生成的 <strong>bin</strong> 文件的大小</p>
-<h4 id="FreeRTOS中的堆"><a href="#FreeRTOS中的堆" class="headerlink" title="FreeRTOS中的堆 "></a><a href="#context.12">FreeRTOS中的堆</a><a name="section.12"> </a></h4><p><mark>FreeRTOS中的堆也属于ZI区</mark>，但是它与STM32内存结构中的堆并不占用相同的空间，两个堆同时存在。以下出现的堆(heap)表示FreeRTOS堆，另外<mark>在STM32启动文件中定义大小的堆称为系统堆</mark></p>
-<p>FreeRTOS内核主要使用的内存管理函数为：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">pvPortMalloc</span><span class="params">( <span class="type">size_t</span> xSize )</span>;	<span class="comment">//申请内存</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vPortFree</span><span class="params">( <span class="type">void</span> *pv )</span>;	        <span class="comment">//释放内存</span></span><br></pre></td></tr></table></figure>
-
-<p>以上函数控制的是 FreeRTOS 堆；系统堆则应使用 <code>malloc()</code> 和 <code>free()</code> 来分配和释放。</p>
-<p>FreeRTOS有 5 种 heap 的实现方式，在STM32CubeMX中默认为 heap_4.c。这种方式可以满足大部分使用需求，暂时不用关注其实现细节。</p>
-<p>这一个堆的大小定义在 <code>FreeRTOSConfig.c</code> 中：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> configTOTAL_HEAP_SIZE ((size_t)3072)</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>FreeRTOS创建任务时默认的任务栈大小为128字，在32位系统中即为128*4&#x3D;512Byte，再加上TCB块占用84Byte，一共596Byte。而大小为3072Byte的堆允许创建3个这样的任务，占用约1800Byte。堆中剩余的部分则存放了系统内核、信号量、队列、任务通知等数据。</p>
-<p>需要创建更多任务时，堆的大小可自行修改。用RAM的空间减去已分配的空间，即为能给堆分配的最大空间：</p>
-<p><code>Space = RAM − bss − data − SysHeap − Stack</code></p>
-<h3 id="生成bin文件"><a href="#生成bin文件" class="headerlink" title="生成bin文件 "></a><a href="#context.13">生成bin文件</a><a name="section.13"> </a></h3><ol>
-<li><p><strong>生成 axf 输入文件</strong><br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092258040.png" alt="image-20230909225724296"></p>
-</li>
-<li><p><strong>生成 bin 输出文件</strong></p>
- <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// D:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin --output .\Obj\DW21CTLA.bin .\Obj\xxx.axf</span></span><br><span class="line"><span class="comment">// --output 可缩写为 -o</span></span><br></pre></td></tr></table></figure>
-
-<p> <img src="C:/Users/breeze/AppData/Roaming/Typora/typora-user-images/image-20230909225816776.png" alt="image-20230909225816776"></p>
-</li>
-</ol>
-<h2 id="总线概览"><a href="#总线概览" class="headerlink" title="总线概览 "></a><a href="#context.14">总线概览</a><a name="section.14"> </a></h2><p>UART、I2C、SPI、USB异同</p>
-<table>
-<thead>
-<tr>
-<th>总线接口</th>
-<th>串&#x2F;并</th>
-<th>同步&#x2F;异步</th>
-<th>速率</th>
-<th>工作方式</th>
-<th>用线</th>
-<th>总线拓扑结构</th>
-<th>信号距离</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>UART</td>
-<td>串</td>
-<td>异步</td>
-<td>慢<br />波特率设置</td>
-<td>全双工</td>
-<td>2线<br />RX、TX</td>
-<td>RS485支持总线式、<br />星形、树形</td>
-<td>远<br />最远1200m</td>
-</tr>
-<tr>
-<td>I2C</td>
-<td>串</td>
-<td>同步</td>
-<td>慢</td>
-<td>半双工</td>
-<td>2线<br />SDA、SCL</td>
-<td>总线型（特殊的树形）</td>
-<td>近</td>
-</tr>
-<tr>
-<td>SPI</td>
-<td>串</td>
-<td>同步</td>
-<td>快</td>
-<td>全双工</td>
-<td>3线或4线<br />SCLK、SIMO、<br />SOMI、SS（片选）</td>
-<td>环形</td>
-<td>远</td>
-</tr>
-<tr>
-<td>USB</td>
-<td>串</td>
-<td>同步</td>
-<td>快</td>
-<td>半双工</td>
-<td>4线<br />VBUS（5V）、GND、<br />D+、D-（3.3V）</td>
-<td>星形</td>
-<td>近</td>
-</tr>
-</tbody></table>
-<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C "></a><a href="#context.15">I2C</a><a name="section.15"> </a></h2><h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI "></a><a href="#context.16">SPI</a><a name="section.16"> </a></h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式 "></a><a href="#context.17">连接方式</a><a name="section.17"> </a></h3><p>3条总线 + 1条片选线</p>
-<p><code>SCK、MOSI、MISO + SS/NSS/CS</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242104024.png" alt="image-20230805195959632"></p>
-<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.18">基本通讯过程</a><a name="section.18"> </a></h3><p><img src="/BCCPP.assets/image-20230805194747396.png" alt="image-20230805194747396"></p>
-<h3 id="四种模式"><a href="#四种模式" class="headerlink" title="四种模式 "></a><a href="#context.19">四种模式</a><a name="section.19"> </a></h3><table>
-<thead>
-<tr>
-<th>SPI 模式</th>
-<th>时钟极性<br />CPOL</th>
-<th>时钟相位<br />CPHA</th>
-<th>空闲时 SCK 时钟</th>
-<th>采样时刻</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>低电平</td>
-<td>奇数边沿</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>低电平</td>
-<td>偶数边沿</td>
-</tr>
-<tr>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>高电平</td>
-<td>奇数边沿</td>
-</tr>
-<tr>
-<td>3</td>
-<td>1</td>
-<td>1</td>
-<td>高电平</td>
-<td>偶数边沿</td>
-</tr>
-</tbody></table>
-<p>主机与从机需要工作在相同的模式下才可以正常通讯</p>
-<p>实际中采用较多的是 <strong>“模式 0”</strong> 与 <strong>“模式 3”</strong>。</p>
-<h3 id="CPOL"><a href="#CPOL" class="headerlink" title="CPOL "></a><a href="#context.20">CPOL</a><a name="section.20"> </a></h3><p>指 SPI 通讯设备处于空闲状态时，SCK 信号线的电平信号 (即 SPI 通讯开始前、 NSS 线为高电平时 SCK 的状态)。CPOL&#x3D;0 时，SCK 在空闲状态时为低电平，CPOL&#x3D;1 时，则相反。</p>
-<h3 id="CPHA"><a href="#CPHA" class="headerlink" title="CPHA "></a><a href="#context.21">CPHA</a><a name="section.21"> </a></h3><p>指数据的采样的时刻，当 CPHA&#x3D;0 时，MOSI 或 MISO 数据线上的信号将会在SCK 时钟线的“奇数边沿”被采样。 当 CPHA&#x3D;1 时，数据线在 SCK 的“偶数边沿”采样</p>
-<p><img src="/BCCPP.assets/image-20230805194827664.png" alt="image-20230805194827664"></p>
-<h2 id="串口通讯"><a href="#串口通讯" class="headerlink" title="串口通讯 "></a><a href="#context.22">串口通讯</a><a name="section.22"> </a></h2><p>分为<strong>物理层</strong>和<strong>协议层</strong>来讲解</p>
-<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层 "></a><a href="#context.23">物理层</a><a name="section.23"> </a></h3><h4 id="电平标准"><a href="#电平标准" class="headerlink" title="电平标准 "></a><a href="#context.24">电平标准</a><a name="section.24"> </a></h4><p>根据通讯使用的电平标准不同，串口通讯可分为 TTL 标准及 RS-232 标准，见下表</p>
-<table>
-<thead>
-<tr>
-<th>通讯标准</th>
-<th>电平标准（发送端）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>5V TTL</td>
-<td>逻辑1：2.4V ~ 5V</td>
-</tr>
-<tr>
-<td></td>
-<td>逻辑0：0 ~ 0.5V</td>
-</tr>
-<tr>
-<td>RS-232</td>
-<td>逻辑1：-15 ~ -3V</td>
-</tr>
-<tr>
-<td></td>
-<td>逻辑0：+3V ~ +15V</td>
-</tr>
-</tbody></table>
-<p>我们知道<strong>常见的电子电路中常使用 TTL 的电平标准</strong>，理想状态下，使用 5V 表示二进制逻辑 1， 使用 0V 表示逻辑 0；</p>
-<p>而为了增加串口通讯的远距离传输及抗干扰能力，它使用-15V 表示逻辑 1， +15V 表示逻辑 0。</p>
-<p>使用 RS232 与 TTL 电平校准表示同一个信号时的对比如下图</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165301371.png" alt="image-20230720165301371"></p>
-<p><strong>注：</strong>因为控制器一般使用 TTL 电平标准，所以常常会使用 MA3232 芯片对 TTL 及 RS-232 电平的信号进行互相转换。</p>
-<h4 id="RS232信号线"><a href="#RS232信号线" class="headerlink" title="RS232信号线 "></a><a href="#context.25">RS232信号线</a><a name="section.25"> </a></h4><p>在最初的应用中，RS-232 串口标准常用于计算机、路由与调制调解器 (MODEN，俗称“猫”) 之间的通讯， 在这种通讯系统中，设备被分为数据终端设备 DTE(计算机、路由) 和数据通讯设备DCE(调制调解器)。 我们以这种通讯模型讲解它们的信号线连接方式及各个信号线的作用。</p>
-<p>在旧式的台式计算机中一般会有 RS-232 标准的 COM 口 (也称 DB9 接口)，见图下。</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165655500.png" alt="image-20230720165655500"></p>
-<p><strong>接口示意：</strong></p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165720644.png" alt="image-20230720165720644"></p>
-<p>信号线说明 (公头，为方便理解，可把 DTE 理解为计算机，DCE 理解为调制调解器)</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>名称</th>
-<th>符号</th>
-<th>数据方向</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>载波检测</td>
-<td>DCD</td>
-<td>DTEDCE</td>
-<td>Data Carrier Detect，数据载波检测，用于DTE告知对方，本机是否收到对方的载波信号</td>
-</tr>
-<tr>
-<td>2</td>
-<td>接收数据</td>
-<td>RXD</td>
-<td>DTEDCE</td>
-<td>Receive Data，数据接收信号，即输入 。</td>
-</tr>
-<tr>
-<td>3</td>
-<td>发送数据</td>
-<td>TXD</td>
-<td>DTEDCE</td>
-<td>Transmit Data，数据发送信号，即输出。两个设备之间的TXD与RXD应交叉相连</td>
-</tr>
-<tr>
-<td>4</td>
-<td>数据终端 (DTE) 就绪</td>
-<td>DTR</td>
-<td>DTEDCE</td>
-<td>Data Terminal Ready，数据终端就绪，用于DTE向对方告知本机是否已准备好</td>
-</tr>
-<tr>
-<td>5</td>
-<td>信号地</td>
-<td>GND</td>
-<td></td>
-<td>地线，两个通讯设备之间的地电位可能不一样，这会影响收发双方的电平信号，所以两个串口设备之间必须要使用地线连接，即共地。</td>
-</tr>
-<tr>
-<td>6</td>
-<td>数据设备(DCE)就绪</td>
-<td>DSR</td>
-<td>DTEDCE</td>
-<td>Data Set Ready，数据发送就绪，用于DCE告知对方本机是否处于待命状态</td>
-</tr>
-<tr>
-<td>7</td>
-<td>请求发送</td>
-<td>RTS</td>
-<td>DTEDCE</td>
-<td>Request To Send，请求发送， DTE 请求 DCE 本设备向DCE端发送数据</td>
-</tr>
-<tr>
-<td>8</td>
-<td>允许发送</td>
-<td>CTS</td>
-<td>DTEDCE</td>
-<td>Clear To Send，允许发送，DCE回应对方的RTS发送请求，告知对方是否可以发送数据</td>
-</tr>
-<tr>
-<td>9</td>
-<td>响铃指示</td>
-<td>RI</td>
-<td>DTEDCE</td>
-<td>Ring Indicator，响铃指示，表示DCE端与线路已接通</td>
-</tr>
-</tbody></table>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165858716.png" alt="image-20230720165858716"></p>
-<p>串口线中的 RTS、CTS、DSR、DTR 及 DCD 信号，使用逻辑 1 表示信号有效，逻辑 0 表示信号无效。 例如，当计算机端控制 DTR 信号线表示为逻辑 1 时，它是为了告知远端的调制调解器，本机已准备好接收数据， 0 则表示还没准备就绪。</p>
-<p><strong>在目前的其它工业控制使用的串口通讯中，一般只使用 RXD、TXD 以及 GND 三条信号线！！！</strong></p>
-<h3 id="协议层"><a href="#协议层" class="headerlink" title="协议层 "></a><a href="#context.26">协议层</a><a name="section.26"> </a></h3><p>串口通讯的数据包由发送设备通过自身的 TXD 接口传输到接收设备的 RXD 接口。在串口通讯的协议层中， 规定了数据包的内容，它由启始位、主体数据、校验位以及停止位组成，通讯双方的数据包格式要约定一致才能正常收发数据</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720170204183.png" alt="image-20230720170204183"></p>
-<h4 id="波特率"><a href="#波特率" class="headerlink" title="波特率 "></a><a href="#context.27">波特率</a><a name="section.27"> </a></h4><p>本章中主要讲解的是串口异步通讯，异步通讯中由于没有时钟信号 (如前面讲解的 DB9 接口中是没有时钟信号的)， 所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码，如上图中用虚线分开的每一格就是代表一个码元。 常见的波特率为 4800、9600、115200 等。</p>
-<h4 id="通讯的起始和停止信号"><a href="#通讯的起始和停止信号" class="headerlink" title="通讯的起始和停止信号 "></a><a href="#context.28">通讯的起始和停止信号</a><a name="section.28"> </a></h4><p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0 的数据位表示， 而数据包的停止信号可由 0.5、1、1.5 或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
-<h4 id="有效数据"><a href="#有效数据" class="headerlink" title="有效数据 "></a><a href="#context.29">有效数据</a><a name="section.29"> </a></h4><p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度 常被约定为 5、6、7 或 8 位长。</p>
-<h4 id="数据校验"><a href="#数据校验" class="headerlink" title="数据校验 "></a><a href="#context.30">数据校验</a><a name="section.30"> </a></h4><p>在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差， 可以在传输过程加上校验位来解决这个问题。校验方法有奇校验 (odd)、偶校验(even)、0 校验 (space)、1 校验 (mark) 以及无校验 (noparity)，它们介绍如下：</p>
-<p>奇校验要求有效数据和校验位中“1”的个数为奇数，比如一个 8 位长的有效数据为：01101001， 此时总共有 4 个“1”，为达到奇校验效果，校验位为“1”，最后传输的数据将是 8 位的有效数据 加上 1 位的校验位总共 9 位。</p>
-<p>偶校验与奇校验要求刚好相反，要求帧数据和校验位中“1”的个数为偶数，比如数据帧：11001010，此时数据帧“1”的个数为 4 个，所以偶校验位为“0”。</p>
-<p>0 校验是不管有效数据中的内容是什么，校验位总为“0”，1 校验是校验位总为“1”。</p>
-<p>在无校验的情况下，数据包中不包含校验位。</p>
-<h2 id="中断"><a href="#中断" class="headerlink" title="中断 "></a><a href="#context.31">中断</a><a name="section.31"> </a></h2><p>在嵌入式系统中，ISR中断和IRQ中断是两种不同类型的中断。</p>
-<p><strong>ISR</strong>中断，全称为“Interrupt Service Routine”，是指由硬件或软件触发的中断事件所对应的中断处理程序。当系统发生中断事件时，CPU会暂停当前正在执行的程序，并跳转到ISR中断处理程序的入口点执行特定的操作。ISR中断通常用于处理实时事件和外部设备的中断，例如定时器中断、串口数据到达中断等。</p>
-<p><strong>IRQ</strong>中断，全称为“Interrupt Request”，指的是CPU接收到一个外部设备请求服务的信号。外部设备通常通过引脚将中断信息发送给CPU，CPU收到中断信号后会执行相应的中断处理程序。IRQ中断通常用于处理外部设备的事件，例如键盘输入、鼠标点击以及外部中断信号等。</p>
-<p>异同点如下：</p>
-<ol>
-<li>触发方式不同：ISR中断是由硬件或软件触发的中断事件，而IRQ中断是由外部设备发送的中断请求信号触发的。</li>
-<li>处理对象不同：ISR中断常用于处理实时事件和外部设备中断，而IRQ中断常用于处理外部设备的事件。</li>
-<li>响应时间不同：ISR中断的响应时间通常比IRQ中断更为紧迫，因为ISR中断通常用于处理实时事件，需要尽快响应。</li>
-<li>中断优先级不同：ISR中断的优先级可以通过编程设置，而IRQ中断的优先级通常由硬件决定。</li>
-<li>中断误差处理方式不同：ISR中断可以轻松地使程序从中断处理程序返回到中断之前的位置，而IRQ中断不具备这种能力，必须通过其他方式解决。</li>
-</ol>
-<p>需要注意的是，ISR中断的概念更广泛，可以是任何中断处理程序，包括IRQ中断。IRQ中断是一种特定类型的中断，指的是由外部设备请求服务的中断。</p>
-<h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA "></a><a href="#context.32">DMA</a><a name="section.32"> </a></h2><p>即直接内存访问（Direct Memory Access），是计算机系统中一种用于减轻中央处理器（CPU）负载的技术。它允许外设（如网络卡、硬盘控制器等）直接与系统内存交换数据，而不需要经过CPU的介入。</p>
-<h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用 "></a><a href="#context.33">主要作用</a><a name="section.33"> </a></h3><p>DMA的主要作用是提高数据传输的效率和系统的整体性能，它可以实现以下功能：</p>
 <ol>
 <li>数据传输：DMA可以直接控制总线，将数据从外设读入内存或从内存写出到外设，而无需通过CPU进行数据传输。</li>
 <li>解放CPU负载：DMA的工作过程中，CPU可以继续执行其他任务，而不需要等待数据传输完成，从而减轻了CPU的负载。</li>
@@ -3505,23 +3373,5 @@
       <tags>
         <tag>星海</tag>
       </tags>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2023/10/10/skill/</url>
-    <content><![CDATA[<h1 id="win文件夹上右键后以xx打开"><a href="#win文件夹上右键后以xx打开" class="headerlink" title="win文件夹上右键后以xx打开"></a>win文件夹上右键后以xx打开</h1><ol>
-<li><p><strong>win + r: regedit 打开注册表</strong><br>   找到如下路径<br>   计算机\HKEY_CLASSES_ROOT\Directory\shell<br>   <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102148004.png" alt="image-20230805222436761"></p>
-</li>
-<li><p><strong>新增项</strong><br>shell上右键 -&gt; 新建 -&gt; 项,名称可以自己设置，例如下我新建个 <code>Clion</code><br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102148324.png" alt="image-20230805222651808"></p>
-</li>
-<li><p><strong>设置菜单名字和图标</strong><br>一般新建项时,右边只会有个默认,Icon部分需要自己添加(新建字符串值)</p>
-<p>如果不设置默认值,项的名字就是菜单的名字，所以建议上面新建的名字为 <code>Open with Clion</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102148060.png" alt="image-20230805223106941"><br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149484.png" alt="image-20230805223146041"><br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149788.png" alt="image-20230805223403183"></p>
-</li>
-<li><p>在新建的项上再新建 <code>command</code> 项</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149580.png" alt="image-20230805223502198"><br>修改其默认的参数如下<br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149917.png" alt="image-20230805223639704"><br>验证结果，成功！<br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310102149339.png" alt="image-20230805223759373"></p>
-</li>
-</ol>
-]]></content>
   </entry>
 </search>
