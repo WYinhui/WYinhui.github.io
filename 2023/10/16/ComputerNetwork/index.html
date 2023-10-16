@@ -583,7 +583,7 @@
 <li>三次握手和四次挥手过程中，网络断开会发生什么？</li>
 </ol>
 <h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手 "></a><a href="#context.39">三次握手</a><a name="section.39"> </a></h2><p>服务端先从close到listen</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230616144934262.png" alt="image-20230616144934262"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310162342472.png" alt="image-20230616144934262"></p>
 <ol>
 <li><p>第一个 <code>SYN</code> 报文<br> 客户端随机初始化序列号 <code>client_isn</code>，放进 TCP ⾸部序列号段，然后把 SYN 置1。把SYN报⽂发送给服务端，表示发起连接，之后客户端处于 <code>SYN-SENT</code> 状态</p>
 </li>
@@ -600,7 +600,7 @@
 <li>三次握手才可以同步双方的初始序列号</li>
 <li>三次握手才可以避免资源浪费</li>
 </ol>
-<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手 "></a><a href="#context.40">四次挥手</a><a name="section.40"> </a></h2><p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230616151619400.png" alt="image-20230616151619400"></p>
+<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手 "></a><a href="#context.40">四次挥手</a><a name="section.40"> </a></h2><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310162342271.png" alt="image-20230616151619400"></p>
 <p><strong>断开过程：</strong></p>
 <ol>
 <li>假设客户端打算关闭连接，发送⼀个TCP首部FIN被置1的FIN报文给服务端</li>
