@@ -229,7 +229,7 @@
 </tbody></table>
 <p><strong>lambda最大的⼀个优势是在使⽤STL中的算法(algorithms)库</strong></p>
 <p>如数组排序：</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230616102708669.png" alt="image-20230616102708669"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082325176.png" alt="image-20230616102708669"></p>
 <h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针 "></a><a href="#context.5">智能指针</a><a name="section.5"> </a></h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义 "></a><a href="#context.6">定义</a><a name="section.6"> </a></h3><p> <b><font color='blue' size=3 face="">智能指针是一个类</font></b> ，用来存储指向动态分配对象的指针，负责自动释放动态分配的对象，防止堆内存泄漏。动态分配的资源，交给一个类对象去管理，当类对象声明周期结束时，自动调用析构函数释放资源。</p>
 <p>使用方法</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TC</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> a;    </span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">unique_ptr&lt;TC&gt; <span class="title">ptr</span><span class="params">(<span class="keyword">new</span> TC())</span></span>;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    TC *tc = ptr.<span class="built_in">get</span>();  <span class="comment">///&lt; 获取原指针</span></span><br><span class="line">    ptr.<span class="built_in">reset</span>();  <span class="comment">///&lt; 析构原指针并赋值 nullptr</span></span><br><span class="line">    ptr.<span class="built_in">reset</span>(<span class="literal">nullptr</span>);  <span class="comment">///&lt; 析构原指针并赋值 nullptr</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -416,7 +416,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2023
+        2023-2024
         <i class="ri-heart-fill heart_icon"></i> WYh
       </li>
     </ul>

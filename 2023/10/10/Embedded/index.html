@@ -333,7 +333,7 @@
 <li><p><strong>生成 bin 输出文件</strong></p>
  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// D:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin --output .\Obj\DW21CTLA.bin .\Obj\xxx.axf</span></span><br><span class="line"><span class="comment">// --output 可缩写为 -o</span></span><br></pre></td></tr></table></figure>
 
-<p> <img src="C:/Users/breeze/AppData/Roaming/Typora/typora-user-images/image-20230909225816776.png" alt="image-20230909225816776"></p>
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082329977.png" alt="image-20230909225816776"></p>
 </li>
 </ol>
 <h2 id="总线概览"><a href="#总线概览" class="headerlink" title="总线概览 "></a><a href="#context.22">总线概览</a><a name="section.22"> </a></h2><p>UART、I2C、SPI、USB异同</p>
@@ -471,13 +471,13 @@
 <p>我们知道<strong>常见的电子电路中常使用 TTL 的电平标准</strong>，理想状态下，使用 5V 表示二进制逻辑 1， 使用 0V 表示逻辑 0；</p>
 <p>而为了增加串口通讯的远距离传输及抗干扰能力，它使用-15V 表示逻辑 1， +15V 表示逻辑 0。</p>
 <p>使用 RS232 与 TTL 电平校准表示同一个信号时的对比如下图</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165301371.png" alt="image-20230720165301371"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082330968.png" alt="image-20230720165301371"></p>
 <p><strong>注：</strong>因为控制器一般使用 TTL 电平标准，所以常常会使用 MA3232 芯片对 TTL 及 RS-232 电平的信号进行互相转换。</p>
 <h4 id="RS232信号线"><a href="#RS232信号线" class="headerlink" title="RS232信号线 "></a><a href="#context.33">RS232信号线</a><a name="section.33"> </a></h4><p>在最初的应用中，RS-232 串口标准常用于计算机、路由与调制调解器 (MODEN，俗称“猫”) 之间的通讯， 在这种通讯系统中，设备被分为数据终端设备 DTE(计算机、路由) 和数据通讯设备DCE(调制调解器)。 我们以这种通讯模型讲解它们的信号线连接方式及各个信号线的作用。</p>
 <p>在旧式的台式计算机中一般会有 RS-232 标准的 COM 口 (也称 DB9 接口)，见图下。</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165655500.png" alt="image-20230720165655500"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082330623.png" alt="image-20230720165655500"></p>
 <p><strong>接口示意：</strong></p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165720644.png" alt="image-20230720165720644"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082331129.png" alt="image-20230720165720644"></p>
 <p>信号线说明 (公头，为方便理解，可把 DTE 理解为计算机，DCE 理解为调制调解器)</p>
 <table>
 <thead>
@@ -553,11 +553,11 @@
 <td>Ring Indicator，响铃指示，表示DCE端与线路已接通</td>
 </tr>
 </tbody></table>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165858716.png" alt="image-20230720165858716"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082331567.png" alt="image-20230720165858716"></p>
 <p>串口线中的 RTS、CTS、DSR、DTR 及 DCD 信号，使用逻辑 1 表示信号有效，逻辑 0 表示信号无效。 例如，当计算机端控制 DTR 信号线表示为逻辑 1 时，它是为了告知远端的调制调解器，本机已准备好接收数据， 0 则表示还没准备就绪。</p>
 <p><strong>在目前的其它工业控制使用的串口通讯中，一般只使用 RXD、TXD 以及 GND 三条信号线！！！</strong></p>
 <h3 id="协议层"><a href="#协议层" class="headerlink" title="协议层 "></a><a href="#context.34">协议层</a><a name="section.34"> </a></h3><p>串口通讯的数据包由发送设备通过自身的 TXD 接口传输到接收设备的 RXD 接口。在串口通讯的协议层中， 规定了数据包的内容，它由启始位、主体数据、校验位以及停止位组成，通讯双方的数据包格式要约定一致才能正常收发数据</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720170204183.png" alt="image-20230720170204183"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082331240.png" alt="image-20230720170204183"></p>
 <h4 id="波特率"><a href="#波特率" class="headerlink" title="波特率 "></a><a href="#context.35">波特率</a><a name="section.35"> </a></h4><p>本章中主要讲解的是串口异步通讯，异步通讯中由于没有时钟信号 (如前面讲解的 DB9 接口中是没有时钟信号的)， 所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码，如上图中用虚线分开的每一格就是代表一个码元。 常见的波特率为 4800、9600、115200 等。</p>
 <h4 id="通讯的起始和停止信号"><a href="#通讯的起始和停止信号" class="headerlink" title="通讯的起始和停止信号 "></a><a href="#context.36">通讯的起始和停止信号</a><a name="section.36"> </a></h4><p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0 的数据位表示， 而数据包的停止信号可由 0.5、1、1.5 或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
 <h4 id="有效数据"><a href="#有效数据" class="headerlink" title="有效数据 "></a><a href="#context.37">有效数据</a><a name="section.37"> </a></h4><p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度 常被约定为 5、6、7 或 8 位长。</p>
@@ -775,7 +775,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2023
+        2023-2024
         <i class="ri-heart-fill heart_icon"></i> WYh
       </li>
     </ul>

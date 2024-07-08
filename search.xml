@@ -68,7 +68,7 @@
 <h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出 "></a><a href="#context.4">输入输出</a><a name="section.4"> </a></h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line">cout &lt;&lt; ++i &lt;&lt; i++ &lt;&lt; i &lt;&lt; i++ &lt;&lt; ++i &lt;&lt; endl;</span><br><span class="line"><span class="comment">///&lt; 输出为 &amp;5 3 &amp;5 2 &amp;5</span></span><br></pre></td></tr></table></figure>
 
 <p>cout输出控制台过程如下</p>
-<p><img src="https://img-blog.csdnimg.cn/c3b860c89ec5480c94adc55a74024f98.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082322738.png" alt="img"></p>
 <p>从 <code>endl</code> 开始，从右向左依次入栈，最后依次弹出</p>
 <h3 id="getline"><a href="#getline" class="headerlink" title="getline "></a><a href="#context.5">getline</a><a name="section.5"> </a></h3><p>默认遇换行符或 <code>EOF</code> 结束，也可自定义结束符</p>
 <p>上限字符数为 <code>1024</code></p>
@@ -240,7 +240,7 @@
 </li>
 </ol>
 <p><strong>容器之间的实现关系以及分类：</strong></p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230615150413812.png" alt="image-20230615150413812"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082323484.png" alt="image-20230615150413812"></p>
 <p><strong>STL六⼤组件的交互关系：</strong></p>
 <ol>
 <li>容器通过空间配置器取得数据存储空间  </li>
@@ -311,7 +311,7 @@
 <p>deque 是⼀个<strong>双端开口</strong>的连续线性空间，其内部为分段连续的空间组成，随时可以增加⼀段新的空间并链接</p>
 <p><strong>注意：</strong></p>
 <p>由于deque的迭代器⽐vector要复杂，这影响了各个运算层面，所以除⾮必要尽量使⽤ vector；<br>为了提⾼效率，在对deque进⾏排序操作的时候，我们可以先把 deque 复制到 vector 中再进⾏排序最后在复制回 deque</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230615153051799.png" alt="image-20230615153051799"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082323988.png" alt="image-20230615153051799"></p>
 <p>deque采⽤⼀块map作为主控，其中的每个元素都是指针，指向另⼀⽚连续线性空间，称之为 缓存区，这个区才是⽤来储存数据的</p>
 <h2 id="stack-queue"><a href="#stack-queue" class="headerlink" title="stack &#x2F; queue "></a><a href="#context.24">stack &#x2F; queue</a><a name="section.24"> </a></h2><p>概述：栈与队列被称之为 deque 的配接器，其底层是以 deque 为底部架构。通过 deque 执⾏具体操作</p>
 <h2 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue "></a><a href="#context.25">priority_queue</a><a name="section.25"> </a></h2><pre><code>     优先队列是一种容器适配器，采用了堆这样的数据结构，保证了第一个元素总是整个优先队列中最大的(或最小的)元素。  优先队列默认使用vector作为底层存储数据的容器，在vector上使用了堆算法将vector中的元素构造成堆的结构，所以其实我们就可以把它当作堆，凡是需要用堆的位置，都可以考虑优先队列。
@@ -562,7 +562,7 @@
 </tbody></table>
 <p><strong>lambda最大的⼀个优势是在使⽤STL中的算法(algorithms)库</strong></p>
 <p>如数组排序：</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230616102708669.png" alt="image-20230616102708669"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082325176.png" alt="image-20230616102708669"></p>
 <h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针 "></a><a href="#context.5">智能指针</a><a name="section.5"> </a></h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义 "></a><a href="#context.6">定义</a><a name="section.6"> </a></h3><p> <b><font color='blue' size=3 face="">智能指针是一个类</font></b> ，用来存储指向动态分配对象的指针，负责自动释放动态分配的对象，防止堆内存泄漏。动态分配的资源，交给一个类对象去管理，当类对象声明周期结束时，自动调用析构函数释放资源。</p>
 <p>使用方法</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TC</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> a;    </span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">unique_ptr&lt;TC&gt; <span class="title">ptr</span><span class="params">(<span class="keyword">new</span> TC())</span></span>;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    TC *tc = ptr.<span class="built_in">get</span>();  <span class="comment">///&lt; 获取原指针</span></span><br><span class="line">    ptr.<span class="built_in">reset</span>();  <span class="comment">///&lt; 析构原指针并赋值 nullptr</span></span><br><span class="line">    ptr.<span class="built_in">reset</span>(<span class="literal">nullptr</span>);  <span class="comment">///&lt; 析构原指针并赋值 nullptr</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -887,22 +887,22 @@
 <h3 id="free-malloc"><a href="#free-malloc" class="headerlink" title="free&#x2F;malloc "></a><a href="#context.5">free&#x2F;malloc</a><a name="section.5"> </a></h3><p>malloc 返回给用户态的内存起始地址比进程的堆空间起始地址多了 16 字节</p>
 <p>这个多出来的 16 字节就是保存了该内存块的描述信息，比如有该内存块的大小</p>
 <p>这样当执行 free() 函数时，free 会对传入进来的内存地址向左偏移 16 字节，然后从这个 16 字节的分析出当前的内存块的大小，自然就知道要释放多大的内存了</p>
-<h3 id="float-double"><a href="#float-double" class="headerlink" title="float&#x2F;double "></a><a href="#context.6">float&#x2F;double</a><a name="section.6"> </a></h3><p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float.png" alt="img"></p>
+<h3 id="float-double"><a href="#float-double" class="headerlink" title="float&#x2F;double "></a><a href="#context.6">float&#x2F;double</a><a name="section.6"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082326955.png" alt="img"></p>
 <ul>
 <li><em>符号位</em>：表示数字是正数还是负数，为 0 表示正数，为 1 表示负数；</li>
 <li><em>指数位</em>：指定了小数点在数据中的位置，指数可以是负数，也可以是正数，<strong>指数位的长度越长则数值的表达范围就越大</strong>；</li>
 <li><em>尾数位</em>：小数点右侧的数字，也就是小数部分，比如二进制 1.0011 x 2^(-2)，尾数部分就是 0011，而且<strong>尾数的长度决定了这个数的精度</strong>，因此如果要表示精度更高的小数，则就要提高尾数位的长度；</li>
 </ul>
 <p>例：</p>
-<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E5%AD%98%E5%82%A8.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082326294.png" alt="img"></p>
 <p><strong>把小数点，移动到第一个有效数字后面</strong>，即将 1010.101 右移 <code>3</code> 位成 <code>1.010101</code>，右移 3 位就代表 +3，左移 3 位就是 -3。</p>
 <p><strong>float 中的「指数位」就跟这里移动的位数有关系，把移动的位数再加上「偏移量」，float 的话偏移量是 127，相加后就是指数位的值了</strong>，即指数位这 8 位存的是 <code>10000010</code>（十进制 130），因此你可以认为「指数位」相当于指明了小数点在数据中的位置。</p>
 <p><code>1.010101</code> 这个数的<strong>小数点右侧的数字就是 float 里的「尾数位」</strong>，由于尾数位是 23 位，则后面要补充 0，所以最终尾数位存储的数字是 <code>01010100000000000000000</code>。</p>
 <p>这是因为 IEEE 标准规定，二进制浮点数的小数点左侧只能有 1 位，并且还只能是 1，<strong>既然这一位永远都是 1，那就可以不用存起来了</strong>。</p>
 <p>于是就让 23 位尾数只存储小数部分，然后在计算时会<strong>自动把这个 1 加上，这样就可以节约 1 位的空间，尾数就能多存一位小数，相应的精度就更高了一点</strong>。</p>
 <p>那么，对于我们在从 float 的二进制浮点数转换成十进制时，要考虑到这个隐含的 1，转换公式如下：</p>
-<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E5%85%AC%E5%BC%8F.png" alt="img"></p>
-<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost3@main/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%AE%E7%82%B9/float%E8%BD%AC%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BE%8B%E5%AD%90.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082326870.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082326852.png" alt="img"></p>
 <p><strong>TIPS:</strong></p>
 <blockquote>
 <p><strong>为什么负数要用补码表示？</strong></p>
@@ -952,6 +952,731 @@
 
 <h3 id="单字符"><a href="#单字符" class="headerlink" title="单字符 - #@ "></a><a href="#context.11">单字符 - #@</a><a name="section.11"> </a></h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 
+]]></content>
+      <categories>
+        <category>星海</category>
+      </categories>
+      <tags>
+        <tag>星海</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构</title>
+    <url>/2023/07/27/DS/</url>
+    <content><![CDATA[<span id="more"></span>
+
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#section.1">二叉树</a><a name="context.1"> </a><ul>
+<li><a href="#section.2">遍历方式</a><a name="context.2"> </a><ul>
+<li><a href="#section.3">深度优先DFS（Depth First Search）</a><a name="context.3"> </a></li>
+<li><a href="#section.4">广度优先BFS（Breath First Search）</a><a name="context.4"> </a></li>
+</ul>
+</li>
+<li><a href="#section.5">分类</a><a name="context.5"> </a></li>
+</ul>
+</li>
+<li><a href="#section.6">二叉搜索树（BST）</a><a name="context.6"> </a></li>
+<li><a href="#section.7">AVL树（BBT）</a><a name="context.7"> </a><ul>
+<li><a href="#section.8">定义</a><a name="context.8"> </a></li>
+<li><a href="#section.9">使用场景</a><a name="context.9"> </a></li>
+<li><a href="#section.10">插入</a><a name="context.10"> </a><ul>
+<li><a href="#section.11">1.左左型右旋</a><a name="context.11"> </a></li>
+<li><a href="#section.12">2.左右型的左右旋</a><a name="context.12"> </a></li>
+<li><a href="#section.13">3.右右型左旋</a><a name="context.13"> </a></li>
+<li><a href="#section.14">4.右左型右左旋</a><a name="context.14"> </a></li>
+</ul>
+</li>
+<li><a href="#section.15">总结</a><a name="context.15"> </a></li>
+</ul>
+</li>
+<li><a href="#section.16">红黑树</a><a name="context.16"> </a><ul>
+<li><a href="#section.17">定义</a><a name="context.17"> </a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树 "></a><a href="#context.1">二叉树</a><a name="section.1"> </a></h2><p>为<strong>有序树</strong>：</p>
+<p>如果结点的各子树从左到右是有次序的、不能颠倒，则为有序树，否则为无序树。对于有序树的孩子来说，最左边的孩子称为第一个孩子，最右边的孩子称为最后一个孩子。</p>
+<p>比如，如果树T1是一个有序树，则其根结点的第一个孩子为结点B，最后一个孩子为结点D</p>
+<h3 id="遍历方式"><a href="#遍历方式" class="headerlink" title="遍历方式 "></a><a href="#context.2">遍历方式</a><a name="section.2"> </a></h3><h4 id="深度优先DFS（Depth-First-Search）"><a href="#深度优先DFS（Depth-First-Search）" class="headerlink" title="深度优先DFS（Depth First Search） "></a><a href="#context.3">深度优先DFS（Depth First Search）</a><a name="section.3"> </a></h4><p>递归遍历 - 函数递归</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Tree</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Recur</span><span class="params">(Tree *tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (tree != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">///&lt; 中左右</span></span><br><span class="line">        cout &lt;&lt; tree-&gt;val &lt;&lt; endl;</span><br><span class="line">        <span class="built_in">Recur</span>(tree-&gt;left);</span><br><span class="line">        <span class="built_in">Recur</span>(tree-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFSTree</span><span class="params">(Tree *tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">Recur</span>(tree);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 统一遍历方法！！！ */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        stack&lt;TreeNode*&gt; st;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) st.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (!st.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            TreeNode* node = st.<span class="built_in">top</span>();</span><br><span class="line">            <span class="keyword">if</span> (node != <span class="literal">NULL</span>) &#123;</span><br><span class="line">                st.<span class="built_in">pop</span>(); <span class="comment">// 将该节点弹出，避免重复操作，下面再将右中左节点添加到栈中</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) st.<span class="built_in">push</span>(node-&gt;right);  <span class="comment">// 添加右节点（空节点不入栈）</span></span><br><span class="line"></span><br><span class="line">                st.<span class="built_in">push</span>(node);                          <span class="comment">// 添加中节点</span></span><br><span class="line">                st.<span class="built_in">push</span>(<span class="literal">NULL</span>); <span class="comment">// 中节点访问过，但是还没有处理，加入空节点做为标记。</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) st.<span class="built_in">push</span>(node-&gt;left);    <span class="comment">// 添加左节点（空节点不入栈）</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// 只有遇到空节点的时候，才将下一个节点放进结果集</span></span><br><span class="line">                st.<span class="built_in">pop</span>();           <span class="comment">// 将空节点弹出</span></span><br><span class="line">                node = st.<span class="built_in">top</span>();    <span class="comment">// 重新取出栈中元素</span></span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">                result.<span class="built_in">push_back</span>(node-&gt;val); <span class="comment">// 加入到结果集</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>迭代遍历 - stack + while</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        stack&lt;TreeNode*&gt; st;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> result;</span><br><span class="line">        st.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (!st.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            TreeNode* node = st.<span class="built_in">top</span>();                       <span class="comment">// 中</span></span><br><span class="line">            st.<span class="built_in">pop</span>();</span><br><span class="line">            result.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;right) st.<span class="built_in">push</span>(node-&gt;right);           <span class="comment">// 右（空节点不入栈）</span></span><br><span class="line">            <span class="keyword">if</span> (node-&gt;left) st.<span class="built_in">push</span>(node-&gt;left);             <span class="comment">// 左（空节点不入栈）</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="广度优先BFS（Breath-First-Search）"><a href="#广度优先BFS（Breath-First-Search）" class="headerlink" title="广度优先BFS（Breath First Search） "></a><a href="#context.4">广度优先BFS（Breath First Search）</a><a name="section.4"> </a></h4><p>层序遍历 - 队列</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 迭代法 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; que;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) que.<span class="built_in">push</span>(root);</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="keyword">while</span> (!que.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="type">int</span> size = que.<span class="built_in">size</span>();</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">            <span class="comment">// 这里一定要使用固定大小size，不要使用que.size()，因为que.size是不断变化的</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">                TreeNode* node = que.<span class="built_in">front</span>();</span><br><span class="line">                que.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) que.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) que.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            result.<span class="built_in">push_back</span>(vec);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 递归法 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">order</span><span class="params">(TreeNode* cur, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; result, <span class="type">int</span> depth)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (result.<span class="built_in">size</span>() == depth) result.<span class="built_in">push_back</span>(<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">        result[depth].<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line">        <span class="built_in">order</span>(cur-&gt;left, result, depth + <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">order</span>(cur-&gt;right, result, depth + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="type">int</span> depth = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">order</span>(root, result, depth);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类 "></a><a href="#context.5">分类</a><a name="section.5"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230719102948357.png" alt="image-20230719102948357"></p>
+<p>C++标准库是有多个版本的，要知道我们使用的STL是哪个版本，才能知道对应的栈和队列的实现原理。</p>
+<p>那么来介绍一下，三个最为普遍的STL版本：</p>
+<ol>
+<li>HP STL 其他版本的C++ STL，一般是以HP STL为蓝本实现出来的，HP STL是C++ STL的第一个实现版本，而且开放源代码。</li>
+<li>P.J.Plauger STL 由P.J.Plauger参照HP STL实现出来的，被Visual C++编译器所采用，不是开源的。</li>
+<li>SGI STL 由Silicon Graphics Computer Systems公司参照HP STL实现，被Linux的C++编译器GCC所采用，SGI STL是开源软件，源码可读性甚高。</li>
+</ol>
+<p>栈提供push 和 pop 等等接口，所有元素必须符合先进后出规则，所以栈不提供走访功能，也不提供迭代器(iterator)。 不像是set 或者map 提供迭代器iterator来遍历所有元素。</p>
+<p><strong>栈是以底层容器完成其所有的工作，对外提供统一的接口，底层容器是可插拔的（也就是说我们可以控制使用哪种容器来实现栈的功能）。</strong></p>
+<p>所以STL中栈往往不被归类为容器，而被归类为container adapter（容器适配器）。</p>
+<p><strong>我们常用的SGI STL，如果没有指定底层实现的话，默认是以deque为缺省情况下栈的底层结构。</strong></p>
+<p>deque是一个双向队列，只要封住一段，只开通另一端就可以实现栈的逻辑了。</p>
+<p><strong>SGI STL中 队列底层实现缺省情况下一样使用deque实现的。</strong></p>
+<p>我们也可以指定vector为栈的底层实现，初始化语句如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="type">int</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt; &gt; third;  <span class="comment">// 使用vector为底层容器的栈</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>刚刚讲过栈的特性，对应的队列的情况是一样的。</p>
+<p>队列中先进先出的数据结构，同样不允许有遍历行为，不提供迭代器, <strong>SGI STL中队列一样是以deque为缺省情况下的底部结构。</strong></p>
+<p>也可以指定list 为起底层实现，初始化queue的语句如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">queue</span>&lt;<span class="type">int</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="type">int</span>&gt;&gt; third; <span class="comment">// 定义以list为底层容器的队列</span></span><br></pre></td></tr></table></figure>
+
+<p>所以STL 队列也不被归类为容器，而被归类为container adapter（ 容器适配器）。</p>
+<h2 id="二叉搜索树（BST）"><a href="#二叉搜索树（BST）" class="headerlink" title="二叉搜索树（BST） "></a><a href="#context.6">二叉搜索树（BST）</a><a name="section.6"> </a></h2><p>也称<strong>二叉查找树 BST（Binary Search Tree）</strong></p>
+<p>二叉搜索树的<strong>重要特质</strong>为，<strong>在二叉树的基础上增加了左子树的所有值应都小于根节点的值，右子树的所有值应都大于根节点的值</strong>。</p>
+<p>乍看二叉搜索树的访问效率很高，最大的遍历次数为树的高度，最小的遍历次数为1。但实际存在某种特殊情况，比如根节点只有一个右孩子，然后剩下的全部元素为一条直线向下排列在左子树，造成分部不均匀，查找和插入效率几乎等同于线性结构。如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230717160027885.png" alt="image-20230717160027885"></p>
+<p>力扣参考题目：<a href="https://leetcode-cn.com/problems/unique-binary-search-trees/">96. 不同的二叉搜索树</a>、<a href="https://leetcode-cn.com/problems/validate-binary-search-tree/">98. 验证二叉搜索树</a></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 不同的二叉搜索树</span></span><br><span class="line"><span class="comment">给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？返回满足题意的二叉搜索树的种数。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numTrees</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">g</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        g[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        g[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= i; ++j) &#123;</span><br><span class="line">                g[i] += g[j - <span class="number">1</span>] * g[i - j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> g[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 验证二叉搜索树</span></span><br><span class="line"><span class="comment">给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">Recur</span><span class="params">(TreeNode *tree, <span class="type">long</span> min, <span class="type">long</span> max)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">bool</span> ret;</span><br><span class="line">        <span class="keyword">if</span> (!tree)</span><br><span class="line">            ret = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (tree-&gt;val &lt;= min || tree-&gt;val &gt;= max)</span><br><span class="line">            ret = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ret = <span class="built_in">Recur</span>(tree-&gt;left, min, tree-&gt;val) &amp;&amp; <span class="built_in">Recur</span>(tree-&gt;right, tree-&gt;val, max);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Recur</span>(root, LONG_MIN, LONG_MAX);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="AVL树（BBT）"><a href="#AVL树（BBT）" class="headerlink" title="AVL树（BBT） "></a><a href="#context.7">AVL树（BBT）</a><a name="section.7"> </a></h2><p><strong>平衡二叉树</strong>全称叫做 平衡二叉搜索（排序）树，简称 AVL树。英文：Balanced Binary Tree （BBT）</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义 "></a><a href="#context.8">定义</a><a name="section.8"> </a></h3><p>AVL树本质上是一颗二叉搜索树，但它又具有以下特点：</p>
+<ol>
+<li>它是一颗空树或它的左右两个子树的高度差的绝对值不超过 1</li>
+<li>左右两个子树也是一颗平衡二叉树</li>
+</ol>
+<p><strong>需满足以下特征：</strong></p>
+<ol>
+<li>对于任何一颗子树的root根结点而言，它的左子树任何节点的key一定比root小，而右子树任何节点的key 一定比root大；</li>
+<li>对于AVL树而言，其中任何子树仍然是AVL树；</li>
+<li>每个节点的左右子节点的高度之差的绝对值最多为1；</li>
+</ol>
+<p><strong>平衡因子（BF -  Balance Factor） &#x3D; 左子树的深度 - 右子树的深度</strong></p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景 "></a><a href="#context.9">使用场景</a><a name="section.9"> </a></h3><p>由于AVL树必须保证左右子树平衡，Max(最大树高-最小树高) &lt;&#x3D; 1，所以在插入的时候很容易出现不平衡的情况，一旦这样，就需要进行旋转以求达到平衡。</p>
+<p>正是由于这种严格的平衡条件，导致AVL需要花大量时间在调整上，故AVL树一般使用场景在于<strong>查询场景</strong>， 而不是增加删除频繁的场景。</p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入 "></a><a href="#context.10">插入</a><a name="section.10"> </a></h3><h4 id="1-左左型右旋"><a href="#1-左左型右旋" class="headerlink" title="1.左左型右旋 "></a><a href="#context.11">1.左左型右旋</a><a name="section.11"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718152017647.png" alt="image-20230718152017647"></p>
+<p>在结点T的 <strong>左结点（L）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左左型</strong> ，我们应该进行右旋转。</p>
+<h4 id="2-左右型的左右旋"><a href="#2-左右型的左右旋" class="headerlink" title="2.左右型的左右旋 "></a><a href="#context.12">2.左右型的左右旋</a><a name="section.12"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718152120654.png" alt="image-20230718152120654"></p>
+<p>在结点T的 <strong>左结点（L）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左右型</strong> ，我们应该进行左右旋。</p>
+<p><strong>步骤如下：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154009644.png" alt="image-20230718154009644"></p>
+<h4 id="3-右右型左旋"><a href="#3-右右型左旋" class="headerlink" title="3.右右型左旋 "></a><a href="#context.13">3.右右型左旋</a><a name="section.13"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154115097.png" alt="image-20230718154115097"></p>
+<p>在结点T的 <strong>右结点（R）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右右型</strong> ，我们应该进行左旋转。</p>
+<h4 id="4-右左型右左旋"><a href="#4-右左型右左旋" class="headerlink" title="4.右左型右左旋 "></a><a href="#context.14">4.右左型右左旋</a><a name="section.14"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154205.png" alt="image-20230718154205"></p>
+<p>在结点T的 <strong>右结点（R）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右左型</strong> ，我们应该进行右左旋。</p>
+<p><strong>步骤如下：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154226276.png" alt="image-20230718154226276"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结 "></a><a href="#context.15">总结</a><a name="section.15"> </a></h3><table>
+<thead>
+<tr>
+<th>插入位置</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在结点T的左结点（L）的 <strong>左子树（L）</strong> 上做了插入元素</td>
+<td>左左型</td>
+<td>右旋</td>
+</tr>
+<tr>
+<td>在结点T的左结点（L）的 <strong>右子树（R）</strong> 上做了插入元素</td>
+<td>左右型</td>
+<td>左右旋</td>
+</tr>
+<tr>
+<td>在结点T的右结点（R）的 <strong>右子树（R）</strong> 上做了插入元素</td>
+<td>右右型</td>
+<td>左旋</td>
+</tr>
+<tr>
+<td>在结点T的右结点（R）的 <strong>左子树（L）</strong> 上做了插入元素</td>
+<td>右左型</td>
+<td>右左旋</td>
+</tr>
+</tbody></table>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树 "></a><a href="#context.16">红黑树</a><a name="section.16"> </a></h2><p>红黑树（RBT）继承了AVL可自平衡的优点，</p>
+<p>同时, 红黑树（RBT）在<strong>查询速率和平衡调整</strong>中寻找平衡，放宽了<strong>树的平衡条件</strong>，从而可以用于 <strong>增加删除频繁</strong>的场景。</p>
+<p>在实际应用中，红黑树的使用要多得多。</p>
+<p><strong>查找插入删除的时间复杂度为 O(logN)</strong></p>
+<h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义 "></a><a href="#context.17">定义</a><a name="section.17"> </a></h3><p><strong>需满足以下特征：</strong></p>
+<ol>
+<li>节点非黑即红</li>
+<li>根节点一定是黑色</li>
+<li>叶子节点（NIL）一定是黑色</li>
+<li>每个红色节点的两个子节点都为黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)</li>
+<li>从任一节点到其每个叶子的所有路径，都包含相同数目的黑色节点。</li>
+</ol>
+<p><strong>注：默认插入节点颜色为红色</strong></p>
+]]></content>
+      <categories>
+        <category>星海</category>
+      </categories>
+      <tags>
+        <tag>星海</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>嵌入式</title>
+    <url>/2023/10/10/Embedded/</url>
+    <content><![CDATA[<span id="more"></span>
+<h1 id="嵌入式"><a href="#嵌入式" class="headerlink" title="嵌入式"></a>嵌入式</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+<li><a href="#section.1">函数传参寄存器</a><a name="context.1"> </a></li>
+<li><a href="#section.2">IAP</a><a name="context.2"> </a></li>
+<li><a href="#section.3">ISP</a><a name="context.3"> </a></li>
+<li><a href="#section.4">OTA</a><a name="context.4"> </a><ul>
+<li><a href="#section.5">跳转函数</a><a name="context.5"> </a></li>
+<li><a href="#section.6">踩坑记录</a><a name="context.6"> </a><ul>
+<li><a href="#section.7">协议传输失败？</a><a name="context.7"> </a></li>
+<li><a href="#section.8">跳转函数？</a><a name="context.8"> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#section.9">STM32</a><a name="context.9"> </a><ul>
+<li><a href="#section.10">系统架构</a><a name="context.10"> </a></li>
+<li><a href="#section.11">内核</a><a name="context.11"> </a></li>
+<li><a href="#section.12">启动配置</a><a name="context.12"> </a></li>
+<li><a href="#section.13">启动流程</a><a name="context.13"> </a></li>
+<li><a href="#section.14">中断向量表</a><a name="context.14"> </a></li>
+<li><a href="#section.15">map文件分析</a><a name="context.15"> </a></li>
+<li><a href="#section.16">内存管理</a><a name="context.16"> </a><ul>
+<li><a href="#section.17">6个储存数据段</a><a name="context.17"> </a></li>
+<li><a href="#section.18">3种存储属性区</a><a name="context.18"> </a></li>
+<li><a href="#section.19">加载域和运行域</a><a name="context.19"> </a></li>
+<li><a href="#section.20">FreeRTOS中的堆</a><a name="context.20"> </a></li>
+</ul>
+</li>
+<li><a href="#section.21">生成bin文件</a><a name="context.21"> </a></li>
+</ul>
+</li>
+<li><a href="#section.22">总线概览</a><a name="context.22"> </a></li>
+<li><a href="#section.23">I2C</a><a name="context.23"> </a></li>
+<li><a href="#section.24">SPI</a><a name="context.24"> </a><ul>
+<li><a href="#section.25">连接方式</a><a name="context.25"> </a></li>
+<li><a href="#section.26">基本通讯过程</a><a name="context.26"> </a></li>
+<li><a href="#section.27">四种模式</a><a name="context.27"> </a></li>
+<li><a href="#section.28">CPOL</a><a name="context.28"> </a></li>
+<li><a href="#section.29">CPHA</a><a name="context.29"> </a></li>
+</ul>
+</li>
+<li><a href="#section.30">串口通讯</a><a name="context.30"> </a><ul>
+<li><a href="#section.31">物理层</a><a name="context.31"> </a><ul>
+<li><a href="#section.32">电平标准</a><a name="context.32"> </a></li>
+<li><a href="#section.33">RS232信号线</a><a name="context.33"> </a></li>
+</ul>
+</li>
+<li><a href="#section.34">协议层</a><a name="context.34"> </a><ul>
+<li><a href="#section.35">波特率</a><a name="context.35"> </a></li>
+<li><a href="#section.36">通讯的起始和停止信号</a><a name="context.36"> </a></li>
+<li><a href="#section.37">有效数据</a><a name="context.37"> </a></li>
+<li><a href="#section.38">数据校验</a><a name="context.38"> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#section.39">Cortex - M 架构</a><a name="context.39"> </a><ul>
+<li><a href="#section.40">处理器内部的寄存器组和特殊寄存器</a><a name="context.40"> </a></li>
+<li><a href="#section.41">通用寄存器组</a><a name="context.41"> </a></li>
+<li><a href="#section.42">堆栈指针SP</a><a name="context.42"> </a></li>
+<li><a href="#section.43">LR（linker registers）</a><a name="context.43"> </a></li>
+<li><a href="#section.44">特殊寄存器</a><a name="context.44"> </a><ul>
+<li><a href="#section.45">中断屏蔽特殊寄存器IMSR</a><a name="context.45"> </a></li>
+<li><a href="#section.46">特殊寄存器CONTROL</a><a name="context.46"> </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#section.47">中断</a><a name="context.47"> </a><ul>
+<li><a href="#section.48">NVIC配置</a><a name="context.48"> </a></li>
+</ul>
+</li>
+<li><a href="#section.49">DMA</a><a name="context.49"> </a><ul>
+<li><a href="#section.50">主要作用</a><a name="context.50"> </a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="函数传参寄存器"><a href="#函数传参寄存器" class="headerlink" title="函数传参寄存器 "></a><a href="#context.1">函数传参寄存器</a><a name="section.1"> </a></h2><p>在主程序和子程序中传递参数，通常有3种方法，（1）寄存器（2）数据区的变量传递（3）堆栈传递</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>x86-32位</td>
+<td>使用栈传递</td>
+</tr>
+<tr>
+<td>x64-64位</td>
+<td>前4个参数分别是 <code>rcx rdx r8 r9</code>进行传参。多余的通过栈传参，从右向左入栈。<br />在被调用函数执行前，会先将寄存器中的参数压入堆栈，之后的访问会通过栈寄存器加上偏移位置来访问。<br />点型参数保存在寄存器xmm0,xmm1…中。</td>
+</tr>
+<tr>
+<td>arm</td>
+<td><code>R0 R1 R2 R3</code>为参数寄存器，大于四个参数时，借助于栈进行传递</td>
+</tr>
+</tbody></table>
+<h2 id="IAP"><a href="#IAP" class="headerlink" title="IAP "></a><a href="#context.2">IAP</a><a name="section.2"> </a></h2><p>IAP（In Application Programming 应用编程）技术，是从结构上将 Flash 存储器映射为两个或多个分区，在一个分区中对其他分区进行编程，这个分区通常成为 BootLoader</p>
+<h2 id="ISP"><a href="#ISP" class="headerlink" title="ISP "></a><a href="#context.3">ISP</a><a name="section.3"> </a></h2><p>ISP（In System Programming 系统编程）技术，是通过下载器对单片机内部的 Flash 存储器进行编程，如 JTAG 等</p>
+<h2 id="OTA"><a href="#OTA" class="headerlink" title="OTA "></a><a href="#context.4">OTA</a><a name="section.4"> </a></h2><p>OTA 是空中升级 <code>Over the air</code> 的缩写，指的是通过无线通信网络（如Wi-Fi、蓝牙、LoRa等）对嵌入式系统进行远程升级或更新。</p>
+<p>在嵌入式系统中，OTA技术可以用于更新固件、软件或配置文件等。通过OTA技术，用户可以在不需要物理接触设备的情况下，对其进行升级和更新，从而提高系统的可靠性、安全性和灵活性。</p>
+<h3 id="跳转函数"><a href="#跳转函数" class="headerlink" title="跳转函数 "></a><a href="#context.5">跳转函数</a><a name="section.5"> </a></h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">IapJumpToApp</span><span class="params">(<span class="type">uint32_t</span> appaddr)</span></span><br><span class="line">&#123;</span><br><span class="line">    pFunction JumpToApplication;</span><br><span class="line">    <span class="comment">/** stm32F103 的 SRAM 为 0x2000 0000 ~ 0x2000 FFFF */</span></span><br><span class="line">    <span class="keyword">if</span>(((*(vu32*)appaddr)&amp;<span class="number">0x2FF00000</span>) == <span class="number">0x20000000</span>)  <span class="comment">///&lt; 检查栈顶地址是否合法</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Initialize user application&#x27;s Stack Pointer &amp; Jump to user application */</span></span><br><span class="line">        <span class="comment">/** 屏蔽所有中断 */</span></span><br><span class="line">        __disable_irq();</span><br><span class="line"><span class="comment">//        __set_PRIMASK(1);  ///&lt; 均可</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">/** 1.设置用户代码区第二个字为程序开始地址 (复位地址) */</span></span><br><span class="line">        JumpToApplication = (pFunction) (*(__IO <span class="type">uint32_t</span>*) (appaddr + <span class="number">4</span>));</span><br><span class="line">        __set_PSP(*(__IO <span class="type">uint32_t</span>*) appaddr);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/** 2.初始化 APP 堆栈指针 (用户代码区的第一个字用于存放栈顶地址) */</span></span><br><span class="line">        __set_MSP(*(__IO <span class="type">uint32_t</span>*) appaddr);</span><br><span class="line">        </span><br><span class="line">        __set_CONTROL(<span class="number">0</span>);  <span class="comment">///&lt; 设置堆栈指针为 MSP</span></span><br><span class="line">        <span class="comment">/** 3.跳转到 APP */</span></span><br><span class="line">        JumpToApplication();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录 "></a><a href="#context.6">踩坑记录</a><a name="section.6"> </a></h3><h4 id="协议传输失败？"><a href="#协议传输失败？" class="headerlink" title="协议传输失败？ "></a><a href="#context.7">协议传输失败？</a><a name="section.7"> </a></h4><p>中断问题，后续让 <code>os</code> 管理即可，同时在串口中断加入 <code>taskENTER_CRITICAL_FROM_ISR();</code></p>
+<h4 id="跳转函数？"><a href="#跳转函数？" class="headerlink" title="跳转函数？ "></a><a href="#context.8">跳转函数？</a><a name="section.8"> </a></h4><p><code>jump</code> 函数需要屏蔽中断，并且 <code>__set_CONTROL(0)</code>，将0写入 <code>CONTROL</code> 寄存器，即程序运行在特权访问等级，使用MSP主栈指针。 <b><font color='blue' size=3 face="">主要作用是将 PSP 改为 MSP</font></b> </p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310052104239.png" alt="image-20231005210154317"></p>
+<h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32 "></a><a href="#context.9">STM32</a><a name="section.9"> </a></h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构 "></a><a href="#context.10">系统架构</a><a name="section.10"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192253545.png" alt="img"></p>
+<p><strong>代码区(code area)从0x00000000开始</strong>，通过指令总线(ICode Bus)和数据总线(DCode Bus)对Flash中代码进行访问。</p>
+<p><strong>数据区(SRAM)从0x20000000开始</strong>，通过系统总线(System Bus)进行访问。</p>
+<p> <b><font color='blue' size=3 face="">内存为小端存储</font></b> </p>
+<h3 id="内核"><a href="#内核" class="headerlink" title="内核 "></a><a href="#context.11">内核</a><a name="section.11"> </a></h3><p>为  <b><font color='blue' size=3 face="">Cortex-M3 内核</font></b> 处理器</p>
+<p>三个特殊的寄存器R13、R14、R15<br>R13：堆栈<br>R14 ：LR寄存器，链接寄存器。保存调用子程序的地址<br>R15：程序计数器<br>另外还有一个特殊的寄存器 <strong>状态寄存器</strong>，通常用在操作系统中，参考 <a href="#%E7%89%B9%E6%AE%8A%E5%AF%84%E5%AD%98%E5%99%A8">特殊寄存器</a></p>
+<p><strong>双堆栈</strong></p>
+<p><strong>简述：</strong></p>
+<p>本质是寄存器R13，分成两个堆栈， <b><font color='blue' size=3 face="">MSP（中断中使用的）</font></b>  和  <b><font color='blue' size=3 face="">PSP（任务中使用）</font></b> 。</p>
+<p><strong>意义：</strong></p>
+<p>两个堆栈，一个处理任务，一个处理中断，更安全。</p>
+<h3 id="启动配置"><a href="#启动配置" class="headerlink" title="启动配置 "></a><a href="#context.12">启动配置</a><a name="section.12"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192255947.png" alt="img"></p>
+<p> STM32系列可以有3种启动模式，由BOOT1与BOOT0的设置决定选择Flash、System memory还是SRAM作为启动空间。</p>
+<ol>
+<li><strong>从主闪存存储器启动(Main Flash memory)：</strong><br> 主闪存存储器被映射到启动空间(0x0000 0000)，<strong>但仍然能够在它原有的地址(0x0800 0000)访问它</strong>，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</li>
+<li><strong>从系统存储器启动(System memory)：</strong><br> 系统存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的地址(互联型产品原有地址为0x1FFF B000，其它产品原有地址为0x1FFF F000)访问它。 </li>
+<li><strong>从内置SRAM启动(Embedded SRAM)：</strong><br> <strong>只能在0x20000000开始的地址区访问SRAM，启动后这个映射消失，需要重定位中断向量表。</strong></li>
+</ol>
+<p>STM32将 0x00000000 到 0x0005FFFF 的区域作为启动空间（boot space）的别名区。</p>
+<h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程 "></a><a href="#context.13">启动流程</a><a name="section.13"> </a></h3><p>精简版：</p>
+<ol>
+<li><p>&#x3D;&#x3D;<strong>通过Boot引脚设定,寻找初始地址</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>初始化栈指针 __initial_sp，指针位于SRAM区</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>指向复位程序 Reset_Hander</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>设置异常中断 HardFault_Handler</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>设置系统时钟 SystemInit</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p>&#x3D;&#x3D;<strong>调用C库函数 _main</strong>&#x3D;&#x3D; </p>
+</li>
+<li><p><strong>首先复位MCU，进行地址映射，获取栈顶指针MSP和PC指针的内容</strong></p>
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201444357.png" alt="img"><br> MCU上电后，自动执行<br> 当程序编译完成之后，sp堆栈栈顶指针都已经确定。<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201307158.png" alt="img"><br> R13(SP堆栈指针)的值为0x20000868(MSP)存在地址为0x00000000中，R15(PC程序计数器)的值为0x08000420存在地址为0x00000004中，堆栈指针指向sram区，且堆栈必须建立在该区。</p>
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201308487.png" alt="img"></p>
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201308463.png" alt="img"></p>
+<p> 当从flash中启动时SP在地址0x08000000中存储,PC的值在地址0x08000004中存储。但仍可以在原地址中被访问。这也就是所谓的映射。</p>
+<p>  <b><font color='blue' size=3 face="">这即是手册中所说：主闪存存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的地址(0x0800 0000)访问它，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</font></b> </p>
+</li>
+<li><p><strong>根据PC的值找到复位中断处理函数Reset_Handler</strong><br> <strong>(1) 进入中断处理函数 <code>Reset_Handler</code></strong><br> 中断处理函数外部定义<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201459507.png" alt="img">原地址0x00000004处的内容为0x0800022D,取出后的内容变为了0x0800022C,它把末位的1变成了0，这个是由于内存对齐造成的，因为cortex-m3核PC的LSB一定读回0，因此指令至少是半字对齐的（《cortex-m3编程手册》）。</p>
+<p> <code>LDR  R0,  =SystemInit</code> 将函数 <code>SystemInit</code> 的入口地址传给 R0，从反汇编窗口可以看到指令被写成 <code>LDR   r0,   [pc,#36]</code>，表明 <code>SystemInit</code> 的入口地址在存放在 PC 指针偏移 36 处，即：<code>0x08000022C（+0x4）+0x24=0x08000254</code>（因为CM3内部使用了指令流水线，读PC时返回的值是当前指令的地址+4《Cortex™-M3权威指南》）下一条指令在 0x0800022E 处。</p>
+<p> <strong>(2) 进入 <code>SystemInit</code> 函数MCU复位后，PC所指向的第一行代码</strong></p>
+<p> 复位PC后，此时程序寻址到PC指针指示的地址0x0800022C处准备执行</p>
+<p> BLX R0 将R0的值传给PC（必须保证加载到PC的数值是奇数（即LSB&#x3D;1），传给PC后，PC的LSB读回0），调用SystemInit函数。</p>
+<p> SystemInit这个函数里面开启了外部晶振，设置了锁相环PLL，关闭了所有中断，设置了时钟为72MHz，并且重定位中断向量表在0x08000000处（这句在Flash启动时可以不需要，因为能从0x00000000映射到0x08000000）。</p>
+</li>
+</ol>
+<h3 id="中断向量表"><a href="#中断向量表" class="headerlink" title="中断向量表 "></a><a href="#context.14">中断向量表</a><a name="section.14"> </a></h3><p>STM32的中断向量表是干什么的？到底有什么用？它放在哪里？</p>
+<p>一、中断向量表里有什么？它放在那里？到底有什么用？<br>1、中断向量表实际上就是存放在Code区（也就是STM32内部的Flash区）从0x00000000地址开始的一个数组，数组的成员为4个字节，而且这些数组在启动文件的时候已经初始化好。</p>
+<p>2、STM32根据内核和外设中断优先级，同一标号，标号越小，优先级越大。然后把内核和外设的中断服务函数的地址放在这个数组里面，数组的下标跟中断的优先级对应，我们也把这个中断的编号叫做中断向量。</p>
+<p>3、在启动文件执行的时候，内核和每个外设的中断服务函数的地址都是已经确定好的，地址就存放在中断向量表中，而且在启动文件里面已经写好了中断服务函数，只是这些中断服务函数为空，而且带[weak]弱定义，那么我们就需要在C文件里面重新实现这个中断服务函数，用户写这个中断服务函数的时候，函数名必须跟启动文件里面写的中断函数名对应，因为函数名对应的就是中断服务函数的地址，如果中断服务函数名和启动文件的名字不一样，就默认启动文件里面预先写好的空的中断服务函数，而且是一个死循环，程序就会一直卡死在中断服务函数里面。</p>
+<p>二、那内核是如何响应中断的呢？<br>当中断来临的时候，首先取向量，每个中断的中断向量不一样，然后根据向量查询中断向量表，根据里面的地址找到中断服务函数，从而实现整个中断的响应过程。</p>
+<h3 id="map文件分析"><a href="#map文件分析" class="headerlink" title="map文件分析 "></a><a href="#context.15">map文件分析</a><a name="section.15"> </a></h3><p>在map文件的最后，都会有这样的汇总信息，如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103093.png" alt="image-20230625222801536"></p>
+<p>上图中：</p>
+<p><strong>Code：</strong>代码存储区。这部分是存放代码的。</p>
+<p><strong>RO-Data：</strong>只读数据区。这部分保存程序中用 const 定义的全局常量数据和字符串。</p>
+<p><strong>RW-Data：</strong>已初始化的读写数据。程序中定义的已经初始化的全局变量和静态变量。</p>
+<p><strong>ZI-Data：</strong>未初始化的读写数据。程序中定义的未初始化的全局变量和静态变量。这部分内容是在程序运行的时候保存在RAM中的。</p>
+<p><strong><mark>栈顶指针的值 &#x3D; RW-data + ZI-data</mark></strong></p>
+<p>map文件中还做了统计：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103870.png" alt="image-20230625222912989"></p>
+<p>从上图可以看出：</p>
+<p><strong>RO：</strong>只读数据。这部分包含 Code 和 RO-Data 这部分是存放在Flash中的。</p>
+<p><strong>RW：</strong>可读写数据。这部分包含 RW-Data 和 ZI-Data，这部分是存放在RAM中的，就是占据运行内存的。</p>
+<p><strong>ROM Size：</strong>总的ROM的大小。这部分包含Code、RO-data、RW-Data，是程序中占Flash的实际大小。</p>
+<p>为了方便理解，可以参考下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103202.png" alt="image-20230625222928677"><br> <b><font color='blue' size=3 face="">注意：Flash &#x3D; Code + RO-Data + RW-Data</font></b> </p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理 "></a><a href="#context.16">内存管理</a><a name="section.16"> </a></h3><p><code>stm32</code> 的内存管理就是对 <code>0x0800 0000</code> 开始的 <code>Flash</code> 部分和 <code>0x2000 0000</code> 开始的 <code>SRAM</code> 部分的使用和管理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092223474.png" alt="image-20230909222128002"></p>
+<h4 id="6个储存数据段"><a href="#6个储存数据段" class="headerlink" title="6个储存数据段 "></a><a href="#context.17">6个储存数据段</a><a name="section.17"> </a></h4><ul>
+<li><strong>data</strong><br>  数据段，储存已初始化的，且初始化不为0的全局变量和静态变量</li>
+<li><strong>bss</strong><br>  Block Started by Symbol。储存未初始化的，或初始化为0的全局变量和静态变量</li>
+<li><strong>text（Code Segment&#x2F;Text Segment）</strong><br>  代码段，储存程序代码</li>
+<li><strong>constdata</strong><br>  储存只读常量</li>
+<li><strong>heap</strong><br>  堆，存放进程运行中被动态分配的内存段。其可用大小定义在启动文件startup_stm32fxx.s中，由程序员使用malloc()和free()函数进行分配和释放</li>
+<li><strong>stack</strong><br>  栈，其大小定义在启动文件startup_stm32fxx.s中，由系统自动分配和释放。可存放局部变量、函数的参数和返回值，中断发生时能保存现场。但是static声明的局部静态变量不储存在栈中，而是放在data数据段</li>
+</ul>
+<h4 id="3种存储属性区"><a href="#3种存储属性区" class="headerlink" title="3种存储属性区 "></a><a href="#context.18">3种存储属性区</a><a name="section.18"> </a></h4><ul>
+<li><strong>RO（Read Only）</strong><br>  烧写到 Flash 中，可以长久保存。text 代码段和 constdata 都属于 RO。由于需要掉电储存，RO 里也保存了一份 data 的数据</li>
+<li><strong>RW（Read Write）</strong><br>  储存在RAM中。data属于此区。上电时单片机会将Flash中保存的data类型数据复制到RAM中，以供读写使用</li>
+<li><strong>ZI（Zero Init）</strong><br>  零初始化区，同样储存在RAM里。系统上电时会把此区域的数据进行0初始化。bss，heap，stack均属于这个区域</li>
+</ul>
+<h4 id="加载域和运行域"><a href="#加载域和运行域" class="headerlink" title="加载域和运行域 "></a><a href="#context.19">加载域和运行域</a><a name="section.19"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092245842.png" alt="image-20230909224556738"></p>
+<p><strong>程序占用 <mark>Flash &#x3D; Code + RO data + RW data</mark></strong></p>
+<p><strong>程序运行时候占用 <mark>RAM &#x3D; RW data + ZI data</mark></strong></p>
+<p><strong>Code + RO data + RW data</strong> 的大小也是生成的 <strong>bin</strong> 文件的大小</p>
+<h4 id="FreeRTOS中的堆"><a href="#FreeRTOS中的堆" class="headerlink" title="FreeRTOS中的堆 "></a><a href="#context.20">FreeRTOS中的堆</a><a name="section.20"> </a></h4><p><mark>FreeRTOS中的堆也属于ZI区</mark>，但是它与STM32内存结构中的堆并不占用相同的空间，两个堆同时存在。以下出现的堆(heap)表示FreeRTOS堆，另外<mark>在STM32启动文件中定义大小的堆称为系统堆</mark></p>
+<p>FreeRTOS内核主要使用的内存管理函数为：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">pvPortMalloc</span><span class="params">( <span class="type">size_t</span> xSize )</span>;	<span class="comment">//申请内存</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vPortFree</span><span class="params">( <span class="type">void</span> *pv )</span>;	        <span class="comment">//释放内存</span></span><br></pre></td></tr></table></figure>
+
+<p>以上函数控制的是 FreeRTOS 堆；系统堆则应使用 <code>malloc()</code> 和 <code>free()</code> 来分配和释放。</p>
+<p>FreeRTOS有 5 种 heap 的实现方式，在STM32CubeMX中默认为 heap_4.c。这种方式可以满足大部分使用需求，暂时不用关注其实现细节。</p>
+<p>这一个堆的大小定义在 <code>FreeRTOSConfig.c</code> 中：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> configTOTAL_HEAP_SIZE ((size_t)3072)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>FreeRTOS创建任务时默认的任务栈大小为128字，在32位系统中即为128*4&#x3D;512Byte，再加上TCB块占用84Byte，一共596Byte。而大小为3072Byte的堆允许创建3个这样的任务，占用约1800Byte。堆中剩余的部分则存放了系统内核、信号量、队列、任务通知等数据。</p>
+<p>需要创建更多任务时，堆的大小可自行修改。用RAM的空间减去已分配的空间，即为能给堆分配的最大空间：</p>
+<p><code>Space = RAM − bss − data − SysHeap − Stack</code></p>
+<h3 id="生成bin文件"><a href="#生成bin文件" class="headerlink" title="生成bin文件 "></a><a href="#context.21">生成bin文件</a><a name="section.21"> </a></h3><ol>
+<li><p><strong>生成 axf 输入文件</strong><br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092258040.png" alt="image-20230909225724296"></p>
+</li>
+<li><p><strong>生成 bin 输出文件</strong></p>
+ <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// D:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin --output .\Obj\DW21CTLA.bin .\Obj\xxx.axf</span></span><br><span class="line"><span class="comment">// --output 可缩写为 -o</span></span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082329977.png" alt="image-20230909225816776"></p>
+</li>
+</ol>
+<h2 id="总线概览"><a href="#总线概览" class="headerlink" title="总线概览 "></a><a href="#context.22">总线概览</a><a name="section.22"> </a></h2><p>UART、I2C、SPI、USB异同</p>
+<table>
+<thead>
+<tr>
+<th>总线接口</th>
+<th>串&#x2F;并</th>
+<th>同步&#x2F;异步</th>
+<th>速率</th>
+<th>工作方式</th>
+<th>用线</th>
+<th>总线拓扑结构</th>
+<th>信号距离</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UART</td>
+<td>串</td>
+<td>异步</td>
+<td>慢<br />波特率设置</td>
+<td>全双工</td>
+<td>2线<br />RX、TX</td>
+<td>RS485支持总线式、<br />星形、树形</td>
+<td>远<br />最远1200m</td>
+</tr>
+<tr>
+<td>I2C</td>
+<td>串</td>
+<td>同步</td>
+<td>慢</td>
+<td>半双工</td>
+<td>2线<br />SDA、SCL</td>
+<td>总线型（特殊的树形）</td>
+<td>近</td>
+</tr>
+<tr>
+<td>SPI</td>
+<td>串</td>
+<td>同步</td>
+<td>快</td>
+<td>全双工</td>
+<td>3线或4线<br />SCLK、SIMO、<br />SOMI、SS（片选）</td>
+<td>环形</td>
+<td>远</td>
+</tr>
+<tr>
+<td>USB</td>
+<td>串</td>
+<td>同步</td>
+<td>快</td>
+<td>半双工</td>
+<td>4线<br />VBUS（5V）、GND、<br />D+、D-（3.3V）</td>
+<td>星形</td>
+<td>近</td>
+</tr>
+</tbody></table>
+<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C "></a><a href="#context.23">I2C</a><a name="section.23"> </a></h2><h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI "></a><a href="#context.24">SPI</a><a name="section.24"> </a></h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式 "></a><a href="#context.25">连接方式</a><a name="section.25"> </a></h3><p>3条总线 + 1条片选线</p>
+<p><code>SCK、MOSI、MISO + SS/NSS/CS</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242104024.png" alt="image-20230805195959632"></p>
+<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.26">基本通讯过程</a><a name="section.26"> </a></h3><p><img src="/BCCPP.assets/image-20230805194747396.png" alt="image-20230805194747396"></p>
+<h3 id="四种模式"><a href="#四种模式" class="headerlink" title="四种模式 "></a><a href="#context.27">四种模式</a><a name="section.27"> </a></h3><table>
+<thead>
+<tr>
+<th>SPI 模式</th>
+<th>时钟极性<br />CPOL</th>
+<th>时钟相位<br />CPHA</th>
+<th>空闲时 SCK 时钟</th>
+<th>采样时刻</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>低电平</td>
+<td>奇数边沿</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>低电平</td>
+<td>偶数边沿</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>高电平</td>
+<td>奇数边沿</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>高电平</td>
+<td>偶数边沿</td>
+</tr>
+</tbody></table>
+<p>主机与从机需要工作在相同的模式下才可以正常通讯</p>
+<p>实际中采用较多的是 <strong>“模式 0”</strong> 与 <strong>“模式 3”</strong>。</p>
+<h3 id="CPOL"><a href="#CPOL" class="headerlink" title="CPOL "></a><a href="#context.28">CPOL</a><a name="section.28"> </a></h3><p>指 SPI 通讯设备处于空闲状态时，SCK 信号线的电平信号 (即 SPI 通讯开始前、 NSS 线为高电平时 SCK 的状态)。CPOL&#x3D;0 时，SCK 在空闲状态时为低电平，CPOL&#x3D;1 时，则相反。</p>
+<h3 id="CPHA"><a href="#CPHA" class="headerlink" title="CPHA "></a><a href="#context.29">CPHA</a><a name="section.29"> </a></h3><p>指数据的采样的时刻，当 CPHA&#x3D;0 时，MOSI 或 MISO 数据线上的信号将会在SCK 时钟线的“奇数边沿”被采样。 当 CPHA&#x3D;1 时，数据线在 SCK 的“偶数边沿”采样</p>
+<p><img src="/BCCPP.assets/image-20230805194827664.png" alt="image-20230805194827664"></p>
+<h2 id="串口通讯"><a href="#串口通讯" class="headerlink" title="串口通讯 "></a><a href="#context.30">串口通讯</a><a name="section.30"> </a></h2><p>波特率 115200 为每秒传输 115200 bit</p>
+<p>如果串口为8位数据位，无校验位，则，一帧为 1起始位 + 8数据位 + 1停止位 &#x3D; 10bit</p>
+<p>115200 &#x2F; 10 &#x2F; 1024 &#x3D; 11.25 kb&#x2F;s</p>
+<p>分为<strong>物理层</strong>和<strong>协议层</strong>来讲解</p>
+<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层 "></a><a href="#context.31">物理层</a><a name="section.31"> </a></h3><h4 id="电平标准"><a href="#电平标准" class="headerlink" title="电平标准 "></a><a href="#context.32">电平标准</a><a name="section.32"> </a></h4><p>根据通讯使用的电平标准不同，串口通讯可分为 TTL 标准及 RS-232 标准，见下表</p>
+<table>
+<thead>
+<tr>
+<th>通讯标准</th>
+<th>电平标准（发送端）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>5V TTL</td>
+<td>逻辑1：2.4V ~ 5V</td>
+</tr>
+<tr>
+<td></td>
+<td>逻辑0：0 ~ 0.5V</td>
+</tr>
+<tr>
+<td>RS-232</td>
+<td>逻辑1：-15 ~ -3V</td>
+</tr>
+<tr>
+<td></td>
+<td>逻辑0：+3V ~ +15V</td>
+</tr>
+</tbody></table>
+<p>我们知道<strong>常见的电子电路中常使用 TTL 的电平标准</strong>，理想状态下，使用 5V 表示二进制逻辑 1， 使用 0V 表示逻辑 0；</p>
+<p>而为了增加串口通讯的远距离传输及抗干扰能力，它使用-15V 表示逻辑 1， +15V 表示逻辑 0。</p>
+<p>使用 RS232 与 TTL 电平校准表示同一个信号时的对比如下图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082330968.png" alt="image-20230720165301371"></p>
+<p><strong>注：</strong>因为控制器一般使用 TTL 电平标准，所以常常会使用 MA3232 芯片对 TTL 及 RS-232 电平的信号进行互相转换。</p>
+<h4 id="RS232信号线"><a href="#RS232信号线" class="headerlink" title="RS232信号线 "></a><a href="#context.33">RS232信号线</a><a name="section.33"> </a></h4><p>在最初的应用中，RS-232 串口标准常用于计算机、路由与调制调解器 (MODEN，俗称“猫”) 之间的通讯， 在这种通讯系统中，设备被分为数据终端设备 DTE(计算机、路由) 和数据通讯设备DCE(调制调解器)。 我们以这种通讯模型讲解它们的信号线连接方式及各个信号线的作用。</p>
+<p>在旧式的台式计算机中一般会有 RS-232 标准的 COM 口 (也称 DB9 接口)，见图下。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082330623.png" alt="image-20230720165655500"></p>
+<p><strong>接口示意：</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082331129.png" alt="image-20230720165720644"></p>
+<p>信号线说明 (公头，为方便理解，可把 DTE 理解为计算机，DCE 理解为调制调解器)</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>名称</th>
+<th>符号</th>
+<th>数据方向</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>载波检测</td>
+<td>DCD</td>
+<td>DTEDCE</td>
+<td>Data Carrier Detect，数据载波检测，用于DTE告知对方，本机是否收到对方的载波信号</td>
+</tr>
+<tr>
+<td>2</td>
+<td>接收数据</td>
+<td>RXD</td>
+<td>DTEDCE</td>
+<td>Receive Data，数据接收信号，即输入 。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>发送数据</td>
+<td>TXD</td>
+<td>DTEDCE</td>
+<td>Transmit Data，数据发送信号，即输出。两个设备之间的TXD与RXD应交叉相连</td>
+</tr>
+<tr>
+<td>4</td>
+<td>数据终端 (DTE) 就绪</td>
+<td>DTR</td>
+<td>DTEDCE</td>
+<td>Data Terminal Ready，数据终端就绪，用于DTE向对方告知本机是否已准备好</td>
+</tr>
+<tr>
+<td>5</td>
+<td>信号地</td>
+<td>GND</td>
+<td></td>
+<td>地线，两个通讯设备之间的地电位可能不一样，这会影响收发双方的电平信号，所以两个串口设备之间必须要使用地线连接，即共地。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>数据设备(DCE)就绪</td>
+<td>DSR</td>
+<td>DTEDCE</td>
+<td>Data Set Ready，数据发送就绪，用于DCE告知对方本机是否处于待命状态</td>
+</tr>
+<tr>
+<td>7</td>
+<td>请求发送</td>
+<td>RTS</td>
+<td>DTEDCE</td>
+<td>Request To Send，请求发送， DTE 请求 DCE 本设备向DCE端发送数据</td>
+</tr>
+<tr>
+<td>8</td>
+<td>允许发送</td>
+<td>CTS</td>
+<td>DTEDCE</td>
+<td>Clear To Send，允许发送，DCE回应对方的RTS发送请求，告知对方是否可以发送数据</td>
+</tr>
+<tr>
+<td>9</td>
+<td>响铃指示</td>
+<td>RI</td>
+<td>DTEDCE</td>
+<td>Ring Indicator，响铃指示，表示DCE端与线路已接通</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082331567.png" alt="image-20230720165858716"></p>
+<p>串口线中的 RTS、CTS、DSR、DTR 及 DCD 信号，使用逻辑 1 表示信号有效，逻辑 0 表示信号无效。 例如，当计算机端控制 DTR 信号线表示为逻辑 1 时，它是为了告知远端的调制调解器，本机已准备好接收数据， 0 则表示还没准备就绪。</p>
+<p><strong>在目前的其它工业控制使用的串口通讯中，一般只使用 RXD、TXD 以及 GND 三条信号线！！！</strong></p>
+<h3 id="协议层"><a href="#协议层" class="headerlink" title="协议层 "></a><a href="#context.34">协议层</a><a name="section.34"> </a></h3><p>串口通讯的数据包由发送设备通过自身的 TXD 接口传输到接收设备的 RXD 接口。在串口通讯的协议层中， 规定了数据包的内容，它由启始位、主体数据、校验位以及停止位组成，通讯双方的数据包格式要约定一致才能正常收发数据</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082331240.png" alt="image-20230720170204183"></p>
+<h4 id="波特率"><a href="#波特率" class="headerlink" title="波特率 "></a><a href="#context.35">波特率</a><a name="section.35"> </a></h4><p>本章中主要讲解的是串口异步通讯，异步通讯中由于没有时钟信号 (如前面讲解的 DB9 接口中是没有时钟信号的)， 所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码，如上图中用虚线分开的每一格就是代表一个码元。 常见的波特率为 4800、9600、115200 等。</p>
+<h4 id="通讯的起始和停止信号"><a href="#通讯的起始和停止信号" class="headerlink" title="通讯的起始和停止信号 "></a><a href="#context.36">通讯的起始和停止信号</a><a name="section.36"> </a></h4><p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0 的数据位表示， 而数据包的停止信号可由 0.5、1、1.5 或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
+<h4 id="有效数据"><a href="#有效数据" class="headerlink" title="有效数据 "></a><a href="#context.37">有效数据</a><a name="section.37"> </a></h4><p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度 常被约定为 5、6、7 或 8 位长。</p>
+<h4 id="数据校验"><a href="#数据校验" class="headerlink" title="数据校验 "></a><a href="#context.38">数据校验</a><a name="section.38"> </a></h4><p>在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差， 可以在传输过程加上校验位来解决这个问题。校验方法有奇校验 (odd)、偶校验(even)、0 校验 (space)、1 校验 (mark) 以及无校验 (noparity)，它们介绍如下：</p>
+<p>奇校验要求有效数据和校验位中“1”的个数为奇数，比如一个 8 位长的有效数据为：01101001， 此时总共有 4 个“1”，为达到奇校验效果，校验位为“1”，最后传输的数据将是 8 位的有效数据 加上 1 位的校验位总共 9 位。</p>
+<p>偶校验与奇校验要求刚好相反，要求帧数据和校验位中“1”的个数为偶数，比如数据帧：11001010，此时数据帧“1”的个数为 4 个，所以偶校验位为“0”。</p>
+<p>0 校验是不管有效数据中的内容是什么，校验位总为“0”，1 校验是校验位总为“1”。</p>
+<p>在无校验的情况下，数据包中不包含校验位。</p>
+<h2 id="Cortex-M-架构"><a href="#Cortex-M-架构" class="headerlink" title="Cortex - M 架构 "></a><a href="#context.39">Cortex - M 架构</a><a name="section.39"> </a></h2><p>Arm Cortex-M系列处理器为32位RISC（精简指令集）处理器，具有：</p>
+<ul>
+<li>32-bit 寄存器</li>
+<li>32-bit 内部数据通道</li>
+<li>32-bit 总线通道</li>
+</ul>
+<p>Cortex-m0 为ARMv6架构，具有三级流水线结构（取值，译码，执行）— 处理器采用的是冯诺依曼结构，数据和指令共享一个总线接口和存储器，即取指令和数据访问不可同时执行。<br>支持Thumb指令集（绝大部分16-bit Thumb ISA 和32-bit Thumb-2 ISA),共有56种基本指令，分别包括对memory的读写访问，算数指令和逻辑操作指令。<br>存储器系统采用了32位寻址，具有最大4GB的寻址空间，存储器映射是一致的，空间内分别包括程序代码，数据，外设和处理器内的调试支持部件。<br>嵌套向量中断控制器(NVIC)为cortex-m处理器内部的中断控制器，可编程且其寄存器经<br>过存储器映射，NVIC 地址固定，编程模型对所有的 cortex-m 处理器都是一致的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092115412.png" alt="image-20231009211052562"></p>
+<h3 id="处理器内部的寄存器组和特殊寄存器"><a href="#处理器内部的寄存器组和特殊寄存器" class="headerlink" title="处理器内部的寄存器组和特殊寄存器 "></a><a href="#context.40">处理器内部的寄存器组和特殊寄存器</a><a name="section.40"> </a></h3><p>寄存器组主要用于在执行指令过程中用于保存和处理中间变量和指令地址，由于这些寄存器处于处理器内部，所以访问速度较快；采用加载-保存结构，例如如果想处理某个处于存储器中某个地址上的数据，需要先把该数据加载到寄存器中，在处理器内部处理后再写回该存储器中。<br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092116455.png" alt="image-20231009211606325"></p>
+<h3 id="通用寄存器组"><a href="#通用寄存器组" class="headerlink" title="通用寄存器组 "></a><a href="#context.41">通用寄存器组</a><a name="section.41"> </a></h3><p>通用寄存器包括低寄存器(R0-R7)和高寄存器(R8-R12)：<br>(1) R0-R7可以被任意指令访问<br>(2) R8-R12不可以被某些thumb指令访问</p>
+<h3 id="堆栈指针SP"><a href="#堆栈指针SP" class="headerlink" title="堆栈指针SP "></a><a href="#context.42">堆栈指针SP</a><a name="section.42"> </a></h3><p>R13寄存器可以作为stack pointer，SP用于记录当前堆栈的地址，当在不同任务中切换时，SP用于保存上下文（一般来说，SP寄存器中的地址是当前正在执行的指令所在的地址）</p>
+<p>Cortex-m0中可以将SP细化成 <b><font color='SEAGREEN' size=3 face="">MSP</font></b> 和 <b><font color='SEAGREEN' size=3 face="">PSP</font></b> ：在应用程序中， <b><font color='DODGERBLUE' size=3 face="">需要特权访问时使用MSP</font></b> ，例如异常访问和系统内核访问； <b><font color='DODGERBLUE' size=3 face="">PSP用于执行一般的程序代码</font></b> 。</p>
+<p>处理模式：执行中断服务程序（ISR）等异常处理，在处理模式下，处理器总是具有特权访问等级。</p>
+<p>线程模式：执行普通的应用程序代码，处理器可以处于特权访问等级&#x2F;非特权访问等级，实际操作权限由特殊寄存器CONTROL控制。</p>
+<h3 id="LR（linker-registers）"><a href="#LR（linker-registers）" class="headerlink" title="LR（linker registers） "></a><a href="#context.43">LR（linker registers）</a><a name="section.43"> </a></h3><p>R14可用于链式寄存器，主要功能：</p>
+<p>（1）用于保存子程序或者一个程序调用的返回地址 </p>
+<p>（2）当程序调用结束后，将LR中的返回地址加载到程序计数器(PC)中</p>
+<p><strong>注：</strong>  <b><font color='DODGERBLUE' size=3 face="">LR是用来保存在程序调用前所在的地址，即保存返回地址，保证程序在结束函数调用后回到原有的进程中，可以往后按顺序继续执行程序代码</font></b> </p>
+<h3 id="特殊寄存器"><a href="#特殊寄存器" class="headerlink" title="特殊寄存器 "></a><a href="#context.44">特殊寄存器</a><a name="section.44"> </a></h3><h4 id="中断屏蔽特殊寄存器IMSR"><a href="#中断屏蔽特殊寄存器IMSR" class="headerlink" title="中断屏蔽特殊寄存器IMSR "></a><a href="#context.45">中断屏蔽特殊寄存器IMSR</a><a name="section.45"> </a></h4><p>IMSR中包括一位PRIMASK，当PRIMASK &#x3D; 1时，除了NMI和hard fault外，将屏蔽掉其他所有中断</p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092123396.png" alt="image-20231009212313244"></p>
+<h4 id="特殊寄存器CONTROL"><a href="#特殊寄存器CONTROL" class="headerlink" title="特殊寄存器CONTROL "></a><a href="#context.46">特殊寄存器CONTROL</a><a name="section.46"> </a></h4><p>CONTROL寄存器用来选择堆栈指针</p>
+<p>CONTROL[1] &#x3D; 1（PSP）</p>
+<p>CONTROL[1] &#x3D; 0（MSP）</p>
+<p><strong>注：</strong> 这也是为什么在 OTA 中需要设置 </p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092124802.png" alt="image-20231009212410697"></p>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断 "></a><a href="#context.47">中断</a><a name="section.47"> </a></h2><p> ARM Cortex-M 使用了 8 位宽的寄存器来配置中断的优先等级（最大2^8，256个优先级，0~255），这个寄存器就是中断优先级配置寄存器。但 <b><font color='blue' size=3 face="">STM32，只用了中断优先级配置寄存器的高4位</font></b>  [7 : 4]，所以 <b><font color='blue' size=3 face="">STM32提供了最大16级</font></b> 的中断优先等级。</p>
+<h3 id="NVIC配置"><a href="#NVIC配置" class="headerlink" title="NVIC配置 "></a><a href="#context.48">NVIC配置</a><a name="section.48"> </a></h3><p>一共有 5 种分配方式，对应着中断优先级分组的 5 个组， <b><font color='blue' size=3 face=""><code>FreeRTOS</code> 为了方便管理使用的是优先级分组4</font></b> ，全部用于抢占优先级</p>
+<table>
+<thead>
+<tr>
+<th>优先级分组</th>
+<th>抢占优先级</th>
+<th>子优先级</th>
+<th>优先级配置寄存器高 4 位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>NVIC_PriorityGroup_0</code></td>
+<td>0 级抢占优先级</td>
+<td>0-15 级子优先级</td>
+<td>0bit 用于抢占优先级<br />4bit 用于子优先级</td>
+</tr>
+<tr>
+<td><code>NVIC_PriorityGroup_1</code></td>
+<td>0-1 级抢占优先级</td>
+<td>0-7 级抢占优先级</td>
+<td>1bit 用于抢占优先级<br />3bit 用于子优先级</td>
+</tr>
+<tr>
+<td><code>NVIC_PriorityGroup_2</code></td>
+<td>0-3 级抢占优先级</td>
+<td>0-3 级抢占优先级</td>
+<td>2bit 用于抢占优先级<br />2bit 用于子优先级</td>
+</tr>
+<tr>
+<td><code>NVIC_PriorityGroup_3</code></td>
+<td>0-7 级抢占优先级</td>
+<td>0-1 级抢占优先级</td>
+<td>3bit 用于抢占优先级<br />1bit 用于子优先级</td>
+</tr>
+<tr>
+<td><code>NVIC_PriorityGroup_4</code></td>
+<td>0-15 级抢占优先级</td>
+<td>0 级抢占优先级</td>
+<td>4bit 用于抢占优先级<br />0bit 用于子优先级</td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309191359033.png" alt="image-20230919135915857"></p>
+<p>在嵌入式系统中，ISR中断和IRQ中断是两种不同类型的中断。</p>
+<p><strong>ISR</strong>中断，全称为“Interrupt Service Routine”，是指由硬件或软件触发的中断事件所对应的中断处理程序。当系统发生中断事件时，CPU会暂停当前正在执行的程序，并跳转到ISR中断处理程序的入口点执行特定的操作。ISR中断通常用于处理实时事件和外部设备的中断，例如定时器中断、串口数据到达中断等。</p>
+<p><strong>IRQ</strong>中断，全称为“Interrupt Request”，指的是CPU接收到一个外部设备请求服务的信号。外部设备通常通过引脚将中断信息发送给CPU，CPU收到中断信号后会执行相应的中断处理程序。IRQ中断通常用于处理外部设备的事件，例如键盘输入、鼠标点击以及外部中断信号等。</p>
+<p>异同点如下：</p>
+<ol>
+<li>触发方式不同：ISR中断是由硬件或软件触发的中断事件，而IRQ中断是由外部设备发送的中断请求信号触发的。</li>
+<li>处理对象不同：ISR中断常用于处理实时事件和外部设备中断，而IRQ中断常用于处理外部设备的事件。</li>
+<li>响应时间不同：ISR中断的响应时间通常比IRQ中断更为紧迫，因为ISR中断通常用于处理实时事件，需要尽快响应。</li>
+<li>中断优先级不同：ISR中断的优先级可以通过编程设置，而IRQ中断的优先级通常由硬件决定。</li>
+<li>中断误差处理方式不同：ISR中断可以轻松地使程序从中断处理程序返回到中断之前的位置，而IRQ中断不具备这种能力，必须通过其他方式解决。</li>
+</ol>
+<p>需要注意的是，ISR中断的概念更广泛，可以是任何中断处理程序，包括IRQ中断。IRQ中断是一种特定类型的中断，指的是由外部设备请求服务的中断。</p>
+<h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA "></a><a href="#context.49">DMA</a><a name="section.49"> </a></h2><p>即直接内存访问（Direct Memory Access），是计算机系统中一种用于减轻中央处理器（CPU）负载的技术。它允许外设（如网络卡、硬盘控制器等）直接与系统内存交换数据，而不需要经过CPU的介入。</p>
+<h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用 "></a><a href="#context.50">主要作用</a><a name="section.50"> </a></h3><p>DMA的主要作用是提高数据传输的效率和系统的整体性能，它可以实现以下功能：</p>
+<ol>
+<li>数据传输：DMA可以直接控制总线，将数据从外设读入内存或从内存写出到外设，而无需通过CPU进行数据传输。</li>
+<li>解放CPU负载：DMA的工作过程中，CPU可以继续执行其他任务，而不需要等待数据传输完成，从而减轻了CPU的负载。</li>
+<li>快速数据交换：DMA传输数据的速度往往比CPU慢，因此它常用于大数据量的高速输入输出设备，可以快速地将数据从外设传输到内存或者从内存传输到外设。</li>
+<li>多任务处理：使用DMA可以使CPU在数据传输过程中同时处理其他任务，从而提高系统的并发处理能力。</li>
+</ol>
+<p><strong>一些常见的应用场景包括：</strong></p>
+<ol>
+<li>高速网络传输：DMA技术广泛应用于以太网卡和网络交换机等网络设备中，可以实现高速数据传输和实时流处理。</li>
+<li>存储设备控制：DMA可以用于硬盘控制器、固态硬盘(SSD)等存储设备，提高数据传输速度和读写操作的效率。</li>
+<li>图形处理：DMA可以用于图形处理单元（GPU）与系统内存之间的数据传输，加速图形渲染和图形计算等操作。</li>
+<li>音视频处理：DMA技术常用于音频和视频编解码、实时流媒体传输等领域，提高数据传输速度和处理效率。</li>
+</ol>
 ]]></content>
       <categories>
         <category>星海</category>
@@ -1477,731 +2202,6 @@
       </tags>
   </entry>
   <entry>
-    <title>数据结构</title>
-    <url>/2023/07/27/DS/</url>
-    <content><![CDATA[<span id="more"></span>
-
-<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#section.1">二叉树</a><a name="context.1"> </a><ul>
-<li><a href="#section.2">遍历方式</a><a name="context.2"> </a><ul>
-<li><a href="#section.3">深度优先DFS（Depth First Search）</a><a name="context.3"> </a></li>
-<li><a href="#section.4">广度优先BFS（Breath First Search）</a><a name="context.4"> </a></li>
-</ul>
-</li>
-<li><a href="#section.5">分类</a><a name="context.5"> </a></li>
-</ul>
-</li>
-<li><a href="#section.6">二叉搜索树（BST）</a><a name="context.6"> </a></li>
-<li><a href="#section.7">AVL树（BBT）</a><a name="context.7"> </a><ul>
-<li><a href="#section.8">定义</a><a name="context.8"> </a></li>
-<li><a href="#section.9">使用场景</a><a name="context.9"> </a></li>
-<li><a href="#section.10">插入</a><a name="context.10"> </a><ul>
-<li><a href="#section.11">1.左左型右旋</a><a name="context.11"> </a></li>
-<li><a href="#section.12">2.左右型的左右旋</a><a name="context.12"> </a></li>
-<li><a href="#section.13">3.右右型左旋</a><a name="context.13"> </a></li>
-<li><a href="#section.14">4.右左型右左旋</a><a name="context.14"> </a></li>
-</ul>
-</li>
-<li><a href="#section.15">总结</a><a name="context.15"> </a></li>
-</ul>
-</li>
-<li><a href="#section.16">红黑树</a><a name="context.16"> </a><ul>
-<li><a href="#section.17">定义</a><a name="context.17"> </a></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树 "></a><a href="#context.1">二叉树</a><a name="section.1"> </a></h2><p>为<strong>有序树</strong>：</p>
-<p>如果结点的各子树从左到右是有次序的、不能颠倒，则为有序树，否则为无序树。对于有序树的孩子来说，最左边的孩子称为第一个孩子，最右边的孩子称为最后一个孩子。</p>
-<p>比如，如果树T1是一个有序树，则其根结点的第一个孩子为结点B，最后一个孩子为结点D</p>
-<h3 id="遍历方式"><a href="#遍历方式" class="headerlink" title="遍历方式 "></a><a href="#context.2">遍历方式</a><a name="section.2"> </a></h3><h4 id="深度优先DFS（Depth-First-Search）"><a href="#深度优先DFS（Depth-First-Search）" class="headerlink" title="深度优先DFS（Depth First Search） "></a><a href="#context.3">深度优先DFS（Depth First Search）</a><a name="section.3"> </a></h4><p>递归遍历 - 函数递归</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Tree</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Recur</span><span class="params">(Tree *tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (tree != <span class="literal">nullptr</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">///&lt; 中左右</span></span><br><span class="line">        cout &lt;&lt; tree-&gt;val &lt;&lt; endl;</span><br><span class="line">        <span class="built_in">Recur</span>(tree-&gt;left);</span><br><span class="line">        <span class="built_in">Recur</span>(tree-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DFSTree</span><span class="params">(Tree *tree)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">Recur</span>(tree);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 统一遍历方法！！！ */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        stack&lt;TreeNode*&gt; st;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) st.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (!st.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            TreeNode* node = st.<span class="built_in">top</span>();</span><br><span class="line">            <span class="keyword">if</span> (node != <span class="literal">NULL</span>) &#123;</span><br><span class="line">                st.<span class="built_in">pop</span>(); <span class="comment">// 将该节点弹出，避免重复操作，下面再将右中左节点添加到栈中</span></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) st.<span class="built_in">push</span>(node-&gt;right);  <span class="comment">// 添加右节点（空节点不入栈）</span></span><br><span class="line"></span><br><span class="line">                st.<span class="built_in">push</span>(node);                          <span class="comment">// 添加中节点</span></span><br><span class="line">                st.<span class="built_in">push</span>(<span class="literal">NULL</span>); <span class="comment">// 中节点访问过，但是还没有处理，加入空节点做为标记。</span></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) st.<span class="built_in">push</span>(node-&gt;left);    <span class="comment">// 添加左节点（空节点不入栈）</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; <span class="comment">// 只有遇到空节点的时候，才将下一个节点放进结果集</span></span><br><span class="line">                st.<span class="built_in">pop</span>();           <span class="comment">// 将空节点弹出</span></span><br><span class="line">                node = st.<span class="built_in">top</span>();    <span class="comment">// 重新取出栈中元素</span></span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">                result.<span class="built_in">push_back</span>(node-&gt;val); <span class="comment">// 加入到结果集</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>迭代遍历 - stack + while</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        stack&lt;TreeNode*&gt; st;</span><br><span class="line">        vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> result;</span><br><span class="line">        st.<span class="built_in">push</span>(root);</span><br><span class="line">        <span class="keyword">while</span> (!st.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            TreeNode* node = st.<span class="built_in">top</span>();                       <span class="comment">// 中</span></span><br><span class="line">            st.<span class="built_in">pop</span>();</span><br><span class="line">            result.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;right) st.<span class="built_in">push</span>(node-&gt;right);           <span class="comment">// 右（空节点不入栈）</span></span><br><span class="line">            <span class="keyword">if</span> (node-&gt;left) st.<span class="built_in">push</span>(node-&gt;left);             <span class="comment">// 左（空节点不入栈）</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="广度优先BFS（Breath-First-Search）"><a href="#广度优先BFS（Breath-First-Search）" class="headerlink" title="广度优先BFS（Breath First Search） "></a><a href="#context.4">广度优先BFS（Breath First Search）</a><a name="section.4"> </a></h4><p>层序遍历 - 队列</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 迭代法 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) &#123;</span><br><span class="line">        queue&lt;TreeNode*&gt; que;</span><br><span class="line">        <span class="keyword">if</span> (root != <span class="literal">NULL</span>) que.<span class="built_in">push</span>(root);</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="keyword">while</span> (!que.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="type">int</span> size = que.<span class="built_in">size</span>();</span><br><span class="line">            vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">            <span class="comment">// 这里一定要使用固定大小size，不要使用que.size()，因为que.size是不断变化的</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">                TreeNode* node = que.<span class="built_in">front</span>();</span><br><span class="line">                que.<span class="built_in">pop</span>();</span><br><span class="line">                vec.<span class="built_in">push_back</span>(node-&gt;val);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;left) que.<span class="built_in">push</span>(node-&gt;left);</span><br><span class="line">                <span class="keyword">if</span> (node-&gt;right) que.<span class="built_in">push</span>(node-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            result.<span class="built_in">push_back</span>(vec);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 递归法 */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">order</span><span class="params">(TreeNode* cur, vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; result, <span class="type">int</span> depth)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (result.<span class="built_in">size</span>() == depth) result.<span class="built_in">push_back</span>(<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;());</span><br><span class="line">        result[depth].<span class="built_in">push_back</span>(cur-&gt;val);</span><br><span class="line">        <span class="built_in">order</span>(cur-&gt;left, result, depth + <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">order</span>(cur-&gt;right, result, depth + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">levelOrder</span>(TreeNode* root) &#123;</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; result;</span><br><span class="line">        <span class="type">int</span> depth = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">order</span>(root, result, depth);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类 "></a><a href="#context.5">分类</a><a name="section.5"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230719102948357.png" alt="image-20230719102948357"></p>
-<p>C++标准库是有多个版本的，要知道我们使用的STL是哪个版本，才能知道对应的栈和队列的实现原理。</p>
-<p>那么来介绍一下，三个最为普遍的STL版本：</p>
-<ol>
-<li>HP STL 其他版本的C++ STL，一般是以HP STL为蓝本实现出来的，HP STL是C++ STL的第一个实现版本，而且开放源代码。</li>
-<li>P.J.Plauger STL 由P.J.Plauger参照HP STL实现出来的，被Visual C++编译器所采用，不是开源的。</li>
-<li>SGI STL 由Silicon Graphics Computer Systems公司参照HP STL实现，被Linux的C++编译器GCC所采用，SGI STL是开源软件，源码可读性甚高。</li>
-</ol>
-<p>栈提供push 和 pop 等等接口，所有元素必须符合先进后出规则，所以栈不提供走访功能，也不提供迭代器(iterator)。 不像是set 或者map 提供迭代器iterator来遍历所有元素。</p>
-<p><strong>栈是以底层容器完成其所有的工作，对外提供统一的接口，底层容器是可插拔的（也就是说我们可以控制使用哪种容器来实现栈的功能）。</strong></p>
-<p>所以STL中栈往往不被归类为容器，而被归类为container adapter（容器适配器）。</p>
-<p><strong>我们常用的SGI STL，如果没有指定底层实现的话，默认是以deque为缺省情况下栈的底层结构。</strong></p>
-<p>deque是一个双向队列，只要封住一段，只开通另一端就可以实现栈的逻辑了。</p>
-<p><strong>SGI STL中 队列底层实现缺省情况下一样使用deque实现的。</strong></p>
-<p>我们也可以指定vector为栈的底层实现，初始化语句如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">stack</span>&lt;<span class="type">int</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt; &gt; third;  <span class="comment">// 使用vector为底层容器的栈</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>刚刚讲过栈的特性，对应的队列的情况是一样的。</p>
-<p>队列中先进先出的数据结构，同样不允许有遍历行为，不提供迭代器, <strong>SGI STL中队列一样是以deque为缺省情况下的底部结构。</strong></p>
-<p>也可以指定list 为起底层实现，初始化queue的语句如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">queue</span>&lt;<span class="type">int</span>, <span class="built_in">std</span>::<span class="built_in">list</span>&lt;<span class="type">int</span>&gt;&gt; third; <span class="comment">// 定义以list为底层容器的队列</span></span><br></pre></td></tr></table></figure>
-
-<p>所以STL 队列也不被归类为容器，而被归类为container adapter（ 容器适配器）。</p>
-<h2 id="二叉搜索树（BST）"><a href="#二叉搜索树（BST）" class="headerlink" title="二叉搜索树（BST） "></a><a href="#context.6">二叉搜索树（BST）</a><a name="section.6"> </a></h2><p>也称<strong>二叉查找树 BST（Binary Search Tree）</strong></p>
-<p>二叉搜索树的<strong>重要特质</strong>为，<strong>在二叉树的基础上增加了左子树的所有值应都小于根节点的值，右子树的所有值应都大于根节点的值</strong>。</p>
-<p>乍看二叉搜索树的访问效率很高，最大的遍历次数为树的高度，最小的遍历次数为1。但实际存在某种特殊情况，比如根节点只有一个右孩子，然后剩下的全部元素为一条直线向下排列在左子树，造成分部不均匀，查找和插入效率几乎等同于线性结构。如下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230717160027885.png" alt="image-20230717160027885"></p>
-<p>力扣参考题目：<a href="https://leetcode-cn.com/problems/unique-binary-search-trees/">96. 不同的二叉搜索树</a>、<a href="https://leetcode-cn.com/problems/validate-binary-search-tree/">98. 验证二叉搜索树</a></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 不同的二叉搜索树</span></span><br><span class="line"><span class="comment">给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？返回满足题意的二叉搜索树的种数。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">numTrees</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">g</span><span class="params">(n + <span class="number">1</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">        g[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        g[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= i; ++j) &#123;</span><br><span class="line">                g[i] += g[j - <span class="number">1</span>] * g[i - j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> g[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 验证二叉搜索树</span></span><br><span class="line"><span class="comment">给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">Recur</span><span class="params">(TreeNode *tree, <span class="type">long</span> min, <span class="type">long</span> max)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="type">bool</span> ret;</span><br><span class="line">        <span class="keyword">if</span> (!tree)</span><br><span class="line">            ret = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (tree-&gt;val &lt;= min || tree-&gt;val &gt;= max)</span><br><span class="line">            ret = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            ret = <span class="built_in">Recur</span>(tree-&gt;left, min, tree-&gt;val) &amp;&amp; <span class="built_in">Recur</span>(tree-&gt;right, tree-&gt;val, max);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">isValidBST</span><span class="params">(TreeNode* root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Recur</span>(root, LONG_MIN, LONG_MAX);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="AVL树（BBT）"><a href="#AVL树（BBT）" class="headerlink" title="AVL树（BBT） "></a><a href="#context.7">AVL树（BBT）</a><a name="section.7"> </a></h2><p><strong>平衡二叉树</strong>全称叫做 平衡二叉搜索（排序）树，简称 AVL树。英文：Balanced Binary Tree （BBT）</p>
-<h3 id="定义"><a href="#定义" class="headerlink" title="定义 "></a><a href="#context.8">定义</a><a name="section.8"> </a></h3><p>AVL树本质上是一颗二叉搜索树，但它又具有以下特点：</p>
-<ol>
-<li>它是一颗空树或它的左右两个子树的高度差的绝对值不超过 1</li>
-<li>左右两个子树也是一颗平衡二叉树</li>
-</ol>
-<p><strong>需满足以下特征：</strong></p>
-<ol>
-<li>对于任何一颗子树的root根结点而言，它的左子树任何节点的key一定比root小，而右子树任何节点的key 一定比root大；</li>
-<li>对于AVL树而言，其中任何子树仍然是AVL树；</li>
-<li>每个节点的左右子节点的高度之差的绝对值最多为1；</li>
-</ol>
-<p><strong>平衡因子（BF -  Balance Factor） &#x3D; 左子树的深度 - 右子树的深度</strong></p>
-<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景 "></a><a href="#context.9">使用场景</a><a name="section.9"> </a></h3><p>由于AVL树必须保证左右子树平衡，Max(最大树高-最小树高) &lt;&#x3D; 1，所以在插入的时候很容易出现不平衡的情况，一旦这样，就需要进行旋转以求达到平衡。</p>
-<p>正是由于这种严格的平衡条件，导致AVL需要花大量时间在调整上，故AVL树一般使用场景在于<strong>查询场景</strong>， 而不是增加删除频繁的场景。</p>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入 "></a><a href="#context.10">插入</a><a name="section.10"> </a></h3><h4 id="1-左左型右旋"><a href="#1-左左型右旋" class="headerlink" title="1.左左型右旋 "></a><a href="#context.11">1.左左型右旋</a><a name="section.11"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718152017647.png" alt="image-20230718152017647"></p>
-<p>在结点T的 <strong>左结点（L）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左左型</strong> ，我们应该进行右旋转。</p>
-<h4 id="2-左右型的左右旋"><a href="#2-左右型的左右旋" class="headerlink" title="2.左右型的左右旋 "></a><a href="#context.12">2.左右型的左右旋</a><a name="section.12"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718152120654.png" alt="image-20230718152120654"></p>
-<p>在结点T的 <strong>左结点（L）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>左右型</strong> ，我们应该进行左右旋。</p>
-<p><strong>步骤如下：</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154009644.png" alt="image-20230718154009644"></p>
-<h4 id="3-右右型左旋"><a href="#3-右右型左旋" class="headerlink" title="3.右右型左旋 "></a><a href="#context.13">3.右右型左旋</a><a name="section.13"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154115097.png" alt="image-20230718154115097"></p>
-<p>在结点T的 <strong>右结点（R）</strong> 的 <strong>右子树（R）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右右型</strong> ，我们应该进行左旋转。</p>
-<h4 id="4-右左型右左旋"><a href="#4-右左型右左旋" class="headerlink" title="4.右左型右左旋 "></a><a href="#context.14">4.右左型右左旋</a><a name="section.14"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154205.png" alt="image-20230718154205"></p>
-<p>在结点T的 <strong>右结点（R）</strong> 的 <strong>左子树（L）</strong> 上做了插入元素的操作，我们称这种情况为 <strong>右左型</strong> ，我们应该进行右左旋。</p>
-<p><strong>步骤如下：</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/image-20230718154226276.png" alt="image-20230718154226276"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结 "></a><a href="#context.15">总结</a><a name="section.15"> </a></h3><table>
-<thead>
-<tr>
-<th>插入位置</th>
-<th>状态</th>
-<th>操作</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>在结点T的左结点（L）的 <strong>左子树（L）</strong> 上做了插入元素</td>
-<td>左左型</td>
-<td>右旋</td>
-</tr>
-<tr>
-<td>在结点T的左结点（L）的 <strong>右子树（R）</strong> 上做了插入元素</td>
-<td>左右型</td>
-<td>左右旋</td>
-</tr>
-<tr>
-<td>在结点T的右结点（R）的 <strong>右子树（R）</strong> 上做了插入元素</td>
-<td>右右型</td>
-<td>左旋</td>
-</tr>
-<tr>
-<td>在结点T的右结点（R）的 <strong>左子树（L）</strong> 上做了插入元素</td>
-<td>右左型</td>
-<td>右左旋</td>
-</tr>
-</tbody></table>
-<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树 "></a><a href="#context.16">红黑树</a><a name="section.16"> </a></h2><p>红黑树（RBT）继承了AVL可自平衡的优点，</p>
-<p>同时, 红黑树（RBT）在<strong>查询速率和平衡调整</strong>中寻找平衡，放宽了<strong>树的平衡条件</strong>，从而可以用于 <strong>增加删除频繁</strong>的场景。</p>
-<p>在实际应用中，红黑树的使用要多得多。</p>
-<p><strong>查找插入删除的时间复杂度为 O(logN)</strong></p>
-<h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义 "></a><a href="#context.17">定义</a><a name="section.17"> </a></h3><p><strong>需满足以下特征：</strong></p>
-<ol>
-<li>节点非黑即红</li>
-<li>根节点一定是黑色</li>
-<li>叶子节点（NIL）一定是黑色</li>
-<li>每个红色节点的两个子节点都为黑色。(从每个叶子到根的所有路径上不能有两个连续的红色节点)</li>
-<li>从任一节点到其每个叶子的所有路径，都包含相同数目的黑色节点。</li>
-</ol>
-<p><strong>注：默认插入节点颜色为红色</strong></p>
-]]></content>
-      <categories>
-        <category>星海</category>
-      </categories>
-      <tags>
-        <tag>星海</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>嵌入式</title>
-    <url>/2023/10/10/Embedded/</url>
-    <content><![CDATA[<span id="more"></span>
-<h1 id="嵌入式"><a href="#嵌入式" class="headerlink" title="嵌入式"></a>嵌入式</h1><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li><a href="#section.1">函数传参寄存器</a><a name="context.1"> </a></li>
-<li><a href="#section.2">IAP</a><a name="context.2"> </a></li>
-<li><a href="#section.3">ISP</a><a name="context.3"> </a></li>
-<li><a href="#section.4">OTA</a><a name="context.4"> </a><ul>
-<li><a href="#section.5">跳转函数</a><a name="context.5"> </a></li>
-<li><a href="#section.6">踩坑记录</a><a name="context.6"> </a><ul>
-<li><a href="#section.7">协议传输失败？</a><a name="context.7"> </a></li>
-<li><a href="#section.8">跳转函数？</a><a name="context.8"> </a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#section.9">STM32</a><a name="context.9"> </a><ul>
-<li><a href="#section.10">系统架构</a><a name="context.10"> </a></li>
-<li><a href="#section.11">内核</a><a name="context.11"> </a></li>
-<li><a href="#section.12">启动配置</a><a name="context.12"> </a></li>
-<li><a href="#section.13">启动流程</a><a name="context.13"> </a></li>
-<li><a href="#section.14">中断向量表</a><a name="context.14"> </a></li>
-<li><a href="#section.15">map文件分析</a><a name="context.15"> </a></li>
-<li><a href="#section.16">内存管理</a><a name="context.16"> </a><ul>
-<li><a href="#section.17">6个储存数据段</a><a name="context.17"> </a></li>
-<li><a href="#section.18">3种存储属性区</a><a name="context.18"> </a></li>
-<li><a href="#section.19">加载域和运行域</a><a name="context.19"> </a></li>
-<li><a href="#section.20">FreeRTOS中的堆</a><a name="context.20"> </a></li>
-</ul>
-</li>
-<li><a href="#section.21">生成bin文件</a><a name="context.21"> </a></li>
-</ul>
-</li>
-<li><a href="#section.22">总线概览</a><a name="context.22"> </a></li>
-<li><a href="#section.23">I2C</a><a name="context.23"> </a></li>
-<li><a href="#section.24">SPI</a><a name="context.24"> </a><ul>
-<li><a href="#section.25">连接方式</a><a name="context.25"> </a></li>
-<li><a href="#section.26">基本通讯过程</a><a name="context.26"> </a></li>
-<li><a href="#section.27">四种模式</a><a name="context.27"> </a></li>
-<li><a href="#section.28">CPOL</a><a name="context.28"> </a></li>
-<li><a href="#section.29">CPHA</a><a name="context.29"> </a></li>
-</ul>
-</li>
-<li><a href="#section.30">串口通讯</a><a name="context.30"> </a><ul>
-<li><a href="#section.31">物理层</a><a name="context.31"> </a><ul>
-<li><a href="#section.32">电平标准</a><a name="context.32"> </a></li>
-<li><a href="#section.33">RS232信号线</a><a name="context.33"> </a></li>
-</ul>
-</li>
-<li><a href="#section.34">协议层</a><a name="context.34"> </a><ul>
-<li><a href="#section.35">波特率</a><a name="context.35"> </a></li>
-<li><a href="#section.36">通讯的起始和停止信号</a><a name="context.36"> </a></li>
-<li><a href="#section.37">有效数据</a><a name="context.37"> </a></li>
-<li><a href="#section.38">数据校验</a><a name="context.38"> </a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#section.39">Cortex - M 架构</a><a name="context.39"> </a><ul>
-<li><a href="#section.40">处理器内部的寄存器组和特殊寄存器</a><a name="context.40"> </a></li>
-<li><a href="#section.41">通用寄存器组</a><a name="context.41"> </a></li>
-<li><a href="#section.42">堆栈指针SP</a><a name="context.42"> </a></li>
-<li><a href="#section.43">LR（linker registers）</a><a name="context.43"> </a></li>
-<li><a href="#section.44">特殊寄存器</a><a name="context.44"> </a><ul>
-<li><a href="#section.45">中断屏蔽特殊寄存器IMSR</a><a name="context.45"> </a></li>
-<li><a href="#section.46">特殊寄存器CONTROL</a><a name="context.46"> </a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#section.47">中断</a><a name="context.47"> </a><ul>
-<li><a href="#section.48">NVIC配置</a><a name="context.48"> </a></li>
-</ul>
-</li>
-<li><a href="#section.49">DMA</a><a name="context.49"> </a><ul>
-<li><a href="#section.50">主要作用</a><a name="context.50"> </a></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="函数传参寄存器"><a href="#函数传参寄存器" class="headerlink" title="函数传参寄存器 "></a><a href="#context.1">函数传参寄存器</a><a name="section.1"> </a></h2><p>在主程序和子程序中传递参数，通常有3种方法，（1）寄存器（2）数据区的变量传递（3）堆栈传递</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>方式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>x86-32位</td>
-<td>使用栈传递</td>
-</tr>
-<tr>
-<td>x64-64位</td>
-<td>前4个参数分别是 <code>rcx rdx r8 r9</code>进行传参。多余的通过栈传参，从右向左入栈。<br />在被调用函数执行前，会先将寄存器中的参数压入堆栈，之后的访问会通过栈寄存器加上偏移位置来访问。<br />点型参数保存在寄存器xmm0,xmm1…中。</td>
-</tr>
-<tr>
-<td>arm</td>
-<td><code>R0 R1 R2 R3</code>为参数寄存器，大于四个参数时，借助于栈进行传递</td>
-</tr>
-</tbody></table>
-<h2 id="IAP"><a href="#IAP" class="headerlink" title="IAP "></a><a href="#context.2">IAP</a><a name="section.2"> </a></h2><p>IAP（In Application Programming 应用编程）技术，是从结构上将 Flash 存储器映射为两个或多个分区，在一个分区中对其他分区进行编程，这个分区通常成为 BootLoader</p>
-<h2 id="ISP"><a href="#ISP" class="headerlink" title="ISP "></a><a href="#context.3">ISP</a><a name="section.3"> </a></h2><p>ISP（In System Programming 系统编程）技术，是通过下载器对单片机内部的 Flash 存储器进行编程，如 JTAG 等</p>
-<h2 id="OTA"><a href="#OTA" class="headerlink" title="OTA "></a><a href="#context.4">OTA</a><a name="section.4"> </a></h2><p>OTA 是空中升级 <code>Over the air</code> 的缩写，指的是通过无线通信网络（如Wi-Fi、蓝牙、LoRa等）对嵌入式系统进行远程升级或更新。</p>
-<p>在嵌入式系统中，OTA技术可以用于更新固件、软件或配置文件等。通过OTA技术，用户可以在不需要物理接触设备的情况下，对其进行升级和更新，从而提高系统的可靠性、安全性和灵活性。</p>
-<h3 id="跳转函数"><a href="#跳转函数" class="headerlink" title="跳转函数 "></a><a href="#context.5">跳转函数</a><a name="section.5"> </a></h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">IapJumpToApp</span><span class="params">(<span class="type">uint32_t</span> appaddr)</span></span><br><span class="line">&#123;</span><br><span class="line">    pFunction JumpToApplication;</span><br><span class="line">    <span class="comment">/** stm32F103 的 SRAM 为 0x2000 0000 ~ 0x2000 FFFF */</span></span><br><span class="line">    <span class="keyword">if</span>(((*(vu32*)appaddr)&amp;<span class="number">0x2FF00000</span>) == <span class="number">0x20000000</span>)  <span class="comment">///&lt; 检查栈顶地址是否合法</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">/* Initialize user application&#x27;s Stack Pointer &amp; Jump to user application */</span></span><br><span class="line">        <span class="comment">/** 屏蔽所有中断 */</span></span><br><span class="line">        __disable_irq();</span><br><span class="line"><span class="comment">//        __set_PRIMASK(1);  ///&lt; 均可</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">/** 1.设置用户代码区第二个字为程序开始地址 (复位地址) */</span></span><br><span class="line">        JumpToApplication = (pFunction) (*(__IO <span class="type">uint32_t</span>*) (appaddr + <span class="number">4</span>));</span><br><span class="line">        __set_PSP(*(__IO <span class="type">uint32_t</span>*) appaddr);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/** 2.初始化 APP 堆栈指针 (用户代码区的第一个字用于存放栈顶地址) */</span></span><br><span class="line">        __set_MSP(*(__IO <span class="type">uint32_t</span>*) appaddr);</span><br><span class="line">        </span><br><span class="line">        __set_CONTROL(<span class="number">0</span>);  <span class="comment">///&lt; 设置堆栈指针为 MSP</span></span><br><span class="line">        <span class="comment">/** 3.跳转到 APP */</span></span><br><span class="line">        JumpToApplication();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-<h3 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录 "></a><a href="#context.6">踩坑记录</a><a name="section.6"> </a></h3><h4 id="协议传输失败？"><a href="#协议传输失败？" class="headerlink" title="协议传输失败？ "></a><a href="#context.7">协议传输失败？</a><a name="section.7"> </a></h4><p>中断问题，后续让 <code>os</code> 管理即可，同时在串口中断加入 <code>taskENTER_CRITICAL_FROM_ISR();</code></p>
-<h4 id="跳转函数？"><a href="#跳转函数？" class="headerlink" title="跳转函数？ "></a><a href="#context.8">跳转函数？</a><a name="section.8"> </a></h4><p><code>jump</code> 函数需要屏蔽中断，并且 <code>__set_CONTROL(0)</code>，将0写入 <code>CONTROL</code> 寄存器，即程序运行在特权访问等级，使用MSP主栈指针。 <b><font color='blue' size=3 face="">主要作用是将 PSP 改为 MSP</font></b> </p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310052104239.png" alt="image-20231005210154317"></p>
-<h2 id="STM32"><a href="#STM32" class="headerlink" title="STM32 "></a><a href="#context.9">STM32</a><a name="section.9"> </a></h2><h3 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构 "></a><a href="#context.10">系统架构</a><a name="section.10"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192253545.png" alt="img"></p>
-<p><strong>代码区(code area)从0x00000000开始</strong>，通过指令总线(ICode Bus)和数据总线(DCode Bus)对Flash中代码进行访问。</p>
-<p><strong>数据区(SRAM)从0x20000000开始</strong>，通过系统总线(System Bus)进行访问。</p>
-<p> <b><font color='blue' size=3 face="">内存为小端存储</font></b> </p>
-<h3 id="内核"><a href="#内核" class="headerlink" title="内核 "></a><a href="#context.11">内核</a><a name="section.11"> </a></h3><p>为  <b><font color='blue' size=3 face="">Cortex-M3 内核</font></b> 处理器</p>
-<p>三个特殊的寄存器R13、R14、R15<br>R13：堆栈<br>R14 ：LR寄存器，链接寄存器。保存调用子程序的地址<br>R15：程序计数器<br>另外还有一个特殊的寄存器 <strong>状态寄存器</strong>，通常用在操作系统中，参考 <a href="#%E7%89%B9%E6%AE%8A%E5%AF%84%E5%AD%98%E5%99%A8">特殊寄存器</a></p>
-<p><strong>双堆栈</strong></p>
-<p><strong>简述：</strong></p>
-<p>本质是寄存器R13，分成两个堆栈， <b><font color='blue' size=3 face="">MSP（中断中使用的）</font></b>  和  <b><font color='blue' size=3 face="">PSP（任务中使用）</font></b> 。</p>
-<p><strong>意义：</strong></p>
-<p>两个堆栈，一个处理任务，一个处理中断，更安全。</p>
-<h3 id="启动配置"><a href="#启动配置" class="headerlink" title="启动配置 "></a><a href="#context.12">启动配置</a><a name="section.12"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308192255947.png" alt="img"></p>
-<p> STM32系列可以有3种启动模式，由BOOT1与BOOT0的设置决定选择Flash、System memory还是SRAM作为启动空间。</p>
-<ol>
-<li><strong>从主闪存存储器启动(Main Flash memory)：</strong><br> 主闪存存储器被映射到启动空间(0x0000 0000)，<strong>但仍然能够在它原有的地址(0x0800 0000)访问它</strong>，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</li>
-<li><strong>从系统存储器启动(System memory)：</strong><br> 系统存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的地址(互联型产品原有地址为0x1FFF B000，其它产品原有地址为0x1FFF F000)访问它。 </li>
-<li><strong>从内置SRAM启动(Embedded SRAM)：</strong><br> <strong>只能在0x20000000开始的地址区访问SRAM，启动后这个映射消失，需要重定位中断向量表。</strong></li>
-</ol>
-<p>STM32将 0x00000000 到 0x0005FFFF 的区域作为启动空间（boot space）的别名区。</p>
-<h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程 "></a><a href="#context.13">启动流程</a><a name="section.13"> </a></h3><p>精简版：</p>
-<ol>
-<li><p>&#x3D;&#x3D;<strong>通过Boot引脚设定,寻找初始地址</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>初始化栈指针 __initial_sp，指针位于SRAM区</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>指向复位程序 Reset_Hander</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>设置异常中断 HardFault_Handler</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>设置系统时钟 SystemInit</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p>&#x3D;&#x3D;<strong>调用C库函数 _main</strong>&#x3D;&#x3D; </p>
-</li>
-<li><p><strong>首先复位MCU，进行地址映射，获取栈顶指针MSP和PC指针的内容</strong></p>
-<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201444357.png" alt="img"><br> MCU上电后，自动执行<br> 当程序编译完成之后，sp堆栈栈顶指针都已经确定。<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201307158.png" alt="img"><br> R13(SP堆栈指针)的值为0x20000868(MSP)存在地址为0x00000000中，R15(PC程序计数器)的值为0x08000420存在地址为0x00000004中，堆栈指针指向sram区，且堆栈必须建立在该区。</p>
-<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201308487.png" alt="img"></p>
-<p> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201308463.png" alt="img"></p>
-<p> 当从flash中启动时SP在地址0x08000000中存储,PC的值在地址0x08000004中存储。但仍可以在原地址中被访问。这也就是所谓的映射。</p>
-<p>  <b><font color='blue' size=3 face="">这即是手册中所说：主闪存存储器被映射到启动空间(0x0000 0000)，但仍然能够在它原有的地址(0x0800 0000)访问它，即闪存存储器的内容可以在两个地址区域访问，0x0000 0000或0x0800 0000。</font></b> </p>
-</li>
-<li><p><strong>根据PC的值找到复位中断处理函数Reset_Handler</strong><br> <strong>(1) 进入中断处理函数 <code>Reset_Handler</code></strong><br> 中断处理函数外部定义<br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308201459507.png" alt="img">原地址0x00000004处的内容为0x0800022D,取出后的内容变为了0x0800022C,它把末位的1变成了0，这个是由于内存对齐造成的，因为cortex-m3核PC的LSB一定读回0，因此指令至少是半字对齐的（《cortex-m3编程手册》）。</p>
-<p> <code>LDR  R0,  =SystemInit</code> 将函数 <code>SystemInit</code> 的入口地址传给 R0，从反汇编窗口可以看到指令被写成 <code>LDR   r0,   [pc,#36]</code>，表明 <code>SystemInit</code> 的入口地址在存放在 PC 指针偏移 36 处，即：<code>0x08000022C（+0x4）+0x24=0x08000254</code>（因为CM3内部使用了指令流水线，读PC时返回的值是当前指令的地址+4《Cortex™-M3权威指南》）下一条指令在 0x0800022E 处。</p>
-<p> <strong>(2) 进入 <code>SystemInit</code> 函数MCU复位后，PC所指向的第一行代码</strong></p>
-<p> 复位PC后，此时程序寻址到PC指针指示的地址0x0800022C处准备执行</p>
-<p> BLX R0 将R0的值传给PC（必须保证加载到PC的数值是奇数（即LSB&#x3D;1），传给PC后，PC的LSB读回0），调用SystemInit函数。</p>
-<p> SystemInit这个函数里面开启了外部晶振，设置了锁相环PLL，关闭了所有中断，设置了时钟为72MHz，并且重定位中断向量表在0x08000000处（这句在Flash启动时可以不需要，因为能从0x00000000映射到0x08000000）。</p>
-</li>
-</ol>
-<h3 id="中断向量表"><a href="#中断向量表" class="headerlink" title="中断向量表 "></a><a href="#context.14">中断向量表</a><a name="section.14"> </a></h3><p>STM32的中断向量表是干什么的？到底有什么用？它放在哪里？</p>
-<p>一、中断向量表里有什么？它放在那里？到底有什么用？<br>1、中断向量表实际上就是存放在Code区（也就是STM32内部的Flash区）从0x00000000地址开始的一个数组，数组的成员为4个字节，而且这些数组在启动文件的时候已经初始化好。</p>
-<p>2、STM32根据内核和外设中断优先级，同一标号，标号越小，优先级越大。然后把内核和外设的中断服务函数的地址放在这个数组里面，数组的下标跟中断的优先级对应，我们也把这个中断的编号叫做中断向量。</p>
-<p>3、在启动文件执行的时候，内核和每个外设的中断服务函数的地址都是已经确定好的，地址就存放在中断向量表中，而且在启动文件里面已经写好了中断服务函数，只是这些中断服务函数为空，而且带[weak]弱定义，那么我们就需要在C文件里面重新实现这个中断服务函数，用户写这个中断服务函数的时候，函数名必须跟启动文件里面写的中断函数名对应，因为函数名对应的就是中断服务函数的地址，如果中断服务函数名和启动文件的名字不一样，就默认启动文件里面预先写好的空的中断服务函数，而且是一个死循环，程序就会一直卡死在中断服务函数里面。</p>
-<p>二、那内核是如何响应中断的呢？<br>当中断来临的时候，首先取向量，每个中断的中断向量不一样，然后根据向量查询中断向量表，根据里面的地址找到中断服务函数，从而实现整个中断的响应过程。</p>
-<h3 id="map文件分析"><a href="#map文件分析" class="headerlink" title="map文件分析 "></a><a href="#context.15">map文件分析</a><a name="section.15"> </a></h3><p>在map文件的最后，都会有这样的汇总信息，如下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103093.png" alt="image-20230625222801536"></p>
-<p>上图中：</p>
-<p><strong>Code：</strong>代码存储区。这部分是存放代码的。</p>
-<p><strong>RO-Data：</strong>只读数据区。这部分保存程序中用 const 定义的全局常量数据和字符串。</p>
-<p><strong>RW-Data：</strong>已初始化的读写数据。程序中定义的已经初始化的全局变量和静态变量。</p>
-<p><strong>ZI-Data：</strong>未初始化的读写数据。程序中定义的未初始化的全局变量和静态变量。这部分内容是在程序运行的时候保存在RAM中的。</p>
-<p><strong><mark>栈顶指针的值 &#x3D; RW-data + ZI-data</mark></strong></p>
-<p>map文件中还做了统计：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103870.png" alt="image-20230625222912989"></p>
-<p>从上图可以看出：</p>
-<p><strong>RO：</strong>只读数据。这部分包含 Code 和 RO-Data 这部分是存放在Flash中的。</p>
-<p><strong>RW：</strong>可读写数据。这部分包含 RW-Data 和 ZI-Data，这部分是存放在RAM中的，就是占据运行内存的。</p>
-<p><strong>ROM Size：</strong>总的ROM的大小。这部分包含Code、RO-data、RW-Data，是程序中占Flash的实际大小。</p>
-<p>为了方便理解，可以参考下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242103202.png" alt="image-20230625222928677"><br> <b><font color='blue' size=3 face="">注意：Flash &#x3D; Code + RO-Data + RW-Data</font></b> </p>
-<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理 "></a><a href="#context.16">内存管理</a><a name="section.16"> </a></h3><p><code>stm32</code> 的内存管理就是对 <code>0x0800 0000</code> 开始的 <code>Flash</code> 部分和 <code>0x2000 0000</code> 开始的 <code>SRAM</code> 部分的使用和管理</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092223474.png" alt="image-20230909222128002"></p>
-<h4 id="6个储存数据段"><a href="#6个储存数据段" class="headerlink" title="6个储存数据段 "></a><a href="#context.17">6个储存数据段</a><a name="section.17"> </a></h4><ul>
-<li><strong>data</strong><br>  数据段，储存已初始化的，且初始化不为0的全局变量和静态变量</li>
-<li><strong>bss</strong><br>  Block Started by Symbol。储存未初始化的，或初始化为0的全局变量和静态变量</li>
-<li><strong>text（Code Segment&#x2F;Text Segment）</strong><br>  代码段，储存程序代码</li>
-<li><strong>constdata</strong><br>  储存只读常量</li>
-<li><strong>heap</strong><br>  堆，存放进程运行中被动态分配的内存段。其可用大小定义在启动文件startup_stm32fxx.s中，由程序员使用malloc()和free()函数进行分配和释放</li>
-<li><strong>stack</strong><br>  栈，其大小定义在启动文件startup_stm32fxx.s中，由系统自动分配和释放。可存放局部变量、函数的参数和返回值，中断发生时能保存现场。但是static声明的局部静态变量不储存在栈中，而是放在data数据段</li>
-</ul>
-<h4 id="3种存储属性区"><a href="#3种存储属性区" class="headerlink" title="3种存储属性区 "></a><a href="#context.18">3种存储属性区</a><a name="section.18"> </a></h4><ul>
-<li><strong>RO（Read Only）</strong><br>  烧写到 Flash 中，可以长久保存。text 代码段和 constdata 都属于 RO。由于需要掉电储存，RO 里也保存了一份 data 的数据</li>
-<li><strong>RW（Read Write）</strong><br>  储存在RAM中。data属于此区。上电时单片机会将Flash中保存的data类型数据复制到RAM中，以供读写使用</li>
-<li><strong>ZI（Zero Init）</strong><br>  零初始化区，同样储存在RAM里。系统上电时会把此区域的数据进行0初始化。bss，heap，stack均属于这个区域</li>
-</ul>
-<h4 id="加载域和运行域"><a href="#加载域和运行域" class="headerlink" title="加载域和运行域 "></a><a href="#context.19">加载域和运行域</a><a name="section.19"> </a></h4><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092245842.png" alt="image-20230909224556738"></p>
-<p><strong>程序占用 <mark>Flash &#x3D; Code + RO data + RW data</mark></strong></p>
-<p><strong>程序运行时候占用 <mark>RAM &#x3D; RW data + ZI data</mark></strong></p>
-<p><strong>Code + RO data + RW data</strong> 的大小也是生成的 <strong>bin</strong> 文件的大小</p>
-<h4 id="FreeRTOS中的堆"><a href="#FreeRTOS中的堆" class="headerlink" title="FreeRTOS中的堆 "></a><a href="#context.20">FreeRTOS中的堆</a><a name="section.20"> </a></h4><p><mark>FreeRTOS中的堆也属于ZI区</mark>，但是它与STM32内存结构中的堆并不占用相同的空间，两个堆同时存在。以下出现的堆(heap)表示FreeRTOS堆，另外<mark>在STM32启动文件中定义大小的堆称为系统堆</mark></p>
-<p>FreeRTOS内核主要使用的内存管理函数为：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> *<span class="title function_">pvPortMalloc</span><span class="params">( <span class="type">size_t</span> xSize )</span>;	<span class="comment">//申请内存</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vPortFree</span><span class="params">( <span class="type">void</span> *pv )</span>;	        <span class="comment">//释放内存</span></span><br></pre></td></tr></table></figure>
-
-<p>以上函数控制的是 FreeRTOS 堆；系统堆则应使用 <code>malloc()</code> 和 <code>free()</code> 来分配和释放。</p>
-<p>FreeRTOS有 5 种 heap 的实现方式，在STM32CubeMX中默认为 heap_4.c。这种方式可以满足大部分使用需求，暂时不用关注其实现细节。</p>
-<p>这一个堆的大小定义在 <code>FreeRTOSConfig.c</code> 中：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> configTOTAL_HEAP_SIZE ((size_t)3072)</span></span><br></pre></td></tr></table></figure>
-
-
-
-<p>FreeRTOS创建任务时默认的任务栈大小为128字，在32位系统中即为128*4&#x3D;512Byte，再加上TCB块占用84Byte，一共596Byte。而大小为3072Byte的堆允许创建3个这样的任务，占用约1800Byte。堆中剩余的部分则存放了系统内核、信号量、队列、任务通知等数据。</p>
-<p>需要创建更多任务时，堆的大小可自行修改。用RAM的空间减去已分配的空间，即为能给堆分配的最大空间：</p>
-<p><code>Space = RAM − bss − data − SysHeap − Stack</code></p>
-<h3 id="生成bin文件"><a href="#生成bin文件" class="headerlink" title="生成bin文件 "></a><a href="#context.21">生成bin文件</a><a name="section.21"> </a></h3><ol>
-<li><p><strong>生成 axf 输入文件</strong><br> <img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309092258040.png" alt="image-20230909225724296"></p>
-</li>
-<li><p><strong>生成 bin 输出文件</strong></p>
- <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// D:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin --output .\Obj\DW21CTLA.bin .\Obj\xxx.axf</span></span><br><span class="line"><span class="comment">// --output 可缩写为 -o</span></span><br></pre></td></tr></table></figure>
-
-<p> <img src="C:/Users/breeze/AppData/Roaming/Typora/typora-user-images/image-20230909225816776.png" alt="image-20230909225816776"></p>
-</li>
-</ol>
-<h2 id="总线概览"><a href="#总线概览" class="headerlink" title="总线概览 "></a><a href="#context.22">总线概览</a><a name="section.22"> </a></h2><p>UART、I2C、SPI、USB异同</p>
-<table>
-<thead>
-<tr>
-<th>总线接口</th>
-<th>串&#x2F;并</th>
-<th>同步&#x2F;异步</th>
-<th>速率</th>
-<th>工作方式</th>
-<th>用线</th>
-<th>总线拓扑结构</th>
-<th>信号距离</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>UART</td>
-<td>串</td>
-<td>异步</td>
-<td>慢<br />波特率设置</td>
-<td>全双工</td>
-<td>2线<br />RX、TX</td>
-<td>RS485支持总线式、<br />星形、树形</td>
-<td>远<br />最远1200m</td>
-</tr>
-<tr>
-<td>I2C</td>
-<td>串</td>
-<td>同步</td>
-<td>慢</td>
-<td>半双工</td>
-<td>2线<br />SDA、SCL</td>
-<td>总线型（特殊的树形）</td>
-<td>近</td>
-</tr>
-<tr>
-<td>SPI</td>
-<td>串</td>
-<td>同步</td>
-<td>快</td>
-<td>全双工</td>
-<td>3线或4线<br />SCLK、SIMO、<br />SOMI、SS（片选）</td>
-<td>环形</td>
-<td>远</td>
-</tr>
-<tr>
-<td>USB</td>
-<td>串</td>
-<td>同步</td>
-<td>快</td>
-<td>半双工</td>
-<td>4线<br />VBUS（5V）、GND、<br />D+、D-（3.3V）</td>
-<td>星形</td>
-<td>近</td>
-</tr>
-</tbody></table>
-<h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C "></a><a href="#context.23">I2C</a><a name="section.23"> </a></h2><h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI "></a><a href="#context.24">SPI</a><a name="section.24"> </a></h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式 "></a><a href="#context.25">连接方式</a><a name="section.25"> </a></h3><p>3条总线 + 1条片选线</p>
-<p><code>SCK、MOSI、MISO + SS/NSS/CS</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242104024.png" alt="image-20230805195959632"></p>
-<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.26">基本通讯过程</a><a name="section.26"> </a></h3><p><img src="/BCCPP.assets/image-20230805194747396.png" alt="image-20230805194747396"></p>
-<h3 id="四种模式"><a href="#四种模式" class="headerlink" title="四种模式 "></a><a href="#context.27">四种模式</a><a name="section.27"> </a></h3><table>
-<thead>
-<tr>
-<th>SPI 模式</th>
-<th>时钟极性<br />CPOL</th>
-<th>时钟相位<br />CPHA</th>
-<th>空闲时 SCK 时钟</th>
-<th>采样时刻</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>低电平</td>
-<td>奇数边沿</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>低电平</td>
-<td>偶数边沿</td>
-</tr>
-<tr>
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>高电平</td>
-<td>奇数边沿</td>
-</tr>
-<tr>
-<td>3</td>
-<td>1</td>
-<td>1</td>
-<td>高电平</td>
-<td>偶数边沿</td>
-</tr>
-</tbody></table>
-<p>主机与从机需要工作在相同的模式下才可以正常通讯</p>
-<p>实际中采用较多的是 <strong>“模式 0”</strong> 与 <strong>“模式 3”</strong>。</p>
-<h3 id="CPOL"><a href="#CPOL" class="headerlink" title="CPOL "></a><a href="#context.28">CPOL</a><a name="section.28"> </a></h3><p>指 SPI 通讯设备处于空闲状态时，SCK 信号线的电平信号 (即 SPI 通讯开始前、 NSS 线为高电平时 SCK 的状态)。CPOL&#x3D;0 时，SCK 在空闲状态时为低电平，CPOL&#x3D;1 时，则相反。</p>
-<h3 id="CPHA"><a href="#CPHA" class="headerlink" title="CPHA "></a><a href="#context.29">CPHA</a><a name="section.29"> </a></h3><p>指数据的采样的时刻，当 CPHA&#x3D;0 时，MOSI 或 MISO 数据线上的信号将会在SCK 时钟线的“奇数边沿”被采样。 当 CPHA&#x3D;1 时，数据线在 SCK 的“偶数边沿”采样</p>
-<p><img src="/BCCPP.assets/image-20230805194827664.png" alt="image-20230805194827664"></p>
-<h2 id="串口通讯"><a href="#串口通讯" class="headerlink" title="串口通讯 "></a><a href="#context.30">串口通讯</a><a name="section.30"> </a></h2><p>波特率 115200 为每秒传输 115200 bit</p>
-<p>如果串口为8位数据位，无校验位，则，一帧为 1起始位 + 8数据位 + 1停止位 &#x3D; 10bit</p>
-<p>115200 &#x2F; 10 &#x2F; 1024 &#x3D; 11.25 kb&#x2F;s</p>
-<p>分为<strong>物理层</strong>和<strong>协议层</strong>来讲解</p>
-<h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层 "></a><a href="#context.31">物理层</a><a name="section.31"> </a></h3><h4 id="电平标准"><a href="#电平标准" class="headerlink" title="电平标准 "></a><a href="#context.32">电平标准</a><a name="section.32"> </a></h4><p>根据通讯使用的电平标准不同，串口通讯可分为 TTL 标准及 RS-232 标准，见下表</p>
-<table>
-<thead>
-<tr>
-<th>通讯标准</th>
-<th>电平标准（发送端）</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>5V TTL</td>
-<td>逻辑1：2.4V ~ 5V</td>
-</tr>
-<tr>
-<td></td>
-<td>逻辑0：0 ~ 0.5V</td>
-</tr>
-<tr>
-<td>RS-232</td>
-<td>逻辑1：-15 ~ -3V</td>
-</tr>
-<tr>
-<td></td>
-<td>逻辑0：+3V ~ +15V</td>
-</tr>
-</tbody></table>
-<p>我们知道<strong>常见的电子电路中常使用 TTL 的电平标准</strong>，理想状态下，使用 5V 表示二进制逻辑 1， 使用 0V 表示逻辑 0；</p>
-<p>而为了增加串口通讯的远距离传输及抗干扰能力，它使用-15V 表示逻辑 1， +15V 表示逻辑 0。</p>
-<p>使用 RS232 与 TTL 电平校准表示同一个信号时的对比如下图</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165301371.png" alt="image-20230720165301371"></p>
-<p><strong>注：</strong>因为控制器一般使用 TTL 电平标准，所以常常会使用 MA3232 芯片对 TTL 及 RS-232 电平的信号进行互相转换。</p>
-<h4 id="RS232信号线"><a href="#RS232信号线" class="headerlink" title="RS232信号线 "></a><a href="#context.33">RS232信号线</a><a name="section.33"> </a></h4><p>在最初的应用中，RS-232 串口标准常用于计算机、路由与调制调解器 (MODEN，俗称“猫”) 之间的通讯， 在这种通讯系统中，设备被分为数据终端设备 DTE(计算机、路由) 和数据通讯设备DCE(调制调解器)。 我们以这种通讯模型讲解它们的信号线连接方式及各个信号线的作用。</p>
-<p>在旧式的台式计算机中一般会有 RS-232 标准的 COM 口 (也称 DB9 接口)，见图下。</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165655500.png" alt="image-20230720165655500"></p>
-<p><strong>接口示意：</strong></p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165720644.png" alt="image-20230720165720644"></p>
-<p>信号线说明 (公头，为方便理解，可把 DTE 理解为计算机，DCE 理解为调制调解器)</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>名称</th>
-<th>符号</th>
-<th>数据方向</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>载波检测</td>
-<td>DCD</td>
-<td>DTEDCE</td>
-<td>Data Carrier Detect，数据载波检测，用于DTE告知对方，本机是否收到对方的载波信号</td>
-</tr>
-<tr>
-<td>2</td>
-<td>接收数据</td>
-<td>RXD</td>
-<td>DTEDCE</td>
-<td>Receive Data，数据接收信号，即输入 。</td>
-</tr>
-<tr>
-<td>3</td>
-<td>发送数据</td>
-<td>TXD</td>
-<td>DTEDCE</td>
-<td>Transmit Data，数据发送信号，即输出。两个设备之间的TXD与RXD应交叉相连</td>
-</tr>
-<tr>
-<td>4</td>
-<td>数据终端 (DTE) 就绪</td>
-<td>DTR</td>
-<td>DTEDCE</td>
-<td>Data Terminal Ready，数据终端就绪，用于DTE向对方告知本机是否已准备好</td>
-</tr>
-<tr>
-<td>5</td>
-<td>信号地</td>
-<td>GND</td>
-<td></td>
-<td>地线，两个通讯设备之间的地电位可能不一样，这会影响收发双方的电平信号，所以两个串口设备之间必须要使用地线连接，即共地。</td>
-</tr>
-<tr>
-<td>6</td>
-<td>数据设备(DCE)就绪</td>
-<td>DSR</td>
-<td>DTEDCE</td>
-<td>Data Set Ready，数据发送就绪，用于DCE告知对方本机是否处于待命状态</td>
-</tr>
-<tr>
-<td>7</td>
-<td>请求发送</td>
-<td>RTS</td>
-<td>DTEDCE</td>
-<td>Request To Send，请求发送， DTE 请求 DCE 本设备向DCE端发送数据</td>
-</tr>
-<tr>
-<td>8</td>
-<td>允许发送</td>
-<td>CTS</td>
-<td>DTEDCE</td>
-<td>Clear To Send，允许发送，DCE回应对方的RTS发送请求，告知对方是否可以发送数据</td>
-</tr>
-<tr>
-<td>9</td>
-<td>响铃指示</td>
-<td>RI</td>
-<td>DTEDCE</td>
-<td>Ring Indicator，响铃指示，表示DCE端与线路已接通</td>
-</tr>
-</tbody></table>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720165858716.png" alt="image-20230720165858716"></p>
-<p>串口线中的 RTS、CTS、DSR、DTR 及 DCD 信号，使用逻辑 1 表示信号有效，逻辑 0 表示信号无效。 例如，当计算机端控制 DTR 信号线表示为逻辑 1 时，它是为了告知远端的调制调解器，本机已准备好接收数据， 0 则表示还没准备就绪。</p>
-<p><strong>在目前的其它工业控制使用的串口通讯中，一般只使用 RXD、TXD 以及 GND 三条信号线！！！</strong></p>
-<h3 id="协议层"><a href="#协议层" class="headerlink" title="协议层 "></a><a href="#context.34">协议层</a><a name="section.34"> </a></h3><p>串口通讯的数据包由发送设备通过自身的 TXD 接口传输到接收设备的 RXD 接口。在串口通讯的协议层中， 规定了数据包的内容，它由启始位、主体数据、校验位以及停止位组成，通讯双方的数据包格式要约定一致才能正常收发数据</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230720170204183.png" alt="image-20230720170204183"></p>
-<h4 id="波特率"><a href="#波特率" class="headerlink" title="波特率 "></a><a href="#context.35">波特率</a><a name="section.35"> </a></h4><p>本章中主要讲解的是串口异步通讯，异步通讯中由于没有时钟信号 (如前面讲解的 DB9 接口中是没有时钟信号的)， 所以两个通讯设备之间需要约定好波特率，即每个码元的长度，以便对信号进行解码，如上图中用虚线分开的每一格就是代表一个码元。 常见的波特率为 4800、9600、115200 等。</p>
-<h4 id="通讯的起始和停止信号"><a href="#通讯的起始和停止信号" class="headerlink" title="通讯的起始和停止信号 "></a><a href="#context.36">通讯的起始和停止信号</a><a name="section.36"> </a></h4><p>串口通讯的一个数据包从起始信号开始，直到停止信号结束。数据包的起始信号由一个逻辑 0 的数据位表示， 而数据包的停止信号可由 0.5、1、1.5 或 2 个逻辑 1 的数据位表示，只要双方约定一致即可。</p>
-<h4 id="有效数据"><a href="#有效数据" class="headerlink" title="有效数据 "></a><a href="#context.37">有效数据</a><a name="section.37"> </a></h4><p>在数据包的起始位之后紧接着的就是要传输的主体数据内容，也称为有效数据，有效数据的长度 常被约定为 5、6、7 或 8 位长。</p>
-<h4 id="数据校验"><a href="#数据校验" class="headerlink" title="数据校验 "></a><a href="#context.38">数据校验</a><a name="section.38"> </a></h4><p>在有效数据之后，有一个可选的数据校验位。由于数据通信相对更容易受到外部干扰导致传输数据出现偏差， 可以在传输过程加上校验位来解决这个问题。校验方法有奇校验 (odd)、偶校验(even)、0 校验 (space)、1 校验 (mark) 以及无校验 (noparity)，它们介绍如下：</p>
-<p>奇校验要求有效数据和校验位中“1”的个数为奇数，比如一个 8 位长的有效数据为：01101001， 此时总共有 4 个“1”，为达到奇校验效果，校验位为“1”，最后传输的数据将是 8 位的有效数据 加上 1 位的校验位总共 9 位。</p>
-<p>偶校验与奇校验要求刚好相反，要求帧数据和校验位中“1”的个数为偶数，比如数据帧：11001010，此时数据帧“1”的个数为 4 个，所以偶校验位为“0”。</p>
-<p>0 校验是不管有效数据中的内容是什么，校验位总为“0”，1 校验是校验位总为“1”。</p>
-<p>在无校验的情况下，数据包中不包含校验位。</p>
-<h2 id="Cortex-M-架构"><a href="#Cortex-M-架构" class="headerlink" title="Cortex - M 架构 "></a><a href="#context.39">Cortex - M 架构</a><a name="section.39"> </a></h2><p>Arm Cortex-M系列处理器为32位RISC（精简指令集）处理器，具有：</p>
-<ul>
-<li>32-bit 寄存器</li>
-<li>32-bit 内部数据通道</li>
-<li>32-bit 总线通道</li>
-</ul>
-<p>Cortex-m0 为ARMv6架构，具有三级流水线结构（取值，译码，执行）— 处理器采用的是冯诺依曼结构，数据和指令共享一个总线接口和存储器，即取指令和数据访问不可同时执行。<br>支持Thumb指令集（绝大部分16-bit Thumb ISA 和32-bit Thumb-2 ISA),共有56种基本指令，分别包括对memory的读写访问，算数指令和逻辑操作指令。<br>存储器系统采用了32位寻址，具有最大4GB的寻址空间，存储器映射是一致的，空间内分别包括程序代码，数据，外设和处理器内的调试支持部件。<br>嵌套向量中断控制器(NVIC)为cortex-m处理器内部的中断控制器，可编程且其寄存器经<br>过存储器映射，NVIC 地址固定，编程模型对所有的 cortex-m 处理器都是一致的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092115412.png" alt="image-20231009211052562"></p>
-<h3 id="处理器内部的寄存器组和特殊寄存器"><a href="#处理器内部的寄存器组和特殊寄存器" class="headerlink" title="处理器内部的寄存器组和特殊寄存器 "></a><a href="#context.40">处理器内部的寄存器组和特殊寄存器</a><a name="section.40"> </a></h3><p>寄存器组主要用于在执行指令过程中用于保存和处理中间变量和指令地址，由于这些寄存器处于处理器内部，所以访问速度较快；采用加载-保存结构，例如如果想处理某个处于存储器中某个地址上的数据，需要先把该数据加载到寄存器中，在处理器内部处理后再写回该存储器中。<br><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092116455.png" alt="image-20231009211606325"></p>
-<h3 id="通用寄存器组"><a href="#通用寄存器组" class="headerlink" title="通用寄存器组 "></a><a href="#context.41">通用寄存器组</a><a name="section.41"> </a></h3><p>通用寄存器包括低寄存器(R0-R7)和高寄存器(R8-R12)：<br>(1) R0-R7可以被任意指令访问<br>(2) R8-R12不可以被某些thumb指令访问</p>
-<h3 id="堆栈指针SP"><a href="#堆栈指针SP" class="headerlink" title="堆栈指针SP "></a><a href="#context.42">堆栈指针SP</a><a name="section.42"> </a></h3><p>R13寄存器可以作为stack pointer，SP用于记录当前堆栈的地址，当在不同任务中切换时，SP用于保存上下文（一般来说，SP寄存器中的地址是当前正在执行的指令所在的地址）</p>
-<p>Cortex-m0中可以将SP细化成 <b><font color='SEAGREEN' size=3 face="">MSP</font></b> 和 <b><font color='SEAGREEN' size=3 face="">PSP</font></b> ：在应用程序中， <b><font color='DODGERBLUE' size=3 face="">需要特权访问时使用MSP</font></b> ，例如异常访问和系统内核访问； <b><font color='DODGERBLUE' size=3 face="">PSP用于执行一般的程序代码</font></b> 。</p>
-<p>处理模式：执行中断服务程序（ISR）等异常处理，在处理模式下，处理器总是具有特权访问等级。</p>
-<p>线程模式：执行普通的应用程序代码，处理器可以处于特权访问等级&#x2F;非特权访问等级，实际操作权限由特殊寄存器CONTROL控制。</p>
-<h3 id="LR（linker-registers）"><a href="#LR（linker-registers）" class="headerlink" title="LR（linker registers） "></a><a href="#context.43">LR（linker registers）</a><a name="section.43"> </a></h3><p>R14可用于链式寄存器，主要功能：</p>
-<p>（1）用于保存子程序或者一个程序调用的返回地址 </p>
-<p>（2）当程序调用结束后，将LR中的返回地址加载到程序计数器(PC)中</p>
-<p><strong>注：</strong>  <b><font color='DODGERBLUE' size=3 face="">LR是用来保存在程序调用前所在的地址，即保存返回地址，保证程序在结束函数调用后回到原有的进程中，可以往后按顺序继续执行程序代码</font></b> </p>
-<h3 id="特殊寄存器"><a href="#特殊寄存器" class="headerlink" title="特殊寄存器 "></a><a href="#context.44">特殊寄存器</a><a name="section.44"> </a></h3><h4 id="中断屏蔽特殊寄存器IMSR"><a href="#中断屏蔽特殊寄存器IMSR" class="headerlink" title="中断屏蔽特殊寄存器IMSR "></a><a href="#context.45">中断屏蔽特殊寄存器IMSR</a><a name="section.45"> </a></h4><p>IMSR中包括一位PRIMASK，当PRIMASK &#x3D; 1时，除了NMI和hard fault外，将屏蔽掉其他所有中断</p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092123396.png" alt="image-20231009212313244"></p>
-<h4 id="特殊寄存器CONTROL"><a href="#特殊寄存器CONTROL" class="headerlink" title="特殊寄存器CONTROL "></a><a href="#context.46">特殊寄存器CONTROL</a><a name="section.46"> </a></h4><p>CONTROL寄存器用来选择堆栈指针</p>
-<p>CONTROL[1] &#x3D; 1（PSP）</p>
-<p>CONTROL[1] &#x3D; 0（MSP）</p>
-<p><strong>注：</strong> 这也是为什么在 OTA 中需要设置 </p>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202310092124802.png" alt="image-20231009212410697"></p>
-<h2 id="中断"><a href="#中断" class="headerlink" title="中断 "></a><a href="#context.47">中断</a><a name="section.47"> </a></h2><p> ARM Cortex-M 使用了 8 位宽的寄存器来配置中断的优先等级（最大2^8，256个优先级，0~255），这个寄存器就是中断优先级配置寄存器。但 <b><font color='blue' size=3 face="">STM32，只用了中断优先级配置寄存器的高4位</font></b>  [7 : 4]，所以 <b><font color='blue' size=3 face="">STM32提供了最大16级</font></b> 的中断优先等级。</p>
-<h3 id="NVIC配置"><a href="#NVIC配置" class="headerlink" title="NVIC配置 "></a><a href="#context.48">NVIC配置</a><a name="section.48"> </a></h3><p>一共有 5 种分配方式，对应着中断优先级分组的 5 个组， <b><font color='blue' size=3 face=""><code>FreeRTOS</code> 为了方便管理使用的是优先级分组4</font></b> ，全部用于抢占优先级</p>
-<table>
-<thead>
-<tr>
-<th>优先级分组</th>
-<th>抢占优先级</th>
-<th>子优先级</th>
-<th>优先级配置寄存器高 4 位</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>NVIC_PriorityGroup_0</code></td>
-<td>0 级抢占优先级</td>
-<td>0-15 级子优先级</td>
-<td>0bit 用于抢占优先级<br />4bit 用于子优先级</td>
-</tr>
-<tr>
-<td><code>NVIC_PriorityGroup_1</code></td>
-<td>0-1 级抢占优先级</td>
-<td>0-7 级抢占优先级</td>
-<td>1bit 用于抢占优先级<br />3bit 用于子优先级</td>
-</tr>
-<tr>
-<td><code>NVIC_PriorityGroup_2</code></td>
-<td>0-3 级抢占优先级</td>
-<td>0-3 级抢占优先级</td>
-<td>2bit 用于抢占优先级<br />2bit 用于子优先级</td>
-</tr>
-<tr>
-<td><code>NVIC_PriorityGroup_3</code></td>
-<td>0-7 级抢占优先级</td>
-<td>0-1 级抢占优先级</td>
-<td>3bit 用于抢占优先级<br />1bit 用于子优先级</td>
-</tr>
-<tr>
-<td><code>NVIC_PriorityGroup_4</code></td>
-<td>0-15 级抢占优先级</td>
-<td>0 级抢占优先级</td>
-<td>4bit 用于抢占优先级<br />0bit 用于子优先级</td>
-</tr>
-</tbody></table>
-<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202309191359033.png" alt="image-20230919135915857"></p>
-<p>在嵌入式系统中，ISR中断和IRQ中断是两种不同类型的中断。</p>
-<p><strong>ISR</strong>中断，全称为“Interrupt Service Routine”，是指由硬件或软件触发的中断事件所对应的中断处理程序。当系统发生中断事件时，CPU会暂停当前正在执行的程序，并跳转到ISR中断处理程序的入口点执行特定的操作。ISR中断通常用于处理实时事件和外部设备的中断，例如定时器中断、串口数据到达中断等。</p>
-<p><strong>IRQ</strong>中断，全称为“Interrupt Request”，指的是CPU接收到一个外部设备请求服务的信号。外部设备通常通过引脚将中断信息发送给CPU，CPU收到中断信号后会执行相应的中断处理程序。IRQ中断通常用于处理外部设备的事件，例如键盘输入、鼠标点击以及外部中断信号等。</p>
-<p>异同点如下：</p>
-<ol>
-<li>触发方式不同：ISR中断是由硬件或软件触发的中断事件，而IRQ中断是由外部设备发送的中断请求信号触发的。</li>
-<li>处理对象不同：ISR中断常用于处理实时事件和外部设备中断，而IRQ中断常用于处理外部设备的事件。</li>
-<li>响应时间不同：ISR中断的响应时间通常比IRQ中断更为紧迫，因为ISR中断通常用于处理实时事件，需要尽快响应。</li>
-<li>中断优先级不同：ISR中断的优先级可以通过编程设置，而IRQ中断的优先级通常由硬件决定。</li>
-<li>中断误差处理方式不同：ISR中断可以轻松地使程序从中断处理程序返回到中断之前的位置，而IRQ中断不具备这种能力，必须通过其他方式解决。</li>
-</ol>
-<p>需要注意的是，ISR中断的概念更广泛，可以是任何中断处理程序，包括IRQ中断。IRQ中断是一种特定类型的中断，指的是由外部设备请求服务的中断。</p>
-<h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA "></a><a href="#context.49">DMA</a><a name="section.49"> </a></h2><p>即直接内存访问（Direct Memory Access），是计算机系统中一种用于减轻中央处理器（CPU）负载的技术。它允许外设（如网络卡、硬盘控制器等）直接与系统内存交换数据，而不需要经过CPU的介入。</p>
-<h3 id="主要作用"><a href="#主要作用" class="headerlink" title="主要作用 "></a><a href="#context.50">主要作用</a><a name="section.50"> </a></h3><p>DMA的主要作用是提高数据传输的效率和系统的整体性能，它可以实现以下功能：</p>
-<ol>
-<li>数据传输：DMA可以直接控制总线，将数据从外设读入内存或从内存写出到外设，而无需通过CPU进行数据传输。</li>
-<li>解放CPU负载：DMA的工作过程中，CPU可以继续执行其他任务，而不需要等待数据传输完成，从而减轻了CPU的负载。</li>
-<li>快速数据交换：DMA传输数据的速度往往比CPU慢，因此它常用于大数据量的高速输入输出设备，可以快速地将数据从外设传输到内存或者从内存传输到外设。</li>
-<li>多任务处理：使用DMA可以使CPU在数据传输过程中同时处理其他任务，从而提高系统的并发处理能力。</li>
-</ol>
-<p><strong>一些常见的应用场景包括：</strong></p>
-<ol>
-<li>高速网络传输：DMA技术广泛应用于以太网卡和网络交换机等网络设备中，可以实现高速数据传输和实时流处理。</li>
-<li>存储设备控制：DMA可以用于硬盘控制器、固态硬盘(SSD)等存储设备，提高数据传输速度和读写操作的效率。</li>
-<li>图形处理：DMA可以用于图形处理单元（GPU）与系统内存之间的数据传输，加速图形渲染和图形计算等操作。</li>
-<li>音视频处理：DMA技术常用于音频和视频编解码、实时流媒体传输等领域，提高数据传输速度和处理效率。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>星海</category>
-      </categories>
-      <tags>
-        <tag>星海</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>FreeRTOS</title>
     <url>/2023/08/18/FreeRTOS/</url>
     <content><![CDATA[<span id="more"></span>
@@ -2311,7 +2311,7 @@
 <li>通用方法：<br>在就绪链表中从高优先级往低优先级查找 <code>uxTopPriority</code>，因为在创建任务时已经将优先级进行排序，查找到的第一个 <code>uxTopPriority</code> 就是我们需要的任务，然后通过 <code>uxTopPriority</code> 获取对应的任务控制块。</li>
 <li>特殊方法：<br>利用计算前导零指令 <code>CLZ</code>，直接在 <code>uxTopReadyPriority</code> 这个32位的变量中得出 <code>uxTopPriority</code>，这样就可以知道哪一个优先级任务能够运行，这种调度算法比普通方法更便捷，但受限于平台（在 <code>STM32</code> 中我们就使用这种方法）。</li>
 </ol>
-<h3 id="任务迁移图"><a href="#任务迁移图" class="headerlink" title="任务迁移图 "></a><a href="#context.7">任务迁移图</a><a name="section.7"> </a></h3><p><img src="D:\1wyh\Learning\经验书23\FreeRTOS.assets\image-20230510190415673.png" alt="image-20230510190415673"></p>
+<h3 id="任务迁移图"><a href="#任务迁移图" class="headerlink" title="任务迁移图 "></a><a href="#context.7">任务迁移图</a><a name="section.7"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082331976.png" alt="image-20230510190415673"></p>
 <h3 id="任务函数"><a href="#任务函数" class="headerlink" title="任务函数 "></a><a href="#context.8">任务函数</a><a name="section.8"> </a></h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务挂起</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskSuspend</span><span class="params">(TaskHandle_t xTaskToSuspend)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务挂起</span></span><br><span class="line"><span class="comment"> * @note: 挂起任务调度器（挂起所有任务），调用几次就需要恢复几次</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskSuspendAll</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务恢复</span></span><br><span class="line"><span class="comment"> * @note: 调用一次即可恢复</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskResume</span><span class="params">(TaskHandle_t xTaskToResume)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务恢复</span></span><br><span class="line"><span class="comment"> * @note: 同上，区别是此函数专门用在中断服务函数程序中，不能用于任务和中断间的同步!!!</span></span><br><span class="line"><span class="comment"> * @return pdTRUE: 需要进行上下文切换; pdFASLE: 不需要上下文切换</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">vTaskResumeFromISR</span><span class="params">(TaskHandle_t xTaskToResume)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务恢复</span></span><br><span class="line"><span class="comment"> * return pdTRUE: 需要进行上下文切换; pdFASLE: 不需要上下文切换</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">BaseType_t <span class="title function_">vTaskResumeAll</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务删除</span></span><br><span class="line"><span class="comment"> * @param xTaskToDelete: 若为 NULL 则表示删除自身</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelete</span><span class="params">(TaskHandle_t xTaskToDelete)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务延时（相对）</span></span><br><span class="line"><span class="comment"> * @note: 相对延时，调用结束后开始计算，不适用于周期性执行任务的场合，因为会被打断!!!</span></span><br><span class="line"><span class="comment"> * @param xTicksToDelay: 单位为系统节拍周期</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelay</span><span class="params">(<span class="type">const</span> TickType_t xTicksToDelay)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 任务延时（绝对）</span></span><br><span class="line"><span class="comment"> * @note: 绝对延时，常用于较精确的周期运行任务，不受外界影响</span></span><br><span class="line"><span class="comment"> * @param pxPreviousWakeTime: 指针变量，保存任务最后一次解除阻塞的时刻，第一次使用时必须为当前时间!</span></span><br><span class="line"><span class="comment"> * @param xTimeIncrement: 周期循环时间</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">vTaskDelayUntil</span><span class="params">(TickType_T * <span class="type">const</span> pxPreviousWakeTime, </span></span><br><span class="line"><span class="params">                     <span class="type">const</span> TickType_t   xTimeIncrement )</span>;</span><br></pre></td></tr></table></figure>
 
 

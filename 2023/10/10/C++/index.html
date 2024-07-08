@@ -176,7 +176,7 @@
 <h2 id="输入输出"><a href="#输入输出" class="headerlink" title="输入输出 "></a><a href="#context.4">输入输出</a><a name="section.4"> </a></h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line">cout &lt;&lt; ++i &lt;&lt; i++ &lt;&lt; i &lt;&lt; i++ &lt;&lt; ++i &lt;&lt; endl;</span><br><span class="line"><span class="comment">///&lt; 输出为 &amp;5 3 &amp;5 2 &amp;5</span></span><br></pre></td></tr></table></figure>
 
 <p>cout输出控制台过程如下</p>
-<p><img src="https://img-blog.csdnimg.cn/c3b860c89ec5480c94adc55a74024f98.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082322738.png" alt="img"></p>
 <p>从 <code>endl</code> 开始，从右向左依次入栈，最后依次弹出</p>
 <h3 id="getline"><a href="#getline" class="headerlink" title="getline "></a><a href="#context.5">getline</a><a name="section.5"> </a></h3><p>默认遇换行符或 <code>EOF</code> 结束，也可自定义结束符</p>
 <p>上限字符数为 <code>1024</code></p>
@@ -348,7 +348,7 @@
 </li>
 </ol>
 <p><strong>容器之间的实现关系以及分类：</strong></p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230615150413812.png" alt="image-20230615150413812"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082323484.png" alt="image-20230615150413812"></p>
 <p><strong>STL六⼤组件的交互关系：</strong></p>
 <ol>
 <li>容器通过空间配置器取得数据存储空间  </li>
@@ -419,7 +419,7 @@
 <p>deque 是⼀个<strong>双端开口</strong>的连续线性空间，其内部为分段连续的空间组成，随时可以增加⼀段新的空间并链接</p>
 <p><strong>注意：</strong></p>
 <p>由于deque的迭代器⽐vector要复杂，这影响了各个运算层面，所以除⾮必要尽量使⽤ vector；<br>为了提⾼效率，在对deque进⾏排序操作的时候，我们可以先把 deque 复制到 vector 中再进⾏排序最后在复制回 deque</p>
-<p><img src="D:\1wyh\Learning\经验书23\BCCPP.assets\image-20230615153051799.png" alt="image-20230615153051799"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202407082323988.png" alt="image-20230615153051799"></p>
 <p>deque采⽤⼀块map作为主控，其中的每个元素都是指针，指向另⼀⽚连续线性空间，称之为 缓存区，这个区才是⽤来储存数据的</p>
 <h2 id="stack-queue"><a href="#stack-queue" class="headerlink" title="stack &#x2F; queue "></a><a href="#context.24">stack &#x2F; queue</a><a name="section.24"> </a></h2><p>概述：栈与队列被称之为 deque 的配接器，其底层是以 deque 为底部架构。通过 deque 执⾏具体操作</p>
 <h2 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue "></a><a href="#context.25">priority_queue</a><a name="section.25"> </a></h2><pre><code>     优先队列是一种容器适配器，采用了堆这样的数据结构，保证了第一个元素总是整个优先队列中最大的(或最小的)元素。  优先队列默认使用vector作为底层存储数据的容器，在vector上使用了堆算法将vector中的元素构造成堆的结构，所以其实我们就可以把它当作堆，凡是需要用堆的位置，都可以考虑优先队列。
@@ -655,7 +655,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2023
+        2023-2024
         <i class="ri-heart-fill heart_icon"></i> WYh
       </li>
     </ul>
