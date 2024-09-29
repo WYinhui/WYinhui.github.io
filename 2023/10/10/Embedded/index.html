@@ -394,7 +394,7 @@
 <h2 id="I2C"><a href="#I2C" class="headerlink" title="I2C "></a><a href="#context.23">I2C</a><a name="section.23"> </a></h2><h2 id="SPI"><a href="#SPI" class="headerlink" title="SPI "></a><a href="#context.24">SPI</a><a name="section.24"> </a></h2><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式 "></a><a href="#context.25">连接方式</a><a name="section.25"> </a></h3><p>3条总线 + 1条片选线</p>
 <p><code>SCK、MOSI、MISO + SS/NSS/CS</code></p>
 <p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202308242104024.png" alt="image-20230805195959632"></p>
-<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.26">基本通讯过程</a><a name="section.26"> </a></h3><p><img src="/BCCPP.assets/image-20230805194747396.png" alt="image-20230805194747396"></p>
+<h3 id="基本通讯过程"><a href="#基本通讯过程" class="headerlink" title="基本通讯过程 "></a><a href="#context.26">基本通讯过程</a><a name="section.26"> </a></h3><p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202409292219045.png" alt="image-20230805194747396"></p>
 <h3 id="四种模式"><a href="#四种模式" class="headerlink" title="四种模式 "></a><a href="#context.27">四种模式</a><a name="section.27"> </a></h3><table>
 <thead>
 <tr>
@@ -438,7 +438,7 @@
 <p>实际中采用较多的是 <strong>“模式 0”</strong> 与 <strong>“模式 3”</strong>。</p>
 <h3 id="CPOL"><a href="#CPOL" class="headerlink" title="CPOL "></a><a href="#context.28">CPOL</a><a name="section.28"> </a></h3><p>指 SPI 通讯设备处于空闲状态时，SCK 信号线的电平信号 (即 SPI 通讯开始前、 NSS 线为高电平时 SCK 的状态)。CPOL&#x3D;0 时，SCK 在空闲状态时为低电平，CPOL&#x3D;1 时，则相反。</p>
 <h3 id="CPHA"><a href="#CPHA" class="headerlink" title="CPHA "></a><a href="#context.29">CPHA</a><a name="section.29"> </a></h3><p>指数据的采样的时刻，当 CPHA&#x3D;0 时，MOSI 或 MISO 数据线上的信号将会在SCK 时钟线的“奇数边沿”被采样。 当 CPHA&#x3D;1 时，数据线在 SCK 的“偶数边沿”采样</p>
-<p><img src="/BCCPP.assets/image-20230805194827664.png" alt="image-20230805194827664"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/WYinhui/MyPicGo@master/img/202409292219625.png" alt="image-20230805194827664"></p>
 <h2 id="串口通讯"><a href="#串口通讯" class="headerlink" title="串口通讯 "></a><a href="#context.30">串口通讯</a><a name="section.30"> </a></h2><p>波特率 115200 为每秒传输 115200 bit</p>
 <p>如果串口为8位数据位，无校验位，则，一帧为 1起始位 + 8数据位 + 1停止位 &#x3D; 10bit</p>
 <p>115200 &#x2F; 10 &#x2F; 1024 &#x3D; 11.25 kb&#x2F;s</p>
